@@ -131,29 +131,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'base.CustomUser'
 
 
-# settings.py
-
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_PORT = 587  # Ensure it's an integer, not a string
-# EMAIL_HOST_USER = 'experiencehotspot@gmail.com'
-# EMAIL_HOST_PASSWORD = 'qlxxkodsrzrmjacr'
-# EMAIL_USE_TLS = True
-
-# settings.py
 
 
 
 
 
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_PORT= '587'
-# EMAIL_HOST_USER=  'quofixexchange@gmail.com'
-# EMAIL_HOST_PASSWORD = 'cndbhhzrpvcbxxio' 
-# EMAIL_USE_TLS = True
-# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-# 788KUWY2UFR2PSTQL9Y7A3S9
-
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
