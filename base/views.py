@@ -64,8 +64,9 @@ def signup(request):
             user.profile_picture = profile_picture_path
             user.save()
 
+        # Email Subject and Recipients
         subject = 'Confirm Your Registration'
-        from_email = 'experiencehotspot@gmail.com'  # Replace with your email
+        from_email = settings.EMAIL_HOST_USER
         to_email = [email]  # Always pass a list to recipients
 
         # Create the plain-text and HTML message bodies
@@ -87,8 +88,14 @@ def signup(request):
         # Attach the HTML alternative content
         email_message.attach_alternative(html_content, "text/html")
 
-        # Simulate sending email in console
-        email_message.send()
+        try:
+            # Send email
+            email_message.send(fail_silently=False)
+            messages.success(request, "A confirmation email has been sent to your email address.")
+        except Exception as e:
+            # Handle email sending errors
+            messages.error(request, f"Error sending confirmation email: {str(e)}")
+            return redirect('signup')
 
         # Log in the user and redirect them
         login(request, user)
