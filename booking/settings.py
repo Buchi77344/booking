@@ -142,13 +142,7 @@ AUTH_USER_MODEL = 'base.CustomUser'
 
 # settings.py
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_PORT = 587  # TLS port
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'apikey'  # This is the username for SendGrid
-EMAIL_HOST_PASSWORD = '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'  # Your SendGrid API key
-DEFAULT_FROM_EMAIL = 'experiencehotspot@gmail.com'  # Replace with your email or a custom from email
+
 
 
 
