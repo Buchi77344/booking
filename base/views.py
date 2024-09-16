@@ -64,42 +64,29 @@ def signup(request):
             user.profile_picture = profile_picture_path
             user.save()
 
-        # Email Subject and Recipients
-        subject = 'Confirm Your Registration'
-        from_email = settings.EMAIL_HOST_USER
-        to_email = [email]  # Always pass a list to recipients
-
-        # Create the plain-text and HTML message bodies
-        text_content = f"Hello {first_name},\n\nThank you for registering on our platform. Please confirm your email address to start using your account."
-        html_content = f"""
-        <html>
-        <body>
-            <h1>Welcome {first_name}!</h1>
-            <p>Thank you for registering on our platform. Please confirm your email address to start using your account.</p>
-            <p><a href="http://example.com/confirm/{user.id}">Click here to confirm your email</a></p>
-            <p>Thank you!</p>
-        </body>
-        </html>
-        """
-
-        # Create EmailMultiAlternatives object
-        email_message = EmailMultiAlternatives(subject, text_content, from_email, to_email)
-
-        # Attach the HTML alternative content
-        email_message.attach_alternative(html_content, "text/html")
-
+        # Send confirmation email
         try:
-            # Send email
-            email_message.send(fail_silently=False)
-            messages.success(request, "A confirmation email has been sent to your email address.")
-        except Exception as e:
-            # Handle email sending errors
-            messages.error(request, f"Error sending confirmation email: {str(e)}")
-            return redirect('signup')
+            subject = "Welcome to Experience Hotspot!"
+            message = f"Hello {first_name} {last_name},\n\nThank you for signing up with Experience Hotspot. We're excited to have you onboard!\n\nFeel free to explore and book exciting experiences on our platform.\n\nBest regards,\nThe Experience Hotspot Team"
+            from_email = settings.DEFAULT_FROM_EMAIL
+            to_email = [email]
 
+            send_mail(
+                subject,
+                message,
+                from_email,
+                to_email,
+                fail_silently=False,  # Set to True if you don't want it to raise errors during testing
+            )
+            messages.success(request, "Account created successfully! Please check your email for confirmation.")
+        except Exception as e:
+            messages.error(request, f"Error sending confirmation email: {e}")
+            return redirect('signup')
         # Log in the user and redirect them
         login(request, user)
         messages.success(request, "Registration successful. You are now logged in.")
         return redirect('/')
 
     return render(request, 'signup.html')
+def signin(request):
+    return render (request, 'signin.html')
