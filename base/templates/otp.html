@@ -1,0 +1,95 @@
+<!-- templates/auth/verify_code.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Email</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: white;
+            padding: 2rem;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            width: 100%;
+            max-width: 400px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        input {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .error-message {
+            color: red;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        .success-message {
+            color: green;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Verify Your Email</h2>
+    
+    <!-- Display messages for success or error -->
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="{% if message.tags %} {{ message.tags }} {% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    
+    <form method="POST">
+        {% csrf_token %}
+
+        <label for="code">Verification Code:</label>
+        <input type="text" id="code" name="code" placeholder="Enter your verification code" required>
+
+        <button type="submit">Verify</button>
+    </form>
+</div>
+
+</body>
+</html>

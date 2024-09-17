@@ -135,11 +135,11 @@ AUTH_USER_MODEL = 'base.CustomUser'
 # settings.py
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp-relay.brevo.com'
+EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = '7c2aad002@smtp-brevo.com'
-EMAIL_HOST_PASSWORD = '2gQXwyqOjVtDdB73'  # Replace with actual password
+EMAIL_HOST_USER = 'experiencehotspot@gmail.com'
+EMAIL_HOST_PASSWORD = 'vrotokwjxuyzsjdo'  # Replace with actual password
 DEFAULT_FROM_EMAIL = 'experiencehotspot@gmail.com'  # Replace with a valid "from" address
 
 # # settings.py

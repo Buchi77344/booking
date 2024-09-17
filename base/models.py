@@ -11,7 +11,8 @@ class CustomUser(AbstractUser):
     phone_number = models.CharField(max_length=15, null=True, blank=True)
     business_name = models.CharField(max_length=255, null=True, blank=True)
     vendor_type = models.CharField(max_length=20, choices=[('individual', 'Individual'), ('small_business', 'Small Business'), ('organization', 'Organization')], null=True, blank=True)
-   
+    verification_code = models.CharField(max_length=6, blank=True, null=True)  # Store the verification code
+    is_verified = models.BooleanField(default=False) 
     
     # Other fields
     role = models.CharField(max_length=10, choices=[('user', 'User'), ('vendor', 'Vendor')], default='user')
