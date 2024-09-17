@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'base',
+    'Vendors',
 ]
 
 MIDDLEWARE = [
@@ -135,13 +136,14 @@ AUTH_USER_MODEL = 'base.CustomUser'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587  # Ensure it's an integer, not a string
-EMAIL_HOST_USER = 'experiencehotspot@gmail.com'
-EMAIL_HOST_PASSWORD = 'qlxxkodsrzrmjacr'
+EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'experiencehotspot@gmail.com'
+EMAIL_HOST_PASSWORD = 'vrotokwjxuyzsjdo'  # Replace with actual password
+DEFAULT_FROM_EMAIL = 'experiencehotspot@gmail.com'  # Replace with a valid "from" address
 
-# settings.py
-
+# # settings.py
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
 
