@@ -90,6 +90,10 @@ body{
     gap : 20px;
 }
 
+.w-100{
+    width : 100%
+}
+
 .grid{
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -117,9 +121,10 @@ button:active{
     transition : scale 1s ease
 }
 
-input:focus-within{
+input:focus-within,
+input:focus-visible{
     outline: 2px solid var(--btn-clr);
-    border-color: transparent;
+    border: none;
 }
 
 h2,h3,h4,p{
@@ -160,7 +165,7 @@ svg path{
 }
 
 .form-container{
-    background-color: hsl(0,0%,97%);
+    /* background-color: hsl(0,0%,97%); */
     border-radius: 10px;
     overflow: hidden;
 }
@@ -173,7 +178,7 @@ svg path{
 .form-graphics-container{
     width : 50%;
     padding : 20px 40px;
-    background-color: #7c89f10f;
+    background-color: #ecedf1fa;
 }
 
 .form-graphics-container.flex-column{
@@ -187,10 +192,16 @@ svg path{
     align-items: center;
 }
 
+.verify.graphics-wrapper img{
+    mix-blend-mode: darken;
+}
+
 .acct-form-wrapper{
     padding : 20px 40px;
     background-color: white;
     width : 50%;    
+    margin-inline: auto;
+    min-height: 70vh;
 }
 
 .form-cta-wrapper{
@@ -231,19 +242,27 @@ svg path{
 
 .form-text{
     margin-top : 5px;
-    color : hsl(0 0% 75%);
-    font-weight : 400;  
+    color : hsl(0, 0%, 60%);
     margin-bottom: 0;
+    font-size: 1.1rem;
 }
 
 .acct-form{
     margin-top: 10px;
 }
 
+.signin.acct-form{
+    margin-top: 20px;
+}
+
 .input-container{
     display: flex;
     flex-direction: column;
     gap : 7px;
+}
+
+.signin.acct-form .input-container:not(:last-of-type){
+    margin-bottom: 15px;
 }
 
 .form-label{
@@ -293,7 +312,49 @@ input[type = "file"].form-input::file-selector-button{
 }
 
 .form-submit-btn.signin{
-    margin-top : 15px;
+    margin-top : 25px;
+    width : 100%;
+}
+
+/* .verify-form-wrapper{
+    flex : 1;
+    display: grid;
+    align-items: center;
+} */
+
+.verify-head{
+    font-size: clamp(2rem, 3vw, 2.8rem);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.verify-form-container{
+    border : 1px solid hsl(0 0% 70%);
+    padding : 20px 25px;
+    margin-inline: auto;    
+    border-radius: 10px;
+}
+
+.verify-form-head{
+    color: hsl(0, 0%, 30%);
+    font-size: 1.2rem;
+}
+
+.otp-input{
+    display: flex;
+    gap : 10px;
+    justify-content: space-between;
+    margin-block : 15px
+}
+
+.otp-input input{
+    width : min(16.66%, 50px);
+    height : min(16.66%, 50px);
+    border: 1px solid hsl(0 0% 50%);
+    border-radius: 10px;
+    text-align: center;
+    font-size: 1.2rem;
+    padding-block: 10px;
 }
 
 .external-links-text{
@@ -321,10 +382,17 @@ input[type = "file"].form-input::file-selector-button{
     .form-graphics-container{
         display: none;
     }
+/* 
+    .verify.form-graphics-container{
+        display: flex;
+    } */
 
     .acct-form-wrapper{
         width : 100%;
         padding : 20px 25px;
+        border-radius: inherit;
+        max-width: 500px;
+
     }
 
     .form-cta-wrapper{
@@ -333,5 +401,25 @@ input[type = "file"].form-input::file-selector-button{
 
     .form-cta-text{
         font-size: .85rem;
+    }
+}
+
+/* @media(max-width : 800px){
+    .verify.form-graphics-container{
+        display: none;
+    }
+} */
+
+@media(max-width : 400px){
+    .otp-input input{
+        width : 30px;
+        height: 35px
+    }
+}
+
+@media(max-width : 350px){
+    .otp-input input{
+        width : 26px;
+        height: 30px
     }
 }

@@ -1,5 +1,5 @@
 <!-- templates/auth/verify_code.html -->
-
+<!-- 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -68,28 +68,71 @@
 <body>
 
 <div class="container">
-    <h2>Verify Your Email</h2>
-    
-    <!-- Display messages for success or error -->
-    {% if messages %}
-        <div class="messages">
-            {% for message in messages %}
-                <div class="{% if message.tags %} {{ message.tags }} {% endif %}">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        </div>
-    {% endif %}
-    
-    <form method="POST">
-        {% csrf_token %}
-
-        <label for="code">Verification Code:</label>
-        <input type="text" id="code" name="code" placeholder="Enter your verification code" required>
-
-        <button type="submit">Verify</button>
-    </form>
+   
 </div>
 
+</body>
+</html> -->
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script defer src = "{% static 'js/script.js' %}"></script>
+    <title>Sign Up</title>
+</head>
+<body>
+    <div class = "page">
+        <div class = "form-page">
+            <div class = "form-container wrapper flex-between">
+                <div class="verify form-graphics-container flex-column">
+                    <div class = "logo-container">
+                        <span class = "logo-text">EXPERIENCE</span>
+                    </div>
+                    
+                    <div class = "verify graphics-wrapper">
+                        <img src="{% static 'img/verification-graphics.jpeg' %}" alt="" class="img-grpahics">
+                    </div>
+                </div>
+                <div class="acct-form-wrapper flex-column">
+                    <h3 class="verify-head">Verification Code</h3>
+                    <!-- <p class = "form-text">Register your account</p> -->
+                    <div class="verify-form-wrapper">
+                        <div class="verify-form-container">
+                            <h3 class = "verify-form-head">Enter your verification code</h3>
+                            {% if messages %}
+                                <div class="messages">
+                                    {% for message in messages %}
+                                        <div class="{% if message.tags %} {{ message.tags }} {% endif %}">
+                                            {{ message }}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            <form method="POST">
+                                {% csrf_token %}
+                        
+                                <!-- <label for="code">Verification Code:</label> -->
+                                <!-- <input type="text" id="code" name="code" placeholder="Enter your verification code" required> -->
+                                <div class="otp-input">
+                                    <input name="code" required type="text" maxlength="1" />
+                                    <input name="code" required type="text" maxlength="1" />
+                                    <input name="code" required type="text" maxlength="1" />
+                                    <input name="code" required type="text" maxlength="1" />
+                                    <input name="code" required type="text" maxlength="1" />
+                                    <input name="code" required type="text" maxlength="1" />
+                                </div>
+                        
+                                <button class = "w-100 form-submit-btn" type="submit">Verify</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
