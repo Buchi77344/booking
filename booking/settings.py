@@ -134,13 +134,20 @@ AUTH_USER_MODEL = 'base.CustomUser'
 
 
 
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = 'experiencehotspot@gmail.com'
+# EMAIL_HOST_PASSWORD = 'jkqvaafqvinxwdwu'
+
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST_USER = 'experiencehotspot@gmail.com'
-EMAIL_HOST_PASSWORD = 'brxsvnxviydhhpwz'  # Replace with actual password
-DEFAULT_FROM_EMAIL = 'experiencehotspot@gmail.com'  # Replace with a valid "from" address
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.zoho.com'
+EMAIL_PORT = 587  # Use 465 if you're using SSL
+EMAIL_USE_TLS = True  # Set to True for TLS
+EMAIL_HOST_USER = 'experiencehotspot@zohomail.com'  # Your Zoho email address
+EMAIL_HOST_PASSWORD = 'BsBUiZ6A0LrW'
 
 
 

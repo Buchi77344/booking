@@ -24,12 +24,12 @@
                     <div class = "form-cta-div flex-end">
                         <div class = "form-cta-wrapper">
                             <span class = "form-cta-text">Don't have an account?</span>
-                            <a href = "#" class = "form-cta-link">SIGN UP</a>
+                            <a href = "{% url 'signup' %}" class = "form-cta-link">SIGN UP</a>
                         </div>
                     </div>
     
                     <h3 class="form-head">Welcome to Experience Hotspot!</h3>
-                    <p class = "form-text">Pls Sign In</p>
+                    <p class = "form-text"></p>
     
                    
                     <form class="signin acct-form" method="POST" enctype="multipart/form-data">
@@ -44,13 +44,13 @@
 
                         <div class="input-container">
                             <label class= "form-label" for="last_name">User Name:</label>
-                            <input class = "form-input" type="text" id="last_name" name="last_name" required>
+                            <input class = "form-input" type="text" id="last_name" name="email" required>
     
                         </div>
 
                         <div class="input-container">
                             <label class= "form-label" for="password1">Password:</label>
-                            <input class = "form-input" type="password" id="password1" name="password1" required>
+                            <input class = "form-input" type="password" id="password1" name="password" required>
     
                         </div>
 
