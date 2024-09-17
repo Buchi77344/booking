@@ -224,15 +224,15 @@ svg path{
 }
 
 .form-head{
-    font-size : clamp(1.8rem, 3vw, 2.1rem);
+    font-size : clamp(1.5rem, 3vw, 2.1rem);
     margin: 0;
     line-height: 1.2;
 }
 
 .form-text{
-    margin-top : 3px;
-    color : hsl(0 0% 70%);
-    font-weight : 500;  
+    margin-top : 5px;
+    color : hsl(0 0% 75%);
+    font-weight : 400;  
     margin-bottom: 0;
 }
 
@@ -324,6 +324,14 @@ input[type = "file"].form-input::file-selector-button{
 
     .acct-form-wrapper{
         width : 100%;
-        padding : 20px 30px;
+        padding : 20px 25px;
+    }
+
+    .form-cta-wrapper{
+        gap : 5px
+    }
+
+    .form-cta-text{
+        font-size: .85rem;
     }
 }
