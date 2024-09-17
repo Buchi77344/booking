@@ -148,6 +148,7 @@ svg path{
 
 .page{
     background-color: var(--bg-clr);
+    min-height : 100vh;
 }
 
 .form-page{
@@ -159,6 +160,8 @@ svg path{
 
 .form-container{
     background-color: hsl(0,0%,97%);
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 .logo-text{
