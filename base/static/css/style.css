@@ -224,7 +224,7 @@ svg path{
 }
 
 .form-head{
-    font-size : clamp(1.8rem, 3vw, 2.3rem);
+    font-size : clamp(1.8rem, 3vw, 2.1rem);
     margin: 0;
     line-height: 1.2;
 }
