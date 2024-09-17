@@ -1,0 +1,306 @@
+*{
+    box-sizing: border-box;
+}
+
+:root{
+    --font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    --bg-clr : #7c89f1;
+    --logo-clr: #5172bb;
+    --outline-clr : #a492de;
+    --btn-clr : #7138ff;
+    --variant-clr : #217ef7;
+    --light-text-clr : hsl(0,0%,98%);
+
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+body{
+    margin : 0;
+    padding : 0;
+    font-family: var(--font-family);
+    line-height: 1.6;
+}
+
+.wrapper{
+    width : 90%;
+    max-width : 1200px;
+    margin-inline: auto;
+}
+
+.flex{
+    display: flex;
+    align-items: center;
+}
+
+.flex-center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-between{
+    display: flex;
+    justify-content: space-between;
+}
+
+.flex-end{
+    display: flex;
+    align-items: center;
+    justify-content: end; 
+}
+
+.flex-wrap{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.flex-scroll{
+    display: flex;
+    align-items: center;
+    gap : 20px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+}
+
+.flex-scroll::-webkit-scrollbar{
+    width: 0;
+    height :0;
+}
+
+.flex-column{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.gp-5{
+    gap : 5px;
+}
+
+.gp-10{
+    gap : 10px;
+}
+
+.gp-20{
+    gap : 20px;
+}
+
+.grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap : 20px;
+}
+
+ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+button,
+input{
+    border : none;
+    font-family: var(--font-family);
+}
+
+button{
+    cursor: pointer;
+}
+
+button:active{
+    scale : .5;
+    transition : scale 1s ease
+}
+
+input:focus-within{
+    outline: 2px solid var(--btn-clr);
+    border-color: transparent;
+}
+
+h2,h3,h4,p{
+    margin :5px 0; 
+}
+
+img{
+    display: block;
+    max-width: 100%;
+}
+
+a{
+    text-decoration: none;
+    color : black;
+}
+
+svg{
+    width : 20px;
+    height : 20px;
+}
+
+svg path{
+    width : 100%;
+    height: 100%;
+}
+
+.page{
+    background-color: var(--bg-clr);
+}
+
+.form-page{
+    height : 100%;
+    display: grid;
+    place-items: center;
+    padding-block : 20px;
+}
+
+.form-container{
+    background-color: hsl(0,0%,97%);
+}
+
+.logo-text{
+    color : var(--logo-clr);
+    font-weight : 500;
+}
+
+.form-graphics-container{
+    width : 50%;
+    padding : 20px 40px;
+    background-color: #7c89f10f;
+}
+
+.form-graphics-container.flex-column{
+    justify-content: flex-start;
+}
+
+.graphics-wrapper{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.acct-form-wrapper{
+    padding : 20px 40px;
+    background-color: white;
+    width : 50%;    
+}
+
+.form-cta-wrapper{
+    display: flex;
+    gap : 15px; 
+    align-items: center;
+}
+
+.form-cta-text{
+    font-size: 1rem;
+    color: hsl(0 0% 60%);
+    font-weight: 600;
+}
+
+.form-cta-link{
+    padding : 5px 20px;
+    border-radius: 20px;
+    border: 2px solid hsl(0 0% 90%);
+    font-size: .8rem;   
+    color : hsl(0,0%,30%);
+    font-weight: 600;
+    transition: background-color .3s ease, color .3s ease;
+}
+
+.form-cta-link:hover{
+    background-color: hsl(0,0%,10%);
+    color : var(--light-text-clr);
+    border-color : transparent;
+}
+
+.form-head{
+    font-size : clamp(1.8rem, 3vw, 2.3rem);
+    margin-bottom: 0;
+}
+
+.form-text{
+    margin-top : 0;
+    color : hsl(0 0% 70%);
+    font-weight : 500;  
+}
+
+.acct-form{
+    margin-top: 20px;
+}
+
+.input-container{
+    display: flex;
+    flex-direction: column;
+    gap : 7px;
+}
+
+.form-label{
+    font-weight: 500;
+    color : hsl(0,0%,30%);
+    font-size: 1.1rem;
+    width : fit-content;
+}
+
+.form-input{
+    display: block;
+    border: 1px solid hsla(0, 0%, 10%, 0.3);
+    border-radius: 10px;
+    padding : 7px 10px;
+    font-size: 1rem;
+    width : 100%;
+}
+
+input[type = "file"].form-input{
+    display: inline-block;
+    padding: 8px 17px;
+    width: 140px;
+    background-color: var(--variant-clr);
+    color: hsla(0, 0%, 100%, 1);
+    border-radius: 10px;
+    font-size: 1rem;
+    margin-top: 12px;
+    cursor: pointer;
+    border-color: transparent;
+    margin-top: 3px;
+}
+
+input[type = "file"].form-input::file-selector-button{
+    display: none;
+}
+
+.signup-submit-btn{
+    padding: 10px ;
+    border-radius: 40px;
+    background-color: var(--btn-clr);
+    color: hsl(0,0%,98%);
+    /* width : 180px; */
+    font-size: 1.1rem;
+    box-shadow: 0px 3px 10px hsla(257, 100%, 61%, 0.5);
+    margin : 30px 0px 30px;
+}
+
+.external-links-text{
+    color : hsl(0 0% 60%);
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.external-link{
+    width : 40px;
+    height : 40px;
+    border: 1px solid hsl(0 0% 70%);
+    display: flex;
+    align-items: center;
+    justify-content : center;
+    border-radius: 50px;
+}
+
+.external-link svg{
+    width : 20px;
+    height : 20px;
+}
+
