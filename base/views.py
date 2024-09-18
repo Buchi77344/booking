@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render ,get_object_or_404
 from django.contrib import messages
 
 
@@ -9,7 +9,7 @@ def index(request):
 
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
-from .models import CustomUser
+from .models import CustomUser ,Userprofile
 from django.core.mail import send_mail
 from django.conf import settings
 from django.core.files.storage import default_storage
@@ -68,7 +68,7 @@ def signup(request):
         )
         subject = "Verify Your Email"
         message = f"Hello {first_name},\n\nYour verification code is {verification_code}.\nPlease enter this code to verify your email address.\n\nThank you!"
-        from_email = settings.DEFAULT_FROM_EMAIL
+        from_email = settings.EMAIL_HOST_USER
         to_email = [email]
 
         try:
@@ -91,17 +91,22 @@ def signup(request):
 
 def verify_code(request):
      if request.method == 'POST':
-        code = request.POST.get('code')
+        code1 = request.POST.get('code1')
+        code2 = request.POST.get('code2')
+        code3 = request.POST.get('code3')
+        code4 = request.POST.get('code4')
+        code5 = request.POST.get('code5')
+        code6 = request.POST.get('code6')
         first_name = request.session.get('first_name')
         last_name = request.session.get('last_name')
         email = request.session.get('email')
-
+        entered_pin = f"{code1}{code2}{code3}{code4}{code5}{code6}"
         # Find the user with the given email and code
         try:
-            user = CustomUser.objects.get(verification_code=code)
+            user = CustomUser.objects.get(verification_code=entered_pin)
         except CustomUser.DoesNotExist:
             messages.error(request, "Invalid email or verification code.")
-            return redirect('verify_code')
+            return redirect('verify')
 
         # Mark the user as verified
         user.is_verified = True
@@ -111,7 +116,7 @@ def verify_code(request):
         try:
             subject = "Welcome to Experience Hotspot!"
             message = f"Hello {first_name} {last_name},\n\nThank you for signing up with Experience Hotspot. We're excited to have you onboard!\n\nFeel free to explore and book exciting experiences on our platform.\n\nBest regards,\nThe Experience Hotspot Team"
-            from_email = settings.DEFAULT_FROM_EMAIL
+            from_email = settings.EMAIL_HOST_USER
             to_email = [email]
 
             send_mail(
@@ -132,21 +137,56 @@ def verify_code(request):
      return render (request, 'otp.html')
 
 from django.contrib.auth import authenticate, login
+from django.contrib import auth
 def signin(request):
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
 
         # Authenticate user based on email and password
-        user = authenticate(request, username=email, password=password)
+        user = auth.authenticate(request, username=email, password=password)
 
         if user is not None:
             # Successful authentication, log in the user
-            login(request, user)
+            auth.login(request, user)
             messages.success(request, "You have successfully logged in!")
             return redirect('/')  # Redirect to home or dashboard after login
         else:
             # Invalid credentials
             messages.error(request, "Invalid email or password. Please try again.")
-            return redirect('login')
+            return redirect('signin')
     return render (request, 'signin.html')
+
+from django_countries import countries
+def userprofile(request):
+    userprofile = get_object_or_404(Userprofile, user=request.user)
+    if request.method == "POST":
+        first_name =request.POST.get('first_name')
+        last_name =request.POST.get('last_name')
+        email =request.POST.get('email')
+        phone_number =request.POST.get('phone_number')
+        profile_picture =request.FILES.get('profile_picture')
+        country =request.POST.get('country')
+        street_address =request.POST.get('street_address')
+        city =request.POST.get('city')
+        zipcode =request.POST.get('zipcode')
+        userprofile.user.first_name = first_name
+        userprofile.user.last_name = last_name
+        userprofile.user.email = email
+        userprofile.user.phone_number = phone_number
+        userprofile.user.profile_picture = profile_picture
+        userprofile.user.save()
+        userprofile.country = country
+        userprofile.street_address = street_address
+        userprofile.city = city
+        userprofile.zipcode = zipcode
+        userprofile.save()
+        return redirect ('profile')
+    
+    context = {
+        'countries': countries, 
+        'userprofile':userprofile ,# List of countries from django-countries
+    }
+
+      
+    return render(request, 'profile.html',context)
