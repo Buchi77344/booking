@@ -152,8 +152,55 @@ svg path{
 }
 
 .page{
-    background-color: var(--bg-clr);
     min-height : 100vh;
+}
+
+nav{
+    padding: 10px 30px
+}
+
+nav.flex-between{
+    align-items: center;
+}
+
+.logo-img{
+    width : 20px;
+    height: 20px;
+}
+
+.stay-links-container a{
+    font-weight : 500;
+    font-size : 1.1rem;
+    padding : 10px 20px;
+    border-radius: 50px;
+}
+
+.stay-links-container a:hover{
+    background-color: hsl(0,0%,95%);
+}
+
+.profile-container{
+    border : 1px solid hsl(0 0% 50%);
+    border-radius : 50px;
+    /* width : 60px; */
+    height : 45px;
+    padding: 7px 5px;
+}
+
+.hamburger-img{
+    width : 30px;
+    height : 30px;
+    
+}
+
+.web-img{
+    width : 30px;
+    height : 30px;
+}
+
+.profile-img{
+    width : 40px;   
+    height: 40px;
 }
 
 .form-page{
@@ -162,6 +209,7 @@ svg path{
     display: grid;
     place-items: center;
     padding-block : 15px;
+    background-color: var(--bg-clr);
 }
 
 .form-container{
@@ -355,6 +403,27 @@ input[type = "file"].form-input::file-selector-button{
     text-align: center;
     font-size: 1.2rem;
     padding-block: 10px;
+}
+
+.error {
+    padding: 10px 20px;
+    background-color: rgba(255, 0, 0, 0.1);
+    color: hsl(0deg 0% 0% / 68%);
+    border: 1px solid #e70000;
+    border-radius: 10px;
+}
+
+.success{
+    padding: 10px 20px;
+    background-color: rgb(0 255 28 / 10%);
+    color: hsl(0deg 0% 0% / 68%);
+    border: 1px solid #019534;
+    border-radius: 10px;
+}
+
+.error
+.success{
+    margin-bottom: 15px;
 }
 
 .external-links-text{
