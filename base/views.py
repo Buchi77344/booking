@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render ,get_object_or_404
 from django.contrib import messages
 
 
@@ -9,7 +9,7 @@ def index(request):
 
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
-from .models import CustomUser
+from .models import CustomUser ,Userprofile
 from django.core.mail import send_mail
 from django.conf import settings
 from django.core.files.storage import default_storage
@@ -156,3 +156,37 @@ def signin(request):
             messages.error(request, "Invalid email or password. Please try again.")
             return redirect('signin')
     return render (request, 'signin.html')
+
+from django_countries import countries
+def userprofile(request):
+    userprofile = get_object_or_404(Userprofile, user=request.user)
+    if request.method == "POST":
+        first_name =request.POST.get('first_name')
+        last_name =request.POST.get('last_name')
+        email =request.POST.get('email')
+        phone_number =request.POST.get('phone_number')
+        profile_picture =request.FILES.get('profile_picture')
+        country =request.POST.get('country')
+        street_address =request.POST.get('street_address')
+        city =request.POST.get('city')
+        zipcode =request.POST.get('zipcode')
+        userprofile.user.first_name = first_name
+        userprofile.user.last_name = last_name
+        userprofile.user.email = email
+        userprofile.user.phone_number = phone_number
+        userprofile.user.profile_picture = profile_picture
+        userprofile.user.save()
+        userprofile.country = country
+        userprofile.street_address = street_address
+        userprofile.city = city
+        userprofile.zipcode = zipcode
+        userprofile.save()
+        return redirect ('profile')
+    
+    context = {
+        'countries': countries, 
+        'userprofile':userprofile ,# List of countries from django-countries
+    }
+
+      
+    return render(request, 'profile.html',context)
