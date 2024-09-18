@@ -41,33 +41,56 @@
                             {% endfor %}
                         </ul>
                         {% endif %}
-                        <div class="input-container">
-                            <label class= "form-label" for="first_name">First Name:</label>
-                            <input class = "form-input" type="text" id="first_name" name="first_name" required>
-    
+                        <div class="input-side-container">
+                            <div class="input-container">
+                                <label class= "form-label" for="first_name">First Name:</label>
+                                <input class = "form-input" type="text" id="first_name" name="first_name" required>
+        
+                            </div>
+                            <div class="input-container">
+                                <label class= "form-label" for="last_name">Last Name:</label>
+                                <input class = "form-input" type="text" id="last_name" name="last_name" required>
+        
+                            </div>
                         </div>
-                        <div class="input-container">
-                            <label class= "form-label" for="last_name">Last Name:</label>
-                            <input class = "form-input" type="text" id="last_name" name="last_name" required>
-    
+
+                        <div class="input-side-container">
+                            <div class="input-container">
+                                <label class= "form-label" for="email">Email Address:</label>
+                                <input class = "form-input" type="email" id="email" name="email" required>
+        
+                            </div>
+                            <div class="input-container">
+                                <label for="phone" class="form-label">Phone Number</label>
+                                <input type="tel" class="form-input" id="phone" name="phone" placeholder="123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
+                            </div>
                         </div>
-                        <div class="input-container">
-                            <label class= "form-label" for="email">Email Address:</label>
-                            <input class = "form-input" type="email" id="email" name="email" required>
-    
+
+                        <div class="input-side-container">
+                            <div class="input-container">
+                                <label class= "form-label" for="date-of-birth">Date Of Birth:</label>
+                                <input class = "form-input" type="date" id="date-of-birth" name="date-of-birth" required>
+                            </div>
+                            <div class="input-container">
+                                <label class= "form-label" for="password1">Password:</label>
+                                <input class = "form-input" type="password" id="password1" name="password1" required>
+        
+                            </div>
                         </div>
-                        <div class="input-container">
-                            <label class= "form-label" for="password1">Password:</label>
-                            <input class = "form-input" type="password" id="password1" name="password1" required>
-    
-                        </div>
+
                         <div class="input-container">
                             <label class= "form-label" for="password2">Confirm Password:</label>
                             <input class = "form-input" type="password" id="password2" name="password2" required>
     
+                        </div>      
+                        
+                        <div class="check-input-container flex gp-10">
+                            <input class="form-check-input" type="checkbox" id="terms" required>
+                            <label class="form-label" for="terms">
+                              I agree to the <a href="#">Terms</a> and <a href="#">Conditions</a>
+                            </label>
                         </div>
-                       
-    
+
                         <button class = "form-submit-btn">Sign Up</button>
                     </form>
     
