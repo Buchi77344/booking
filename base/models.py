@@ -32,7 +32,7 @@ class Userprofile(models.Model):
    city = models.CharField(max_length=255, null=True, blank=True)
    zipcode = models.CharField(max_length=255, null=True, blank=True)
    def __str__(self):
-        return f'{self.user.username} Profile'
+        return f' Profile'
 
 @receiver(post_save, sender=CustomUser)
 def create_user_profile(sender, instance, created, **kwargs):
