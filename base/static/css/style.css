@@ -421,8 +421,8 @@ input[type = "file"].form-input::file-selector-button{
     border-radius: 10px;
 }
 
-.error:not(:last-of-type),
-.success:not(:last-of-type){
+.error
+.success{
     margin-bottom: 15px;
 }
 
