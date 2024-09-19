@@ -313,10 +313,81 @@ nav.flex-between{
     width : 48%;
 }
 
+.profile-img-container{
+    position : relative;
+}
+
+.camera-icon{
+    width : 50px;
+    height : 50px;
+    position: absolute;
+    bottom : 0;
+    right : 0;
+    background-color: hsl(0,0%,98%);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.camera-circle{
+    background-color: #0d6efd;
+    width: 90%;
+    height: 90%;
+    border-radius: inherit;
+    position: relative;
+}
+
+.camera-icon::after{
+    content : url("../img/camera-icon.svg");
+    position: absolute;
+    top : 50%;
+    left : 50%;
+    transform: translate(-50%, -50%);
+    width: 25px;
+    height: 25px;
+
+}
+
+.camera-icon:hover::after{
+    content : url("../img/plus-icon.svg");
+}
+
+.label-profile_picture{
+    min-width: fit-content;
+    padding: 10px 12px;
+    background-color: #0d6efd;
+    border-radius: 10px;
+    color: hsl(0, 0%, 95%);
+    cursor: pointer;
+    transition: backgound-color .5s ease;
+}
+
+.label-profile_picture:hover{
+    background-color : #032250;
+}
+
+.input-profile_picture{
+    visibility: hidden;
+    opacity: 0;
+    height: 0;
+    width : 0;
+}
+
+
 .input-container{
     display: flex;
     flex-direction: column;
     gap : 7px;
+}
+
+.profile-form .input-container{
+    gap : 0px;
+}
+
+.profile-picture-img{
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
 }
 
 .check-input-container.flex{
@@ -362,6 +433,7 @@ nav.flex-between{
     color : hsl(0,0%,30%);
     font-size: 1.1rem;
     width : fit-content;
+    margin-bottom: 5px;
 }
 
 .form-input{
@@ -524,6 +596,11 @@ input[type = "file"].form-input::file-selector-button{
 
    .input-side-container .input-container{
         width: 100%;
+        margin-bottom: 15px;
+   }
+
+   .profile-form.flex-column{
+    gap : 0px;
    }
 }
 
