@@ -356,9 +356,9 @@ nav.flex-between{
     padding: 10px 12px;
     background-color: #0d6efd;
     border-radius: 10px;
-    color: hsl(0, 0%, 95%);
+    color: hsl(0, 0%, 98%);
     cursor: pointer;
-    transition: backgound-color .5s ease;
+    transition: background-color .3s ease;
 }
 
 .label-profile_picture:hover{
