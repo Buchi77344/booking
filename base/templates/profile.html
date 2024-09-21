@@ -1,41 +1,115 @@
-<form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    
-    <label for="first_name">First Name:</label>
-    <input type="text" id="first_name" name="first_name" value="{{ userprofile.user.first_name }}" required>
-    
-    <label for="last_name">Last Name:</label>
-    <input type="text" id="last_name" name="last_name" value="{{ userprofile.user.last_name }}" required>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Profile</title>
+</head>
+<body>
+    <div class = "page">
+        <div class = "form-page">
+            <div class = "form-container wrapper flex-between">
+                <div class="form-graphics-container flex-column">
+                    <div class = "logo-container">
+                        <span class = "logo-text">EXPERIENCE HOTSPOT</span>
+                    </div>
+                    
+                    <div class = "graphics-wrapper">
+                        <img src="{% static 'img/profile-graphics-removebg.png' %}" alt="" class="img-grpahics">
+                    </div>
+                </div>
+                <div class="acct-form-wrapper ">
+                    <form class= "profile-form flex-column gp-10" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="profile-pic-container flex gp-20">
+                            <div class="profile-img-container">
+                                {% if userprofile.profile_picture %}
+                                <img src="{{userprofile.profile_picture.url}}" alt="" class="profile-picture-img">
+                                {% else %}
+                                <img src="{% static 'images/default-profile-picture.png' %}" alt="Default Profile Picture" class="profile-picture-img">
+                            {% endif %}
+                                <label for = "profile_picture" class="camera-icon flex-center">
+                                    <span class="camera-circle flex-center">
+                                        <!-- <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+                                        Uploaded to: SVG Repo, www.svgrepo.com, Transformed by: SVG Repo Mixer Tools 
+                                        <svg width="800px" height="800px" viewBox="0 -2 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" fill="#000000">
+                                            <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <g id="SVGRepo_iconCarrier"> <title>camera</title> <desc>Created with Sketch Beta.</desc> <defs> </defs> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage"> <g id="Icon-Set" sketch:type="MSLayerGroup" transform="translate(-256.000000, -465.000000)" fill="#f7f7f7"> <path d="M272,487 C268.687,487 266,484.313 266,481 C266,477.687 268.687,475 272,475 C275.313,475 278,477.687 278,481 C278,484.313 275.313,487 272,487 L272,487 Z M272,473 C267.582,473 264,476.582 264,481 C264,485.418 267.582,489 272,489 C276.418,489 280,485.418 280,481 C280,476.582 276.418,473 272,473 L272,473 Z M286,489 C286,490.104 285.104,491 284,491 L260,491 C258.896,491 258,490.104 258,489 L258,473 C258,471.896 258.896,471 260,471 L264,471 L265,469 C265.707,467.837 265.896,467 267,467 L277,467 C278.104,467 278.293,467.837 279,469 L280,471 L284,471 C285.104,471 286,471.896 286,473 L286,489 L286,489 Z M284,469 L281,469 L280,467 C279.411,465.837 279.104,465 278,465 L266,465 C264.896,465 264.53,465.954 264,467 L263,469 L260,469 C257.791,469 256,470.791 256,473 L256,489 C256,491.209 257.791,493 260,493 L284,493 C286.209,493 288,491.209 288,489 L288,473 C288,470.791 286.209,469 284,469 L284,469 Z" id="camera" sketch:type="MSShapeGroup"> </path> </g> </g> </g>
+                                        </svg> -->
+                                        <!-- <span class= "camera-icon-span"></span> -->
+                                    </span>
+                                </label>
+                            </div>
+                            <label class="label-profile_picture" for="profile_picture">Upload New Picture</label>
+                            <input class="input-profile_picture" required type="file" id="profile_picture" name="profile_picture">
+                        </div>
+                        <div class="input-side-container">
+                            <div class="input-container">
+                                <label class= "form-label" for="first_name">First Name:</label>
+                                <input class= "form-input" type="text" id="first_name" name="first_name" value="{{ userprofile.user.first_name }}" required>     
+                            </div>
+                            
+                            <div class="input-container">
+                                <label class="form-label" for="last_name">Last Name:</label>
+                                <input class="form-input" type="text" id="last_name" name="last_name" value="{{ userprofile.user.last_name }}" required>
+                            </div>
+                        </div>
+                    
+                        <div class="input-side-container">
+                            <div class="input-container">
+                                <label class= "form-label" for="email">Email:</label>
+                                <input class= "form-input" type="email" id="email" name="email" value="{{ userprofile.user.email }}" required>
+                            </div>
+                        
+                            <div class="input-container">
+                                <label class= "form-label" for="phone_number">Phone Number:</label>
+                                <input class= "form-input" type="tel" id="phone_number" name="phone_number" value="{{ userprofile.user.phone_number }}" required>
+                            </div>
+                        </div>
+                    
+                        <div class="input-side-container">
+                            <div class="input-container">
+                                <label class= "form-label" for="country">Country:</label>
+                                <select class = "select form-input" id="country" name="country">
+                                    {% for code, name in countries %}
+                                        <option value="{{ code }}" {% if userprofile.country == code %}selected{% endif %}>
+                                            {{ name }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        
+                            <div class="input-container">
+                                <label class= "form-label" for="street_address">Street Address:</label>
+                                <input class= "form-input" type="text" id="street_address" name="street_address" value="{{ userprofile.street_address }}" required>
+                            </div>
+                        </div>
+                    
+                        <div class="input-side-container">
+                            <div class="input-container">
+                                <label class="form-label" for="city">City:</label>
+                                <input class="form-input" type="text" id="city" name="city" value="{{ userprofile.city }}" required>
+                            </div>
+                        
+                            <div class="input-container">
+                                <label class = "form-label" for="zipcode">Zip Code:</label>
+                                <input class = "form-input" type="text" id="zipcode" name="zipcode" value="{{ userprofile.zipcode }}" required>
+                            </div>
+                        </div>
+                    
+                        <button class = "form-submit-btn" type="submit">Save</button>
+                    </form>
+  
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
 
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" value="{{ userprofile.user.email }}" required>
 
-    <label for="phone_number">Phone Number:</label>
-    <input type="tel" id="phone_number" name="phone_number" value="{{ userprofile.phone_number }}" required>
-
-    <label for="profile_picture">Profile Picture:</label>
-    <input type="file" id="profile_picture" name="profile_picture">
-    {% if userprofile.profile_picture %}
-        <img src="{{ userprofile.profile_picture.url }}" alt="Profile Picture" width="100">
-    {% endif %}
-
-    <label for="country">Country:</label>
-    <select id="country" name="country">
-        {% for code, name in countries %}
-            <option value="{{ code }}" {% if userprofile.country == code %}selected{% endif %}>
-                {{ name }}
-            </option>
-        {% endfor %}
-    </select>
-
-    <label for="street_address">Street Address:</label>
-    <input type="text" id="street_address" name="street_address" value="{{ userprofile.street_address }}" required>
-
-    <label for="city">City:</label>
-    <input type="text" id="city" name="city" value="{{ userprofile.city }}" required>
-
-    <label for="zipcode">Zip Code:</label>
-    <input type="text" id="zipcode" name="zipcode" value="{{ userprofile.zipcode }}" required>
-
-    <button type="submit">Save</button>
-</form>

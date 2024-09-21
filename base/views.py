@@ -34,10 +34,11 @@ def signup(request):
     if request.method == 'POST':
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
+        phone_number  =request.POST.get('phone_number')
         email = request.POST.get('email')
         password1 = request.POST.get('password1')
         password2 = request.POST.get('password2')
-        profile_picture = request.FILES.get('profile_picture')
+        date_birth =request.POST.get('date_birth')
         request.session['first_name']= first_name
         request.session['last_name']= last_name
         request.session['email']= email
@@ -51,7 +52,7 @@ def signup(request):
             messages.error(request, "Email already exists.")
             return redirect('signup')
         
-        if len(password1) < 3:
+        if len(password1) < 8:
             messages.error(request, "Password must be at least 8 characters long.")
             return redirect('signup')
         verification_code = generate_verification_code()
@@ -62,9 +63,12 @@ def signup(request):
             last_name=last_name,
             email=email,
             password=password1,
+            phone_number =phone_number,
             role='user',
             verification_code=verification_code,  # Store verification code
-            is_verified=False  # Set is_verified to False initially
+            is_verified=False,
+            is_agreed = True,
+            date_birth =date_birth  # Set is_verified to False initially
         )
         subject = "Verify Your Email"
         message = f"Hello {first_name},\n\nYour verification code is {verification_code}.\nPlease enter this code to verify your email address.\n\nThank you!"
@@ -79,10 +83,7 @@ def signup(request):
             return redirect('signup')
 
         # Save profile picture if uploaded
-        if profile_picture:
-            profile_picture_path = default_storage.save(f'profile_pictures/{user.id}_{profile_picture.name}', ContentFile(profile_picture.read()))
-            user.profile_picture = profile_picture_path
-            user.save()
+       
 
  
         return redirect('verify')
@@ -158,35 +159,47 @@ def signin(request):
     return render (request, 'signin.html')
 
 from django_countries import countries
+from django.shortcuts import get_object_or_404, redirect, render
+from django.contrib import messages
+
 def userprofile(request):
     userprofile = get_object_or_404(Userprofile, user=request.user)
+
     if request.method == "POST":
-        first_name =request.POST.get('first_name')
-        last_name =request.POST.get('last_name')
-        email =request.POST.get('email')
-        phone_number =request.POST.get('phone_number')
-        profile_picture =request.FILES.get('profile_picture')
-        country =request.POST.get('country')
-        street_address =request.POST.get('street_address')
-        city =request.POST.get('city')
-        zipcode =request.POST.get('zipcode')
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        email = request.POST.get('email')
+        phone_number = request.POST.get('phone_number')
+        country = request.POST.get('country')
+        street_address = request.POST.get('street_address')
+        city = request.POST.get('city')
+        zipcode = request.POST.get('zipcode')
+
+        # Update user details
         userprofile.user.first_name = first_name
         userprofile.user.last_name = last_name
         userprofile.user.email = email
         userprofile.user.phone_number = phone_number
-        userprofile.user.profile_picture = profile_picture
         userprofile.user.save()
+
+        # Update profile details
         userprofile.country = country
         userprofile.street_address = street_address
         userprofile.city = city
         userprofile.zipcode = zipcode
+
+        # Handle profile picture only if uploaded
+        profile_picture = request.FILES.get('profile_picture')
+        if profile_picture:
+            userprofile.profile_picture = profile_picture
+
         userprofile.save()
-        return redirect ('profile')
-    
+        messages.success(request, "Profile updated successfully")
+        return redirect('profile')
+
     context = {
-        'countries': countries, 
-        'userprofile':userprofile ,# List of countries from django-countries
+        'countries': countries,  # List of countries from django-countries
+        'userprofile': userprofile,
     }
 
-      
-    return render(request, 'profile.html',context)
+    return render(request, 'profile.html', context)
