@@ -5,6 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script defer src="{% static 'js/script.js' %}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+
     <title>Sign Up</title>
 </head>
 <body>
@@ -32,7 +36,7 @@
                     <p class = "form-text">Register your account</p>
     
                    
-                    <form class="acct-form flex-column gp-10" method="POST" enctype="multipart/form-data">
+                    <form class="acct-form flex-column gp-7" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         {% if messages %}
                         <ul class="messages">
@@ -71,18 +75,21 @@
                                 <label class= "form-label" for="date-of-birth">Date Of Birth:</label>
                                 <input class = "form-input" type="date" id="date-of-birth" name="date_birth" required>
                             </div>
+
                             <div class="input-container">
-                                <label class= "form-label" for="password1">Password:</label>
-                                <input class = "form-input" type="password" id="password1" name="password1" required>
-        
-                            </div>
+                                <label class= "form-label" for="password">Password:</label>
+                                <input class = "form-input password" type="password" id="password" name="password" required>
+                                <span class="password-message">Password must be at least 8 characters long, and include a letter, a number, and a symbol.</span>
+                            </div>                            
                         </div>
+
 
                         <div class="input-container">
                             <label class= "form-label" for="password2">Confirm Password:</label>
                             <input class = "form-input" type="password" id="password2" name="password2" required>
     
                         </div>      
+
                         
                         <div class="check-input-container flex gp-10">
                             <input class="form-check-input" type="checkbox" id="terms" required>
@@ -149,5 +156,21 @@
             </div>
         </div>
     </div>
+
+    <script>
+        const phoneInputField = document.querySelector("#phone");
+        const phoneInput = window.intlTelInput(phoneInputField, {
+            initialCountry: "auto",
+            geoIpLookup: function(callback) {
+                fetch('https://ipinfo.io/json', { cache: 'reload' })
+                .then(response => response.json())
+                .then(data => {
+                    const countryCode = (data && data.country) ? data.country : "us";
+                    callback(countryCode);
+                });
+            },
+            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js", // for number formatting
+        });
+    </script>
 </body>
 </html>
