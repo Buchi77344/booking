@@ -273,6 +273,8 @@ input.category-field{
     box-shadow: 5px 8px 13px 4px hsl(0, 0%, 10%, .2);
     padding: 30px 25px;
     border-radius: 10px;
+    max-height : 450px;
+    overflow-y: auto;
     display: none;
 }
 
@@ -324,7 +326,7 @@ span.search-icon{
 
 .date-div-container{
     width : 50%;
-    margin: 0 auto;
+    margin: 0 auto 30px;
     border-radius: 50px;
     background-color: hsl(0 0% 93%);
 }
@@ -351,6 +353,52 @@ span.search-icon{
 
 .relative-pos{
     position: relative;
+}
+
+.calendar-container.flex-scroll{
+    align-items: flex-start;
+}
+
+.calendar{
+    min-width : 48%;
+    text-align: center;
+}
+
+.weekdays-container,
+.days-container{
+    display: grid;
+    grid-template-columns: repeat(7, minmax(30px, 1fr));
+}
+
+.weekday-span,
+.day-cell{
+    text-align: center;
+    padding : 10px;
+}
+
+.weekday-span{
+    color : hsl(0 0% 60%);
+}
+
+.day-cell {
+    text-align: center;
+    /* padding: 10px; */
+    height: 50px;
+    width: 50px;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.day-cell:hover{
+    outline: 1px solid rgba(0, 0, 0, 0.377);
+}
+
+.day-cell.active{
+    background-color: hsl(0, 0%, 20%);
+    color : hsl(0, 0%, 95%)
 }
 
 .profile-container{
@@ -419,7 +467,7 @@ span.search-icon{
 }
 
 .acct-form-wrapper{
-    padding : 20px 40px;
+    padding : 12px 40px;
     background-color: white;
     width : 50%;    
     margin-inline: auto;
@@ -727,6 +775,10 @@ input[type = "file"].form-input::file-selector-button{
 .error,
 .success{
     margin-bottom: 15px;
+}
+
+.external-links-container{
+    margin-top : 10px;
 }
 
 .external-links-text{
