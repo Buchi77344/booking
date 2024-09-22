@@ -6,5 +6,6 @@ urlpatterns = [
     path('signin',views.signin,name="signin"),
     path('verify',views.verify_code,name="verify"),
     path('profile',views.userprofile,name="profile"),
+    path('privacy',views.privacy,name="privacy"),
  
 ]

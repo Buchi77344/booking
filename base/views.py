@@ -203,3 +203,5 @@ def userprofile(request):
     }
 
     return render(request, 'profile.html', context)
+def privacy(request):
+    return render (request, 'privacy.html')
