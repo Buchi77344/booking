@@ -2,10 +2,15 @@
 const categoryContainer = document.querySelector(".category-container")
 const destinationCategoryHighlight = document.querySelector(".destination-container .category-highlight")
 const mapRegionsWrapper = document.querySelector(".map-regions-wrapper")
-const dateWrapper = document.querySelector(".date-wrapper")
-const dateCategoryHighlight = document.querySelector(".date-wrapper .category-highlight")
-const dateContentContainer = document.querySelector(".date-content-container")
-
+const dateWrapper = document.querySelectorAll(".date-wrapper")
+const checkinHighlight = document.querySelector(".checkin.date-wrapper .category-highlight")
+const checkoutHighlight = document.querySelector(".checkout.date-wrapper .category-highlight")
+const dateCategoryHighlight = document.querySelectorAll(".date-wrapper .category-highlight")
+const checkinDateContentContainer = document.querySelector(".checkin.date-content-container")
+const checkoutDateContentContainer = document.querySelector(".checkout.date-content-container")
+const dateContentContainer = document.querySelectorAll(".date-content-container")
+console.log(checkinDateContentContainer)
+console.log(checkoutDateContentContainer)
 function revealDropFunc(highlightEl, dropEl, dropElStr){
     highlightEl.addEventListener("click", function(){
         dropEl.classList.toggle("reveal")
@@ -20,17 +25,21 @@ function revealDropFunc(highlightEl, dropEl, dropElStr){
 
 if(document.querySelector(".category-container")){
     revealDropFunc(destinationCategoryHighlight, mapRegionsWrapper, ".destination-container .category-highlight")
-    revealDropFunc(dateCategoryHighlight, dateContentContainer, ".date-wrapper .category-highlight")
+    revealDropFunc(checkinHighlight, checkinDateContentContainer, ".checkin.date-wrapper .category-highlight")
+    revealDropFunc(checkoutHighlight, checkoutDateContentContainer, ".checkout.date-wrapper .category-highlight")
     
-    dateCategoryHighlight.addEventListener("click", function(){
-        dateWrapper.classList.add("static-pos")
-        categoryContainer.classList.add("relative-pos")
-        dateContentContainer.style.width = `${categoryContainer.clientWidth}px`
-    
+    dateCategoryHighlight.forEach(d => {
+        d.addEventListener("click", function(){
+            dateWrapper.forEach(d => d.classList.add("static-pos"))
+            categoryContainer.classList.add("relative-pos")
+            dateContentContainer.forEach(d => {
+                d.style.width = `${categoryContainer.clientWidth}px`
+            })
+        })
     })
 
     window.addEventListener("resize", function(){
-        dateContentContainer.style.width = `${categoryContainer.clientWidth}px`
+        dateContentContainer.forEach(d => d.style.width = `${categoryContainer.clientWidth}px`)
     })
 }
 
@@ -73,8 +82,7 @@ if(document.querySelector(".form-page")){
 }
 
 if(document.querySelector(".calendar-container")){
-    const calendarContainer = document.querySelector('.calendar-container');
-    const dayCell = document.querySelectorAll(".day-cell")
+    const calendarContainer = document.querySelectorAll('.calendar-container');
     // Function to render a single month's calendar
     function renderMonthCalendar(month, year) {
         const calendar = document.createElement('div');
@@ -124,7 +132,22 @@ if(document.querySelector(".calendar-container")){
         }
 
         // Append the month container to the main calendar container
-        calendarContainer.appendChild(calendar);
+        for (const [index, cal] of calendarContainer.entries()) {
+            console.log(calendarContainer)
+            console.log([index])
+        }
+        let calendarEl = document.querySelectorAll(".calendar")
+        calendarEl.forEach(cal => {
+            const dayCell = cal.querySelectorAll(".day-cell")   
+            dayCell.forEach((day) => {
+                day.addEventListener("click", function(){
+                    cal.querySelectorAll(".day-cell").forEach(el => el.classList.remove("active"))
+                    this.classList.add("active")
+                    console.log(this)
+                })
+            })
+        })
+            
     }
 
     // Function to render months starting from a given month and year
@@ -144,7 +167,7 @@ if(document.querySelector(".calendar-container")){
 
     // Clear the calendar container and render for two years (starting from the current month)
     function renderMultipleYears() {
-        calendarContainer.innerHTML = '';  // Clear the calendar
+        calendarContainer.forEach(d => d.innerHTML = '');  // Clear the calendar
         const currentDate = new Date();
         const currentMonth = currentDate.getMonth();  // Get current month (0 = January, 11 = December)
         const currentYear = currentDate.getFullYear(); // Get current year
@@ -155,12 +178,26 @@ if(document.querySelector(".calendar-container")){
 
     // Call the function to render the calendar for this and the next year
     renderMultipleYears();
-    console.log(dayCell)
-    dayCell.forEach((day) => {
-        day.addEventListener("click", function(){
-            document.querySelectorAll(".day-cell").forEach(el => el.classList.remove("active"))
-            this.classList.add("active")
-            console.log(this)
-        })
+
+ 
+}
+
+if(document.querySelector(".love-icon")){
+    const loveIcon = document.querySelectorAll(".love-icon-span");
+
+
+    loveIcon.forEach(icon => {
+        let isLiked = false;
+        icon.addEventListener("click", () => {
+            if (!isLiked) {
+                icon.classList.remove("reverse");
+                icon.classList.add("animate");
+            } else {
+                icon.classList.remove("animate");
+                icon.classList.add("reverse");
+            }
+            isLiked = !isLiked;  // Toggle the state
+        });
     })
+
 }
