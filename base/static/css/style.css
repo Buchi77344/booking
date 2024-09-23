@@ -498,7 +498,7 @@ span.mobile.search-icon svg path{
 }
 
 .profile-drop-down {
-    padding: 10px 0px;
+    /* padding: 0px 0px; */
     background-color: hsl(0, 0%, 95%);
     position: absolute;
     top: 120%;
@@ -517,11 +517,46 @@ span.mobile.search-icon svg path{
 }
 
 .profile-link{
-    padding : 5px 15px;
+    padding : 10px 15px;
 }
 
 .profile-link:hover{
     background-color: hsl(0 0% 88%);
+}
+
+.watchlist-container{
+    position: relative;
+    margin-left: 7px;
+}
+
+.watchlist-number {
+    position: absolute;
+    top: 0px;
+    right: -6px;
+    background-color: hsl(0, 87%, 33%);
+    color: hsl(0 0% 96%);
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px; /* Reduced padding for small numbers */
+    border-radius: 10px;
+    font-size: 0.85rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    white-space: nowrap; /* Prevents the text from wrapping */
+}
+
+/* Larger numbers adapt padding */
+.watchlist-number.large-number {
+    padding: 0 8px; /* Extra padding for larger numbers */
+}
+
+
+.watchlist-container svg{
+    width : 40px;
+    height: 40px;
+    fill: hsl(0, 0%, 30%);
 }
 
 .web-img{
