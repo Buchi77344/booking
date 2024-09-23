@@ -7,5 +7,9 @@ urlpatterns = [
     path('verify',views.verify_code,name="verify"),
     path('profile',views.userprofile,name="profile"),
     path('privacy',views.privacy,name="privacy"),
+    path('experience/<int:pk>/',views.experience,name="experience"),
+    path('experience/<int:id>/payment/', views.experience_payment, name='experience_payment'),
+    path('payment-success/', views.payment_success, name='payment_success'),
+    
  
 ]

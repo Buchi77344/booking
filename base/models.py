@@ -101,7 +101,7 @@ class Experience(models.Model):
     what_to_bring = models.TextField(blank=True)  # A list of recommended things to bring
     
     def __str__(self):
-        return f"{self.title} by {self.vendor.business_name}"
+        return f"{self.title} by {self.vendor.user.username}"
 
 # Booking Model (Users booking an experience from a Vendor)
 class Booking(models.Model):
@@ -114,3 +114,17 @@ class Booking(models.Model):
     def __str__(self):
         return f"Booking by {self.user.username} for {self.experience.title}"
 
+from django.db import models
+
+from .models import Experience
+
+class Transaction(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    experience = models.ForeignKey(Experience, on_delete=models.CASCADE)
+    order_id = models.CharField(max_length=255)  # Razorpay Order ID
+    payment_id = models.CharField(max_length=255)  # Razorpay Payment ID
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    payment_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Transaction {self.order_id} for {self.experience.title}"
