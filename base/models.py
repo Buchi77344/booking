@@ -6,7 +6,7 @@ from django.utils import timezone
 
 class CustomUser(AbstractUser):
     # Common fields
-    profile_picture = models.ImageField(upload_to='profile_pictures/', null=True, blank=True)
+    
     
     # Vendor-specific fields
     phone_number = models.CharField(max_length=15, null=True, blank=True)
@@ -14,6 +14,8 @@ class CustomUser(AbstractUser):
     vendor_type = models.CharField(max_length=20, choices=[('individual', 'Individual'), ('small_business', 'Small Business'), ('organization', 'Organization')], null=True, blank=True)
     verification_code = models.CharField(max_length=6, blank=True, null=True)  # Store the verification code
     is_verified = models.BooleanField(default=False) 
+    is_agreed = models.BooleanField(default=False)  
+    date_birth =models.DateField( null=True)
     
     # Other fields
     role = models.CharField(max_length=10, choices=[('user', 'User'), ('vendor', 'Vendor')], default='user')
@@ -25,6 +27,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 class Userprofile(models.Model):
+   profile_picture = models.ImageField(upload_to='profile_pictures/', null=True, blank=True)
    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name='userprofile')
    phone_number = models.CharField(max_length=15, null=True, blank=True)
    country = CountryField(blank_label='(select country)', null=True, blank=True)
@@ -32,7 +35,7 @@ class Userprofile(models.Model):
    city = models.CharField(max_length=255, null=True, blank=True)
    zipcode = models.CharField(max_length=255, null=True, blank=True)
    def __str__(self):
-        return f'{self.user.username} Profile'
+        return f' Profile'
 
 @receiver(post_save, sender=CustomUser)
 def create_user_profile(sender, instance, created, **kwargs):
@@ -98,7 +101,7 @@ class Experience(models.Model):
     what_to_bring = models.TextField(blank=True)  # A list of recommended things to bring
     
     def __str__(self):
-        return f"{self.title} by {self.vendor.business_name}"
+        return f"{self.title} by {self.vendor.user.username}"
 
 # Booking Model (Users booking an experience from a Vendor)
 class Booking(models.Model):
@@ -111,3 +114,17 @@ class Booking(models.Model):
     def __str__(self):
         return f"Booking by {self.user.username} for {self.experience.title}"
 
+from django.db import models
+
+from .models import Experience
+
+class Transaction(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    experience = models.ForeignKey(Experience, on_delete=models.CASCADE)
+    order_id = models.CharField(max_length=255)  # Razorpay Order ID
+    payment_id = models.CharField(max_length=255)  # Razorpay Payment ID
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    payment_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Transaction {self.order_id} for {self.experience.title}"

@@ -32,6 +32,11 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'django.contrib.sites',  # Required by Allauth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,6 +47,7 @@ INSTALLED_APPS = [
     'Vendors',
     'Experiences', 
     'django_countries',
+   
 ]
 
 MIDDLEWARE = [
@@ -52,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware', 
 ]
 
 ROOT_URLCONF = 'booking.urls'
@@ -116,6 +123,19 @@ USE_I18N = True
 
 USE_TZ = True
 
+# Required for Django Allauth
+SITE_ID = 1
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',  # Allauth authentication backend
+)
+
+
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '735819647020-i2okdjtvpo7lgacunmjd4pq2e8or4pg5.apps.googleusercontent.com'  # Client ID
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'  # Client Secret
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
@@ -124,7 +144,8 @@ STATIC_URL = 'static/'
 STATICFILE = [
     os.path.join(BASE_DIR, 'static')
 ]
-
+MEDIA_URL = 'media/'
+MEDIA_ROOT = os.path.join(BASE_DIR / 'media')
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
@@ -132,6 +153,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 AUTH_USER_MODEL = 'base.CustomUser'
+
+
+
 
 
 
@@ -152,6 +176,70 @@ EMAIL_HOST_USER = 'experiencehotspot@zohomail.com'  # Your Zoho email address
 EMAIL_HOST_PASSWORD = 'BsBUiZ6A0LrW'
 
 
+# clint id = '735819647020-i2okdjtvpo7lgacunmjd4pq2e8or4pg5.apps.googleusercontent.com'
 
 
 
+# c;int secret ='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'
+SOCIALACCOUNT_PROVIDERS = {
+    "github": {
+        # For each provider, you can choose whether or not the
+        # email address(es) retrieved from the provider are to be
+        # interpreted as verified.
+        "VERIFIED_EMAIL": True
+    },
+    "google": {
+        # For each OAuth based provider, either add a ``SocialApp``
+        # (``socialaccount`` app) containing the required client
+        # credentials, or list them here:
+        "APPS": [
+            {
+                "client_id": "735819647020-i2okdjtvpo7lgacunmjd4pq2e8or4pg5.apps.googleusercontent.com",
+                "secret": "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",
+               
+            },
+        ],
+        # These are provider-specific settings that can only be
+        # listed here:
+        "SCOPE": [
+            "profile",
+            "email",
+        ],
+        "AUTH_PARAMS": {
+            "access_type": "online",
+        },
+    },
+     "apple": {
+        "APPS": [{
+            # Your service identifier.
+            "client_id": "your.service.id",
+
+            # The Key ID (visible in the "View Key Details" page).
+            "secret": "KEYID",
+
+             # Member ID/App ID Prefix -- you can find it below your name
+             # at the top right corner of the page, or it’s your App ID
+             # Prefix in your App ID.
+            "key": "MEMAPPIDPREFIX",
+
+            "settings": {
+                # The certificate you downloaded when generating the key.
+                "certificate_key": """-----BEGIN PRIVATE KEY-----
+s3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr
+3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3
+c3ts3cr3t
+-----END PRIVATE KEY-----
+"""
+            }
+        }]
+    }
+}
+
+SOCIALACCOUNT_LOGIN_ON_GET = True
+LOGIN_REDIRECT_URL = 'index'
+ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = True
+
+
+
+RAZORPAY_KEY_ID = 'rzp_live_JShwqIsgcWWsNp'
+RAZORPAY_KEY_SECRET = 'yElAwSsRLV9QbtvOfPOixOTC'

@@ -27,7 +27,11 @@
                         {% csrf_token %}
                         <div class="profile-pic-container flex gp-20">
                             <div class="profile-img-container">
-                                <img src="{% static 'img/pic-2.jpg' %}" alt="" class="profile-picture-img">
+                                {% if userprofile.profile_picture %}
+                                <img src="{{userprofile.profile_picture.url}}" alt="" class="profile-picture-img">
+                                {% else %}
+                                <img src="{% static 'images/default-profile-picture.png' %}" alt="Default Profile Picture" class="profile-picture-img">
+                            {% endif %}
                                 <label for = "profile_picture" class="camera-icon flex-center">
                                     <span class="camera-circle flex-center">
                                         <!-- <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
@@ -42,7 +46,7 @@
                                 </label>
                             </div>
                             <label class="label-profile_picture" for="profile_picture">Upload New Picture</label>
-                            <input class="input-profile_picture" type="file" id="profile_picture" name="profile_picture">
+                            <input class="input-profile_picture" required type="file" id="profile_picture" name="profile_picture">
                         </div>
                         <div class="input-side-container">
                             <div class="input-container">
@@ -64,7 +68,7 @@
                         
                             <div class="input-container">
                                 <label class= "form-label" for="phone_number">Phone Number:</label>
-                                <input class= "form-input" type="tel" id="phone_number" name="phone_number" value="{{ userprofile.phone_number }}" required>
+                                <input class= "form-input" type="tel" id="phone_number" name="phone_number" value="{{ userprofile.user.phone_number }}" required>
                             </div>
                         </div>
                     

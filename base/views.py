@@ -1,15 +1,32 @@
 from django.shortcuts import render ,get_object_or_404
 from django.contrib import messages
 
-
+from math import floor
 
 # Create your views here.
 def index(request):
-    return render (request, 'index.html')
+    experiences =  Experience.objects.all()
+    context = {
+        'experiences':experiences
+    }
+    return render (request, 'index.html',context)
+
+def experience(request,pk):
+    experience = get_object_or_404(Experience,pk=pk)
+    full_stars = int(floor(experience.rating))  # Full stars based on the rating
+    half_star = experience.rating - full_stars >= 0.5  # Check if there's a half star
+    empty_stars = 5 - full_stars - int(half_star)  # Remainin
+    context ={
+        'experience':experience,
+        'full_stars': full_stars,
+        'half_star': half_star,
+        'empty_stars': empty_stars,
+    }
+    return render (request, 'details.html',context)
 
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
-from .models import CustomUser ,Userprofile
+from .models import CustomUser ,Userprofile ,Experience
 from django.core.mail import send_mail
 from django.conf import settings
 from django.core.files.storage import default_storage
@@ -34,10 +51,11 @@ def signup(request):
     if request.method == 'POST':
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
+        phone_number  =request.POST.get('phone_number')
         email = request.POST.get('email')
         password1 = request.POST.get('password1')
         password2 = request.POST.get('password2')
-        profile_picture = request.FILES.get('profile_picture')
+        date_birth =request.POST.get('date_birth')
         request.session['first_name']= first_name
         request.session['last_name']= last_name
         request.session['email']= email
@@ -51,7 +69,7 @@ def signup(request):
             messages.error(request, "Email already exists.")
             return redirect('signup')
         
-        if len(password1) < 3:
+        if len(password1) < 8:
             messages.error(request, "Password must be at least 8 characters long.")
             return redirect('signup')
         verification_code = generate_verification_code()
@@ -62,9 +80,12 @@ def signup(request):
             last_name=last_name,
             email=email,
             password=password1,
+            phone_number =phone_number,
             role='user',
             verification_code=verification_code,  # Store verification code
-            is_verified=False  # Set is_verified to False initially
+            is_verified=False,
+            is_agreed = True,
+            date_birth =date_birth  # Set is_verified to False initially
         )
         subject = "Verify Your Email"
         message = f"Hello {first_name},\n\nYour verification code is {verification_code}.\nPlease enter this code to verify your email address.\n\nThank you!"
@@ -79,10 +100,7 @@ def signup(request):
             return redirect('signup')
 
         # Save profile picture if uploaded
-        if profile_picture:
-            profile_picture_path = default_storage.save(f'profile_pictures/{user.id}_{profile_picture.name}', ContentFile(profile_picture.read()))
-            user.profile_picture = profile_picture_path
-            user.save()
+       
 
  
         return redirect('verify')
@@ -158,35 +176,165 @@ def signin(request):
     return render (request, 'signin.html')
 
 from django_countries import countries
+from django.shortcuts import get_object_or_404, redirect, render
+from django.contrib import messages
+
 def userprofile(request):
     userprofile = get_object_or_404(Userprofile, user=request.user)
+
     if request.method == "POST":
-        first_name =request.POST.get('first_name')
-        last_name =request.POST.get('last_name')
-        email =request.POST.get('email')
-        phone_number =request.POST.get('phone_number')
-        profile_picture =request.FILES.get('profile_picture')
-        country =request.POST.get('country')
-        street_address =request.POST.get('street_address')
-        city =request.POST.get('city')
-        zipcode =request.POST.get('zipcode')
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        email = request.POST.get('email')
+        phone_number = request.POST.get('phone_number')
+        country = request.POST.get('country')
+        street_address = request.POST.get('street_address')
+        city = request.POST.get('city')
+        zipcode = request.POST.get('zipcode')
+
+        # Update user details
         userprofile.user.first_name = first_name
         userprofile.user.last_name = last_name
         userprofile.user.email = email
         userprofile.user.phone_number = phone_number
-        userprofile.user.profile_picture = profile_picture
         userprofile.user.save()
+
+        # Update profile details
         userprofile.country = country
         userprofile.street_address = street_address
         userprofile.city = city
         userprofile.zipcode = zipcode
+
+        # Handle profile picture only if uploaded
+        profile_picture = request.FILES.get('profile_picture')
+        if profile_picture:
+            userprofile.profile_picture = profile_picture
+
         userprofile.save()
-        return redirect ('profile')
-    
+        messages.success(request, "Profile updated successfully")
+        return redirect('profile')
+
     context = {
-        'countries': countries, 
-        'userprofile':userprofile ,# List of countries from django-countries
+        'countries': countries,  # List of countries from django-countries
+        'userprofile': userprofile,
     }
 
-      
-    return render(request, 'profile.html',context)
+    return render(request, 'profile.html', context)
+def privacy(request):
+    return render (request, 'privacy.html')
+
+import razorpay
+from django.conf import settings
+from django.shortcuts import render, get_object_or_404
+from .models import Experience
+from django.shortcuts import get_object_or_404, render
+from django.conf import settings
+from django.http import HttpResponse
+import razorpay
+
+def experience_payment(request, id):
+    experience = get_object_or_404(Experience, id=id)
+    
+    # Convert the price to paisa (smallest currency unit) only for Razorpay's backend processing
+    amount_in_paisa = int(experience.price * 100)  # Razorpay requires the amount in paisa
+
+    # Ensure the amount doesn't exceed Razorpay limits
+    if amount_in_paisa > 10000000:  # Max limit of ₹1,00,000
+        return HttpResponse("Amount exceeds the maximum allowed limit.")
+
+    try:
+        # Initialize Razorpay client
+        client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
+
+        # Create a Razorpay order
+        order_data = {
+            "amount": amount_in_paisa,  # Pass the amount in paisa
+            "currency": "INR",
+            "payment_capture": "1",  # Auto-capture payment after successful payment
+        }
+        order = client.order.create(order_data)
+
+        # Store the order ID and experience details in session
+        request.session['experience_id'] = experience.id
+        request.session['order_id'] = order['id']
+
+        # Pass the amount in rupees to the template
+        context = {
+            'experience': experience,
+            'order_id': order['id'],
+            'amount': experience.price,  # Pass the price in rupees to the template (not multiplied)
+            'razorpay_key_id': settings.RAZORPAY_KEY_ID,
+            'currency': 'INR',
+        }
+        return render(request, 'payment.html', context)
+
+    except razorpay.errors.RazorpayError as e:
+        return HttpResponse(f"An error occurred: {str(e)}")
+
+
+from django.views.decorators.csrf import csrf_exempt
+import razorpay
+from django.shortcuts import redirect
+from .models import Transaction, Experience
+
+@csrf_exempt
+def payment_success(request):
+    if request.method == "POST":
+        data = request.POST
+        client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
+
+        # Extract payment details from POST data with error handling
+        razorpay_order_id = data.get('razorpay_order_id')
+        razorpay_payment_id = data.get('razorpay_payment_id')
+        razorpay_signature = data.get('razorpay_signature')
+
+        if not razorpay_order_id or not razorpay_payment_id or not razorpay_signature:
+            # If any of the required fields are missing, handle the error gracefully
+            return render(request, 'payment_failed.html', {
+                'error': 'Payment details are missing. Please try again or contact support.'
+            })
+
+        try:
+            # Verify payment signature
+            client.utility.verify_payment_signature({
+                'razorpay_order_id': razorpay_order_id,
+                'razorpay_payment_id': razorpay_payment_id,
+                'razorpay_signature': razorpay_signature
+            })
+
+            # Retrieve experience and transaction details from session
+            experience_id = request.session.get('experience_id')
+            if not experience_id:
+                return render(request, 'payment_failed.html', {
+                    'error': 'Session expired. Unable to retrieve experience details.'
+                })
+
+            experience = get_object_or_404(Experience, id=experience_id)
+            amount = experience.price
+
+            # Save the transaction details to the database
+            Transaction.objects.create(
+                user=request.user,
+                experience=experience,
+                order_id=razorpay_order_id,
+                payment_id=razorpay_payment_id,
+                amount=amount,
+            )
+
+            # Clear session data
+            request.session.pop('experience_id', None)
+            request.session.pop('order_id', None)
+
+            # Redirect to the receipt page after successful payment
+            return redirect('receipt_page')
+
+        except razorpay.errors.SignatureVerificationError:
+            # Handle payment signature verification failure
+            return render(request, 'payment_failed.html', {
+                'error': 'Payment verification failed. Please try again.'
+            })
+
+    return render(request, 'payment_failed.html', {
+        'error': 'Invalid request method. Please use POST.'
+    })
+

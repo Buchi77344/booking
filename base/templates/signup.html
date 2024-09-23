@@ -1,4 +1,5 @@
 {% load static %}
+{% load socialaccount %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,7 +30,7 @@
                     <div class = "external-links-container flex-between">
                         <span class="external-links-text">Create account with</span>
                         <div class = "external-links-div flex gp-10">
-                            <a href = "#" class = "external-link">
+                            <a href = "{% provider_login_url 'google' %}" class = "external-link">
                                 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
                                 <!--Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools-->
                                 <svg width="800px" height="800px" viewBox="-0.5 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -103,25 +104,25 @@
 
                         <div class="input-side-container">
                             <div class="input-container">
-                                <label class= "form-label" for="email">Email Address:</label>
+                                <label class= "form-label" for="email">Email/Username:</label>
                                 <input class = "form-input" type="email" id="email" name="email" required>
         
                             </div>
                             <div class="input-container">
                                 <label for="phone" class="form-label">Phone Number</label>
-                                <input type="tel" class="form-input" id="phone" name="phone" placeholder="123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
+                                <input type="tel" class="form-input" id="phone" name="phone_number" placeholder="123-456-7890"  required>
                             </div>
                         </div>
 
                         <div class="input-side-container">
                             <div class="input-container">
                                 <label class= "form-label" for="date-of-birth">Date Of Birth:</label>
-                                <input class = "form-input" type="date" id="date-of-birth" name="date-of-birth" required>
+                                <input class = "form-input" type="date" id="date-of-birth" name="date_birth" required>
                             </div>
 
                             <div class="input-container">
                                 <label class= "form-label" for="password">Password:</label>
-                                <input class = "form-input password" type="password" id="password" name="password" required>
+                                <input class = "form-input password" type="password" id="password" name="password1" required>
                                 <span class="password-message">Password must be at least 8 characters long, and include a letter, a number, and a symbol.</span>
                             </div>                            
                         </div>

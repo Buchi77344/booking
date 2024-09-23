@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experience Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa; /* Light gray background */
+        }
+        .header-banner {
+            background-color: #007bff; /* Blue background */
+            color: white;
+            padding: 20px 0;
+        }
+        .rating {
+            color: #ffc107; /* Gold star color */
+            font-size: 1.5rem;
+        }
+        .rating .fa-star {
+            margin-right: 5px;
+        }
+        .experience-img {
+            max-height: 400px;
+            object-fit: cover;
+        }
+        .details-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+        }
+        .booking-section {
+            background-color: #f1f1f1;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .btn-book-now {
+            background-color: #28a745;
+            border-color: #28a745;
+            color: white;
+        }
+        .btn-book-now:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+        .requirement-item {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Banner -->
+    <div class="header-banner text-center">
+        <h1>{{ experience.title }}</h1>
+        <p>Hosted by {{ experience.vendor.user.username }} | Located at {{ experience.location }}</p>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container my-5">
+        <div class="row">
+            <!-- Experience Image -->
+            <div class="col-lg-7">
+                {% if experience.images %}
+                <img src="{{ experience.images.url }}" class="img-fluid experience-img rounded mb-4" alt="{{ experience.title }}">
+                {% else %}
+                <img src="default-image.jpg" class="img-fluid experience-img rounded mb-4" alt="No Image Available">
+                {% endif %}
+            </div>
+
+            <!-- Booking Information -->
+            <div class="col-lg-5">
+                <div class="booking-section">
+                    <h3 class="text-center mb-3">Book This Experience</h3>
+                    <ul class="list-group list-group-flush mb-3">
+                        <li class="list-group-item"><strong>Price:</strong> ${{ experience.price }}</li>
+                        <li class="list-group-item"><strong>Available Slots:</strong> {{ experience.available_slots }}</li>
+                        <li class="list-group-item"><strong>Start Date:</strong> {{ experience.start_date }}</li>
+                        <li class="list-group-item"><strong>End Date:</strong> {{ experience.end_date }}</li>
+                        <li class="list-group-item"><strong>Duration:</strong> {{ experience.duration }}</li>
+                    </ul>
+                    <div class="d-grid">
+                        <a href="{% url 'experience_payment' experience.id %}" class="btn btn-book-now btn-lg">Book Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Description and Details -->
+        <div class="row mt-5">
+            <div class="col-lg-8">
+                <div class="details-card">
+                    <h4>Description</h4>
+                    <p>{{ experience.description }}</p>
+                    <h4>What to Bring</h4>
+                    <p>{{ experience.what_to_bring|default:"Not specified" }}</p>
+                    <h4>Special Requirements</h4>
+                    <p>{{ experience.requirements|default:"None" }}</p>
+                </div>
+            </div>
+
+            <!-- Rating and Reviews -->
+            <div class="col-lg-4">
+                <div class="details-card">
+                    <h4>Rating</h4>
+                    <div class="rating mb-3">
+                        <!-- Full stars -->
+                        {% for i in full_stars|make_list %}
+                        <i class="fa fa-star"></i>
+                        {% endfor %}
+                        
+                        <!-- Half star -->
+                        {% if half_star %}
+                        <i class="fa fa-star-half-alt"></i>
+                        {% endif %}
+                        
+                        <!-- Empty stars -->
+                        {% for i in empty_stars|make_list %}
+                        <i class="fa fa-star-o"></i>
+                        {% endfor %}
+                        
+                        ({{ experience.rating }} / 5.0)
+                    </div>
+                    <h4>Tags</h4>
+                    <span class="badge bg-primary">{{ experience.tags|join:", " }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Vendor Info and Additional Features -->
+        <div class="row mt-5">
+            <div class="col-lg-12">
+                <div class="details-card">
+                    <h4>About the Host</h4>
+                    <p>{{ experience.vendor.business_name }} offers this unique experience in {{ experience.location }}.</p>
+                    <p><strong>Contact Information:</strong> {{ experience.vendor.contact_info }}</p>
+                    <p><strong>Reviews:</strong> Coming soon...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center mt-5">
+        <p>&copy; 2024 Experience Booking Platform</p>
+    </footer>
+
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
