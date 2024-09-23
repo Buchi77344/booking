@@ -90,6 +90,10 @@ body{
     gap : 10px;
 }
 
+.gp-15{
+    gap : 15px;
+}
+
 .gp-20{
     gap : 20px;
 }
@@ -111,7 +115,9 @@ ul{
 }
 
 button,
-input{
+input,
+select,
+textarea{
     border : none;
     font-family: var(--font-family);
 }
@@ -368,6 +374,7 @@ span.search-icon{
 .days-container{
     display: grid;
     grid-template-columns: repeat(7, minmax(30px, 1fr));
+    column-gap: 7px;
 }
 
 .weekday-span,
@@ -398,7 +405,11 @@ span.search-icon{
 
 .day-cell.active{
     background-color: hsl(0, 0%, 20%);
-    color : hsl(0, 0%, 95%)
+    color : hsl(0, 0%, 95%);
+}
+
+.day-cell.active:hover{
+    outline : none;
 }
 
 .profile-container{
@@ -615,7 +626,7 @@ span.search-icon{
 }
 
 .profile-form .input-container{
-    gap : 0px;
+    gap : 5px;
 }
 
 .profile-picture-img{
@@ -778,7 +789,11 @@ input[type = "file"].form-input::file-selector-button{
 }
 
 .external-links-container{
-    margin-top : 10px;
+    margin-bottom : 10px;
+}
+
+.signin.form-page .external-links-container{
+    margin-bottom: 20px;
 }
 
 .external-links-text{

@@ -13,10 +13,10 @@
         <header>
             <nav>
                 <div class="nav flex-between">
-                    <div class="logo-container flex gp-10">
+                    <a href = "/" class="logo-container flex gp-10">
                         <img class = "logo-img" src="{% static 'img/booking-logo.png' %}" alt="logo for experience hotspot">
                         <span class = "logo-text">Experience Hotspot</span>
-                    </div>
+                    </a>
     
                     <div class="stay-links-container">
                         <a href="#" class="stay-link">Stay</a>
@@ -93,7 +93,7 @@
                         </div>
                     </div>
 
-                    <div class="date-wrapper category-box w-20">
+                    <div class="checkin date-wrapper category-box w-20">
                         <div class="category-highlight">
                             <div class="category-field-container">
                                 <span class="category-name">Check in</span>
@@ -101,7 +101,7 @@
                             </div>
                         </div>
 
-                        <div class="show-drop date-content-container">
+                        <div class="show-drop checkin date-content-container">
                             <div class="date-div-container flex-between">
                                 <span class= "dates-span">Dates</span>
                                 <span class= "months-span">Months</span>
@@ -133,11 +133,43 @@
                         </div>
                     </div>
 
-                    <div class="category-box w-20">
+                    <div class="checkout date-wrapper category-box w-20">
                         <div class="category-highlight">
                             <div class="category-field-container">
                                 <span class="category-name">Check out</span>
                                 <span class="category-val">Add dates</span>
+                            </div>
+                        </div>
+
+                        
+                        <div class="show-drop checkout date-content-container">
+                            <div class="date-div-container flex-between">
+                                <span class= "dates-span">Dates</span>
+                                <span class= "months-span">Months</span>
+                                <span class= "flexible-span">I'm flexible</span>
+                            </div>
+
+                            <div class="calendar-controls">
+                                <span class="cal-prev"></span>
+                                <span class="cal-next"></span>
+                            </div>
+
+                            <div class="calendar-container flex-scroll">
+                                <!-- <div class="calendar">
+                                    <div class="month-name-container">
+                                        <span class="month-name-span">September 2024</span>
+                                    </div>
+                                    <div class="weekdays-container">
+                                        <span class="weekday-span">Su</span>
+                                        <span class="weekday-span">Mo</span>
+                                        <span class="weekday-span">Tu</span>
+                                        <span class="weekday-span">We</span>
+                                        <span class="weekday-span">Th</span>
+                                        <span class="weekday-span">Fr</span>
+                                        <span class="weekday-span">Sa</span>
+                                    </div>
+                                    <div class="days-container"></div>
+                                </div> -->
                             </div>
                         </div>
                     </div>

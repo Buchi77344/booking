@@ -13,16 +13,17 @@
         <div class = "form-page">
             <div class = "form-container wrapper flex-between">
                 <div class="form-graphics-container flex-column">
-                    <div class = "logo-container">
-                        <span class = "logo-text">EXPERIENCE HOTSPOT</span>
-                    </div>
+                    <a href = "/" class="logo-container flex gp-10">
+                        <img class = "logo-img" src="{% static 'img/booking-logo.png' %}" alt="logo for experience hotspot">
+                        <span class = "logo-text">Experience Hotspot</span>
+                    </a>
                     
                     <div class = "graphics-wrapper">
                         <img src="{% static 'img/profile-graphics-removebg.png' %}" alt="" class="img-grpahics">
                     </div>
                 </div>
                 <div class="acct-form-wrapper ">
-                    <form class= "profile-form flex-column gp-10" method="POST" enctype="multipart/form-data">
+                    <form class= "profile-form flex-column gp-15" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="profile-pic-container flex gp-20">
                             <div class="profile-img-container">
