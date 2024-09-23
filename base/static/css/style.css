@@ -299,6 +299,7 @@ input.category-field{
     max-height : 450px;
     overflow-y: auto;
     display: none;
+    z-index: 100;
 }
 
 .reveal{
@@ -495,13 +496,13 @@ span.mobile.search-icon svg path{
 }
 
 .love-icon-span{
-    width : 50px;
-    height : 50px;
+    width : 30px;
+    height : 30px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    background-color: hsla(0, 0%, 10%, .3);
+    background-color: transparent;
     position: absolute;
     top : 20px;
     right : 15px;
@@ -510,21 +511,21 @@ span.mobile.search-icon svg path{
 .love-icon{
     width : 25px;
     height : 25px;
-    stroke: hsl(0, 0%, 100%);
-    fill: transparent;
+    stroke: transparent;
+    fill: white;
     transition: transform .2s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
 
 .love-icon-span.animate svg{
     transform: scale(1.1);
-    fill : hsl(0, 87%, 50%);
+    fill : #7c89f1;
     stroke: transparent;
 }
 
 .love-icon-span.reverse svg{
     transform: scale(1);
-    stroke: hsl(0, 0%, 100%);
-    fill : transparent;
+    stroke: transparent;
+    fill: white;
 }
 
 .util-card-content-name{
