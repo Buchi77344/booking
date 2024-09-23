@@ -181,3 +181,23 @@ if(document.querySelector(".calendar-container")){
 
  
 }
+
+if(document.querySelector(".love-icon")){
+    const loveIcon = document.querySelectorAll(".love-icon-span");
+
+
+    loveIcon.forEach(icon => {
+        let isLiked = false;
+        icon.addEventListener("click", () => {
+            if (!isLiked) {
+                icon.classList.remove("reverse");
+                icon.classList.add("animate");
+            } else {
+                icon.classList.remove("animate");
+                icon.classList.add("reverse");
+            }
+            isLiked = !isLiked;  // Toggle the state
+        });
+    })
+
+}
