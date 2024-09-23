@@ -357,7 +357,7 @@ span.search-icon{
     width : 55px;
     height : 55px;
     border-radius: 50%;
-    background-color: rgb(197, 21, 21);
+    background-color: var(--logo-clr);
 }
 
 span.mobile.search-icon{
@@ -492,7 +492,7 @@ span.mobile.search-icon svg path{
 }
 
 .util-card-head{
-    font-size : clamp(2rem, 3.5vw, 2.5rem);
+    font-size : clamp(2rem, 3.5vw, 2.2rem);
     margin-bottom: 15px;
 }
 
@@ -548,7 +548,7 @@ span.mobile.search-icon svg path{
 
 .love-icon-span.animate svg{
     transform: scale(1.1);
-    fill : #5e90e8;
+    fill : #e11710e0;
     stroke: transparent;
 }
 
@@ -612,7 +612,7 @@ span.mobile.search-icon svg path{
 }
 
 .logo-text{
-    color : var(--logo-clr);
+    color : hsl(0,0%,20%);
     font-weight : 500;
     font-size: clamp(.85rem, 3.5vw, 1rem);
 }
