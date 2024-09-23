@@ -188,7 +188,8 @@ if(document.querySelector(".love-icon")){
 
     loveIcon.forEach(icon => {
         let isLiked = false;
-        icon.addEventListener("click", () => {
+        icon.addEventListener("click", (e) => {
+            e.preventDefault()
             if (!isLiked) {
                 icon.classList.remove("reverse");
                 icon.classList.add("animate");
