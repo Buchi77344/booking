@@ -27,8 +27,9 @@
                             <a href="{% url 'privacy' %}" class="experience-link">Privacy Policy</a>
                             
                         </div>
-    
+                        {% if not request.user.is_authenticated %}
                          <a href="{% url 'signin' %}" class="login-link">Login</a>
+                         {% endif %}
                          {%  if request.user.is_authenticated %}
                          <div class="profile-container">
                             <div class="profile-cta flex gp-10">
@@ -85,6 +86,7 @@
                          </div>
                          {%  endif %}
 
+                         {% if  request.user.is_authenticated %}
                          <div class="watchlist-container">
                             <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
                             <svg fill="#000000" width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -93,6 +95,7 @@
 
                             <span class="watchlist-number">1</span>
                          </div>
+                         {%  endif %}
                     </div>
                 </nav>
                 {% block context %}
