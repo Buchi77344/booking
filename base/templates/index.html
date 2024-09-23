@@ -211,66 +211,6 @@
             </nav>
         </header>
         <main>
-<<<<<<< HEAD
-            <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Experiences</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    <div class="container my-5">
-        <h1 class="mb-4">Available Experiences</h1>
-
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-            {% for experience in experiences %}
-            <div class="col">
-                <div class="card h-100">
-                    <!-- Experience Image -->
-                    {% if experience.images %}
-                    <img src="{{ experience.images.url }}" class="card-img-top" alt="{{ experience.title }}">
-                    {% else %}
-                    <img src="default-image.jpg" class="card-img-top" alt="No Image Available">
-                    {% endif %}
-
-                    <div class="card-body">
-                        <!-- Experience Title -->
-                        <h5 class="card-title">{{ experience.title }}</h5>
-
-                        <!-- Location and Price -->
-                        <p class="card-text"><strong>Location:</strong> {{ experience.location }}</p>
-                        <p class="card-text"><strong>Price:</strong> ${{ experience.price }}</p>
-
-                        <!-- Short Description -->
-                        <p class="card-text">{{ experience.description|truncatewords:20 }}</p>
-
-                        <!-- Rating -->
-                        <p class="card-text"><strong>Rating:</strong> {{ experience.rating }} / 5.0</p>
-
-                        <!-- Availability -->
-                        <p class="card-text"><strong>Available Slots:</strong> {{ experience.available_slots }}</p>
-
-                        <!-- Vendor Info -->
-                        <p class="card-text"><strong>Vendor:</strong> {{ experience.vendor.business_name }}</p>
-                    </div>
-
-                    <!-- Card Footer -->
-                    <div class="card-footer">
-                        <a href="{% url 'experience' experience.pk %}" class="btn btn-primary w-100">View Details</a>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
-
-=======
             <div class="main-content">
                 <div class="util-card-wrapper">
                     <div class="util-card-container grid">
@@ -1075,7 +1015,6 @@
                 </div>
                 </div>
             </div>
->>>>>>> 5af95982a0f1e46d0fad3edaeaff30f509ba0f9f
         </main>
         <footer></footer>
     </div>
