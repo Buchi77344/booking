@@ -165,6 +165,10 @@ svg path{
     min-height : 100vh;
 }
 
+.main-page{
+    background-color: #7c8af117;
+}
+
 .nav{
     padding: 10px 30px
 }
