@@ -128,3 +128,11 @@ class Transaction(models.Model):
 
     def __str__(self):
         return f"Transaction {self.order_id} for {self.experience.title}"
+
+class Watchlist(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='watchlist')
+    experience = models.ForeignKey(Experience, on_delete=models.CASCADE, related_name='in_watchlist')
+    added_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.user.username} - {self.experience.title}'

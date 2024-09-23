@@ -338,3 +338,55 @@ def payment_success(request):
         'error': 'Invalid request method. Please use POST.'
     })
 
+
+
+def contact (request):
+    return render(request, 'contact.html')
+
+def about (request):
+    return render(request, 'about.html')
+
+
+from django.shortcuts import get_object_or_404
+from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+from .models import Experience, Watchlist
+
+@login_required(login_url='login')
+def add_to_watchlist(request, experience_id):
+    if request.method == 'POST':
+        experience = get_object_or_404(Experience, id=experience_id)
+        watchlist_item, created = Watchlist.objects.get_or_create(user=request.user, experience=experience)
+
+        if created:
+            return JsonResponse({'message': 'Experience added to watchlist'}, status=201)
+        else:
+            return JsonResponse({'message': 'Experience is already in your watchlist'}, status=200)
+
+@login_required(login_url='login')
+def remove_from_watchlist(request, experience_id):
+    if request.method == 'DELETE':
+        experience = get_object_or_404(Experience, id=experience_id)
+        watchlist_item = get_object_or_404(Watchlist, user=request.user, experience=experience)
+        watchlist_item.delete()
+
+        return JsonResponse({'message': 'Experience removed from watchlist'}, status=200)
+    
+@login_required(login_url='login')
+def view_watchlist(request):
+    watchlist = Watchlist.objects.filter(user=request.user)
+    watchlist_data = [{
+        'title': item.experience.title,
+        'description': item.experience.description,
+        'price': item.experience.price,
+        'start_date': item.experience.start_date,
+        'end_date': item.experience.end_date,
+        'location': item.experience.location,
+    } for item in watchlist]
+
+    return JsonResponse({'watchlist': watchlist_data}, status=200)
+
+@login_required(login_url='login')
+def countwatch(request):
+    count = Watchlist.objects.filter(user=request.user).count()
+    return JsonResponse({'count':count},status=200)

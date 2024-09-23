@@ -10,6 +10,12 @@ urlpatterns = [
     path('experience/<int:pk>/',views.experience,name="experience"),
     path('experience/<int:id>/payment/', views.experience_payment, name='experience_payment'),
     path('payment-success/', views.payment_success, name='payment_success'),
+    path('contact',views.contact,name="contact"),
+    path('about',views.about,name="about"),
+    path('add-to-watchlist/<int:experience_id>/', views.add_to_watchlist, name='add_to_watchlist'),
+    path('remove-from-watchlist/<int:experience_id>/', views.remove_from_watchlist, name='remove_from_watchlist'),
+    path('watchlist/', views.view_watchlist, name='view_watchlist'),
+
     
  
 ]
