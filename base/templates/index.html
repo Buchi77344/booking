@@ -3,39 +3,45 @@
 {% block context %}
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Add to Watchlist
-        const addButtons = document.querySelectorAll('.add-watchlist-btn');
-        addButtons.forEach(button => {
+        // Add/Remove to/from Watchlist
+        const watchlistButtons = document.querySelectorAll('.add-watchlist-btn');
+        
+        watchlistButtons.forEach(button => {
             button.addEventListener('click', function() {
                 const experienceId = this.getAttribute('data-id');
-                fetch(`/add-to-watchlist/${experienceId}/`, {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRFToken': getCookie('csrftoken'),
-                    },
-                })
-                .then(response => response.json())
-                .then(data => {
-                    
-                });
-            });
-        });
+                const isWatched = this.getAttribute('data-watched') === 'true'; // Check if it is already watched
     
-        // Remove from Watchlist
-        const removeButtons = document.querySelectorAll('.remove-watchlist-btn');
-        removeButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const experienceId = this.getAttribute('data-id');
-                fetch(`/remove-from-watchlist/${experienceId}/`, {
-                    method: 'DELETE',
-                    headers: {
-                        'X-CSRFToken': getCookie('csrftoken'),
-                    },
-                })
-                .then(response => response.json())
-                .then(data => {
-                    alert(data.message);
-                });
+                if (isWatched) {
+                    // Remove from watchlist
+                    fetch(`/remove-from-watchlist/${experienceId}/`, {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRFToken': getCookie('csrftoken'),
+                        },
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Successfully removed from watchlist
+                        this.setAttribute('data-watched', 'false');
+                        this.classList.remove('watched'); // Update button style (optional)
+                       
+                    });
+                } else {
+                    // Add to watchlist
+                    fetch(`/add-to-watchlist/${experienceId}/`, {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRFToken': getCookie('csrftoken'),
+                        },
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Successfully added to watchlist
+                        this.setAttribute('data-watched', 'true');
+                        this.classList.add('watched'); // Update button style (optional)
+                        
+                    });
+                }
             });
         });
     
@@ -46,7 +52,6 @@
                 const cookies = document.cookie.split(';');
                 for (let i = 0; i < cookies.length; i++) {
                     const cookie = cookies[i].trim();
-                    // Does this cookie string begin with the name we want?
                     if (cookie.substring(0, name.length + 1) === (name + '=')) {
                         cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
                         break;
@@ -56,6 +61,7 @@
             return cookieValue;
         }
     });
+    
     </script>
 
                 <div class="banner-content-container">
@@ -238,7 +244,7 @@
                             <a href = "{% url 'experience' experience.pk  %}" class="util-card">
                                 <div class="util-card-img-container">
                                     <img src="{{experience.images.url}}" alt="Picture of a woman in a nice background" class="util-card-img">
-                                    <span data-id = "{{ experience.id }}" class="add-watchlist-btn love-icon-span">
+                                    <span data-id = "{{ experience.id }}"  data-watched="false" class="add-watchlist-btn love-icon-span">
                                         <?xml version="1.0" ?>
                                         <!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'>
                                         <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
