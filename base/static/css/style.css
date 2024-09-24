@@ -526,7 +526,7 @@ span.mobile.search-icon svg path{
 
 .watchlist-container{
     position: relative;
-    margin-left: auto;
+    /* margin-left: auto; */
 }
 
 .watchlist-number {
