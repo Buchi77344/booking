@@ -132,10 +132,6 @@ if(document.querySelector(".calendar-container")){
         }
 
         // Append the month container to the main calendar container
-        for (const [index, cal] of calendarContainer.entries()) {
-            console.log(calendarContainer)
-            console.log([index])
-        }
         let calendarEl = document.querySelectorAll(".calendar")
         calendarEl.forEach(cal => {
             const dayCell = cal.querySelectorAll(".day-cell")   
@@ -205,7 +201,29 @@ if(document.querySelector(".love-icon")){
     let profileCta = document.querySelector(".profile-cta")
     let profileDropDown = document.querySelector(".profile-drop-down")
     console.log(profileCta)
-    profileCta.addEventListener("click", () =>{
-        profileDropDown.classList.toggle("visible")
+    if(document.querySelector(".profile-cta")){
+        profileCta.addEventListener("click", () =>{
+            profileDropDown.classList.toggle("visible")
+        })
+    }
+}
+
+//Animation on scroll
+
+const observerCallback = (entries, observer) => {
+    entries.forEach((entry, index) => {
+        if(entry.isIntersecting){
+            entry.target.classList.add("anim")
+            entry.target.style.animationDelay = `${index * 0.5}s`
+        }
     })
 }
+
+const options = {
+    root : null,
+    threshold : 0.5
+}
+
+const observer = new IntersectionObserver(observerCallback, options)
+const observedElements = document.querySelectorAll(".util-card, .util-card-head")
+observedElements.forEach(el => observer.observe(el))
