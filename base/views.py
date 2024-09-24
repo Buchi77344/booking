@@ -175,6 +175,10 @@ def signin(request):
             return redirect('signin')
     return render (request, 'signin.html')
 
+def logout(request):
+    auth.logout(request)
+    return redirect('signin')
+
 from django_countries import countries
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib import messages
@@ -390,3 +394,24 @@ def view_watchlist(request):
 def countwatch(request):
     count = Watchlist.objects.filter(user=request.user).count()
     return JsonResponse({'count':count},status=200)
+
+
+
+# from base.forms import SearchForm 
+# from django.db.models import Q
+# @login_required(login_url='admins:login')
+# def search(request):
+    
+#     form = SearchForm()
+#     query = None
+#     result = []
+#     if 'query' in request.GET:
+#         form = SearchForm(request.GET)
+#         if form.is_valid():
+#             query = form.cleaned_data['query']
+#             result = Experience.objects.filter(
+#                 Q(generated_id__icontains=query) |
+#                 Q(user__username__icontains=query)|
+#                 Q(user__last_name__icontains=query)
+#             )
+#     return render(request, 'admins/search.html', {'form': form, 'query': query, 'result': result})

@@ -683,7 +683,7 @@ span.mobile.search-icon svg path{
 
 .util-card-price{
     width : 25%;
-    background-color: var(--variant-clr);
+    background-color: #0a0a0a;
     margin-top: 10px;
     padding: 4px 10px;
     border-radius: 10px;

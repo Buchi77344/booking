@@ -178,9 +178,10 @@
                         <div class="util-card-container grid">
 
                             <!-- Start Loop Here-->
-                            <a href = "#" class="util-card">
+                             {% for experience in experiences %}
+                            <a href = "{% url 'experience' experience.pk  %}" class="util-card">
                                 <div class="util-card-img-container">
-                                    <img src="{% static 'img/gallery-img_1.jpg' %}" alt="Picture of a woman in a nice background" class="util-card-img">
+                                    <img src="{{experience.images.url}}" alt="Picture of a woman in a nice background" class="util-card-img">
                                     <span class="love-icon-span">
                                         <?xml version="1.0" ?>
                                         <!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'>
@@ -252,7 +253,7 @@
                                 </div>
                                 <div class="util-card-content flex-between">
                                     <div class= "util-card-details">
-                                        <p class="util-card-content-name">Stay in Prince's Purple Rain House</p>
+                                        <p class="util-card-content-name">{{experience.title}}</p>
                                         <div class="location-container flex gp-5">
                                             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#f2f2f2">
                                                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -262,7 +263,7 @@
                                                     <path d="M12 12C13.1046 12 14 11.1046 14 10C14 8.89543 13.1046 8 12 8C10.8954 8 10 8.89543 10 10C10 11.1046 10.8954 12 12 12Z" stroke="#f2f2f2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> 
                                                 </g>
                                             </svg>
-                                            <p class="util-card-content-time">Lagos, Nigeria</p>
+                                            <p class="util-card-content-time">{{experience.location}}</p>
                                         </div>
                                     </div>
 
@@ -274,10 +275,11 @@
                                         <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                         </svg>
 
-                                        <span class="price-span">$20</span>
+                                        <span class="price-span">₹{{experience.price}}</span>
                                     </div>
                                 </div>
                             </a>
+                            {% endfor %}
                             <!-- End Loop Here-->
                         </div>
                     </div>
