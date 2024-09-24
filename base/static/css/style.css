@@ -199,7 +199,7 @@ svg path{
     padding : 7px 30px;
     border-radius: 10px;
     letter-spacing: 1px;
-    margin: 0px 15px 0px auto;
+    margin: 0px 20px 0px;
 }
 
 .category-container {
@@ -526,7 +526,7 @@ span.mobile.search-icon svg path{
 
 .watchlist-container{
     position: relative;
-    margin-left: 7px;
+    margin-left: auto;
 }
 
 .watchlist-number {
