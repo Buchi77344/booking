@@ -214,6 +214,11 @@ svg path{
     border-radius: 50px;
 }
 
+.category-container.trans-down{
+    animation-delay: 1.5s;
+    
+}
+
 .mobile.category-container{
     display: none;
 }
@@ -586,9 +591,17 @@ span.mobile.search-icon svg path{
     gap : 25px;
 }
 
+.util-card{
+    max-width: 500px;
+    transform: translateY(20px);
+    opacity: 0;
+}
+
 .util-card-head{
     font-size : clamp(2rem, 3.5vw, 2.2rem);
     margin-bottom: 15px;
+    transform: translateY(20px);
+    opacity: 0;
 }
 
 .util-card-img-container{
@@ -728,10 +741,18 @@ span.mobile.search-icon svg path{
     text-align: center;
 }
 
+.typewriter-cursor{
+    animation : fade 1s infinite steps(1);
+}
+
 .banner-content-text{
     font-size : 1.18rem;
     text-align: center;
     color: hsla(0, 0%, 98%, 0.6);
+}
+
+.banner-content-text.trans-down{
+    animation-delay: 0.8s;
 }
 
 .profile-img{
@@ -1119,6 +1140,33 @@ input[type = "file"].form-input::file-selector-button{
 .external-link svg{
     width : 20px;
     height : 20px;
+}
+
+.trans-down{
+    transform: translateY(20px);
+    opacity: 0;
+    animation: moveUp 1s ease forwards;
+}
+
+.anim{
+    animation: moveUp 1s ease forwards;
+}
+
+@keyframes moveUp {
+    to{
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fade {
+    0%, 100%{
+        opacity: 0;
+    }
+
+    50%{
+        opacity: 1;
+    }
 }
 
 @media(max-width : 1000px){
