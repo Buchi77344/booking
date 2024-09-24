@@ -166,7 +166,7 @@ svg path{
 }
 
 .nav{
-    padding: 10px 30px
+    padding: 10px 70px
 }
 
 .nav.flex-between{
@@ -256,6 +256,14 @@ svg path{
     background-color: hsl(0, 0%, 90%);
 }
 
+.category-highlight:hover .category-name{
+    color : hsl(0, 0%, 10%)
+}
+
+.category-highlight:hover .category-val{
+    color : hsla(0, 0%, 10%, .7)
+}
+
 .guest-container .category-highlight{
     padding-right: 10px;
 }
@@ -275,7 +283,7 @@ svg path{
 .category-name{
     font-size: .9rem;
     font-weight: 600;
-    color: hsl(0, 0%, 20%);
+    color: hsl(0, 0%, 95%);
 }
 
 input.category-field{
@@ -285,7 +293,7 @@ input.category-field{
 }
 
 .category-val {
-    color: hsl(0, 0%, 10%, .6);
+    color: hsl(0, 0%, 95%, .6);
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
@@ -568,6 +576,20 @@ span.mobile.search-icon svg path{
     margin-top: 0px;
 }
 
+.banner-content-container{
+    height : 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: url("../img/booking-banner-2.jpg") hsl(0,0%,10%, .6);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin : 10px auto;
+    width : 95%;
+    background-blend-mode: darken;
+    border-radius: 30px;
+}
 
 .profile-img{
     width : 40px;   
