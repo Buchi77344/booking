@@ -492,7 +492,7 @@ span.mobile.search-icon svg path{
 }
 
 .util-card-head{
-    font-size : clamp(2rem, 3.5vw, 2.3rem);
+    font-size : clamp(2rem, 3.5vw, 2.2rem);
     margin-bottom: 15px;
 }
 
