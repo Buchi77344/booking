@@ -178,9 +178,9 @@ svg path{
     height: 20px;
 }
 
-.nav-links-container{
+/* .nav-links-container{
     margin-left: auto;
-}
+} */
 
 .nav-links-container a{
     font-weight : 500;
@@ -193,13 +193,17 @@ svg path{
     background-color: hsl(0,0%,95%);
 }
 
+/* .profile-cta-container{
+    margin-left: auto;
+} */
+
 .login-link{
     background-color: hsl(0, 0%, 20%);
     color : hsl(0 0% 98%);
     padding : 7px 30px;
     border-radius: 10px;
     letter-spacing: 1px;
-    margin: 0px 15px 0px auto;
+    /* margin: 0px 20px 0px; */
 }
 
 .category-container {
@@ -526,7 +530,7 @@ span.mobile.search-icon svg path{
 
 .watchlist-container{
     position: relative;
-    margin-left: 7px;
+    /* margin-left: auto; */
 }
 
 .watchlist-number {
