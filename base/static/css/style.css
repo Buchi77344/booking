@@ -310,7 +310,7 @@ input.category-field::placeholder{
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
-    font-size: clamp(.8rem, 3.5vw, 1rem);
+    font-size: clamp(.6rem, 3.5vw, 1rem);
 }
 
 .show-drop{
@@ -386,7 +386,11 @@ span.mobile.search-icon svg{
 }
 
 span.mobile.search-icon svg path{
-    stroke : black;
+    stroke : hsl(0 0% 95%);
+}
+
+.mobile.category-container:hover span.mobile.search-icon svg path{
+    stroke : hsl(0 0% 35%);
 }
 
 .date-div-container{
@@ -714,16 +718,19 @@ span.mobile.search-icon svg path{
     width : 95%;
     background-blend-mode: darken;
     border-radius: 30px;
+    padding : 0px 10px;
 }
 
 .banner-content-head{
-    font-size : clamp(3rem, 4.5vw, 4rem);
+    font-size : clamp(2.7rem, 4.5vw, 4rem);
     color: hsla(0, 0%, 98%, 0.8);
-    line-height: 100%;
+    line-height: 1.2;
+    text-align: center;
 }
 
 .banner-content-text{
     font-size : 1.18rem;
+    text-align: center;
     color: hsla(0, 0%, 98%, 0.6);
 }
 
@@ -1140,7 +1147,11 @@ input[type = "file"].form-input::file-selector-button{
     }
 }
 
-@media(max-width : 800px){
+@media(max-width : 950px){
+    .nav{
+        padding : 10px 30px;
+    }
+
     .category-container{
         display: none;
     }
@@ -1152,6 +1163,8 @@ input[type = "file"].form-input::file-selector-button{
     .nav-links-container{
         display: none;
     }
+
+
 }
 
 @media(max-width : 500px){
@@ -1166,6 +1179,10 @@ input[type = "file"].form-input::file-selector-button{
 
    .profile-form.flex-column{
         gap : 0px;
+   }
+
+   .mobile.category-container{
+        margin-top: 20px;
    }
 }
 
