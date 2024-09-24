@@ -178,6 +178,10 @@ svg path{
     height: 20px;
 }
 
+.nav-links-container{
+    margin-left: auto;
+}
+
 .nav-links-container a{
     font-weight : 500;
     font-size : 1.1rem;
@@ -195,12 +199,13 @@ svg path{
     padding : 7px 30px;
     border-radius: 10px;
     letter-spacing: 1px;
+    margin: 0px 15px 0px auto;
 }
 
 .category-container {
     width: 90%;
     max-width: 1100px;
-    margin: 20px auto 0px;
+    margin: 40px auto 0px;
     border: 1px solid hsl(0 0% 70%);
     border-radius: 50px;
 }
@@ -292,8 +297,12 @@ input.category-field{
     outline: none;
 }
 
+input.category-field::placeholder{
+    color : hsla(0, 0%, 98%, 0.7)
+}
+
 .category-val {
-    color: hsl(0, 0%, 95%, .6);
+    color: hsl(0, 0%, 95%, .7);
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
@@ -462,14 +471,57 @@ span.mobile.search-icon svg path{
     border : 1px solid hsl(0 0% 50%);
     border-radius : 50px;
     /* width : 60px; */
-    height : 45px;
-    padding: 7px 5px;
+    /* height : 45px; */
+    padding: 7px 12px;
+    position: relative;
 }
 
-.hamburger-img{
+.profile-cta{
+    height : 100%;
+    cursor: pointer;
+}
+
+.hamburger{
+    width : 30px;
+    height : 30px;   
+}
+
+.hamburger span{
+    height : 2px;
+    width : 100%;
+    background-color: hsl(0, 0%, 10%);
+}
+
+.profile-icon{
     width : 30px;
     height : 30px;
-    
+}
+
+.profile-drop-down {
+    padding: 10px 0px;
+    background-color: hsl(0, 0%, 95%);
+    position: absolute;
+    top: 120%;
+    width: 170px;
+    left: -20px;
+    display: none;
+    z-index: 10;
+}
+
+.profile-drop-down.visible{
+    display: block;
+}
+
+.profile-list{
+    list-style: none;
+}
+
+.profile-link{
+    padding : 5px 15px;
+}
+
+.profile-link:hover{
+    background-color: hsl(0 0% 88%);
 }
 
 .web-img{
@@ -519,7 +571,7 @@ span.mobile.search-icon svg path{
 
 .util-card-img{
     width : 100%;
-    height : 280px;
+    height : 230px;
     object-fit: cover;
     border-radius: 10px;
 }
@@ -558,11 +610,44 @@ span.mobile.search-icon svg path{
     fill: white;
 }
 
+.util-card-content.flex-between{
+    align-items: flex-start;
+}
+
 .util-card-content-name{
     font-weight: 600;
     margin-bottom: 0px;
     font-size: 1.1rem;
     color: hsl(0, 0%, 30%);
+}
+
+.util-card-details{
+    width : 70%;
+}
+
+.util-card-price{
+    width : 25%;
+    background-color: var(--variant-clr);
+    margin-top: 10px;
+    padding: 4px 10px;
+    border-radius: 10px;
+}
+
+.util-card-price svg{
+    width: 25px;
+    height: 25px;
+}
+
+.util-card-price svg path{
+    stroke: hsl(0 0% 93%);
+}
+
+.price-span{
+    color : hsl(0, 0%, 93%)
+}
+
+.location-container svg path{
+    stroke: hsl(0, 0%, 20%);
 }
 
 .util-card-content-host{
@@ -577,11 +662,12 @@ span.mobile.search-icon svg path{
 }
 
 .banner-content-container{
-    height : 60vh;
+    height : 70vh;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: url("../img/booking-banner-2.jpg") hsl(0,0%,10%, .6);
+    background: url("../img/booking-banner-2.jpg") hsl(0,0%,10%, .7);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -589,6 +675,17 @@ span.mobile.search-icon svg path{
     width : 95%;
     background-blend-mode: darken;
     border-radius: 30px;
+}
+
+.banner-content-head{
+    font-size : clamp(3rem, 4.5vw, 4rem);
+    color: hsla(0, 0%, 98%, 0.8);
+    line-height: 100%;
+}
+
+.banner-content-text{
+    font-size : 1.18rem;
+    color: hsla(0, 0%, 98%, 0.6);
 }
 
 .profile-img{

@@ -201,4 +201,11 @@ if(document.querySelector(".love-icon")){
         });
     })
 
+
+    let profileCta = document.querySelector(".profile-cta")
+    let profileDropDown = document.querySelector(".profile-drop-down")
+    console.log(profileCta)
+    profileCta.addEventListener("click", () =>{
+        profileDropDown.classList.toggle("visible")
+    })
 }
