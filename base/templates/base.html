@@ -21,15 +21,33 @@
                         </a>
         
                         <div class="nav-links-container">
-                            <a href="/" class="stay-link">Home</a>
-                            <a href="{% url 'about' %}" class="experience-link">About</a>
-                            <a href="{% url 'contact' %}" class="experience-link">Contact Us</a>
-                            <a href="{% url 'privacy' %}" class="experience-link">Privacy Policy</a>
+                            <ul class="flex gp-10">
+                                <li><a href="/" class="stay-link">Home</a></li>
+                                <li><a href="{% url 'about' %}" class="experience-link">About</a></li>
+                                <li><a href="{% url 'contact' %}" class="experience-link">Contact Us</a></li>
+                                <li><a href="{% url 'privacy' %}" class="experience-link">Privacy Policy</a></li>
+                            </ul>
+                            
+                        </div>
+
+                        <div class="mobile nav-links-container">
+                            <ul class="flex-column gp-20">
+                                <li><a href="/" class="stay-link">Home</a></li>
+                                <li><a href="{% url 'about' %}" class="experience-link">About</a></li>
+                                <li><a href="{% url 'contact' %}" class="experience-link">Contact Us</a></li>
+                                <li><a href="{% url 'privacy' %}" class="experience-link">Privacy Policy</a></li>
+                            </ul>
                             
                         </div>
 
                         <div class="profile-cta-container flex gp-20">
                             
+                            <div class="mobile hamburger flex-column gp-5">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+
                             {% if  request.user.is_authenticated %}
                         <a href="{% url 'watch' %}">    <div class="watchlist-container">
                                <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
@@ -115,7 +133,7 @@
                             <p>Explore unique experiences, tours, and adventures with us. Book your next experience today and make memories to last a lifetime.</p>
                         </div>
                 
-                        <div class="footer-section links">
+                        <div class="footer-section links flex-column">
                             <h2>Quick Links</h2>
                             <ul>
                                 <li><a href="#">Home</a></li>
@@ -163,24 +181,39 @@
                                 text : word,
                                 duration : 2
                             })
-            
-                            mainTimeline.add(textTimeline)
-                        })
-                        
+                        })    
                     }catch(error){
                         if(error){
                             console.log(error)
                             document.querySelector(".typewriter-text").textContent = "Welcome To Experience Hotspot"
                         }
                     }
+                    
+
+                    function handleScreenChange(e){
+                        if(e.matches){
+                            gsap.killTweensOf(".typewriter-text")
+                            document.querySelector(".typewriter-cursor").style.display = "none"
+                            document.querySelector(".typewriter-text").textContent = "Welcome To Experience Hotspot"
+                        }else{
+                            document.querySelector(".typewriter-text").textContent = ""
+                            typeAnim()
+                            document.querySelector(".typewriter-cursor").style.display = "inline"
+                        }
+                    }
+
+                    typeMediaQuery.addListener(handleScreenChange)
+                    typeAnim()
                 </script>
+               
+           
+        
 
                 <style>
                     footer {
                         background-color: #000;
                         color: #fff;
                         padding: 40px 0;
-                        font-family: 'Arial', sans-serif;
                     }
                     
                     .footer-container {
@@ -189,13 +222,19 @@
                         flex-wrap: wrap;
                         max-width: 1200px;
                         margin: 0 auto;
-                        padding: 0 20px;
+                        padding: 0 30px;
                     }
                     
                     .footer-section {
                         flex: 1;
                         min-width: 250px;
                         margin: 20px 0;
+                        transform: translateY(20px);
+                        opacity: 0;
+                    }
+
+                    .footer-section.links.flex-column{
+                        align-items: center;
                     }
                     
                     .footer-section h2 {
@@ -256,6 +295,12 @@
                     .footer-bottom p {
                         color: #bbb;
                         font-size: 14px;
+                    }
+
+                    @media(max-width : 600px){
+                        .footer-section.links.flex-column{
+                            align-items: flex-start;
+                        }
                     }
                     
                 </style>
