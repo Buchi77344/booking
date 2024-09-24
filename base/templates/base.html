@@ -31,14 +31,14 @@
                         <div class="profile-cta-container flex gp-20">
                             
                             {% if  request.user.is_authenticated %}
-                            <div class="watchlist-container">
+                        <a href="{% url 'watch' %}">    <div class="watchlist-container">
                                <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
                                <svg fill="#000000" width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                    <path d="M8,3V7H21l-2,7H8v2H18a1,1,0,0,1,0,2H7a1,1,0,0,1-1-1V4H4A1,1,0,0,1,4,2H7A1,1,0,0,1,8,3ZM6,20.5A1.5,1.5,0,1,0,7.5,19,1.5,1.5,0,0,0,6,20.5Zm9,0A1.5,1.5,0,1,0,16.5,19,1.5,1.5,0,0,0,15,20.5Z"/>
                                </svg>
    
-                               <span class="watchlist-number">1</span>
-                            </div>
+                               <span id="count-number" class="watchlist-number">0</span>
+                            </div></a>
    
                             {%  endif %}
                             {% if not request.user.is_authenticated %}
@@ -259,3 +259,62 @@
                     }
                     
                 </style>
+                <script>
+                    // Function to get CSRF token from cookies
+                    function getCookie(name) {
+                        let cookieValue = null;
+                        if (document.cookie && document.cookie !== '') {
+                            const cookies = document.cookie.split(';');
+                            for (let i = 0; i < cookies.length; i++) {
+                                const cookie = cookies[i].trim();
+                                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                    break;
+                                }
+                            }
+                        }
+                        return cookieValue;
+                    }
+                
+                    // Function to update watchlist count
+                    function updateWatchlistCount() {
+                        fetch('/count-watchlist/', {
+                            method: 'GET',
+                            headers: {
+                                'X-CSRFToken': getCookie('csrftoken'),
+                            },
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            document.getElementById('count-number').textContent = data.count;
+                        })
+                        .catch(error => console.error('Error fetching watchlist count:', error));
+                    }
+                
+                    document.addEventListener('DOMContentLoaded', function() {
+                        // Fetch the initial watchlist count when the page loads
+                        updateWatchlistCount();
+                
+                        // Set an interval to refresh the watchlist count every 2 seconds
+                        setInterval(updateWatchlistCount, 2000);
+                
+                        // Add event listener for the add to watchlist button
+                        document.getElementById('add-to-watchlist-btn').addEventListener('click', function() {
+                            const experienceId = 1; // Replace with the actual experience ID
+                
+                            fetch(`/add-to-watchlist/${experienceId}/`, {
+                                method: 'POST',
+                                headers: {
+                                    'X-CSRFToken': getCookie('csrftoken'),
+                                },
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                alert(data.message);
+                                // Optionally update the watchlist count immediately after adding
+                                updateWatchlistCount();
+                            })
+                            .catch(error => console.error('Error adding to watchlist:', error));
+                        });
+                    });
+                </script>
