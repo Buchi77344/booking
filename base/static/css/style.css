@@ -165,10 +165,6 @@ svg path{
     min-height : 100vh;
 }
 
-.main-page{
-    background-color: #7c8af117;
-}
-
 .nav{
     padding: 10px 30px
 }
@@ -191,6 +187,14 @@ svg path{
 
 .nav-links-container a:hover{
     background-color: hsl(0,0%,95%);
+}
+
+.login-link{
+    background-color: hsl(0, 0%, 20%);
+    color : hsl(0 0% 98%);
+    padding : 7px 30px;
+    border-radius: 10px;
+    letter-spacing: 1px;
 }
 
 .category-container {
@@ -495,11 +499,14 @@ span.mobile.search-icon svg path{
     position : absolute;
     width : 100%;
     height : 100%;
-    background-color: hsla(0, 0%, 10%, .1);
     top : 0;
     left : 0;
     z-index : 0;
     border-radius: 10px;
+}
+
+.util-card-img-container:hover::after{
+    background-color: hsla(0, 0%, 10%, .5);
 }
 
 .util-card-img{
