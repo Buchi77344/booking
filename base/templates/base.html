@@ -108,7 +108,61 @@
                 {% block context %}
                 
                 {% endblock context %}
-                <footer></footer>
+                <footer>
+                    <div class = "footer-wrapper">
+                        <div class = "address-box">
+                            <h3 class = "box-head">
+                                ADDRESS
+                                <span class = "box-head-underline"></span>
+                            </h3>
+            
+                            <ul class = "address-list">
+                                <li class = "address-details">
+                                    <img class = "address-img" alt = "" src = "/static/img/location.svg">
+                                    <p class = "address-text">
+                                    </p>
+                                </li>
+    
+                            </ul>
+            
+                            <div class = "social-media-box">
+                                <span class= "social-media-span"><a href = "https://twitter.com/@tiplogo"><img src = "/static/img/twitter-icon.svg" alt = ""></a></span> 
+                                <span class= "social-media-span"><a href = "https://wa.me/2348069598685"><img src = "/static/img/whatsapp.svg" alt = ""></a></span>
+                            </div>
+                        </div>
+            
+                        <div class = "quick-link-box">
+                            <h3 class = "box-head">
+                                QUICK-LINK
+                                <span class = "box-head-underline"></span>
+                            </h3>
+            
+                            <div class = "quick-links-container">
+                                <a href = "#">About Us</a>
+                                <a href = "#">Contact Us</a>
+                                <a href = "#">Privacy Policy</a>
+                                <a href = "#">Terms & Conditions</a>
+                            </div>
+                        </div>
+            
+                    </div>
+                    <div class = "copyright-container">
+                        <div class = "site-details">
+                            <p class = "site-name">
+                                <a href = "/">Experience Hotspot</a> 
+                                <span class = "right-text">All Right Reserved.</span> 
+                                <span>Designed by <a class = "creator-link" href = "https://lb-codex.netlify.app">LB Codex</a></span>
+                            </p>
+                            <p class = "site-distribution"></p>
+                        </div>
+    
+                        <div class = "copyright-links-container">
+                            <a href = "/">Home</a>
+                            <a href = "#newsletter">Subscribe</a>
+                            <a href = "/#services-section">Services</a>
+                        </div>
+                    </div>
+                </footer>
                 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
                 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/TextPlugin.min.js"></script>
                 <script>
@@ -158,4 +212,61 @@
 
                     typeMediaQuery.addListener(handleScreenChange)
                     typeAnim()
+                </script>
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        // Add to Watchlist
+                        const addButtons = document.querySelectorAll('.add-watchlist-btn');
+                        addButtons.forEach(button => {
+                            button.addEventListener('click', function() {
+                                const experienceId = this.getAttribute('data-id');
+                                console.log(experienceId)
+                                fetch(`/add-to-watchlist/${experienceId}/`, {
+                                    method: 'POST',
+                                    headers: {
+                                        'X-CSRFToken': getCookie('csrftoken'),
+                                    },
+                                })
+                                .then(response => response.json())
+                                .then(data => {
+                                    alert(data.message);
+                                });
+                            });
+                        });
+                    
+                        // Remove from Watchlist
+                        // const removeButtons = document.querySelectorAll('.remove-watchlist-btn');
+                        // removeButtons.forEach(button => {
+                        //     button.addEventListener('click', function() {
+                        //         const experienceId = this.getAttribute('data-id');
+                        //         fetch(`/remove-from-watchlist/${experienceId}/`, {
+                        //             method: 'DELETE',
+                        //             headers: {
+                        //                 'X-CSRFToken': getCookie('csrftoken'),
+                        //             },
+                        //         })
+                        //         .then(response => response.json())
+                        //         .then(data => {
+                        //             alert(data.message);
+                        //         });
+                        //     });
+                        // });
+                    
+                        // Function to get the CSRF token
+                        function getCookie(name) {
+                            let cookieValue = null;
+                            if (document.cookie && document.cookie !== '') {
+                                const cookies = document.cookie.split(';');
+                                for (let i = 0; i < cookies.length; i++) {
+                                    const cookie = cookies[i].trim();
+                                    // Does this cookie string begin with the name we want?
+                                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                        break;
+                                    }
+                                }
+                            }
+                            return cookieValue;
+                        }
+                    });
                 </script>
