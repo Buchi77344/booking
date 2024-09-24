@@ -347,28 +347,28 @@
                 
                     document.addEventListener('DOMContentLoaded', function() {
                         // Fetch the initial watchlist count when the page loads
-                         updateWatchlistCount();
+                        updateWatchlistCount();
                 
                         // Set an interval to refresh the watchlist count every 2 seconds
-                         setInterval(updateWatchlistCount, 2000);
+                        setInterval(updateWatchlistCount, 2000);
                 
                         // Add event listener for the add to watchlist button
                         document.getElementById('add-to-watchlist-btn').addEventListener('click', function() {
-                             const experienceId = 1; // Replace with the actual experience ID
+                            const experienceId = 1; // Replace with the actual experience ID
                 
                             fetch(`/add-to-watchlist/${experienceId}/`, {
-                        //         method: 'POST',
-                        //         headers: {
-                        //             'X-CSRFToken': getCookie('csrftoken'),
-                        //         },
-                        //     })
-                        //     .then(response => response.json())
-                        //     .then(data => {
-                        //         alert(data.message);
-                        //         // Optionally update the watchlist count immediately after adding
-                        //         updateWatchlistCount();
-                        //     })
-                        //     .catch(error => console.error('Error adding to watchlist:', error));
-                        // });
+                                method: 'POST',
+                                headers: {
+                                    'X-CSRFToken': getCookie('csrftoken'),
+                                },
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                alert(data.message);
+                                // Optionally update the watchlist count immediately after adding
+                                updateWatchlistCount();
+                            })
+                            .catch(error => console.error('Error adding to watchlist:', error));
+                        });
                     });
                 </script>
