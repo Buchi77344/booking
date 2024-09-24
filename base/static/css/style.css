@@ -182,14 +182,14 @@ svg path{
     height: 20px;
 }
 
-.stay-links-container a{
+.nav-links-container a{
     font-weight : 500;
     font-size : 1.1rem;
     padding : 10px 20px;
     border-radius: 50px;
 }
 
-.stay-links-container a:hover{
+.nav-links-container a:hover{
     background-color: hsl(0,0%,95%);
 }
 
@@ -486,6 +486,20 @@ span.mobile.search-icon svg path{
 
 .util-card-img-container{
     position : relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.util-card-img-container::after{
+    content : "";
+    position : absolute;
+    width : 100%;
+    height : 100%;
+    background-color: hsla(0, 0%, 10%, .1);
+    top : 0;
+    left : 0;
+    z-index : 0;
+    border-radius: 10px;
 }
 
 .util-card-img{
@@ -506,6 +520,7 @@ span.mobile.search-icon svg path{
     position: absolute;
     top : 20px;
     right : 15px;
+    z-index : 2;
 }
 
 .love-icon{
@@ -518,7 +533,7 @@ span.mobile.search-icon svg path{
 
 .love-icon-span.animate svg{
     transform: scale(1.1);
-    fill : #7c89f1;
+    fill : #5e90e8;
     stroke: transparent;
 }
 
@@ -969,7 +984,7 @@ input[type = "file"].form-input::file-selector-button{
         display: flex;
     }
 
-    .stay-links-container{
+    .nav-links-container{
         display: none;
     }
 }
