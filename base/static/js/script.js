@@ -220,6 +220,8 @@ const observerCallback = (entries, observer) => {
         if(entry.isIntersecting){
             entry.target.classList.add("anim")
             entry.target.style.animationDelay = `${index * 0.5}s`
+        }else{
+            entry.target.classList.remove("anim")
         }
     })
 }
