@@ -166,7 +166,7 @@ svg path{
 }
 
 nav{
-    position: fixed;
+    position: sticky;
     top: 0;
     height: 70px;
     background: white;
@@ -196,8 +196,8 @@ nav{
 } */
 
 .mobile.nav-links-container{
-    position: absolute;
-    top : 100%;
+    position: fixed;
+    top : 70px;
     right : 0;
     min-width: 250px;
     height: calc(100vh - 70px);
@@ -207,6 +207,7 @@ nav{
     display: none;
     transform: translateX(100%);
     transition: transform .5s ease;
+    z-index: 9999;
 }
 
 .mobile.nav-links-container.slideIn{
@@ -800,7 +801,7 @@ span.mobile.search-icon svg path{
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    margin : 75px auto 10px;
+    margin : 20px auto 10px;
     width : 95%;
     background-blend-mode: darken;
     border-radius: 30px;
