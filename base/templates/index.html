@@ -9,8 +9,8 @@
         watchlistButtons.forEach(button => {
             button.addEventListener('click', function() {
                 const experienceId = this.getAttribute('data-id');
-                const isWatched = this.getAttribute('data-watched') === 'true'; // Check if it is already watched
-    
+                const isWatched = this.getAttribute('data-watched') === 'true'; 
+        
                 if (isWatched) {
                     // Remove from watchlist
                     fetch(`/remove-from-watchlist/${experienceId}/`, {
@@ -19,12 +19,20 @@
                             'X-CSRFToken': getCookie('csrftoken'),
                         },
                     })
-                    .then(response => response.json())
+                    .then(response => {
+                        if (response.ok) {
+                            return response.json();
+                        }
+                        throw new Error('Failed to remove from watchlist');
+                    })
                     .then(data => {
                         // Successfully removed from watchlist
                         this.setAttribute('data-watched', 'false');
-                        this.classList.remove('watched'); // Update button style (optional)
-                      
+                        this.classList.remove('watched'); // Optionally update the button appearance
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        alert('An error occurred while removing from the watchlist.');
                     });
                 } else {
                     // Add to watchlist
@@ -34,12 +42,20 @@
                             'X-CSRFToken': getCookie('csrftoken'),
                         },
                     })
-                    .then(response => response.json())
+                    .then(response => {
+                        if (response.ok) {
+                            return response.json();
+                        }
+                        throw new Error('Failed to add to watchlist');
+                    })
                     .then(data => {
                         // Successfully added to watchlist
                         this.setAttribute('data-watched', 'true');
-                        this.classList.add('watched'); // Update button style (optional)
-                        
+                        this.classList.add('watched'); // Optionally update the button appearance
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        alert('An error occurred while adding to the watchlist.');
                     });
                 }
             });
@@ -61,6 +77,7 @@
             return cookieValue;
         }
     });
+    
 </script>
 
                 <div class="banner-content-container">
