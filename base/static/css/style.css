@@ -689,6 +689,7 @@ span.mobile.search-icon svg path{
     height : 230px;
     object-fit: cover;
     border-radius: 10px;
+    border: 1px solid hsla(0, 0%, 10%, 0.15);
 }
 
 .love-icon-span{
@@ -760,8 +761,7 @@ span.mobile.search-icon svg path{
 }
 
 .add-watchlist-btn svg path{
-    stroke: hsl(0, 0%, 85%);
-    stroke-width: 1.5px;
+    fill: hsl(0, 0%, 85%);
 }
 
 .price-span{
@@ -1226,6 +1226,7 @@ input[type = "file"].form-input::file-selector-button{
     left : 0;
     background-color: hsl(0 0% 96%);
     display: none;
+    z-index: 999;
     /* padding : 0px 0px; */
 }
 
