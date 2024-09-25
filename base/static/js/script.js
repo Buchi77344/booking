@@ -238,3 +238,14 @@ if(document.querySelector(".mobile.hamburger")){
         mobileNav.classList.toggle("slideIn")
     })
 }
+
+if(document.querySelector(".add-cart-btn")){
+    let cartBtn = document.querySelectorAll(".add-cart-btn")
+    cartBtn.forEach(btn => {
+        btn.addEventListener("click", (e) => {
+            e.preventDefault()
+            btn.querySelector(".price-span").textContent = "Added"
+        }) 
+    
+    })
+}
