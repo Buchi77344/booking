@@ -1227,10 +1227,6 @@ input[type = "file"].form-input::file-selector-button{
     animation: moveUp 1s ease forwards;
 }
 
-.revanim{
-    animation: moveDown 1s ease forwards;
-}
-
 .fixed-nav-container{
     position: fixed;
     width : 100%;
@@ -1284,13 +1280,6 @@ input[type = "file"].form-input::file-selector-button{
     to{
         transform: translateY(0);
         opacity: 1;
-    }
-}
-
-@keyframes moveDown{
-    to{
-        transform: translateY(25px);
-        opacity: 0;
     }
 }
 
