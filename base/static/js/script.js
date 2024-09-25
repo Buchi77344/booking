@@ -191,27 +191,27 @@ if(document.querySelector(".profile-cta")){
     })
 }
 
-if(document.querySelector(".love-icon")){
-    const loveIcon = document.querySelectorAll(".love-icon-span");
+// if(document.querySelector(".love-icon")){
+//     const loveIcon = document.querySelectorAll(".love-icon-span");
 
 
-    loveIcon.forEach(icon => {
-        isLiked = false;
-        icon.addEventListener("click", (e) => {
-            e.preventDefault()
-            if (!isLiked) {
-                icon.classList.remove("reverse");
-                icon.classList.add("animate");
-            } else {
-                icon.classList.remove("animate");
-                icon.classList.add("reverse");
-            }
-            isLiked = !isLiked;  // Toggle the state
-        });
-    })
+//     loveIcon.forEach(icon => {
+//         isLiked = false;
+//         icon.addEventListener("click", (e) => {
+//             e.preventDefault()
+//             if (!isLiked) {
+//                 icon.classList.remove("reverse");
+//                 icon.classList.add("animate");
+//             } else {
+//                 icon.classList.remove("animate");
+//                 icon.classList.add("reverse");
+//             }
+//             isLiked = !isLiked;  // Toggle the state
+//         });
+//     })
 
 
-}
+// }
 
 //Animation on scroll
 
@@ -219,9 +219,11 @@ const observerCallback = (entries, observer) => {
     entries.forEach((entry, index) => {
         if(entry.isIntersecting){
             entry.target.classList.add("anim")
+            entry.target.classList.remove("revanim")
             entry.target.style.animationDelay = `${index * 0.5}s`
         }else{
             entry.target.classList.remove("anim")
+            entry.target.classList.add("revanim")
         }
     })
 }
