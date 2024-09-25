@@ -340,6 +340,7 @@
                         .then(response => response.json())
                         .then(data => {
                             document.querySelectorAll('#count-number').forEach(text => text.textContent = data.count);
+                            document.getElementById("count-number").textContent = data.count
                         })
                         .catch(error => console.error('Error fetching watchlist count:', error));
                     }
