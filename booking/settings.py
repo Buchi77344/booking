@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-b$@equ&jmrd$9xb5=0yg*d5q&enqdwo08nss3zv&88yd(7#8cr
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+  
 
 # Application definition
 
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.facebook',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -182,66 +183,70 @@ EMAIL_HOST_PASSWORD = 'BsBUiZ6A0LrW'
 
 # c;int secret ='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'
 SOCIALACCOUNT_PROVIDERS = {
-    "github": {
-        # For each provider, you can choose whether or not the
-        # email address(es) retrieved from the provider are to be
-        # interpreted as verified.
-        "VERIFIED_EMAIL": True
-    },
     "google": {
-        # For each OAuth based provider, either add a ``SocialApp``
-        # (``socialaccount`` app) containing the required client
-        # credentials, or list them here:
         "APPS": [
             {
                 "client_id": "735819647020-i2okdjtvpo7lgacunmjd4pq2e8or4pg5.apps.googleusercontent.com",
                 "secret": "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",
-               
             },
         ],
-        # These are provider-specific settings that can only be
-        # listed here:
         "SCOPE": [
-            "profile",
+            "profile",  # This scope includes the user's name and picture.
+            "email",    # This scope includes the user's email address.
+        ],
+        "FIELDS": [
+            "id",
             "email",
+            "name",
+            "given_name",     # Google's equivalent to first name
+            "family_name",    # Google's equivalent to last name
+            "picture",
         ],
         "AUTH_PARAMS": {
             "access_type": "online",
         },
     },
-     "apple": {
-        "APPS": [{
-            # Your service identifier.
-            "client_id": "your.service.id",
-
-            # The Key ID (visible in the "View Key Details" page).
-            "secret": "KEYID",
-
-             # Member ID/App ID Prefix -- you can find it below your name
-             # at the top right corner of the page, or it’s your App ID
-             # Prefix in your App ID.
-            "key": "MEMAPPIDPREFIX",
-
-            "settings": {
-                # The certificate you downloaded when generating the key.
-                "certificate_key": """-----BEGIN PRIVATE KEY-----
-s3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr
-3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3
-c3ts3cr3t
------END PRIVATE KEY-----
-"""
-            }
-        }]
-    }
+    "facebook": {
+        # Facebook OAuth settings
+        "APPS": [
+            {
+                "client_id": "493367440210309", 
+                "secret": "3dd45b7381c63940c1baff34a78b162c",
+            },
+        ],
+        "SCOPE": [
+            "email",
+            "public_profile",
+        ],
+        "FIELDS": [
+            "id",
+            "email",
+            "name",
+            "first_name",
+            "last_name",
+            "picture",
+        ],
+        "AUTH_PARAMS": {
+            "auth_type": "reauthenticate"
+        },
+    },
 }
 
 SOCIALACCOUNT_LOGIN_ON_GET = True
-LOGIN_REDIRECT_URL = 'profile'
-ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = True
+LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/'  # Redirect to home page after login
+ACCOUNT_SIGNUP_REDIRECT_URL = '/'  # Redirect after signup
+LOGOUT_REDIRECT_URL = '/'  # Redirect after logout
+ACCOUNT_LOGOUT_ON_GET = True 
 
 
 
 RAZORPAY_KEY_ID = 'rzp_live_JShwqIsgcWWsNp'
 RAZORPAY_KEY_SECRET = 'yElAwSsRLV9QbtvOfPOixOTC'
+
+
+ACCOUNT_ADAPTER = 'allauth.account.adapter.DefaultAccountAdapter'
+SOCIALACCOUNT_ADAPTER = 'allauth.socialaccount.adapter.DefaultSocialAccountAdapter'
+
 
 

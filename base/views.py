@@ -3,9 +3,12 @@ from django.contrib import messages
 
 from math import floor
 
+
+
+
 # Create your views here.
 def index(request):
-    experiences =  Experience.objects.all()
+    experiences =  Experience.objects.all() 
     context = {
         'experiences':experiences
     }

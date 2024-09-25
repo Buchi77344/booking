@@ -35,12 +35,45 @@ class Userprofile(models.Model):
    city = models.CharField(max_length=255, null=True, blank=True)
    zipcode = models.CharField(max_length=255, null=True, blank=True)
    def __str__(self):
-        return f' Profile'
+        return f' {self.user.username} Profile'
+
+import requests
+from django.core.files.base import ContentFile
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from allauth.socialaccount.models import SocialAccount
+from .models import Userprofile, CustomUser
+
+def download_image(url):
+    """Download image from a URL and return the ContentFile."""
+    response = requests.get(url)
+    if response.status_code == 200:
+        return ContentFile(response.content)
+    return None
 
 @receiver(post_save, sender=CustomUser)
-def create_user_profile(sender, instance, created, **kwargs):
-    if created and instance.role == 'user':
-        Userprofile.objects.create(user=instance)
+def create_or_update_user_profile(sender, instance, created, **kwargs):
+    if instance.role == 'user':
+        # Create or get the user profile
+        user_profile, created = Userprofile.objects.get_or_create(user=instance)
+
+        # Check if the user signed up using Google
+        social_account = SocialAccount.objects.filter(user=instance, provider='google').first()
+
+        if social_account:
+            # Extract relevant Google data from the extra_data field
+            extra_data = social_account.extra_data
+            google_picture_url = extra_data.get("picture")
+
+            # Download the image and save it to the profile_picture field
+            if google_picture_url and not user_profile.profile_picture:
+                image_content = download_image(google_picture_url)
+                if image_content:
+                    user_profile.profile_picture.save(f'{instance.username}_profile.jpg', image_content, save=True)
+
+        # Save the user profile if it was created or updated
+        user_profile.save()
+
 
 @receiver(post_save, sender=CustomUser)
 def save_user_profile(sender, instance, **kwargs):

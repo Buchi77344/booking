@@ -1,5 +1,47 @@
 {% extends "base.html" %}
 {% load static %}
 {% block context %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+    <title>About Us - Booking Experiences</title>
+    <style>
+        body {
+            background-color: white;
+        }
+        .about-section {
+            padding: 60px 0;
+        }
+        .about-title {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .about-content {
+            text-align: center;
+        }
+        .about-content p {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container about-section">
+        <h1 class="about-title">About Us</h1>
+        <div class="row">
+            <div class="col-md-8 offset-md-2 about-content">
+                <p>Welcome to [Your Company Name], where we specialize in curating unforgettable booking experiences tailored just for you. Whether you're looking for a relaxing getaway, an adventurous excursion, or a unique cultural experience, we have it all!</p>
+                <p>Founded in [Year], our mission is to connect travelers with extraordinary experiences that create lasting memories. Our dedicated team of travel experts is passionate about exploring the world and sharing their insights with you.</p>
+                <p>At [Your Company Name], we believe that every journey should be seamless and enjoyable. That’s why we take care of all the details, ensuring that your booking process is simple and hassle-free. With our extensive network of partners, we offer a wide range of options to suit every traveler’s needs.</p>
+                <p>Join us in discovering the world of possibilities. Thank you for choosing [Your Company Name] as your trusted partner in creating amazing experiences!</p>
+            </div>
+        </div>
+    </div>
+
+ 
+</body>
+</html>
 
 {% endblock context %}
