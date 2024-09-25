@@ -216,7 +216,7 @@
 
                             <!-- Start Loop Here-->
                              {% for experience in experiences %}
-                            <a href = "{% url 'experience' experience.pk  %}" class="util-card">
+                            <a href = "{% url 'experience' experience.pk  %}" class="animate util-card">
                                 <div class="util-card-img-container">
                                     <img src="{{experience.images.url}}" alt="Picture of a woman in a nice background" class="util-card-img">
                                     <!--<span data-id = "{{ experience.id }}" data-watched="false" class="add-watchlist-btn love-icon-span">
@@ -276,7 +276,7 @@
                         <div class="util-card-container grid">
 
                         <!-- Start Loop Here-->
-                            <a href = "#" class="util-card">
+                            <a href = "#" class="animate util-card">
                                 <div class="util-card-img-container">
                                     <img src="{% static 'img/gallery-img-2.jpg' %}" alt="Picture of a woman in a nice background" class="util-card-img">
                                     <!-- <span class="love-icon-span">

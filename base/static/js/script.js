@@ -217,11 +217,13 @@ if(document.querySelector(".profile-cta")){
 
 const observerCallback = (entries, observer) => {
     entries.forEach((entry, index) => {
+        entry.target.style.transitionDelay = `${index * 0.4}s`
         if(entry.isIntersecting){
-            entry.target.classList.add("anim")
-            entry.target.style.animationDelay = `${index * 0.5}s`
+            entry.target.classList.add("in-view")
+            entry.target.classList.remove("animate")
         }else{
-            entry.target.classList.remove("anim")
+            entry.target.classList.remove("in-view")
+            entry.target.classList.add("animate")
             
         }
     })
@@ -234,6 +236,8 @@ const options = {
 
 const observer = new IntersectionObserver(observerCallback, options)
 const observedElements = document.querySelectorAll(".util-card, .util-card-head, .footer-section")
+observedElements.forEach(el => el.classList.add("animate"))
+observedElements.forEach(el => el.classList.add("trans"))
 observedElements.forEach(el => observer.observe(el))
 
 if(document.querySelector(".mobile.hamburger")){

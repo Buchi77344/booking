@@ -660,8 +660,8 @@ span.mobile.search-icon svg path{
 
 .util-card{
     max-width: 500px;
-    transform: translateY(20px);
-    opacity: 0;
+    /* transform: translateY(20px);
+    opacity: 0; */
 }
 
 .util-card-head{
@@ -1225,6 +1225,20 @@ input[type = "file"].form-input::file-selector-button{
 
 .anim{
     animation: moveUp 1s ease forwards;
+}
+
+.animate{
+    transform: translateY(20px);
+    opacity: 0;
+}
+
+.trans{
+    transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.in-view{
+    transform: translateY(0);
+    opacity: 1;
 }
 
 .fixed-nav-container{
