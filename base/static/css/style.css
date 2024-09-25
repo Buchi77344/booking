@@ -603,7 +603,7 @@ span.mobile.search-icon svg path{
 
 .watchlist-number {
     position: absolute;
-    top: 0px;
+    top: -4px;
     right: -6px;
     background-color: hsl(0, 87%, 33%);
     color: hsl(0 0% 96%);
@@ -617,6 +617,7 @@ span.mobile.search-icon svg path{
     align-items: center;
     font-weight: bold;
     white-space: nowrap; /* Prevents the text from wrapping */
+    transform: scale(0.7);
 }
 
 /* Larger numbers adapt padding */
@@ -1234,8 +1235,9 @@ input[type = "file"].form-input::file-selector-button{
     padding : 12px 20px;
     display: flex;
     flex-direction: column;
-    gap : 7px;
+    gap : 0px;
     align-items: center;
+    justify-content: space-between;
 }
 
 .fixed-nav-link:hover .fixed-nav-link-icon svg path{
@@ -1252,8 +1254,13 @@ input[type = "file"].form-input::file-selector-button{
 }
 
 .fixed-nav-link-icon svg{
-    width : 30px;
-    height : 30px;
+    width : 22px;
+    height : 22px;
+}
+
+.fixed-nav-link-icon svg.settings-icon{
+    width : 20px;
+    height : 100%;
 }
 
 @keyframes moveUp {
@@ -1358,6 +1365,10 @@ input[type = "file"].form-input::file-selector-button{
    .util-card-wrapper{
         width : 90%;
    }
+
+   .fixed-nav-link{
+        padding : 7px 20px;
+   }
 }
 
 @media(max-width : 400px){
@@ -1377,6 +1388,7 @@ input[type = "file"].form-input::file-selector-button{
     .profile-cta-container.flex{
         gap : 10px
     }
+
 }
 
 @media(max-width : 350px){

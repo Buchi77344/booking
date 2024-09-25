@@ -200,6 +200,7 @@
                     function handleScreenChange(e){
                         if(e.matches){
                             gsap.killTweensOf(".typewriter-text")
+                            console.log("killTween")
                             document.querySelector(".typewriter-cursor").style.display = "none"
                             document.querySelector(".typewriter-text").textContent = "Welcome To Experience Hotspot"
                         }else{
@@ -338,7 +339,7 @@
                         })
                         .then(response => response.json())
                         .then(data => {
-                            document.getElementById('count-number').textContent = data.count;
+                            document.querySelectorAll('#count-number').forEach(text => text.textContent = data.count);
                         })
                         .catch(error => console.error('Error fetching watchlist count:', error));
                     }
@@ -351,22 +352,23 @@
                         setInterval(updateWatchlistCount, 2000);
                 
                         // Add event listener for the add to watchlist button
-                        document.getElementById('add-to-watchlist-btn').addEventListener('click', function() {
-                            const experienceId = 1; // Replace with the actual experience ID
-                
-                            fetch(`/add-to-watchlist/${experienceId}/`, {
-                                method: 'POST',
-                                headers: {
-                                    'X-CSRFToken': getCookie('csrftoken'),
-                                },
-                            })
-                            .then(response => response.json())
-                            .then(data => {
-                                alert(data.message);
-                                // Optionally update the watchlist count immediately after adding
-                                updateWatchlistCount();
-                            })
-                            .catch(error => console.error('Error adding to watchlist:', error));
-                        });
+                        document.querySelectorAll('.add-watchlist-btn').forEach(btn => {
+                            btn.addEventListener('click', function() {
+                                const experienceId = 1; // Replace with the actual experience ID
+                    
+                                fetch(`/add-to-watchlist/${experienceId}/`, {
+                                    method: 'POST',
+                                    headers: {
+                                        'X-CSRFToken': getCookie('csrftoken'),
+                                    },
+                                })
+                                .then(response => response.json())
+                                .then(data => {
+                                    alert(data.message);
+                                    // Optionally update the watchlist count immediately after adding
+                                    updateWatchlistCount();
+                                })
+                                .catch(error => console.error('Error adding to watchlist:', error));
+                        })});
                     });
                 </script>
