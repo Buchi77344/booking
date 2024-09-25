@@ -231,7 +231,7 @@ const observerCallback = (entries, observer) => {
 
 const options = {
     root : null,
-    threshold : 0.5
+    threshold : 0.8
 }
 
 const observer = new IntersectionObserver(observerCallback, options)
