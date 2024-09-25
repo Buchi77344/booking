@@ -239,8 +239,8 @@ if(document.querySelector(".mobile.hamburger")){
     })
 }
 
-if(document.querySelector(".add-cart-btn")){
-    let cartBtn = document.querySelectorAll(".add-cart-btn")
+if(document.querySelector(".add-watchlist-btn")){
+    let cartBtn = document.querySelectorAll(".add-watchlist-btn")
     cartBtn.forEach(btn => {
         btn.addEventListener("click", (e) => {
             e.preventDefault()

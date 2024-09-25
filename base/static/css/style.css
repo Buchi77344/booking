@@ -743,7 +743,7 @@ span.mobile.search-icon svg path{
     width : 70%;
 }
 
-.add-cart-btn{
+.add-watchlist-btn{
     width : 25%;
     background-color: #0a0a0a;
     margin-top: 10px;
@@ -754,12 +754,12 @@ span.mobile.search-icon svg path{
     min-width: fit-content;
 }
 
-.add-cart-btn svg{
+.add-watchlist-btn svg{
     width: 27px;
     height: 27px;
 }
 
-.add-cart-btn svg path{
+.add-watchlist-btn svg path{
     stroke: hsl(0, 0%, 85%);
     stroke-width: 1.5px;
 }
