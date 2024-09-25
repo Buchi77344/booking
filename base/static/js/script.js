@@ -194,6 +194,7 @@ if(document.querySelector(".profile-cta")){
 if(document.querySelector(".love-icon")){
     const loveIcon = document.querySelectorAll(".love-icon-span");
 
+
     loveIcon.forEach(icon => {
         isLiked = false;
         icon.addEventListener("click", (e) => {
@@ -208,6 +209,7 @@ if(document.querySelector(".love-icon")){
             isLiked = !isLiked;  // Toggle the state
         });
     })
+
 
 }
 
@@ -243,9 +245,17 @@ if(document.querySelector(".mobile.hamburger")){
 if(document.querySelector(".add-watchlist-btn")){
     let cartBtn = document.querySelectorAll(".add-watchlist-btn")
     cartBtn.forEach(btn => {
+        isLiked = false;
+        console.log(!isLiked)
         btn.addEventListener("click", (e) => {
             e.preventDefault()
-            btn.querySelector(".price-span").textContent = "Added"
+            if (!isLiked) {
+                btn.querySelector(".price-span").textContent = "Remove cart"
+            }else{
+                btn.querySelector(".price-span").textContent = "Add to cart"
+            }
+
+            isLiked = !isLiked
         }) 
     
     })
