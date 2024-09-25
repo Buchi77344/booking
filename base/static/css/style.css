@@ -553,6 +553,7 @@ span.mobile.search-icon svg path{
 
 .mobile.hamburger{
     cursor: pointer;
+    display: none;
 }
 
 .mobile.hamburger span:nth-of-type(2){
@@ -1272,6 +1273,10 @@ input[type = "file"].form-input::file-selector-button{
 
     .mobile.nav-links-container{
         display: block;
+    }
+
+    .mobile.hamburger{
+        display: flex;
     }
 
 
