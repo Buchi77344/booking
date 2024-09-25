@@ -366,7 +366,7 @@ def add_to_watchlist(request, experience_id):
             return JsonResponse({'message': 'Experience added to watchlist'}, status=201)
         else:
             return JsonResponse({'message': 'Experience is already in your watchlist'}, status=200)
-
+    return JsonResponse({'message': 'Invalid request method'}, status=400)
 @login_required(login_url='login')
 def remove_from_watchlist(request, experience_id):
     if request.method == 'DELETE':
@@ -396,7 +396,8 @@ def countwatch(request):
     return JsonResponse({'count':count},status=200)
 
 
-
+def watch(request):
+    return render (request, 'watchlist.html')
 # from base.forms import SearchForm 
 # from django.db.models import Q
 # @login_required(login_url='admins:login')

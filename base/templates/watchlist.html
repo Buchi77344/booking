@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watchlist</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom Styles -->
+    <style>
+        body {
+            background-color: #000; /* Black background */
+            color: #fff; /* White text */
+        }
+        .watchlist-item {
+            background-color: #1a1a1a; /* Dark gray for the item background */
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+        .watchlist-item h3 {
+            color: #f39c12; /* Orange color for titles */
+        }
+        .watchlist-item p {
+            color: #ccc; /* Lighter gray for paragraph text */
+        }
+        .btn-refresh {
+            background-color: #f39c12; /* Orange for the button */
+            color: #fff;
+            border: none;
+            margin-bottom: 20px;
+        }
+        .btn-refresh:hover {
+            background-color: #e67e22; /* Darker orange on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="text-center">
+            <h1>Your Watchlist</h1>
+            <button class="btn btn-refresh" onclick="fetchWatchlist()">Refresh Watchlist</button>
+        </div>
+
+        <!-- Container where the watchlist items will be displayed -->
+        <div id="watchlist-container" class="mt-4"></div>
+    </div>
+
+    <!-- JavaScript code to fetch and display the watchlist -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Fetch watchlist when the page is loaded
+            fetchWatchlist();
+        });
+
+        // Function to fetch the watchlist from the server
+        function fetchWatchlist() {
+            fetch('/view-watchlist/', {
+                method: 'GET',
+                headers: {
+                    'X-CSRFToken': getCookie('csrftoken'),
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.watchlist) {
+                    displayWatchlist(data.watchlist);
+                }
+            })
+            .catch(error => console.error('Error fetching watchlist:', error));
+        }
+
+        // Function to display the watchlist
+        function displayWatchlist(watchlist) {
+            const watchlistContainer = document.getElementById('watchlist-container');
+            watchlistContainer.innerHTML = ''; // Clear any existing content
+
+            watchlist.forEach(item => {
+                const watchlistItem = document.createElement('div');
+                watchlistItem.classList.add('watchlist-item', 'shadow', 'p-4', 'rounded');
+
+                watchlistItem.innerHTML = `
+                    <h3>${item.title}</h3>
+                    <p>${item.description}</p>
+                    <p><strong>Price:</strong> ${item.price}</p>
+                    <p><strong>Start Date:</strong> ${new Date(item.start_date).toLocaleDateString()}</p>
+                    <p><strong>End Date:</strong> ${new Date(item.end_date).toLocaleDateString()}</p>
+                    <p><strong>Location:</strong> ${item.location}</p>
+                `;
+
+                watchlistContainer.appendChild(watchlistItem);
+            });
+        }
+
+        // Function to get CSRF token from cookies
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    </script>
+
+    <!-- Bootstrap JS and dependencies (Optional) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

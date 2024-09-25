@@ -5,6 +5,7 @@ urlpatterns = [
     path('signup',views.signup,name="signup"),
     path('signin',views.signin,name="signin"),
     path('logout',views.logout,name="logout"),
+    path('watch',views.watch,name="watch"),
     path('verify',views.verify_code,name="verify"),
     path('profile',views.userprofile,name="profile"),
     path('privacy',views.privacy,name="privacy"),
@@ -15,7 +16,8 @@ urlpatterns = [
     path('about',views.about,name="about"),
     path('add-to-watchlist/<int:experience_id>/', views.add_to_watchlist, name='add_to_watchlist'),
     path('remove-from-watchlist/<int:experience_id>/', views.remove_from_watchlist, name='remove_from_watchlist'),
-    path('watchlist/', views.view_watchlist, name='view_watchlist'),
+    path('view-watchlist/', views.view_watchlist, name='view_watchlist'),
+    path('count-watchlist/', views.countwatch, name='count_watchlist'),
 
     
  
