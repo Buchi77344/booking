@@ -21,15 +21,33 @@
                         </a>
         
                         <div class="nav-links-container">
-                            <a href="/" class="stay-link">Home</a>
-                            <a href="{% url 'about' %}" class="experience-link">About</a>
-                            <a href="{% url 'contact' %}" class="experience-link">Contact Us</a>
-                            <a href="{% url 'privacy' %}" class="experience-link">Privacy Policy</a>
+                            <ul class="flex gp-10">
+                                <li><a href="/" class="stay-link">Home</a></li>
+                                <li><a href="{% url 'about' %}" class="experience-link">About</a></li>
+                                <li><a href="{% url 'contact' %}" class="experience-link">Contact Us</a></li>
+                                <li><a href="{% url 'privacy' %}" class="experience-link">Privacy Policy</a></li>
+                            </ul>
+                            
+                        </div>
+
+                        <div class="mobile nav-links-container">
+                            <ul class="flex-column gp-20">
+                                <li><a href="/" class="stay-link">Home</a></li>
+                                <li><a href="{% url 'about' %}" class="experience-link">About</a></li>
+                                <li><a href="{% url 'contact' %}" class="experience-link">Contact Us</a></li>
+                                <li><a href="{% url 'privacy' %}" class="experience-link">Privacy Policy</a></li>
+                            </ul>
                             
                         </div>
 
                         <div class="profile-cta-container flex gp-20">
                             
+                            <div class="mobile hamburger flex-column gp-5">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+
                             {% if  request.user.is_authenticated %}
                             <div class="watchlist-container">
                                <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
@@ -109,69 +127,13 @@
                 
                 {% endblock context %}
                 <footer>
-<<<<<<< HEAD
-                    <div class = "footer-wrapper">
-                        <div class = "address-box">
-                            <h3 class = "box-head">
-                                ADDRESS
-                                <span class = "box-head-underline"></span>
-                            </h3>
-            
-                            <ul class = "address-list">
-                                <li class = "address-details">
-                                    <img class = "address-img" alt = "" src = "/static/img/location.svg">
-                                    <p class = "address-text">
-                                    </p>
-                                </li>
-    
-                            </ul>
-            
-                            <div class = "social-media-box">
-                                <span class= "social-media-span"><a href = "https://twitter.com/@tiplogo"><img src = "/static/img/twitter-icon.svg" alt = ""></a></span> 
-                                <span class= "social-media-span"><a href = "https://wa.me/2348069598685"><img src = "/static/img/whatsapp.svg" alt = ""></a></span>
-                            </div>
-                        </div>
-            
-                        <div class = "quick-link-box">
-                            <h3 class = "box-head">
-                                QUICK-LINK
-                                <span class = "box-head-underline"></span>
-                            </h3>
-            
-                            <div class = "quick-links-container">
-                                <a href = "#">About Us</a>
-                                <a href = "#">Contact Us</a>
-                                <a href = "#">Privacy Policy</a>
-                                <a href = "#">Terms & Conditions</a>
-                            </div>
-                        </div>
-            
-                    </div>
-                    <div class = "copyright-container">
-                        <div class = "site-details">
-                            <p class = "site-name">
-                                <a href = "/">Experience Hotspot</a> 
-                                <span class = "right-text">All Right Reserved.</span> 
-                                <span>Designed by <a class = "creator-link" href = "https://lb-codex.netlify.app">LB Codex</a></span>
-                            </p>
-                            <p class = "site-distribution"></p>
-                        </div>
-    
-                        <div class = "copyright-links-container">
-                            <a href = "/">Home</a>
-                            <a href = "#newsletter">Subscribe</a>
-                            <a href = "/#services-section">Services</a>
-                        </div>
-                    </div>
-                </footer>
-=======
                     <div class="footer-container">
                         <div class="footer-section about">
                             <h2>About Us</h2>
                             <p>Explore unique experiences, tours, and adventures with us. Book your next experience today and make memories to last a lifetime.</p>
                         </div>
                 
-                        <div class="footer-section links">
+                        <div class="footer-section links flex-column">
                             <h2>Quick Links</h2>
                             <ul>
                                 <li><a href="#">Home</a></li>
@@ -199,7 +161,6 @@
                     </div>
                 </footer>
                 
->>>>>>> refs/remotes/origin/main
                 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
                 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/TextPlugin.min.js"></script>
                 <script>
@@ -234,7 +195,6 @@
                             }
                         }
                     }
-<<<<<<< HEAD
 
                     function handleScreenChange(e){
                         if(e.matches){
@@ -244,7 +204,7 @@
                         }else{
                             document.querySelector(".typewriter-text").textContent = ""
                             typeAnim()
-                            document.querySelector(".typewriter-cursor").style.display = "block"
+                            document.querySelector(".typewriter-cursor").style.display = "inline"
                         }
                     }
 
@@ -308,7 +268,6 @@
                         }
                     });
                 </script>
-=======
                 </script>
 
                 <style>
@@ -316,7 +275,6 @@
                         background-color: #000;
                         color: #fff;
                         padding: 40px 0;
-                        font-family: 'Arial', sans-serif;
                     }
                     
                     .footer-container {
@@ -325,13 +283,19 @@
                         flex-wrap: wrap;
                         max-width: 1200px;
                         margin: 0 auto;
-                        padding: 0 20px;
+                        padding: 0 30px;
                     }
                     
                     .footer-section {
                         flex: 1;
                         min-width: 250px;
                         margin: 20px 0;
+                        transform: translateY(20px);
+                        opacity: 0;
+                    }
+
+                    .footer-section.links.flex-column{
+                        align-items: center;
                     }
                     
                     .footer-section h2 {
@@ -393,6 +357,11 @@
                         color: #bbb;
                         font-size: 14px;
                     }
+
+                    @media(max-width : 600px){
+                        .footer-section.links.flex-column{
+                            align-items: flex-start;
+                        }
+                    }
                     
                 </style>
->>>>>>> refs/remotes/origin/main

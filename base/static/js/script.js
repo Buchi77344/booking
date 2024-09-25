@@ -11,6 +11,8 @@ const checkoutDateContentContainer = document.querySelector(".checkout.date-cont
 const dateContentContainer = document.querySelectorAll(".date-content-container")
 console.log(checkinDateContentContainer)
 console.log(checkoutDateContentContainer)
+let isLiked;
+
 function revealDropFunc(highlightEl, dropEl, dropElStr){
     highlightEl.addEventListener("click", function(){
         dropEl.classList.toggle("reveal")
@@ -25,8 +27,8 @@ function revealDropFunc(highlightEl, dropEl, dropElStr){
 
 if(document.querySelector(".category-container")){
     revealDropFunc(destinationCategoryHighlight, mapRegionsWrapper, ".destination-container .category-highlight")
-    revealDropFunc(checkinHighlight, checkinDateContentContainer, ".checkin.date-wrapper .category-highlight")
-    revealDropFunc(checkoutHighlight, checkoutDateContentContainer, ".checkout.date-wrapper .category-highlight")
+    revealDropFunc(checkinHighlight, checkinDateContentContainer, ".date-wrapper .category-highlight")
+    // revealDropFunc(checkoutHighlight, checkoutDateContentContainer, ".checkout.date-wrapper .category-highlight")
     
     dateCategoryHighlight.forEach(d => {
         d.addEventListener("click", function(){
@@ -183,7 +185,7 @@ if(document.querySelector(".love-icon")){
 
 
     loveIcon.forEach(icon => {
-        let isLiked = false;
+        isLiked = false;
         icon.addEventListener("click", (e) => {
             e.preventDefault()
             if (!isLiked) {
@@ -225,5 +227,14 @@ const options = {
 }
 
 const observer = new IntersectionObserver(observerCallback, options)
-const observedElements = document.querySelectorAll(".util-card, .util-card-head")
+const observedElements = document.querySelectorAll(".util-card, .util-card-head, .footer-section")
 observedElements.forEach(el => observer.observe(el))
+
+if(document.querySelector(".mobile.hamburger")){
+    let mobileHamburger = document.querySelector(".mobile.hamburger")
+    let mobileNav = document.querySelector(".mobile.nav-links-container")
+
+    mobileHamburger.addEventListener("click", function(){
+        mobileNav.classList.toggle("slideIn")
+    })
+}
