@@ -1245,6 +1245,8 @@ input[type = "file"].form-input::file-selector-button{
     gap : 0px;
     align-items: center;
     justify-content: space-between;
+    flex: 1;
+    min-width : fit-content; 
 }
 
 .fixed-nav-link:hover .fixed-nav-link-icon svg path{
@@ -1268,6 +1270,10 @@ input[type = "file"].form-input::file-selector-button{
 .fixed-nav-link-icon svg.settings-icon{
     width : 20px;
     height : 100%;
+}
+
+.fixed-nav-link-text{
+    font-size : clamp(.75rem, 3.5vw, 1rem)
 }
 
 @keyframes moveUp {
