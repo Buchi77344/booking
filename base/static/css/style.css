@@ -625,6 +625,11 @@ span.mobile.search-icon svg path{
     padding: 0 8px; /* Extra padding for larger numbers */
 }
 
+.watchlist-container .watchlist-number{
+    transform: scale(0.9);
+    top : -2px;
+}
+
 
 .watchlist-container svg{
     width : 40px;
