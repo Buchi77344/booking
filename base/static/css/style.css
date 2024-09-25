@@ -689,11 +689,12 @@ span.mobile.search-icon svg path{
     height : 230px;
     object-fit: cover;
     border-radius: 10px;
+    border: 1px solid hsla(0, 0%, 10%, 0.15);
 }
 
 .love-icon-span{
-    width : 30px;
-    height : 30px;
+    width : 45px;
+    height : 45px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -703,26 +704,29 @@ span.mobile.search-icon svg path{
     top : 20px;
     right : 15px;
     z-index : 2;
+    background-color: hsl(0, 0%, 100%);
 }
 
 .love-icon{
-    width : 25px;
-    height : 25px;
-    stroke: transparent;
-    fill: white;
+    width : 30px;
     transition: transform .2s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
 
-.love-icon-span.animate svg{
-    transform: scale(1.1);
+.love-icon path{
+    fill: transparent;
+    stroke: black;
+    stroke-width: 2px;
+}
+
+.love-icon-span.animate .love-icon path{
     fill : #e11710e0;
     stroke: transparent;
 }
 
-.love-icon-span.reverse svg{
+.love-icon-span.reverse .love-icon path{
     transform: scale(1);
-    stroke: transparent;
-    fill: white;
+    stroke: black;
+    fill: transparent;
 }
 
 .util-card-content.flex-between{
@@ -732,7 +736,7 @@ span.mobile.search-icon svg path{
 .util-card-content-name{
     font-weight: 600;
     margin-bottom: 0px;
-    font-size: 1.1rem;
+    font-size: clamp(.85rem, 2.5vw, 1.1rem);
     color: hsl(0, 0%, 30%);
 }
 
@@ -740,21 +744,24 @@ span.mobile.search-icon svg path{
     width : 70%;
 }
 
-.util-card-price{
+.add-watchlist-btn{
     width : 25%;
     background-color: #0a0a0a;
     margin-top: 10px;
-    padding: 4px 10px;
+    padding: 7px 10px;
     border-radius: 10px;
+    font-size: 1rem;
+    flex : 1;
+    min-width: fit-content;
 }
 
-.util-card-price svg{
-    width: 25px;
-    height: 25px;
+.add-watchlist-btn svg{
+    width: 27px;
+    height: 27px;
 }
 
-.util-card-price svg path{
-    stroke: hsl(0 0% 93%);
+.add-watchlist-btn svg path{
+    fill: hsl(0, 0%, 85%);
 }
 
 .price-span{
@@ -773,6 +780,7 @@ span.mobile.search-icon svg path{
 
 .util-card-content-time{
     font-weight : 600;
+    font-size: clamp(.85rem, 3.5vw, 1.1rem);
     margin-top: 0px;
 }
 
@@ -837,7 +845,7 @@ span.mobile.search-icon svg path{
 .logo-text{
     color : hsl(0,0%,20%);
     font-weight : 500;
-    font-size: clamp(.85rem, 3.5vw, 1rem);
+    font-size: clamp(.75rem, 3.5vw, 1rem);
 }
 
 .form-graphics-container{
@@ -1211,6 +1219,43 @@ input[type = "file"].form-input::file-selector-button{
     animation: moveUp 1s ease forwards;
 }
 
+.fixed-nav-container{
+    position: fixed;
+    width : 100%;
+    bottom: 0;
+    left : 0;
+    background-color: hsl(0 0% 96%);
+    display: none;
+    z-index: 999;
+    /* padding : 0px 0px; */
+}
+
+.fixed-nav-link{
+    padding : 12px 20px;
+    display: flex;
+    flex-direction: column;
+    gap : 7px;
+    align-items: center;
+}
+
+.fixed-nav-link:hover .fixed-nav-link-icon svg path{
+    /* stroke: var(--btn-clr); */
+    fill: var(--btn-clr);
+} 
+
+.fixed-nav-link:hover .fixed-nav-link-text{
+    color: var(--btn-clr);
+} 
+
+.fixed-nav-link-icon{
+    position: relative;
+}
+
+.fixed-nav-link-icon svg{
+    width : 30px;
+    height : 30px;
+}
+
 @keyframes moveUp {
     to{
         transform: translateY(0);
@@ -1279,7 +1324,17 @@ input[type = "file"].form-input::file-selector-button{
         display: flex;
     }
 
+    .profile-container{
+        display: none;
+    }
 
+    .watchlist-container{
+        display: none;
+    }
+
+    .fixed-nav-container{
+        display: flex;
+    }
 }
 
 @media(max-width : 500px){
@@ -1299,6 +1354,10 @@ input[type = "file"].form-input::file-selector-button{
    .mobile.category-container{
         margin-top: 20px;
    }
+
+   .util-card-wrapper{
+        width : 90%;
+   }
 }
 
 @media(max-width : 400px){
@@ -1309,6 +1368,14 @@ input[type = "file"].form-input::file-selector-button{
 
     .nav{
         padding : 10px 15px;
+    }
+
+    .login-link{
+        padding: 7px 20px;
+    }
+
+    .profile-cta-container.flex{
+        gap : 10px
     }
 }
 
