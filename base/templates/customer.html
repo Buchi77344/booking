@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Experience Hotspot</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: url('https://source.unsplash.com/1600x900/?travel,adventure') no-repeat center center/cover;
+            color: white;
+            font-family: 'Arial', sans-serif;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+        /* Bubble animation */
+        .bubble {
+            position: absolute;
+            bottom: -50px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: bubble 15s infinite;
+        }
+        @keyframes bubble {
+            0% {
+                transform: translateY(0) scale(0.8);
+            }
+            100% {
+                transform: translateY(-1000px) scale(1.2);
+                opacity: 0;
+            }
+        }
+        /* More Bubbles with Random Sizes and Durations */
+        .bubble:nth-child(1) { left: 5%; width: 40px; height: 40px; animation-duration: 18s; }
+        .bubble:nth-child(2) { left: 15%; width: 60px; height: 60px; animation-duration: 22s; }
+        .bubble:nth-child(3) { left: 25%; width: 30px; height: 30px; animation-duration: 12s; }
+        .bubble:nth-child(4) { left: 35%; width: 50px; height: 50px; animation-duration: 20s; }
+        .bubble:nth-child(5) { left: 45%; width: 70px; height: 70px; animation-duration: 25s; }
+        .bubble:nth-child(6) { left: 55%; width: 20px; height: 20px; animation-duration: 15s; }
+        .bubble:nth-child(7) { left: 65%; width: 45px; height: 45px; animation-duration: 28s; }
+        .bubble:nth-child(8) { left: 75%; width: 55px; height: 55px; animation-duration: 24s; }
+        .bubble:nth-child(9) { left: 85%; width: 35px; height: 35px; animation-duration: 18s; }
+        .bubble:nth-child(10) { left: 95%; width: 65px; height: 65px; animation-duration: 30s; }
+        .overlay {
+            background: rgb(245 245 245 / 60%);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        .signup-container {
+            margin-top: 100px;
+            padding: 50px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 20px;
+            animation: fadeIn 2s;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        h1 {
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+        .signup-option {
+            border: none;
+            padding: 30px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            transition: transform 0.5s, background-color 0.3s;
+            color: white;
+            position: relative;
+        }
+        .signup-option:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+        .btn-custom {
+            background: linear-gradient(45deg, #ffcc00, #ff6600);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 16px;
+            color: white;
+            transition: background 0.3s, transform 0.3s;
+        }
+        .btn-custom:hover {
+            background: linear-gradient(45deg, #ff6600, #ffcc00);
+            transform: scale(1.1);
+        }
+        .signup-link {
+            color: #ffcc00;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        .signup-link:hover {
+            text-decoration: underline;
+        }
+        .vendor-page {
+            display: none;
+            text-align: center;
+            animation: fadeInUp 1.5s;
+        }
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .signup-container {
+                padding: 30px;
+                margin-top: 50px;
+            }
+            .signup-option {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 24px;
+            }
+        }
+        /* Animations */
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay"></div>
+
+    <!-- Bubble Animation -->
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+
+    <div class="container signup-container text-center text-white">
+        <h1>Choose Your Role</h1>
+        <div class="row mt-5">
+            <!-- User Signup Option -->
+            <div class="col-md-6 mb-4">
+                <div class="signup-option">
+                    <h2>Sign Up as a User</h2>
+                    <p>Explore the best experiences and adventures around the world.</p>
+                    <a href="user-signup.html" class="btn btn-custom mt-3">Sign Up as User</a>
+                </div>
+            </div>
+
+            <!-- Vendor Signup Option -->
+            <div class="col-md-6 mb-4">
+                <div class="signup-option">
+                    <h2>Sign Up as a Vendor</h2>
+                    <p>Share your unique experiences with travelers globally.</p>
+                    <button class="btn btn-custom mt-3">Sign Up as Vendor</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Vendor Page (with link) -->
+    <div id="vendor-page" class="vendor-page">
+        <h1>Vendor Signup</h1>
+        <p class="mt-4">For vendors, <a href="https://vendor-portal.com" class="signup-link">click here to proceed</a>.</p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.querySelectorAll('.btn-custom').forEach(button => {
+            button.addEventListener('click', function (e) {
+                e.preventDefault();
+                if (this.innerText.includes('Vendor')) {
+                    document.querySelector('.signup-container').style.display = 'none';
+                    document.querySelector('#vendor-page').style.display = 'block';
+                } else {
+                    window.location.href = 'user-signup.html';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
