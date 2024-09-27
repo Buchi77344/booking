@@ -32,7 +32,7 @@
                     })
                     .catch(error => {
                         console.error(error);
-                        alert('An error occurred while removing from the watchlist.');
+                        window.location.href = '/signin';  // Replace '/login' with your actual login page URL
                     });
                 } else {
                     // Add to watchlist
@@ -55,7 +55,7 @@
                     })
                     .catch(error => {
                         console.error(error);
-                        alert('An error occurred while adding to the watchlist.');
+                        window.location.href = '/signin';  // Replace '/login' with your actual login page URL
                     });
                 }
             });
@@ -77,6 +77,10 @@
             return cookieValue;
         }
     });
+
+
+
+   
     
 </script>
 

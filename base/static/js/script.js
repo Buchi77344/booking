@@ -413,21 +413,27 @@ if(document.querySelector(".mobile.hamburger")){
     })
 }
 
-if(document.querySelector(".add-watchlist-btn")){
-    let cartBtn = document.querySelectorAll(".add-watchlist-btn")
-    cartBtn.forEach(btn => {
-        isLiked = false;
-        console.log(!isLiked)
-        btn.addEventListener("click", (e) => {
-            e.preventDefault()
-            if (!isLiked) {
-                btn.querySelector(".price-span").textContent = "Remove cart"
-            }else{
-                btn.querySelector(".price-span").textContent = "Add to cart"
-            }
-
-            isLiked = !isLiked
-        }) 
+if (document.querySelector(".add-watchlist-btn")) {
+    let cartBtn = document.querySelectorAll(".add-watchlist-btn");
     
-    })
+    cartBtn.forEach((btn, index) => {
+        // Retrieve the state from localStorage
+        let isLiked = localStorage.getItem(`watchlist-btn-${index}`) === 'true';
+        
+        // Update button text based on saved state
+        btn.querySelector(".price-span").textContent = isLiked ? "Add to cart" : "Remove  cart";
+
+        btn.addEventListener("click", (e) => {
+            e.preventDefault();
+
+            // Toggle the liked state
+            isLiked = !isLiked;
+
+            // Update button text based on the new state
+            btn.querySelector(".price-span").textContent = isLiked ? "Add to cart" : "Remove  cart";
+
+            // Save the new state in localStorage
+            localStorage.setItem(`watchlist-btn-${index}`, isLiked);
+        });
+    });
 }

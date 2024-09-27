@@ -18,6 +18,8 @@ urlpatterns = [
     path('remove-from-watchlist/<int:experience_id>/', views.remove_from_watchlist, name='remove_from_watchlist'),
     path('view-watchlist/', views.view_watchlist, name='view_watchlist'),
     path('count-watchlist/', views.countwatch, name='count_watchlist'),
+    path('api/cart/status/<int:experience_id>/', views.cart_status, name='cart_status'),
+    
 
     
  
