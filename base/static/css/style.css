@@ -307,6 +307,23 @@ nav{
     position: relative;
 }
 
+.calendar-controls{
+    padding: 20px 0px;
+}
+
+.cal-btn{
+    background-color: transparent;
+}
+
+.cal-btn img{
+    width : 30px;
+    height : 30px;
+}
+
+.cal-next img{
+    transform: rotate(180deg);
+}
+
 .date-val-container{
     display: none;
 }

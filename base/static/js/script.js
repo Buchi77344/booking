@@ -10,13 +10,18 @@ const dateContentContainer = document.querySelector(".date-content-container")
 const guestCatHihglight = document.querySelector(".guest-container .category-highlight")
 const guestShowDrop = document.querySelector(".guest-container .show-drop")
 const destinationInput = document.querySelector(".destination.category-field")
+const calNext = document.querySelector(".cal-next")
+const calPrev = document.querySelector(".cal-prev")
 let isLiked;
+
 
 function revealDropFunc(highlightEl, dropEl){
     
     document.addEventListener("click", function(event){
+        let parentEl = document.querySelector(highlightEl)
         if(event.target.closest(highlightEl) == null){
             dropEl.classList.remove("reveal")
+            parentEl.querySelector(".category-highlight").classList.remove("active")
         }
     })
 }
@@ -138,7 +143,7 @@ if(document.querySelector(".category-container")){
     let list =  ""
     destinationInput.addEventListener("input", async function(){
         locationList.innerHTML = ""
-        
+
         const query = this.value;
         const apiKey = "pk.0c362d8fcfc2daf1ed669ae23cd5a641"
        
@@ -290,7 +295,20 @@ if(document.querySelector(".calendar-container")){
                     document.querySelector(".date-wrapper .category-val").textContent = `${calMonth.slice(0,3)} ${dateVal}`
                 })
             })
-        })        
+        })   
+
+        function handleCalNext(){
+            let nextCalEl = calendarContainer.scrollLeft + calendarEl[0].clientWidth
+            calendarContainer.scrollLeft = nextCalEl
+        }
+
+        function handleCalPrev(){
+            let prevCalEl = calendarContainer.scrollLeft - calendarEl[0].clientWidth
+            calendarContainer.scrollLeft = prevCalEl
+        }
+        
+        calNext.addEventListener("click", handleCalNext)
+        calPrev.addEventListener("click", handleCalPrev)
             
     }
 
