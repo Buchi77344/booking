@@ -307,6 +307,23 @@ nav{
     position: relative;
 }
 
+.calendar-controls{
+    padding: 20px 0px;
+}
+
+.cal-btn{
+    background-color: transparent;
+}
+
+.cal-btn img{
+    width : 30px;
+    height : 30px;
+}
+
+.cal-next img{
+    transform: rotate(180deg);
+}
+
 .date-val-container{
     display: none;
 }
@@ -322,20 +339,24 @@ nav{
     width : 100%;
 }
 
-.category-highlight:hover{
+.category-highlight.active{
     background-color: hsl(0, 0%, 90%);
 }
 
-.category-highlight:hover .category-field::placeholder{
+.category-highlight.active .category-field::placeholder{
     color : hsla(0, 0%, 10%, .8)
 }
 
-.category-highlight:hover .category-name{
+.category-highlight.active .category-name{
     color : hsl(0, 0%, 10%)
 }
 
-.category-highlight:hover .category-val{
-    color : hsla(0, 0%, 10%, .7)
+.category-highlight.active .category-val{
+    color : hsla(0, 0%, 10%, .9)
+}
+
+.category-highlight.active .other-guest{
+    color : hsla(0, 0%, 10%, .9)
 }
 
 .guest-container .category-highlight{
@@ -344,6 +365,28 @@ nav{
 
 .destination-container .category-highlight{
     padding-left : 30px;
+}
+
+.location-list-item{
+    padding : 10px 25px;
+    cursor: pointer;
+}
+
+.location-list-item:hover{
+    background-color: hsl(0, 0%, 92%);
+}
+
+.destination-icon svg path{
+    stroke : hsl(0, 0%, 20%)
+}
+
+.search-form{
+    height : 25px;
+}
+
+.search-form-btn{
+    opacity: 0;
+    visibility: hidden;
 }
 
 .category-field-container{
@@ -364,6 +407,9 @@ input.category-field{
     font-size: 1rem;
     background-color: transparent;
     outline: none;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 input.category-field::placeholder{
@@ -450,7 +496,8 @@ input.category-field::placeholder{
 }
 
 .map-regions-wrapper{
-
+    width: 100%;
+    padding: 30px 0px;
 }
 
 .map-region-text{
@@ -458,9 +505,11 @@ input.category-field::placeholder{
     margin-bottom: 30px;
     font-size: 1.1rem;
     font-weight: 600;
+    padding-left : 25px;
+    padding-right: 25px;
 }
 
-.map-regions-container{
+/* .map-regions-container{
     display: grid;
     grid-template-columns: repeat(3, minmax(160px, 1fr));
     gap: 5px;
@@ -482,7 +531,7 @@ input.category-field::placeholder{
 .map-region-name{
     margin-top: 5px;
     display: inline-block;
-}
+} */
 
 span.search-icon{
     width : 55px;
@@ -881,6 +930,10 @@ span.mobile.search-icon svg path{
     line-height: 1.2;
     text-align: center;
     overflow: hidden;
+}
+
+.typewriter-text{
+    display: inline-block;
 }
 
 .typewriter-cursor{
