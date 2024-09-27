@@ -87,7 +87,7 @@
                     </h2>
                     <p class="banner-content-text trans-down">Explore amazing destinations and experiences with ease</p>
                     <div class="trans-down category-container flex-between">
-                        <div class="destination-container category-box w-30">
+                        <div class="destination-container category-box">
                             <div class="category-highlight">
                                 <div class="category-field-container">
                                     <span class="category-name">Location</span>
@@ -132,52 +132,63 @@
                             </div>
                         </div>
     
-                        <div class="checkin date-wrapper category-box w-20">
-                            <div class="category-highlight">
-                                <div class="category-field-container">
-                                    <span class="category-name">Date</span>
-                                    <span class="category-val">Add dates</span>
-                                </div>
-                            </div>
-    
-                            <div class="show-drop checkin date-content-container">
-                                <div class="date-div-container flex-between">
-                                    <span class= "dates-span">Dates</span>
-                                    <span class= "months-span">Months</span>
-                                    <span class= "flexible-span">I'm flexible</span>
-                                </div>
-    
-                                <div class="calendar-controls">
-                                    <span class="cal-prev"></span>
-                                    <span class="cal-next"></span>
-                                </div>
-    
-                                <div class="calendar-container flex-scroll">
-                                    <!-- <div class="calendar">
-                                        <div class="month-name-container">
-                                            <span class="month-name-span">September 2024</span>
+                        <div class="category-box">
+                            <div class="date-wrapper">
+                                <div class="category-highlight">
+                                    <div class="category-field-container">
+                                        <span class="category-name">Date</span>
+                                        <span class="date category-val">Add dates</span>
+                                        <div class="date-val-container">
+                                            <span class="date-val-1"></span>
+                                            <span class="date-val-2"></span>
                                         </div>
-                                        <div class="weekdays-container">
-                                            <span class="weekday-span">Su</span>
-                                            <span class="weekday-span">Mo</span>
-                                            <span class="weekday-span">Tu</span>
-                                            <span class="weekday-span">We</span>
-                                            <span class="weekday-span">Th</span>
-                                            <span class="weekday-span">Fr</span>
-                                            <span class="weekday-span">Sa</span>
-                                        </div>
-                                        <div class="days-container"></div>
-                                    </div> -->
+                                    </div>
+                                </div>
+        
+                                <div class="show-drop checkin date-content-container">
+                                    <div class="date-div-container flex-center">
+                                        <span class= "dates-span">Dates</span>
+                                        <!-- <span class= "months-span">Months</span>
+                                        <span class= "flexible-span">I'm flexible</span> -->
+                                    </div>
+        
+                                    <div class="calendar-controls">
+                                        <span class="cal-prev"></span>
+                                        <span class="cal-next"></span>
+                                    </div>
+        
+                                    <div class="calendar-container flex-scroll">
+                                        <!-- <div class="calendar">
+                                            <div class="month-name-container">
+                                                <span class="month-name-span">September 2024</span>
+                                            </div>
+                                            <div class="weekdays-container">
+                                                <span class="weekday-span">Su</span>
+                                                <span class="weekday-span">Mo</span>
+                                                <span class="weekday-span">Tu</span>
+                                                <span class="weekday-span">We</span>
+                                                <span class="weekday-span">Th</span>
+                                                <span class="weekday-span">Fr</span>
+                                                <span class="weekday-span">Sa</span>
+                                            </div>
+                                            <div class="days-container"></div>
+                                        </div> -->
+                                    </div>
                                 </div>
                             </div>
                         </div>
     
-                        <div class="category-box guest-container w-30">
+                        <div class="category-box guest-container">
                             <div class="category-highlight flex-between">
                                 <div class="category-field-container">
                                     <span class="category-name">Guests</span>
-                                    <span class="category-val">Add guests</span>
+                                    <div class="category-val-container flex gp-5">
+                                        <span class="category-val">Add guests</span>
+                                        <span class="other-guest infant-guest"></span>
+                                        <span class="other-guest pet-guest"></span>
+                                    </div>
                                 </div>
+                                
         
                                 <span class="search-icon flex-center">
                                     <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
@@ -185,6 +196,113 @@
                                     <path d="M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z" stroke="#f7f7f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                     </svg>
                                 </span>
+                            </div>
+
+                            <div class="show-drop">
+                                <div class="guest-box flex-between">
+                                    <div class="guest-details flex-column">
+                                        <span class="guest-name">Adult</span>
+                                        <span class="guest-age">Ages 13 or above</span>
+                                    </div>
+
+                                    <div class="adult guest-control-container flex gp-10">
+                                        <button class = "add-guest">
+                                            <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+                                            <!-- Uploaded to: SVG Repo, www.svgrepo.com, Transformed by: SVG Repo Mixer Tools -->
+                                            <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <g id="SVGRepo_iconCarrier"> <path d="M6 12H18M12 6V18" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> </g>
+                                            </svg>
+                                        </button>
+                                        <span class="guest-count">0</span>
+                                        <button class= "reduce-guest">
+                                            <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+                                            <svg fill="#000000" width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" d="M4.5 12.75a.75.75 0 01.75-.75h13.5a.75.75 0 010 1.5H5.25a.75.75 0 01-.75-.75z"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="guest-box flex-between">
+                                    <div class="guest-details flex-column">
+                                        <span class="guest-name">Children</span>
+                                        <span class="guest-age">Ages 2 - 12</span>
+                                    </div>
+
+                                    <div class="children guest-control-container flex gp-10">
+                                        <button class = "add-guest">
+                                            <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+                                            <!-- Uploaded to: SVG Repo, www.svgrepo.com, Transformed by: SVG Repo Mixer Tools -->
+                                            <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <g id="SVGRepo_iconCarrier"> <path d="M6 12H18M12 6V18" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> </g>
+                                            </svg>
+                                        </button>
+                                        <span class="guest-count">0</span>
+                                        <button class= "reduce-guest">
+                                            <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+                                            <svg fill="#000000" width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" d="M4.5 12.75a.75.75 0 01.75-.75h13.5a.75.75 0 010 1.5H5.25a.75.75 0 01-.75-.75z"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="guest-box flex-between">
+                                    <div class="guest-details flex-column">
+                                        <span class="guest-name">Infants</span>
+                                        <span class="guest-age">Under 2</span>
+                                    </div>
+
+                                    <div class="infant guest-control-container flex gp-10">
+                                        <button class = "add-guest">
+                                            <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+                                            <!-- Uploaded to: SVG Repo, www.svgrepo.com, Transformed by: SVG Repo Mixer Tools -->
+                                            <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <g id="SVGRepo_iconCarrier"> <path d="M6 12H18M12 6V18" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> </g>
+                                            </svg>
+                                        </button>
+                                        <span class="guest-count">0</span>
+                                        <button class= "reduce-guest">
+                                            <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+                                            <svg fill="#000000" width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" d="M4.5 12.75a.75.75 0 01.75-.75h13.5a.75.75 0 010 1.5H5.25a.75.75 0 01-.75-.75z"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                
+                                <div class="guest-box flex-between">
+                                    <div class="guest-details flex-column">
+                                        <span class="guest-name">Pets</span>
+                                        <span class="guest-age"><a href="#" class="pet-link">Bringing a service animal?</a></span>
+                                    </div>
+
+                                    <div class="pet guest-control-container flex gp-10">
+                                        <button class = "add-guest">
+                                            <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+                                            <!-- Uploaded to: SVG Repo, www.svgrepo.com, Transformed by: SVG Repo Mixer Tools -->
+                                            <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <g id="SVGRepo_iconCarrier"> <path d="M6 12H18M12 6V18" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> </g>
+                                            </svg>
+                                        </button>
+                                        <span class="guest-count">0</span>
+                                        <button class= "reduce-guest">
+                                            <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+                                            <svg fill="#000000" width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" d="M4.5 12.75a.75.75 0 01.75-.75h13.5a.75.75 0 010 1.5H5.25a.75.75 0 01-.75-.75z"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
     

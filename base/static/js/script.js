@@ -2,46 +2,119 @@
 const categoryContainer = document.querySelector(".category-container")
 const destinationCategoryHighlight = document.querySelector(".destination-container .category-highlight")
 const mapRegionsWrapper = document.querySelector(".map-regions-wrapper")
-const dateWrapper = document.querySelectorAll(".date-wrapper")
+const dateWrapper = document.querySelector(".date-wrapper")
 const checkinHighlight = document.querySelector(".checkin.date-wrapper .category-highlight")
-const checkoutHighlight = document.querySelector(".checkout.date-wrapper .category-highlight")
-const dateCategoryHighlight = document.querySelectorAll(".date-wrapper .category-highlight")
-const checkinDateContentContainer = document.querySelector(".checkin.date-content-container")
-const checkoutDateContentContainer = document.querySelector(".checkout.date-content-container")
-const dateContentContainer = document.querySelectorAll(".date-content-container")
-console.log(checkinDateContentContainer)
-console.log(checkoutDateContentContainer)
+const dateCategoryHighlight = document.querySelector(".date-wrapper .category-highlight")
+const dateContentContainer = document.querySelector(".date-content-container")
+const guestCatHihglight = document.querySelector(".guest-container .category-highlight")
+const guestShowDrop = document.querySelector(".guest-container .show-drop")
 let isLiked;
 
-function revealDropFunc(highlightEl, dropEl, dropElStr){
-    highlightEl.addEventListener("click", function(){
-        dropEl.classList.toggle("reveal")
-    })
+function revealDropFunc(highlightEl, dropEl){
     
-    // document.addEventListener("click", function(event){
-    //     if(event.target.closest(dropElStr) == null){
-    //         dropEl.classList.remove("reveal")
-    //     }
-    // })
+    document.addEventListener("click", function(event){
+        if(event.target.closest(highlightEl) == null){
+            dropEl.classList.remove("reveal")
+        }
+    })
 }
 
 if(document.querySelector(".category-container")){
-    revealDropFunc(destinationCategoryHighlight, mapRegionsWrapper, ".destination-container .category-highlight")
-    revealDropFunc(checkinHighlight, checkinDateContentContainer, ".date-wrapper .category-highlight")
-    // revealDropFunc(checkoutHighlight, checkoutDateContentContainer, ".checkout.date-wrapper .category-highlight")
+    dateCategoryHighlight.addEventListener("click", function(){
+        dateContentContainer.style.width = `${categoryContainer.clientWidth}px`
+        document.querySelector(".date-wrapper .show-drop").classList.toggle("reveal")
+        let dropEl = document.querySelector(".date-wrapper .show-drop")
+        revealDropFunc(".date-wrapper", dropEl)
+    })
     
-    dateCategoryHighlight.forEach(d => {
-        d.addEventListener("click", function(){
-            dateWrapper.forEach(d => d.classList.add("static-pos"))
-            categoryContainer.classList.add("relative-pos")
-            dateContentContainer.forEach(d => {
-                d.style.width = `${categoryContainer.clientWidth}px`
-            })
-        })
+    window.addEventListener("resize", function(){
+        dateContentContainer.style.width = `${categoryContainer.clientWidth}px`
     })
 
-    window.addEventListener("resize", function(){
-        dateContentContainer.forEach(d => d.style.width = `${categoryContainer.clientWidth}px`)
+    guestCatHihglight.addEventListener("click", function(){
+        guestShowDrop.classList.toggle("reveal")
+        revealDropFunc(".guest-container", guestShowDrop)
+    })
+    let adultGuestCount = 0
+    let childrenGuestCount = 0
+    let infantGuestCount = 0
+    let petGuestCount = 0
+    function increaseGuestCount(parentEl, guestCount, num){
+     
+        if(guestCount < num){
+            guestCount = guestCount + 1
+            parentEl.querySelector(".guest-count").textContent = guestCount
+        }
+         
+        return guestCount
+    }
+
+    function decreaseGuestCount(parentEl, guestCount){
+        if(guestCount > 0){
+            guestCount--
+            parentEl.querySelector(".guest-count").textContent = guestCount
+        }
+
+        return guestCount
+    }
+
+    function updateGuestSum() {
+        let totalGuests = adultGuestCount + childrenGuestCount;
+        document.querySelector(".guest-container .category-val").textContent = `${totalGuests} ${totalGuests < 2 ? 'guest' : 'guests'},`;
+    }
+
+    let adultGuestBox = document.querySelector(".adult.guest-control-container")
+    adultGuestBox.querySelector(".add-guest").addEventListener("click", function(){
+        adultGuestCount = increaseGuestCount(adultGuestBox, adultGuestCount, 14)
+        updateGuestSum()
+    })
+
+    adultGuestBox.querySelector(".reduce-guest").addEventListener("click", function(){
+        adultGuestCount = decreaseGuestCount(adultGuestBox, adultGuestCount)
+        updateGuestSum()
+    })
+
+    let childrenGuestBox = document.querySelector(".children.guest-control-container")
+    childrenGuestBox.querySelector(".add-guest").addEventListener("click", function(){
+        childrenGuestCount = increaseGuestCount(childrenGuestBox, childrenGuestCount, 5)
+        updateGuestSum()
+    })
+
+    childrenGuestBox.querySelector(".reduce-guest").addEventListener("click", function(){
+        childrenGuestCount = decreaseGuestCount(childrenGuestBox, childrenGuestCount)
+        updateGuestSum()
+    })
+
+
+    let infantGuestBox = document.querySelector(".infant.guest-control-container")
+    infantGuestBox.querySelector(".add-guest").addEventListener("click", function(){
+        infantGuestCount = increaseGuestCount(infantGuestBox, infantGuestCount, 5)
+        updateGuestSum()
+        document.querySelector(".guest-container .infant-guest").textContent = `${infantGuestCount} ${infantGuestCount < 2 ? 'infant' : 'infants'},`;
+
+    })
+
+    infantGuestBox.querySelector(".reduce-guest").addEventListener("click", function(){
+        infantGuestCount = decreaseGuestCount(infantGuestBox, infantGuestCount)
+        updateGuestSum()
+        document.querySelector(".guest-container .infant-guest").textContent = `,${infantGuestCount} ${infantGuestCount < 2 ? 'infant' : 'infants'},`;
+
+    })
+
+
+    let petGuestBox = document.querySelector(".pet.guest-control-container")
+    petGuestBox.querySelector(".add-guest").addEventListener("click", function(){
+        petGuestCount = increaseGuestCount(petGuestBox, petGuestCount, 5)
+        updateGuestSum()
+        document.querySelector(".guest-container .pet-guest").textContent = `${petGuestCount} ${petGuestCount < 2 ? 'pet' : 'pets'}`;
+
+    })
+
+    petGuestBox.querySelector(".reduce-guest").addEventListener("click", function(){
+        petGuestCount = decreaseGuestCount(petGuestBox, petGuestCount)
+        updateGuestSum()
+        document.querySelector(".guest-container .pet-guest").textContent = `${petGuestCount} ${petGuestCount < 2 ? 'pet' : 'pets'}`;
+
     })
 }
 
@@ -84,7 +157,7 @@ if(document.querySelector(".form-page")){
 }
 
 if(document.querySelector(".calendar-container")){
-    const calendarContainer = document.querySelectorAll('.calendar-container');
+    const calendarContainer = document.querySelector('.calendar-container');
     // Function to render a single month's calendar
     function renderMonthCalendar(month, year) {
         const calendar = document.createElement('div');
@@ -133,18 +206,28 @@ if(document.querySelector(".calendar-container")){
             daysContainer.appendChild(dayCell);
         }
 
+        calendarContainer.appendChild(calendar)
+
         // Append the month container to the main calendar container
+        let calMonth;
+        let calYear;
         let calendarEl = document.querySelectorAll(".calendar")
         calendarEl.forEach(cal => {
             const dayCell = cal.querySelectorAll(".day-cell")   
             dayCell.forEach((day) => {
                 day.addEventListener("click", function(){
-                    cal.querySelectorAll(".day-cell").forEach(el => el.classList.remove("active"))
+                    document.querySelectorAll(".day-cell").forEach(el => el.classList.remove("active"))
                     this.classList.add("active")
-                    console.log(this)
+                    let monthYear = cal.querySelector(".calendar-header").textContent
+                    let [calMonth, calYear] = monthYear.split(" ")
+                    // console.log(calMonth.slice(0,3))
+                    let dateVal = this.textContent
+                    console.log(dateVal)
+
+                    document.querySelector(".date-wrapper .category-val").textContent = `${calMonth.slice(0,3)} ${dateVal}`
                 })
             })
-        })
+        })        
             
     }
 
@@ -165,7 +248,7 @@ if(document.querySelector(".calendar-container")){
 
     // Clear the calendar container and render for two years (starting from the current month)
     function renderMultipleYears() {
-        calendarContainer.forEach(d => d.innerHTML = '');  // Clear the calendar
+        calendarContainer.innerHTML = ''  // Clear the calendar
         const currentDate = new Date();
         const currentMonth = currentDate.getMonth();  // Get current month (0 = January, 11 = December)
         const currentYear = currentDate.getFullYear(); // Get current year
@@ -231,7 +314,7 @@ const observerCallback = (entries, observer) => {
 
 const options = {
     root : null,
-    threshold : 0.8
+    threshold : 0.1
 }
 
 const observer = new IntersectionObserver(observerCallback, options)

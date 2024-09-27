@@ -173,7 +173,7 @@ nav{
     right: 0;
     width: 100%;
     border-bottom: 1px solid hsla(0, 0%, 10%, .2);
-    z-index: 90;
+    z-index: 999;
 }
 
 .nav{
@@ -255,6 +255,8 @@ nav{
     margin: 40px auto 0px;
     border: 1px solid hsl(0 0% 70%);
     border-radius: 50px;
+    position: relative;
+    z-index: 99;
 }
 
 .category-container.trans-down{
@@ -297,6 +299,16 @@ nav{
     position: relative;
     border-radius: 100px;
     width : calc(100% / 3)
+}
+
+.date-wrapper{
+    height : 100%;
+    border-radius: 100px;
+    position: relative;
+}
+
+.date-val-container{
+    display: none;
 }
 
 .category-highlight{
@@ -366,6 +378,50 @@ input.category-field::placeholder{
     font-size: clamp(.6rem, 3.5vw, 1rem);
 }
 
+.date-val-container span{
+    color: hsl(0, 0%, 95%, .7);
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: clamp(.6rem, 3.5vw, 1rem);
+}
+
+.other-guest{
+    color: hsl(0, 0%, 95%, .7);
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: clamp(.6rem, 3.5vw, 1rem);
+    display: inline;
+}
+
+.guest-box{
+    padding-bottom: 20px;
+    border-bottom: 1px solid hsla(0, 0%, 10%, .3);
+    margin-bottom: 20px;
+}
+
+.guest-name{
+    font-size: 1.3rem;
+    font-weight: 500;
+}
+
+.guest-control-container button{
+    width : 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: transparent;
+    border : 1px solid hsla(0, 0%, 10%, .5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.guest-count{
+    font-size : 1.1rem;
+    font-weight : 400;
+}
+
 .show-drop{
     position: absolute;
     top: 120%;
@@ -378,6 +434,15 @@ input.category-field::placeholder{
     overflow-y: auto;
     display: none;
     z-index: 100;
+}
+
+.date-wrapper .show-drop{
+    left : 50%;
+    transform : translateX(-50%)
+}
+
+.guest-container .show-drop{
+    width : 100%
 }
 
 .reveal{
@@ -475,6 +540,7 @@ span.mobile.search-icon svg path{
 
 .relative-pos{
     position: relative;
+    z-index: 99;
 }
 
 .calendar-container.flex-scroll{
@@ -814,6 +880,7 @@ span.mobile.search-icon svg path{
     color: hsla(0, 0%, 98%, 0.8);
     line-height: 1.2;
     text-align: center;
+    overflow: hidden;
 }
 
 .typewriter-cursor{
@@ -1230,6 +1297,7 @@ input[type = "file"].form-input::file-selector-button{
 .animate{
     transform: translateY(20px);
     opacity: 0;
+    will-change: opacity, transform
 }
 
 .trans{
@@ -1238,7 +1306,8 @@ input[type = "file"].form-input::file-selector-button{
 
 .in-view{
     transform: translateY(0);
-    opacity: 1;
+    opacity: 1;    
+    
 }
 
 .fixed-nav-container{
