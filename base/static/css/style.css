@@ -457,7 +457,8 @@ input.category-field::placeholder{
     font-weight: 500;
 }
 
-.guest-control-container button{
+.guest-control-container .add-guest,
+.guest-control-container .reduce-guest{
     width : 40px;
     height: 40px;
     border-radius: 50%;
@@ -466,6 +467,7 @@ input.category-field::placeholder{
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor : pointer;
 }
 
 .guest-count{
@@ -485,6 +487,18 @@ input.category-field::placeholder{
     overflow-y: auto;
     display: none;
     z-index: 100;
+}
+
+.show-drop::-webkit-scrollbar{
+    width : 7px;
+    background-color: hsla(0, 0%, 70%, 0.8);
+    border-radius: inherit;
+
+}
+
+.show-drop::-webkit-scrollbar-thumb{
+    background-color: hsla(0, 0%, 10%, .8);
+    border-radius: 10px;
 }
 
 .date-wrapper .show-drop{
@@ -538,7 +552,7 @@ input.category-field::placeholder{
     display: inline-block;
 } */
 
-span.search-icon{
+.search-icon{
     width : 55px;
     height : 55px;
     border-radius: 50%;
@@ -561,7 +575,7 @@ span.mobile.search-icon svg path{
     stroke : hsl(0 0% 95%);
 }
 
-.mobile.category-container:hover span.mobile.search-icon svg path{
+.category-highlight.active span.mobile.search-icon svg path{
     stroke : hsl(0 0% 35%);
 }
 
@@ -1440,6 +1454,10 @@ input[type = "file"].form-input::file-selector-button{
     margin : 0 auto;
 }
 
+.about-content-container section{
+    margin-bottom: 20px;
+}
+
 .soldout-text{
     font-size: 1.1rem;
     font-weight: 500;
@@ -1448,6 +1466,27 @@ input[type = "file"].form-input::file-selector-button{
     margin-top: 5px;
     border: 1px solid hsla(0, 0%, 10%, .2);
     padding: 2px 12px;
+}
+
+.section-head{
+    font-size: 1.5rem;
+}
+
+.section-text{
+    font-size: 1.1rem;
+}
+
+.offer-list li,
+.offer-list strong{
+    font-size: 1rem;
+}
+
+ul.offer-list{
+    list-style: circle;
+}
+
+.offer-list li{
+    padding : 5px 0px
 }
 
 @keyframes moveUp {
