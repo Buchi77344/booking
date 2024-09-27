@@ -227,57 +227,60 @@
                 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
                 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/TextPlugin.min.js"></script>
                 <script>
-                    let words = ["Welcome To Experience Hotspot", "Book Your Next Adventure with Ease", "Discover and Reserve Your Perfect Stay", "Plan Ahead, Book Now, Travel Later", "Your Journey Starts Here - Book Today"]
+                    if(document.querySelector(".typewriter-text")){
+                        let words = ["Welcome To Experience Hotspot", "Book Your Next Adventure with Ease", "Discover and Reserve Your Perfect Stay", "Plan Ahead, Book Now, Travel Later", "Your Journey Starts Here - Book Today"]
+                        
+                        function typeAnim(){
+                            try{
+                                let mainTimeline = gsap.timeline({
+                                    repeat : -1
+                                })
                     
-                    function typeAnim(){
-                        try{
-                            let mainTimeline = gsap.timeline({
-                                repeat : -1
-                            })
-                
-                            words.forEach(word => {
-                                let textTimeline = gsap.timeline({
-                                    repeat : 1,
-                                    yoyo : true,
-                                    repeatDelay : 4
-                                })
-                
-                                textTimeline.to(".typewriter-text", {
-                                    text : word,
-                                    duration : 3
-                                })
-
-                                mainTimeline.add(textTimeline)
-                            })    
-                        }catch(error){
-                            if(error){
-                                console.log(error)
-                                document.querySelector(".typewriter-text").textContent = "Welcome To Experience Hotspot"
-                                document.querySelector(".typewriter-cursor").style.display = "none"
-                                
+                                words.forEach(word => {
+                                    let textTimeline = gsap.timeline({
+                                        repeat : 1,
+                                        yoyo : true,
+                                        repeatDelay : 4
+                                    })
+                    
+                                    textTimeline.to(".typewriter-text", {
+                                        text : word,
+                                        duration : 3
+                                    })
+    
+                                    mainTimeline.add(textTimeline)
+                                })    
+                            }catch(error){
+                                if(error){
+                                    console.log(error)
+                                    document.querySelector(".typewriter-text").textContent = "Welcome To Experience Hotspot"
+                                    document.querySelector(".typewriter-cursor").style.display = "none"
+                                    
+                                }
                             }
                         }
-                    }
-                    
-
-                    let typeMediaQuery = window.matchMedia("(max-width: 900px)")
-                    
-
-                    function handleScreenChange(e){
-                        if(e.matches){
-                            gsap.killTweensOf(".typewriter-text")
-                            console.log("killTween")
-                            document.querySelector(".typewriter-cursor").style.display = "none"
-                            document.querySelector(".typewriter-text").textContent = "Welcome To Experience Hotspot"
-                        }else{
-                            document.querySelector(".typewriter-text").textContent = ""
-                            typeAnim()
-                            document.querySelector(".typewriter-cursor").style.display = "inline"
+                        
+    
+                        let typeMediaQuery = window.matchMedia("(max-width: 900px)")
+                        
+    
+                        function handleScreenChange(e){
+                            if(e.matches){
+                                gsap.killTweensOf(".typewriter-text")
+                                console.log("killTween")
+                                document.querySelector(".typewriter-cursor").style.display = "none"
+                                document.querySelector(".typewriter-text").textContent = "Welcome To Experience Hotspot"
+                            }else{
+                                document.querySelector(".typewriter-text").textContent = ""
+                                typeAnim()
+                                document.querySelector(".typewriter-cursor").style.display = "inline"
+                            }
                         }
-                    }
+    
+                        typeMediaQuery.addListener(handleScreenChange)
+                        handleScreenChange(typeMediaQuery)
 
-                    typeMediaQuery.addListener(handleScreenChange)
-                    handleScreenChange(typeMediaQuery)
+                    }
                 </script>
 
                 <style>

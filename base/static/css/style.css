@@ -359,6 +359,10 @@ nav{
     color : hsla(0, 0%, 10%, .9)
 }
 
+.category-highlight.active .category-field{
+    color : hsla(0, 0%, 10%, .9)
+}
+
 .guest-container .category-highlight{
     padding-right: 10px;
 }
@@ -410,6 +414,7 @@ input.category-field{
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+    color : hsl(0, 0%, 95%, .7);
 }
 
 input.category-field::placeholder{
@@ -594,10 +599,12 @@ span.mobile.search-icon svg path{
 
 .calendar-container.flex-scroll{
     align-items: flex-start;
+    justify-content: flex-start;
+    gap: 0px;
 }
 
 .calendar{
-    min-width : 48%;
+    min-width : 50%;
     text-align: center;
 }
 
@@ -1410,6 +1417,27 @@ input[type = "file"].form-input::file-selector-button{
 
 .fixed-nav-link-text{
     font-size : clamp(.75rem, 3.5vw, 1rem)
+}
+
+.about-banner-section{
+    height : 50vh;
+    background: url("../img/bg-1.jpg") hsl(0,0%,10%, .6);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-blend-mode: darken;
+}
+
+.about-title{
+    font-size : clamp(3.5rem, 5.5vw, 5rem);
+    color : hsla(0, 0%, 98%, 0.7);
+}
+
+.about-content-wrapper{
+    padding : 20px 0px;
+    width : 90%;
+    max-width: 1200px;
+    margin : 0 auto;
 }
 
 @keyframes moveUp {
