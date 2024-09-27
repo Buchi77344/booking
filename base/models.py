@@ -123,6 +123,7 @@ class Experience(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     vendor = models.ForeignKey(VendorProfile, on_delete=models.CASCADE, related_name='experiences')
+    guest = models.IntegerField(default=0)
     
     # Additional fields
     images = models.ImageField(upload_to='experience_images/', null=True, blank=True)  # Image upload
