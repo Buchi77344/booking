@@ -91,44 +91,16 @@
                             <div class="category-highlight">
                                 <div class="category-field-container">
                                     <span class="category-name">Location</span>
-                                    <input type="text" class="category-field" placeholder="Search destinations">
+                                    <form action="" class="search-form">
+                                        <input type="text" class="destination category-field" placeholder="Search destinations">
+                                        <button class = "search-form-btn">Submit</button>
+                                    </form>
                                 </div>
                             </div>
     
                             <div class="show-drop map-regions-wrapper">
                                 <span class= "map-region-text">Search by region</span>
-                                <div class="map-regions-container">
-                                    <div class="map-region">
-                                        <img class= "map-region-img" src="{% static 'img/world-map.png' %}" alt="">
-                                        <span class = "map-region-name">I'm flexible</span>
-                                    </div>
-    
-                                    <div class="map-region">
-                                        <img class= "map-region-img" src="{% static 'img/africa-map.png' %}" alt="">
-                                        <span class = "map-region-name">Africa</span>
-                                    </div>
-    
-                                    <div class="map-region">
-                                        <img class= "map-region-img" src="{% static 'img/United-Kingdom.png' %}" alt="">
-                                        <span class = "map-region-name">United Kingdom</span>
-                                    </div>
-    
-                                    <div class="map-region">
-                                        <img class= "map-region-img" src="{% static 'img/usa-map.png' %}" alt="">
-                                        <span class = "map-region-name">United States</span>
-                                    </div>
-    
-                                    <div class="map-region">
-                                        <img class= "map-region-img" src="{% static 'img/Canada-map.png' %}" alt="">
-                                        <span class = "map-region-name">Canada</span>
-                                    </div>
-    
-                                    <div class="map-region">
-                                        <img class= "map-region-img" src="{% static 'img/uae-map.svg' %}" alt="<a href='https://www.vecteezy.com/free-vector/map'>Map Vectors by Vecteezy</a>">
-                                        <span class = "map-region-name">UAE Emirates</span>
-                                        
-                                    </div>
-                                </div>
+                                <ul class="location-list"></ul>
                             </div>
                         </div>
     

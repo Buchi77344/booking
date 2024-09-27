@@ -1,5 +1,6 @@
 //Script to show showDrop onclick
 const categoryContainer = document.querySelector(".category-container")
+const categoryHighlight = document.querySelectorAll(".category-highlight")
 const destinationCategoryHighlight = document.querySelector(".destination-container .category-highlight")
 const mapRegionsWrapper = document.querySelector(".map-regions-wrapper")
 const dateWrapper = document.querySelector(".date-wrapper")
@@ -8,6 +9,7 @@ const dateCategoryHighlight = document.querySelector(".date-wrapper .category-hi
 const dateContentContainer = document.querySelector(".date-content-container")
 const guestCatHihglight = document.querySelector(".guest-container .category-highlight")
 const guestShowDrop = document.querySelector(".guest-container .show-drop")
+const destinationInput = document.querySelector(".destination.category-field")
 let isLiked;
 
 function revealDropFunc(highlightEl, dropEl){
@@ -29,6 +31,13 @@ if(document.querySelector(".category-container")){
     
     window.addEventListener("resize", function(){
         dateContentContainer.style.width = `${categoryContainer.clientWidth}px`
+    })
+
+    categoryHighlight.forEach((el) => {
+        el.addEventListener("click", function (){
+            document.querySelectorAll(".category-highlight").forEach(el => el.classList.remove("active"))
+            this.classList.add("active")
+        })
     })
 
     guestCatHihglight.addEventListener("click", function(){
@@ -116,6 +125,60 @@ if(document.querySelector(".category-container")){
         document.querySelector(".guest-container .pet-guest").textContent = `${petGuestCount} ${petGuestCount < 2 ? 'pet' : 'pets'}`;
 
     })
+
+    //Search Functionality
+    const categoryField = document.querySelector(".category-field")
+    destinationCategoryHighlight.addEventListener("click", function(){
+        mapRegionsWrapper.classList.toggle("reveal")
+        categoryField.focus()
+        revealDropFunc(".destination-container", mapRegionsWrapper)
+    })
+    const locationList = document.querySelector(".location-list")
+    const searchFormBtn = document.querySelector(".search-form-btn")
+    let list =  ""
+    destinationInput.addEventListener("input", async function(){
+        locationList.innerHTML = ""
+        
+        const query = this.value;
+        const apiKey = "pk.0c362d8fcfc2daf1ed669ae23cd5a641"
+       
+        const response = await fetch(`https://us1.locationiq.com/v1/autocomplete.php?key=${apiKey}&q=${query}&format=json`);
+        const data = await response.json();
+        
+
+        data.forEach(place => {
+            // const li = document.createElement('li');
+            // li.textContent = place.display_name;
+            // locationList.appendChild(li);
+            list += `
+                <li class = "location-list-item flex gp-20"> 
+                    <span class = "destination-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#f2f2f2">
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                            <g id="SVGRepo_iconCarrier"> 
+                                <path d="M12 21C15.5 17.4 19 14.1764 19 10.2C19 6.22355 15.866 3 12 3C8.13401 3 5 6.22355 5 10.2C5 14.1764 8.5 17.4 12 21Z" stroke="#f2f2f2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> 
+                                <path d="M12 12C13.1046 12 14 11.1046 14 10C14 8.89543 13.1046 8 12 8C10.8954 8 10 8.89543 10 10C10 11.1046 10.8954 12 12 12Z" stroke="#f2f2f2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> 
+                            </g>
+                        </svg>
+                    </span>
+
+                    <span class = "location-item-text">${place.display_name}</span>
+                </li>
+            `
+            
+        });
+        locationList.innerHTML = list
+        document.querySelectorAll(".location-list-item").forEach(list => {
+            list.addEventListener("click", function(){
+                document.querySelector(".category-field").value = this.querySelector(".location-item-text").textContent
+                console.log(this.textContent)
+                // searchFormBtn.click()
+            })
+        })
+    })
+    
+
 }
 
 if(document.querySelector(".form-page")){
