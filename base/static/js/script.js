@@ -143,6 +143,7 @@ if(document.querySelector(".category-container")){
     let list =  ""
     destinationInput.addEventListener("input", async function(){
         locationList.innerHTML = ""
+        list = ""
 
         const query = this.value;
         const apiKey = "pk.0c362d8fcfc2daf1ed669ae23cd5a641"

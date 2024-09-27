@@ -6,10 +6,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <title>About Us - Booking Experiences</title>
     <style>
-        body {
+        /* body {
             background-color: white;
         }
         .about-section {
@@ -24,18 +24,51 @@
         }
         .about-content p {
             margin-bottom: 20px;
-        }
+        } */
     </style>
 </head>
 <body>
     <div class="container about-section">
-        <h1 class="about-title">About Us</h1>
-        <div class="row">
-            <div class="col-md-8 offset-md-2 about-content">
-                <p>Welcome to [Your Company Name], where we specialize in curating unforgettable booking experiences tailored just for you. Whether you're looking for a relaxing getaway, an adventurous excursion, or a unique cultural experience, we have it all!</p>
-                <p>Founded in [Year], our mission is to connect travelers with extraordinary experiences that create lasting memories. Our dedicated team of travel experts is passionate about exploring the world and sharing their insights with you.</p>
-                <p>At [Your Company Name], we believe that every journey should be seamless and enjoyable. That’s why we take care of all the details, ensuring that your booking process is simple and hassle-free. With our extensive network of partners, we offer a wide range of options to suit every traveler’s needs.</p>
-                <p>Join us in discovering the world of possibilities. Thank you for choosing [Your Company Name] as your trusted partner in creating amazing experiences!</p>
+        <div class="about-banner-section flex-center">
+            <h1 class="about-title">About Us</h1>
+        </div>
+        <div class="about-content-wrapper">
+            <div class="about-content-container">
+                <section class="introduction">
+                    <h3 class="section-head">Introduction</h3>
+                    <p class = "section-text">
+                        Welcome to [Your Company Name]—your one-stop solution for hassle-free travel planning and booking.
+                         Whether you're envisioning a tranquil beach getaway, an exciting city escape, or an adventurous expedition, 
+                         we’re here to simplify your travel arrangements,
+                         so you can focus on what truly matters: the journey ahead.
+                    </p>
+                </section>
+
+                <section class="introduction">
+                    <h3 class="section-head">Who We Are</h3>
+                    <p class = "section-text">
+                        At [Your Company Name], we are passionate travelers, 
+                        just like you. Our journey began with a simple idea: to make travel 
+                        more accessible,
+                         more enjoyable, and more affordable for everyone. Over the years, 
+                        we have evolved into a comprehensive booking platform that brings together the best travel deals, accommodations, and experiences from around the world.
+
+                        What sets us apart is our understanding of the modern traveler. We know that today’s traveler seeks convenience, flexibility, and a personal touch. That’s why we’ve built a platform that caters to all kinds of explorers—from solo adventurers and couples to families and business travelers. Whether you're planning a weekend getaway or a month-long vacation, we’ve got you covered.
+                    </p>
+                </section>
+
+                <section class="introduction">
+                    <h3 class="section-head">What We Offer</h3>
+                    <p class = "section-text">
+                        At [Your Company Name], we offer a wide array of services to ensure your travel 
+                        experience is nothing short of perfect. From selecting flights to booking accommodations and 
+                        finding the best local experiences, we provide an all-in-one solution.
+                        
+                        <ul class = "offer-list">
+                            <li></li>
+                        </ul>
+                    </p>
+                </section>
             </div>
         </div>
     </div>
