@@ -177,6 +177,10 @@ EMAIL_HOST_USER = 'experiencehotspot@zohomail.com'  # Your Zoho email address
 EMAIL_HOST_PASSWORD = 'BsBUiZ6A0LrW'
 
 
+ADMIN_EMAIL = 'experiencehotspot@gmail.com'
+
+SITE_NAME= "Experience Hotspot"
+
 # clint id = '735819647020-i2okdjtvpo7lgacunmjd4pq2e8or4pg5.apps.googleusercontent.com'
 
 

@@ -30,18 +30,29 @@
         <h1 class="text-center mb-4">Contact Us</h1>
         <div class="row">
             <div class="col-md-6 offset-md-3">
-                <form>
+                {% if messages %}
+                <div class="mb-3">
+                    {% for message in messages %}
+                        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-info{% endif %} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+                <form method="post">
+                    {% csrf_token %}
                     <div class="mb-3">
                         <label for="name" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="name" required>
+                        <input type="text" name="name" class="form-control" id="name" required>
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" required>
+                        <input type="email" name="email" class="form-control" id="email" required>
                     </div>
                     <div class="mb-3">
                         <label for="message" class="form-label">Message</label>
-                        <textarea class="form-control" id="message" rows="4" required></textarea>
+                        <textarea name= "message" class="form-control" id="message" rows="4" required></textarea>
                     </div>
                     <button type="submit" class="btn btn-black">Send Message</button>
                 </form>

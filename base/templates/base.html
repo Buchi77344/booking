@@ -21,18 +21,23 @@
     
                     <div class="nav-links-container">
                         <ul class="flex gp-10">
-                            {% if request.user.is_authenticated %}
+                           
                             {% if not request.user.role == 'vendor' %}
                             <li><a href="/" class="stay-link">Home</a></li>
                             <li><a href="{% url 'about' %}" class="experience-link">About</a></li>
                             <li><a href="{% url 'contact' %}" class="experience-link">Contact Us</a></li>
                             <li><a href="{% url 'privacy' %}" class="experience-link">Privacy Policy</a></li>
+                            <li><a href="{% url 'vendor:form' %}" class="experience-link">Become a Vendor</a></li>
                             {%endif%}
-                            {% endif %}
+                          
                             {% if request.user.is_authenticated %}
                             {% if request.user.role == 'vendor' %}
-                            <li><a href="#" class="experience-link">Host</a></li>
-                            <li><a href="#" class="experience-link">Experience</a></li>
+                            <li><a href="/" class="stay-link">Home</a></li>
+                            <li><a href="{% url 'vendor:dashboard' %}" class="experience-link">Dashboard</a></li>
+                            <li><a href="{% url 'vendor:host' %}" class="experience-link">Host Experience</a></li>
+                            <li><a href="{% url 'vendor:vendor_list' %}" class="experience-link">Vendor List</a></li>
+                            <li><a href="{% url 'vendor:earn' %}" class="experience-link">Earning</a></li>
+                            <li><a href="{% url 'vendor:payment' %}" class="experience-link">Payment Method</a></li>
                             {%endif%}
                             {% endif %}
                         </ul>
@@ -41,18 +46,23 @@
 
                     <div class="mobile nav-links-container">
                         <ul class="flex-column gp-20">
+                            {% if not request.user.role == 'vendor' %}
                             <li><a href="/" class="stay-link">Home</a></li>
                             <li><a href="{% url 'about' %}" class="experience-link">About</a></li>
                             <li><a href="{% url 'contact' %}" class="experience-link">Contact Us</a></li>
                             <li><a href="{% url 'privacy' %}" class="experience-link">Privacy Policy</a></li>
-                       
-                            
-                            <li><a href="#" class="experience-link">Host</a></li>
-                            <li><a href="#" class="experience-link">Experience</a></li>
-                           
-                          
-                           
-                            
+                            <li><a href="{% url 'vendor:form' %}" class="experience-link">Become a Vendor</a></li>
+                            {%endif%}
+                            {% if request.user.is_authenticated %}
+                            {% if request.user.role == 'vendor' %}
+                            <li><a href="/" class="experience-link">Home</a></li>
+                            <li><a href="{% url 'vendor:dashboard' %}" class="experience-link">Dashboard</a></li>
+                            <li><a href="{% url 'vendor:host' %}" class="experience-link">Host Experience</a></li>
+                            <li><a href="{% url 'vendor:vendor_list' %}" class="experience-link">Vendor List</a></li>
+                            <li><a href="{% url 'vendor:earn' %}" class="experience-link">Earning</a></li>
+                            <li><a href="{% url 'vendor:payment' %}" class="experience-link">Payment Method</a></li>
+                            {%endif%}
+                            {% endif %}
                         </ul>
                         
                     </div>
@@ -245,7 +255,7 @@
                 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
                 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/TextPlugin.min.js"></script>
                 <script>
-                    if(document.querySelector(".typewriter-text")){
+                    if(document.querySelector(".banner-content-head")){
                         let words = ["Welcome To Experience Hotspot", "Book Your Next Adventure with Ease", "Discover and Reserve Your Perfect Stay", "Plan Ahead, Book Now, Travel Later", "Your Journey Starts Here - Book Today"]
                         
                         function typeAnim(){
@@ -284,10 +294,10 @@
     
                         function handleScreenChange(e){
                             if(e.matches){
-                                gsap.killTweensOf(".typewriter-text")
-                                console.log("killTween")
                                 document.querySelector(".typewriter-cursor").style.display = "none"
                                 document.querySelector(".typewriter-text").textContent = "Welcome To Experience Hotspot"
+                                console.log("killTween")
+                                gsap.killTweensOf(".typewriter-text")
                             }else{
                                 document.querySelector(".typewriter-text").textContent = ""
                                 typeAnim()
@@ -297,6 +307,7 @@
     
                         typeMediaQuery.addListener(handleScreenChange)
                         handleScreenChange(typeMediaQuery)
+                        console.lgo(handleScreenChange(typeMediaQuery))
 
                     }
                 </script>

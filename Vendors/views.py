@@ -184,7 +184,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from base.models import CustomUser
 
-@login_required
+@login_required(login_url='signin')
 def form(request):
     user = request.user
 
@@ -217,3 +217,13 @@ def congrat(request):
     return render (request, 'vendor/congrat.html')
 def dashboard(request):
     return render (request, 'vendor/dashboard.html')
+
+def earn(request):
+    return render (request, 'vendor/earn.html')
+
+def vendor_list(request):
+    return render(request, 'vendor/vendor-list.html')
+
+
+def payment(request):
+    return render (request, 'vendor/payment.html')

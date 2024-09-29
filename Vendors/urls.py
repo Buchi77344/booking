@@ -11,4 +11,7 @@ urlpatterns = [
     path('form',views.form,name="form"),
     path('congrat',views.congrat,name="congrat"),
     path('dashboard',views.dashboard,name="dashboard"),
+    path('earn',views.earn,name="earn"),
+    path('vendor_list',views.vendor_list,name="vendor_list"),
+    path('payment',views.payment,name="payment"),
 ]

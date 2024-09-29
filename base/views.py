@@ -9,17 +9,14 @@ from math import floor
 # Create your views here.
 
 def index(request):
-    vendor = get_object_or_404(Userprofile, user=request.user)
-    cap = vendor.user.role == 'vendor'  # Check if the role is ' vendor'
+    # Check if the role is ' vendor'
     experiences = Experience.objects.all()
 
     context = {
         'experiences': experiences,
-        'vendor': vendor,
-        'cap': cap
+       
     }
 
-    print(cap)  # Debugging print
     return render(request, 'index.html', context)
 
  
@@ -357,8 +354,28 @@ def payment_success(request):
 
 
 
+from django.conf import settings
+from django.core.mail import send_mail
+from django.shortcuts import render, redirect
+
 def contact (request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email =request.POST.get('email')
+        message =request.POST.get('message')
+                
+            # Send email
+        subject = f"Contact Inquiry from {name} - {settings.SITE_NAME}"
+        message_body = f"You have received a new message from {name} ({email}):\n\n{message}"
+        send_mail(subject, message_body, settings.EMAIL_HOST_USER, [settings.ADMIN_EMAIL])
+
+        messages.success(request, 'your message has been sent succesfully ')
+        
+        return redirect('contact')  # Redirect to a success page (to be created)
+   
+
     return render(request, 'contact.html')
+
 
 def about (request):
     return render(request, 'about.html')
