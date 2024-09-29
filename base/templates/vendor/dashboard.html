@@ -51,8 +51,8 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Total Experiences</h5>
-                    <p class="card-text">10</p>
-                    <a href="/vendor/experiences" class="btn btn-black">View Experiences</a>
+                    <p class="card-text">{{experience_number}}</p>
+                    <a href="{% url 'vendor:vendor_list' %}" class="btn btn-black">View Experiences</a>
                 </div>
             </div>
         </div>
@@ -79,18 +79,10 @@
     </div>
 
     <h2>Your Recent Experiences</h2>
-    <div class="experience-card">
-        <h5>Experience Title 1</h5>
-        <p>Description: A brief description of the experience hosted.</p>
-        <p>Location: City, Country</p>
-        <p>Price: $100</p>
-        <p>Available Slots: 10</p>
-        <a href="/vendor/experiences/edit/1" class="btn btn-black">Edit</a>
-        <a href="#" class="btn btn-danger">Delete</a>
-    </div>
 
+ {% for latest_experiences in latest_experiences %}
     <div class="experience-card">
-        <h5>Experience Title 2</h5>
+        <h5>{{latest_experiences.title}}</h5>
         <p>Description: A brief description of the experience hosted.</p>
         <p>Location: City, Country</p>
         <p>Price: $150</p>
@@ -98,6 +90,7 @@
         <a href="/vendor/experiences/edit/2" class="btn btn-black">Edit</a>
         <a href="#" class="btn btn-danger">Delete</a>
     </div>
+    {%endfor%}
 
     <!-- Add more experience cards as needed -->
 </div>

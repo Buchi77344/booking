@@ -47,9 +47,9 @@
 
 <div class="container">
     <h1>Your Hosted Experiences</h1>
-
+   {% for list in list %}
     <div class="experience-card">
-        <h5>Experience Title 1</h5>
+        <h5>{{list.title}}</h5>
         <p>Description: A brief description of the experience hosted.</p>
         <p>Location: City, Country</p>
         <p>Price: $100</p>
@@ -57,10 +57,11 @@
         <p>Start Date: 2024-10-01</p>
         <p>End Date: 2024-10-05</p>
         <div class="d-flex justify-content-end">
-            <a href="#" class="btn btn-black me-2">Edit</a>
+            <a href="{% url 'vendor:vendor_edit' list.title %}" class="btn btn-black me-2">Edit</a>
             <a href="#" class="btn btn-danger">Delete</a>
         </div>
     </div>
+    {% endfor %}
 
     <div class="experience-card">
         <h5>Experience Title 2</h5>

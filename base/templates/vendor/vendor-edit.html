@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+{% load static %}
+{% block context %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Experience</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f7f7f7;
+        }
+        .form-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 50px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .btn-black {
+            background-color: black;
+            color: white;
+            border-radius: 5px;
+        }
+        .btn-black:hover {
+            background-color: #333;
+            color: #fff;
+        }
+        .form-label {
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="form-container">
+                <h2 class="text-center mb-4">Edit Experience</h2>
+                {% if messages %}
+                <div class="mb-3">
+                    {% for message in messages %}
+                        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-info{% endif %} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    
+                    <!-- Title Field -->
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Title</label>
+                        <input type="text" class="form-control" id="title" value="{{edit.title}}" name="title" placeholder="Enter experience title" required>
+                    </div>
+
+                    <!-- Description Field -->
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea class="form-control" id="description" value="{{edit.description}}" name="description" rows="4" placeholder="Describe the experience" required>{{ edit.description }}</textarea>
+                    </div>
+
+                    <!-- Category Dropdown -->
+                    <div class="mb-3">
+                        <label for="category" class="form-label">Category</label>
+                        <select class="form-select" id="category" name="category" required>
+                            <option value="">Select a category</option>
+                            {% for key, value in categories %}
+                                <option value="{{ key }}" {% if key == edit.category %}selected{% endif %}>{{ value }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+
+                    <!-- Location Field -->
+                    <div class="mb-3">
+                        <label for="location" class="form-label">Location</label>
+                        <input type="text" class="form-control" id="location" value= "{{edit.location}}" name="location" placeholder="Enter location" required>
+                    </div>
+
+                    <!-- Price Field -->
+                    <div class="mb-3">
+                        <label for="price" class="form-label">Price</label>
+                        <input type="number" class="form-control" id="price" value= "{{edit.price}}" name="price" step="0.01" placeholder="Enter price" required>
+                    </div>
+
+                    <!-- Available Slots Field -->
+                    <div class="mb-3">
+                        <label for="available_slots" class="form-label">Available Slots</label>
+                        <input type="number" class="form-control" id="available_slots" value= "{{edit.available_slots}}" name="available_slots" placeholder="Number of slots available" required>
+                    </div>
+
+                    <!-- Start Date Field -->
+                    <div class="mb-3">
+                        <label for="start_date" class="form-label">Start Date</label>
+                        <input type="date" class="form-control" id="start_date" value= "{{edit.start_date}}" name="start_date" required>
+                    </div>
+
+                    <!-- End Date Field -->
+                    <div class="mb-3">
+                        <label for="end_date" class="form-label">End Date</label>
+                        <input type="date" class="form-control" id="end_date" value="{{edit.end_date}}" name="end_date" required>
+                    </div>
+
+                    <!-- Images Upload -->
+                    <div class="mb-3">
+                        <label for="images" class="form-label">Images</label>
+                        <input type="file" class="form-control" id="images" value="{{edit.images.url}}" required name="images">
+                    </div>
+
+                    <!-- Tags Field -->
+                    <div class="mb-3">
+                        <label for="tags" class="form-label">Tags</label>
+                        <input type="text" class="form-control" id="tags" value="{{edit.tags}}" name="tags" placeholder="Enter comma-separated tags">
+                    </div>
+
+                    <!-- Duration Field -->
+                    <div class="mb-3">
+                        <label for="duration" class="form-label">Duration</label>
+                        <input type="text" class="form-control" id="duration" value="{{edit.duration}}" name="duration" placeholder="e.g., 3 hours, 2 days" required>
+                    </div>
+
+                    <!-- Requirements Field -->
+                    <div class="mb-3">
+                        <label for="requirements" class="form-label">Requirements</label>
+                        <textarea class="form-control" id="requirements"  name="requirements" rows="3" placeholder="Enter any special requirements">{{edit.requirements}}</textarea>
+                    </div>
+
+                    <!-- What to Bring Field -->
+                    <div class="mb-3">
+                        <label for="what_to_bring" class="form-label">What to Bring</label>
+                        <textarea class="form-control" id="what_to_bring"   name="what_to_bring" rows="3" placeholder="List things to bring">{{edit.what_to_bring}}</textarea>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-black">Edit Experience</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+{% endblock context %}
