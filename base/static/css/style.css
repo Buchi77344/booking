@@ -128,6 +128,8 @@ textarea{
 
 button{
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent; /* Removes the tap highlight on mobile */
+
 }
 
 button:active{
@@ -608,7 +610,7 @@ span.mobile.search-icon svg path{
 
 .date-div-container span{
     padding: 10px 0px;
-    width : 30%;
+    width : 100%;
     border-radius: inherit;
     font-size: 1.1rem;
     font-weight: 600;
@@ -646,7 +648,7 @@ span.mobile.search-icon svg path{
 .days-container{
     display: grid;
     grid-template-columns: repeat(7, minmax(30px, 1fr));
-    column-gap: 7px;
+    gap: 7px;
 }
 
 .weekday-span,
@@ -662,8 +664,8 @@ span.mobile.search-icon svg path{
 .day-cell {
     text-align: center;
     /* padding: 10px; */
-    height: 50px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
     border-radius: 100%;
     display: flex;
     align-items: center;
@@ -1706,6 +1708,15 @@ ul.offer-list{
    .fixed-nav-link{
         padding : 7px 20px;
    }
+
+    div:focus,
+    span:focus {
+        outline: none;
+    }
+
+    div,span{
+        -webkit-tap-highlight-color: transparent; /* For mobile */
+    }
 }
 
 @media(max-width : 400px){
