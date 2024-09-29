@@ -9,9 +9,9 @@ const dateCategoryHighlight = document.querySelector(".date-wrapper .category-hi
 const dateContentContainer = document.querySelector(".date-content-container")
 const guestCatHihglight = document.querySelector(".guest-container .category-highlight")
 const guestShowDrop = document.querySelector(".guest-container .show-drop")
-const destinationInput = document.querySelector(".destination.category-field")
-const calNext = document.querySelector(".cal-next")
-const calPrev = document.querySelector(".cal-prev")
+const destinationInput = document.querySelectorAll(".destination-input")
+const calNext = document.querySelectorAll(".cal-next")
+const calPrev = document.querySelectorAll(".cal-prev")
 let isLiked;
 
 
@@ -77,59 +77,97 @@ if(document.querySelector(".category-container")){
         document.querySelector(".guest-container .category-val").textContent = `${totalGuests} ${totalGuests < 2 ? 'guest' : 'guests'},`;
     }
 
-    let adultGuestBox = document.querySelector(".adult.guest-control-container")
-    adultGuestBox.querySelector(".add-guest").addEventListener("click", function(){
-        adultGuestCount = increaseGuestCount(adultGuestBox, adultGuestCount, 14)
-        updateGuestSum()
-    })
+    function mobileGuestSum(){
+        let totalGuests = adultGuestCount + childrenGuestCount + infantGuestCount + petGuestCount
+        document.querySelector(".guest.accord-search-container .accord-search-val").textContent = `${totalGuests} ${totalGuests < 2 ? 'guest' : 'guests'}`;
+        
+    }
 
-    adultGuestBox.querySelector(".reduce-guest").addEventListener("click", function(){
-        adultGuestCount = decreaseGuestCount(adultGuestBox, adultGuestCount)
-        updateGuestSum()
-    })
+    let adultGuestBox = document.querySelectorAll(".adult.guest-control-container")
+    adultGuestBox.forEach(el => el.querySelector(".add-guest").addEventListener("click", function(){
+        adultGuestCount = increaseGuestCount(el, adultGuestCount, 14)
+        if(el.closest(".accord-search-container .show-drop")){
+            mobileGuestSum()
+        }else{
+            updateGuestSum()
+        }
+    }))
 
-    let childrenGuestBox = document.querySelector(".children.guest-control-container")
-    childrenGuestBox.querySelector(".add-guest").addEventListener("click", function(){
-        childrenGuestCount = increaseGuestCount(childrenGuestBox, childrenGuestCount, 5)
-        updateGuestSum()
-    })
+    adultGuestBox.forEach(el => el.querySelector(".reduce-guest").addEventListener("click", function(){
+        adultGuestCount = decreaseGuestCount(el, adultGuestCount)
+        if(el.closest(".accord-search-container .show-drop")){
+            mobileGuestSum()
+        }else{
+            updateGuestSum()
+        }
+    }))
 
-    childrenGuestBox.querySelector(".reduce-guest").addEventListener("click", function(){
-        childrenGuestCount = decreaseGuestCount(childrenGuestBox, childrenGuestCount)
-        updateGuestSum()
-    })
+    let childrenGuestBox = document.querySelectorAll(".children.guest-control-container")
+    childrenGuestBox.forEach(el => el.querySelector(".add-guest").addEventListener("click", function(){
+        childrenGuestCount = increaseGuestCount(el, childrenGuestCount, 5)
+        if(el.closest(".accord-search-container .show-drop")){
+            mobileGuestSum()
+        }else{
+            updateGuestSum()
+        }
+    }))
+
+    childrenGuestBox.forEach(el => el.querySelector(".reduce-guest").addEventListener("click", function(){
+        childrenGuestCount = decreaseGuestCount(el, childrenGuestCount)
+        if(el.closest(".accord-search-container .show-drop")){
+            mobileGuestSum()
+        }else{
+            updateGuestSum()
+        }
+    }))
 
 
-    let infantGuestBox = document.querySelector(".infant.guest-control-container")
-    infantGuestBox.querySelector(".add-guest").addEventListener("click", function(){
-        infantGuestCount = increaseGuestCount(infantGuestBox, infantGuestCount, 5)
-        updateGuestSum()
-        document.querySelector(".guest-container .infant-guest").textContent = `${infantGuestCount} ${infantGuestCount < 2 ? 'infant' : 'infants'},`;
+    let infantGuestBox = document.querySelectorAll(".infant.guest-control-container")
+    infantGuestBox.forEach(el => el.querySelector(".add-guest").addEventListener("click", function(){
+        infantGuestCount = increaseGuestCount(el, infantGuestCount, 5)
+        // updateGuestSum()
+        if(el.closest(".accord-search-container .show-drop")){
+            mobileGuestSum()
+        }else{
+            document.querySelector(".guest-container .infant-guest").textContent = `${infantGuestCount} ${infantGuestCount < 2 ? 'infant' : 'infants'},`;
+        }
 
-    })
+    }))
 
-    infantGuestBox.querySelector(".reduce-guest").addEventListener("click", function(){
-        infantGuestCount = decreaseGuestCount(infantGuestBox, infantGuestCount)
-        updateGuestSum()
-        document.querySelector(".guest-container .infant-guest").textContent = `,${infantGuestCount} ${infantGuestCount < 2 ? 'infant' : 'infants'},`;
+    infantGuestBox.forEach(el => el.querySelector(".reduce-guest").addEventListener("click", function(){
+        infantGuestCount = decreaseGuestCount(el, infantGuestCount)
+        // updateGuestSum()
+        if(el.closest(".accord-search-container .show-drop")){
+            mobileGuestSum()
+        }else{
+            document.querySelector(".guest-container .infant-guest").textContent = `${infantGuestCount} ${infantGuestCount < 2 ? 'infant' : 'infants'},`;
+        }
 
-    })
+    }))
 
 
-    let petGuestBox = document.querySelector(".pet.guest-control-container")
-    petGuestBox.querySelector(".add-guest").addEventListener("click", function(){
-        petGuestCount = increaseGuestCount(petGuestBox, petGuestCount, 5)
-        updateGuestSum()
-        document.querySelector(".guest-container .pet-guest").textContent = `${petGuestCount} ${petGuestCount < 2 ? 'pet' : 'pets'}`;
+    let petGuestBox = document.querySelectorAll(".pet.guest-control-container")
+    petGuestBox.forEach(el => el.querySelector(".add-guest").addEventListener("click", function(){
+        petGuestCount = increaseGuestCount(el, petGuestCount, 5)
+        // updateGuestSum()
+        if(el.closest(".accord-search-container .show-drop")){
+            mobileGuestSum()
+        }else{
+            document.querySelector(".guest-container .pet-guest").textContent = `${petGuestCount} ${petGuestCount < 2 ? 'pet' : 'pets'}`;
+        }
 
-    })
+    }))
 
-    petGuestBox.querySelector(".reduce-guest").addEventListener("click", function(){
-        petGuestCount = decreaseGuestCount(petGuestBox, petGuestCount)
-        updateGuestSum()
-        document.querySelector(".guest-container .pet-guest").textContent = `${petGuestCount} ${petGuestCount < 2 ? 'pet' : 'pets'}`;
+    petGuestBox.forEach(el => el.querySelector(".reduce-guest").addEventListener("click", function(){
+        petGuestCount = decreaseGuestCount(el, petGuestCount)
+        // updateGuestSum()
+        if(el.closest(".accord-search-container .show-drop")){
+            mobileGuestSum()
+        }else{
+            document.querySelector(".guest-container .pet-guest").textContent = `${petGuestCount} ${petGuestCount < 2 ? 'pet' : 'pets'}`;
+        }
 
-    })
+    }))
 
     //Search Functionality
     const categoryField = document.querySelector(".category-field")
@@ -141,8 +179,15 @@ if(document.querySelector(".category-container")){
     const locationList = document.querySelector(".location-list")
     const searchFormBtn = document.querySelector(".search-form-btn")
     let list =  ""
-    destinationInput.addEventListener("input", async function(){
-        locationList.innerHTML = ""
+    destinationInput.forEach(el => el.addEventListener("input", async function(){
+        const parent = el.closest(".show-drop")
+
+        if(el.closest(".show-drop")){
+            parent.querySelector(".location-list").innerHTML = ""
+        }else{
+            locationList.innerHTML = ""
+        }
+
         list = ""
 
         const query = this.value;
@@ -174,16 +219,60 @@ if(document.querySelector(".category-container")){
             `
             
         });
-        locationList.innerHTML = list
-        document.querySelectorAll(".location-list-item").forEach(list => {
+
+        if(el.closest(".show-drop")){
+            parent.querySelector(".location-list").innerHTML = list
+        }else{
+            locationList.innerHTML = list
+        }
+        
+        document.querySelectorAll(".map-regions-wrapper .location-list-item").forEach(list => {
             list.addEventListener("click", function(){
                 document.querySelector(".category-field").value = this.querySelector(".location-item-text").textContent
-                console.log(this.textContent)
-                // searchFormBtn.click()
             })
         })
-    })
+
+        document.querySelectorAll(".mob_location-container .location-list-item").forEach(list => {
+            list.addEventListener("click", function(){
+                document.querySelector(".location_mob-input").value = this.querySelector(".location-item-text").textContent
+            })
+        })
+    }))
     
+    const mobileCategoryContainer = document.querySelector(".mobile.category-container")
+    const mobileSearchContainer = document.querySelector(".mobile-search-container")
+    const accordSearchField = document.querySelectorAll(".accord-search-field")
+    const accordSearchContainer = document.querySelectorAll(".accord-search-container")
+    const cancelSearch = document.querySelector(".cancel-search")
+
+    mobileCategoryContainer.addEventListener("click", function(event){
+        mobileSearchContainer.classList.add("reveal")
+        if(event.target.closest(".mobile.category-container") == null || event.target.closest(".mobile-search-container") == null){
+            // dropEl.classList.remove("reveal")
+            mobileCategoryContainer.querySelector(".category-highlight").classList.remove("active")
+        }
+        document.body.classList.add("over-hidden")
+    })
+
+    cancelSearch.addEventListener("click", function(){
+        mobileSearchContainer.classList.remove("reveal")
+        document.body.classList.remove("over-hidden")
+
+    })
+
+    accordSearchContainer.forEach(accordCon => {
+        // accord.addEventListener("click", function(){
+        //     this.querySelector(".show-drop").classList.toggle("reveal")
+        // })
+
+        
+        accordCon.querySelector(".accord-search-field").addEventListener("click", function(){
+            document.querySelectorAll(".accord-search-container .show-drop").forEach(el => el.classList.remove("reveal"))
+            accordCon.querySelector(".show-drop").classList.toggle("reveal")
+        })
+
+    })
+
 
 }
 
@@ -226,92 +315,121 @@ if(document.querySelector(".form-page")){
 }
 
 if(document.querySelector(".calendar-container")){
-    const calendarContainer = document.querySelector('.calendar-container');
+    const laptopCalendarContainer = document.querySelector('.laptop.calendar-container');
+    const mobileCalendarContainer = document.querySelector('.mobile.calendar-container');
+    const calendarContainer = document.querySelectorAll('.calendar-container');
+    // Function to render a single month's calendar
+    const calendarContainers = document.querySelectorAll('.calendar-container');
+
     // Function to render a single month's calendar
     function renderMonthCalendar(month, year) {
-        const calendar = document.createElement('div');
-        calendar.classList.add('calendar');
-
-        // Create the month header (Month Name and Year)
-        const header = document.createElement('div');
-        header.classList.add('calendar-header');
-        header.innerHTML = `<h3>${new Date(year, month).toLocaleString('default', { month: 'long' })} ${year}</h3>`;
-        calendar.appendChild(header);
-
-        //Create weekdays 
-        const weekdayContainer = document.createElement("div")
-        weekdayContainer.classList.add("weekdays-container")
-        const weekdaysNames = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
-        let listEl;
-        weekdaysNames.forEach((weekdayN) => {
-           listEl = `
-                <span class="weekday-span">${weekdayN}</span>
-            `
-            weekdayContainer.innerHTML += listEl
+        // Create the calendar for each container
+        calendarContainers.forEach(container => {
+            const calendar = document.createElement('div');
+            calendar.classList.add('calendar');
+    
+            // Create the month header (Month Name and Year)
+            const header = document.createElement('div');
+            header.classList.add('calendar-header');
+            header.innerHTML = `<h3>${new Date(year, month).toLocaleString('default', { month: 'long' })} ${year}</h3>`;
+            calendar.appendChild(header);
+    
+            // Create weekdays
+            const weekdayContainer = document.createElement('div');
+            weekdayContainer.classList.add('weekdays-container');
+            const weekdaysNames = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+            weekdaysNames.forEach(weekdayN => {
+                const listEl = `<span class="weekday-span">${weekdayN}</span>`;
+                weekdayContainer.innerHTML += listEl;
+            });
             calendar.appendChild(weekdayContainer);
-        })
+    
+            // Create the days grid
+            const daysContainer = document.createElement('div');
+            daysContainer.classList.add('days-container');
+            calendar.appendChild(daysContainer);
+    
+            // Get the first day of the month and the total number of days
+            const firstDayOfMonth = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+    
+            // Add empty cells for days before the 1st of the month
+            for (let i = 0; i < firstDayOfMonth; i++) {
+                const emptyCell = document.createElement('div');
+                emptyCell.classList.add('empty-cell');
+                daysContainer.appendChild(emptyCell);
+            }
+    
+            // Add the days of the month
+            for (let i = 1; i <= daysInMonth; i++) {
+                const dayCell = document.createElement('div');
+                dayCell.classList.add('day-cell');
+                dayCell.textContent = i;
+                daysContainer.appendChild(dayCell);
+            }
+    
+            // Append the calendar to the current container
+            container.appendChild(calendar);
+    
+            // Add click event for days (same logic as before)
+            calendar.querySelectorAll(".day-cell").forEach(day => {
+                day.addEventListener("click", function () {
+                    document.querySelectorAll(".day-cell").forEach(el => el.classList.remove("active"));
+                    this.classList.add("active");
+                    let monthYear = calendar.querySelector(".calendar-header").textContent;
+                    let [calMonth, calYear] = monthYear.split(" ");
+                    let dateVal = this.textContent;
+                    console.log(day.closest(".accord-search-container .show-drop"))
+                    let mobileBool = day.closest(".accord-search-container .show-drop")
+                    if(mobileBool){
+                        document.querySelector(".date.accord-search-container .accord-search-val").textContent = `${calMonth.slice(0, 3)} ${dateVal}`;
+                    }else{
+                        document.querySelector(".date-wrapper .category-val").textContent = `${calMonth.slice(0, 3)} ${dateVal}`;
+                    }
+                });
+            });
 
-        // Create the days grid
-        const daysContainer = document.createElement('div');
-        daysContainer.classList.add('days-container');
-        calendar.appendChild(daysContainer);
+            let calendarEl = document.querySelectorAll(".calendar")
 
-        // Get the first day of the month and the total number of days
-        const firstDayOfMonth = new Date(year, month, 1).getDay();
-        const daysInMonth = new Date(year, month + 1, 0).getDate();
+            // Function to handle next slide for both containers
+            function handleCalNext(container) {
+                let nextCalEl = container.scrollLeft + container.querySelector('.calendar').clientWidth;
+                container.scrollLeft = nextCalEl;
+            }
 
-        // Add empty cells for days before the 1st of the month
-        for (let i = 0; i < firstDayOfMonth; i++) {
-            const emptyCell = document.createElement('div');
-            emptyCell.classList.add('empty-cell');
-            daysContainer.appendChild(emptyCell);
-        }
+            // Function to handle previous slide for both containers
+            function handleCalPrev(container) {
+                let prevCalEl = container.scrollLeft - container.querySelector('.calendar').clientWidth;
+                container.scrollLeft = prevCalEl;
+            }
 
-        // Add the days of the month
-        for (let i = 1; i <= daysInMonth; i++) {
-            const dayCell = document.createElement('div');
-            dayCell.classList.add('day-cell');
-            dayCell.textContent = i;
-            daysContainer.appendChild(dayCell);
-        }
+            // Add event listeners for both laptop and mobile calendars
+            calNext.forEach((el) => {
+                el.addEventListener("click", () => {
+                    if (el.closest('.laptop.show-drop')) {
+                        handleCalNext(laptopCalendarContainer);
+                    } else if (el.closest('.mobile.show-drop')) {
+                        handleCalNext(mobileCalendarContainer);
+                    }
+                });
+            });
 
-        calendarContainer.appendChild(calendar)
+            calPrev.forEach((el) => {
+                el.addEventListener("click", () => {
+                    if (el.closest('.laptop.show-drop')) {
+                        handleCalPrev(laptopCalendarContainer);
+                    } else if (el.closest('.mobile.show-drop')) {
+                        handleCalPrev(mobileCalendarContainer);
+                    }
+                });
+            });
+        });
 
-        // Append the month container to the main calendar container
-        let calMonth;
-        let calYear;
-        let calendarEl = document.querySelectorAll(".calendar")
-        calendarEl.forEach(cal => {
-            const dayCell = cal.querySelectorAll(".day-cell")   
-            dayCell.forEach((day) => {
-                day.addEventListener("click", function(){
-                    document.querySelectorAll(".day-cell").forEach(el => el.classList.remove("active"))
-                    this.classList.add("active")
-                    let monthYear = cal.querySelector(".calendar-header").textContent
-                    let [calMonth, calYear] = monthYear.split(" ")
-                    // console.log(calMonth.slice(0,3))
-                    let dateVal = this.textContent
-                    console.log(dateVal)
 
-                    document.querySelector(".date-wrapper .category-val").textContent = `${calMonth.slice(0,3)} ${dateVal}`
-                })
-            })
-        })   
-
-        function handleCalNext(){
-            let nextCalEl = calendarContainer.scrollLeft + calendarEl[0].clientWidth
-            calendarContainer.scrollLeft = nextCalEl
-        }
-
-        function handleCalPrev(){
-            let prevCalEl = calendarContainer.scrollLeft - calendarEl[0].clientWidth
-            calendarContainer.scrollLeft = prevCalEl
-        }
-        
-        calNext.addEventListener("click", handleCalNext)
-        calPrev.addEventListener("click", handleCalPrev)
-            
     }
+    
+
+    
 
     // Function to render months starting from a given month and year
     function renderMonthsFrom(month, year) {
@@ -330,7 +448,7 @@ if(document.querySelector(".calendar-container")){
 
     // Clear the calendar container and render for two years (starting from the current month)
     function renderMultipleYears() {
-        calendarContainer.innerHTML = ''  // Clear the calendar
+        calendarContainer.forEach(el => el.innerHTML = '')  // Clear the calendar
         const currentDate = new Date();
         const currentMonth = currentDate.getMonth();  // Get current month (0 = January, 11 = December)
         const currentYear = currentDate.getFullYear(); // Get current year

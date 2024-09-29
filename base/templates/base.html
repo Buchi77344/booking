@@ -231,7 +231,7 @@
                 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
                 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/TextPlugin.min.js"></script>
                 <script>
-                    if(document.querySelector(".typewriter-text")){
+                    if(document.querySelector(".banner-content-head")){
                         let words = ["Welcome To Experience Hotspot", "Book Your Next Adventure with Ease", "Discover and Reserve Your Perfect Stay", "Plan Ahead, Book Now, Travel Later", "Your Journey Starts Here - Book Today"]
                         
                         function typeAnim(){
@@ -270,10 +270,10 @@
     
                         function handleScreenChange(e){
                             if(e.matches){
-                                gsap.killTweensOf(".typewriter-text")
-                                console.log("killTween")
                                 document.querySelector(".typewriter-cursor").style.display = "none"
                                 document.querySelector(".typewriter-text").textContent = "Welcome To Experience Hotspot"
+                                console.log("killTween")
+                                gsap.killTweensOf(".typewriter-text")
                             }else{
                                 document.querySelector(".typewriter-text").textContent = ""
                                 typeAnim()
@@ -283,6 +283,7 @@
     
                         typeMediaQuery.addListener(handleScreenChange)
                         handleScreenChange(typeMediaQuery)
+                        console.lgo(handleScreenChange(typeMediaQuery))
 
                     }
                 </script>
