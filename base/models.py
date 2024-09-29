@@ -14,7 +14,8 @@ class CustomUser(AbstractUser):
     vendor_type = models.CharField(max_length=20, choices=[('individual', 'Individual'), ('small_business', 'Small Business'), ('organization', 'Organization')], null=True, blank=True)
     verification_code = models.CharField(max_length=6, blank=True, null=True)  # Store the verification code
     is_verified = models.BooleanField(default=False) 
-    is_agreed = models.BooleanField(default=False)  
+    is_agreed = models.BooleanField(default=False) 
+    is_vendor  = models.BooleanField(default=False)  
     date_birth =models.DateField( null=True)
     
     # Other fields
@@ -89,6 +90,13 @@ class VendorProfile(models.Model):
     def __str__(self):
         return self.user.email
 
+def save_user_model(sender ,instance,created,**kwargs):
+    if created:
+          VendorProfile.objects.create(user=instance)
+  
+
+post_save.connect(save_user_model, sender=CustomUser )
+
 
 class Review(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
@@ -103,18 +111,53 @@ class Review(models.Model):
 
 
 # Experience Categories (e.g., Tours, Workshops, etc.)
+from django.db import models
+
 class ExperienceCategory(models.Model):
-    name = models.CharField(max_length=255)
+    CATEGORY_CHOICES = [
+        ('adventure_outdoor', 'Adventure & Outdoor'),
+        ('cultural_historical', 'Cultural & Historical'),
+        ('food_drink', 'Food & Drink'),
+        ('wellness_relaxation', 'Wellness & Relaxation'),
+        ('entertainment_shows', 'Entertainment & Shows'),
+        ('workshops_learning', 'Workshops & Learning'),
+        ('nature_wildlife', 'Nature & Wildlife'),
+        ('water_activities', 'Water Activities'),
+        ('romantic_special', 'Romantic & Special Occasions'),
+        ('family_friendly', 'Family-Friendly'),
+        ('luxury_experiences', 'Luxury Experiences'),
+        ('seasonal_holiday', 'Seasonal & Holiday'),
+    ]
+    
+    name = models.CharField(max_length=50, choices=CATEGORY_CHOICES)
     description = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.get_name_display()  # Display human-readable name
+
 
     def __str__(self):
         return self.name
 
 # Experience Model (Offered by Vendors)
 class Experience(models.Model):
+    CATEGORY_CHOICES = [
+        ('adventure_outdoor', 'Adventure & Outdoor'),
+        ('cultural_historical', 'Cultural & Historical'),
+        ('food_drink', 'Food & Drink'),
+        ('wellness_relaxation', 'Wellness & Relaxation'),
+        ('entertainment_shows', 'Entertainment & Shows'),
+        ('workshops_learning', 'Workshops & Learning'),
+        ('nature_wildlife', 'Nature & Wildlife'),
+        ('water_activities', 'Water Activities'),
+        ('romantic_special', 'Romantic & Special Occasions'),
+        ('family_friendly', 'Family-Friendly'),
+        ('luxury_experiences', 'Luxury Experiences'),
+        ('seasonal_holiday', 'Seasonal & Holiday'),
+    ]
     title = models.CharField(max_length=255)
     description = models.TextField()
-    category = models.ForeignKey(ExperienceCategory, on_delete=models.CASCADE, related_name='experiences')
+    category = models.CharField(max_length=50, choices=CATEGORY_CHOICES)
     location = models.CharField(max_length=255)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     available_slots = models.IntegerField()

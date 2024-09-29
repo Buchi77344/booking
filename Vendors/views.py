@@ -115,3 +115,105 @@ def login(request):
             return redirect('login')
 
     return render(request, 'vendor/login.html')
+
+
+
+# views.py
+
+from django.shortcuts import render, redirect
+from base.models import Experience
+from django.core.files.storage import FileSystemStorage  # For handling image upload
+
+def create_experience(request):
+    if request.method == 'POST':
+        # Retrieve form data
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+        category = request.POST.get('category')
+        location = request.POST.get('location')
+        price = request.POST.get('price')
+        available_slots = request.POST.get('available_slots')
+        start_date = request.POST.get('start_date')
+        end_date = request.POST.get('end_date')
+        tags = request.POST.get('tags')
+        duration = request.POST.get('duration')
+        requirements = request.POST.get('requirements')
+        what_to_bring = request.POST.get('what_to_bring')
+        vendor = request.user.vendorprofile  # Assuming the user has a VendorProfile
+
+        # Handling file upload (optional)
+        if request.FILES.get('images'):
+            images = request.FILES['images']
+            fs = FileSystemStorage()
+            image_name = fs.save(images.name, images)
+            image_url = fs.url(image_name)
+        else:
+            image_url = None
+
+        # Create the Experience instance
+        new_experience = Experience.objects.create(
+            title=title,
+            description=description,
+            category=category,
+            location=location,
+            price=price,
+            available_slots=available_slots,
+            start_date=start_date,
+            end_date=end_date,
+            vendor=vendor,
+            tags=tags,
+            duration=duration,
+            requirements=requirements,
+            what_to_bring=what_to_bring,
+            images=image_url
+        )
+
+        # Redirect to a success page or the newly created experience
+        return redirect('experience_detail', pk=new_experience.pk)
+
+    else:
+        # Get all category choices from the model for the dropdown
+        categories = Experience.CATEGORY_CHOICES
+
+    return render(request, 'vendor/host.html', {
+        'categories': categories
+    })
+# views.py
+
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from base.models import CustomUser
+
+@login_required
+def form(request):
+    user = request.user
+
+    if request.method == 'POST':
+        # Get form data
+        phone_number = request.POST.get('phone_number')
+        business_name = request.POST.get('business_name')
+        vendor_type = request.POST.get('vendor_type')
+        is_agreed = request.POST.get('is_agreed') == 'on'  # Check if the checkbox is checked
+
+        # Update the user fields
+        user.phone_number = phone_number
+        user.business_name = business_name
+        user.vendor_type = vendor_type
+        user.is_agreed = is_agreed
+        user.role= 'vendor'
+        user.is_vendor = True
+
+        # Save the user profile
+        user.save()
+
+        # Redirect to some success page or back to the profile page
+        return redirect('vendor:congrat')
+
+    # Render the form with current user data
+    return render(request, 'vendor/form.html', {
+        'user': user,
+    })
+def congrat(request):
+    return render (request, 'vendor/congrat.html')
+def dashboard(request):
+    return render (request, 'vendor/dashboard.html')

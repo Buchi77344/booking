@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Hosted Experiences</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f7f7f7;
+            padding: 20px;
+        }
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .experience-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: box-shadow 0.3s;
+        }
+        .experience-card:hover {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .btn-black {
+            background-color: black;
+            color: white;
+            border-radius: 5px;
+        }
+        .btn-black:hover {
+            background-color: #333;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Your Hosted Experiences</h1>
+
+    <div class="experience-card">
+        <h5>Experience Title 1</h5>
+        <p>Description: A brief description of the experience hosted.</p>
+        <p>Location: City, Country</p>
+        <p>Price: $100</p>
+        <p>Available Slots: 10</p>
+        <p>Start Date: 2024-10-01</p>
+        <p>End Date: 2024-10-05</p>
+        <div class="d-flex justify-content-end">
+            <a href="#" class="btn btn-black me-2">Edit</a>
+            <a href="#" class="btn btn-danger">Delete</a>
+        </div>
+    </div>
+
+    <div class="experience-card">
+        <h5>Experience Title 2</h5>
+        <p>Description: A brief description of the experience hosted.</p>
+        <p>Location: City, Country</p>
+        <p>Price: $150</p>
+        <p>Available Slots: 5</p>
+        <p>Start Date: 2024-10-10</p>
+        <p>End Date: 2024-10-12</p>
+        <div class="d-flex justify-content-end">
+            <a href="#" class="btn btn-black me-2">Edit</a>
+            <a href="#" class="btn btn-danger">Delete</a>
+        </div>
+    </div>
+
+    <!-- Add more experience cards as needed -->
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

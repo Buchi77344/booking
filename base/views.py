@@ -7,12 +7,21 @@ from math import floor
 
 
 # Create your views here.
+
 def index(request):
-    experiences =  Experience.objects.all() 
+    vendor = get_object_or_404(Userprofile, user=request.user)
+    cap = vendor.user.role == 'vendor'  # Check if the role is ' vendor'
+    experiences = Experience.objects.all()
+
     context = {
-        'experiences':experiences
+        'experiences': experiences,
+        'vendor': vendor,
+        'cap': cap
     }
-    return render (request, 'index.html',context)
+
+    print(cap)  # Debugging print
+    return render(request, 'index.html', context)
+
  
 @login_required(login_url='signin')
 def experience(request,pk):
@@ -411,24 +420,19 @@ def cart_status(request, experience_id):
         return JsonResponse({'inCart': in_cart})
     except Experience.DoesNotExist:
         return JsonResponse({'error': 'Experience not found'}, status=404)
-# from base.forms import SearchForm 
-# from django.db.models import Q
-# @login_required(login_url='admins:login')
-# def search(request):
-    
-#     form = SearchForm()
-#     query = None
-#     result = []
-#     if 'query' in request.GET:
-#         form = SearchForm(request.GET)
-#         if form.is_valid():
-#             query = form.cleaned_data['query']
-#             result = Experience.objects.filter(
-#                 Q(generated_id__icontains=query) |
-#                 Q(user__username__icontains=query)|
-#                 Q(user__last_name__icontains=query)
-#             )
-#     return render(request, 'admins/search.html', {'form': form, 'query': query, 'result': result})
+
+from django.db.models import Q
+
+def search(request):
+    result = []  # Initialize result
+    if request.method == 'GET':
+        query = request.GET.get('query', '')  # Safely retrieve query parameter
+        
+        result = Experience.objects.filter(
+            Q(location__icontains=query)
+        )
+        
+    return render(request, 'search.html', {'result': result})
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required

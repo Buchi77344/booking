@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Earnings</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f7f7f7;
+            padding: 20px;
+        }
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .btn-black {
+            background-color: black;
+            color: white;
+            border-radius: 5px;
+        }
+        .btn-black:hover {
+            background-color: #333;
+        }
+        .table th, .table td {
+            vertical-align: middle; /* Aligns text vertically */
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Your Earnings</h1>
+
+    <div class="mb-4">
+        <label for="dateRange" class="form-label">Filter by Date:</label>
+        <input type="date" id="startDate" class="form-control d-inline-block w-auto me-2" />
+        <input type="date" id="endDate" class="form-control d-inline-block w-auto" />
+        <button class="btn btn-black mt-3">Filter</button>
+    </div>
+
+    <div class="mb-4">
+        <h5>Total Earnings: $5,000</h5>
+    </div>
+
+    <table class="table table-bordered">
+        <thead class="table-light">
+            <tr>
+                <th scope="col">Experience Title</th>
+                <th scope="col">Date</th>
+                <th scope="col">Earnings</th>
+                <th scope="col">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Experience Title 1</td>
+                <td>2024-09-01</td>
+                <td>$100</td>
+                <td>Completed</td>
+            </tr>
+            <tr>
+                <td>Experience Title 2</td>
+                <td>2024-09-10</td>
+                <td>$150</td>
+                <td>Completed</td>
+            </tr>
+            <tr>
+                <td>Experience Title 3</td>
+                <td>2024-09-15</td>
+                <td>$200</td>
+                <td>Completed</td>
+            </tr>
+            <!-- Add more rows as needed -->
+        </tbody>
+    </table>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

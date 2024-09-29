@@ -90,12 +90,13 @@
                         <span class="typewriter-cursor">|</span>
                     </h2>
                     <p class="banner-content-text trans-down">Explore amazing destinations and experiences with ease</p>
-                    <form class="trans-down category-container flex-between">
+                    <form method= "GET" action="{% url 'search' %}" class="trans-down category-container flex-between">
+                       
                         <div class="destination-container category-box">
                             <div class="category-highlight">
                                 <div class="category-field-container">
                                     <span class="category-name">Location</span>
-                                    <input type="text" class="destination category-field" placeholder="Search destinations">
+                                    <input type="text"  name= "query"class="destination category-field" placeholder="Search destinations">
                                 </div>
                             </div>
     
