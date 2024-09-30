@@ -15,4 +15,5 @@ urlpatterns = [
     path('vendor_list',views.vendor_list,name="vendor_list"),
     path('payment',views.payment,name="payment"),
     path('vendor_edit/<str:title>/',views.vendor_edit,name="vendor_edit"),
+    path('delete_expricence/<int:pk>/',views.delete_expricence,name="delete_expricence"),
 ]

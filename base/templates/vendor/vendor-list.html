@@ -50,32 +50,20 @@
    {% for list in list %}
     <div class="experience-card">
         <h5>{{list.title}}</h5>
-        <p>Description: A brief description of the experience hosted.</p>
-        <p>Location: City, Country</p>
-        <p>Price: $100</p>
-        <p>Available Slots: 10</p>
-        <p>Start Date: 2024-10-01</p>
-        <p>End Date: 2024-10-05</p>
+        <p>Description: {{list.description}}</p>
+        <p>Location: {{list.location}}</p>
+        <p>Price:{{list.price}}</p>
+        <p>Available Slots: {{list.available_slots}}</p>
+        <p>Start Date:{{list.start_date}}</p>
+        <p>End Date: {{list.end_date}}</p>
         <div class="d-flex justify-content-end">
             <a href="{% url 'vendor:vendor_edit' list.title %}" class="btn btn-black me-2">Edit</a>
-            <a href="#" class="btn btn-danger">Delete</a>
+            <a href="{% url 'vendor:delete_expricence' list.pk %}" class="btn btn-danger">Delete</a>
         </div>
     </div>
     {% endfor %}
 
-    <div class="experience-card">
-        <h5>Experience Title 2</h5>
-        <p>Description: A brief description of the experience hosted.</p>
-        <p>Location: City, Country</p>
-        <p>Price: $150</p>
-        <p>Available Slots: 5</p>
-        <p>Start Date: 2024-10-10</p>
-        <p>End Date: 2024-10-12</p>
-        <div class="d-flex justify-content-end">
-            <a href="#" class="btn btn-black me-2">Edit</a>
-            <a href="#" class="btn btn-danger">Delete</a>
-        </div>
-    </div>
+   
 
     <!-- Add more experience cards as needed -->
 </div>
