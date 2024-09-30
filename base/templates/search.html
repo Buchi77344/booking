@@ -1,0 +1,439 @@
+{% extends "base.html" %}
+{% load static %}
+{% block context %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Add/Remove to/from Watchlist
+        const watchlistButtons = document.querySelectorAll('.add-watchlist-btn');
+        
+        watchlistButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const experienceId = this.getAttribute('data-id');
+                const isWatched = this.getAttribute('data-watched') === 'true'; 
+        
+                if (isWatched) {
+                    // Remove from watchlist
+                    fetch(`/remove-from-watchlist/${experienceId}/`, {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRFToken': getCookie('csrftoken'),
+                        },
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            return response.json();
+                        }
+                        throw new Error('Failed to remove from watchlist');
+                    })
+                    .then(data => {
+                        // Successfully removed from watchlist
+                        this.setAttribute('data-watched', 'false');
+                        this.classList.remove('watched'); // Optionally update the button appearance
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        window.location.href = '/signin';  // Replace '/login' with your actual login page URL
+                    });
+                } else {
+                    // Add to watchlist
+                    fetch(`/add-to-watchlist/${experienceId}/`, {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRFToken': getCookie('csrftoken'),
+                        },
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            return response.json();
+                        }
+                        throw new Error('Failed to add to watchlist');
+                    })
+                    .then(data => {
+                        // Successfully added to watchlist
+                        this.setAttribute('data-watched', 'true');
+                        this.classList.add('watched'); // Optionally update the button appearance
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        window.location.href = '/signin';  // Replace '/login' with your actual login page URL
+                    });
+                }
+            });
+        });
+    
+        // Function to get the CSRF token
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    });
+
+
+
+   
+    
+</script>
+
+                <div class="banner-content-container">
+                    <h2 class="banner-content-head trans-down">
+                        <span class="typewriter-text"></span>
+                        <span class="typewriter-cursor">|</span>
+                    </h2>
+                    <p class="banner-content-text trans-down">Explore amazing destinations and experiences with ease</p>
+                    <form method= "GET" action= "{% url 'search' %}" class="trans-down category-container flex-between">
+                      {% csrf_token %}
+                        <div class="destination-container category-box">
+                            <div class="category-highlight">
+                                <div class="category-field-container">
+                                    <span class="category-name">Location</span>
+                                    <input type="text" class="destination category-field" placeholder="Search destinations">
+                                </div>
+                            </div>
+    
+                            <div class="show-drop map-regions-wrapper">
+                                <span class= "map-region-text">Search by region</span>
+                                <ul class="location-list"></ul>
+                            </div>
+                        </div>
+    
+                        <div class="category-box">
+                            <div class="date-wrapper">
+                                <div class="category-highlight">
+                                    <div class="category-field-container">
+                                        <span class="category-name">Date</span>
+                                        <span class="date category-val">Add dates</span>
+                                        <div class="date-val-container">
+                                            <span class="date-val-1"></span>
+                                            <span class="date-val-2"></span>
+                                        </div>
+                                    </div>
+                                </div>
+        
+                                <div class="show-drop checkin date-content-container">
+                                    <div class="date-div-container flex-center">
+                                        <span class= "dates-span">Dates</span>
+                                        <!-- <span class= "months-span">Months</span>
+                                        <span class= "flexible-span">I'm flexible</span> -->
+                                    </div>
+        
+                                    <div class="calendar-controls flex-between">
+                                        <button class="cal-btn cal-prev">
+                                            <img src="{% static 'img/arrow-icon.svg' %}" alt="arrow svg from svgrepo.com">
+                                        </button>
+                                        <button class="cal-btn cal-next">
+                                            <img src="{% static 'img/arrow-icon.svg' %}" alt="arrow svg from svgrepo.com">
+                                        </button>
+                                    </div>
+        
+                                    <div class="calendar-container flex-scroll">
+                                        <!-- <div class="calendar">
+                                            <div class="month-name-container">
+                                                <span class="month-name-span">September 2024</span>
+                                            </div>
+                                            <div class="weekdays-container">
+                                                <span class="weekday-span">Su</span>
+                                                <span class="weekday-span">Mo</span>
+                                                <span class="weekday-span">Tu</span>
+                                                <span class="weekday-span">We</span>
+                                                <span class="weekday-span">Th</span>
+                                                <span class="weekday-span">Fr</span>
+                                                <span class="weekday-span">Sa</span>
+                                            </div>
+                                            <div class="days-container"></div>
+                                        </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="category-box guest-container">
+                            <div class="category-highlight flex-between">
+                                <div class="category-field-container">
+                                    <span class="category-name">Guests</span>
+                                    <div class="category-val-container flex gp-5">
+                                        <span class="category-val">Add guests</span>
+                                        <span class="other-guest infant-guest"></span>
+                                        <span class="other-guest pet-guest"></span>
+                                    </div>
+                                </div>
+                                
+        
+                                <button class="search-icon flex-center">
+                                    <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+                                    <svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z" stroke="#f7f7f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </button>
+                            </div>
+
+                            <div class="show-drop">
+                                <div class="guest-box flex-between">
+                                    <div class="guest-details flex-column">
+                                        <span class="guest-name">Adult</span>
+                                        <span class="guest-age">Ages 13 or above</span>
+                                    </div>
+
+                                    <div class="adult guest-control-container flex gp-10">
+                                        <span class = "add-guest">
+                                            <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+                                            <!-- Uploaded to: SVG Repo, www.svgrepo.com, Transformed by: SVG Repo Mixer Tools -->
+                                            <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <g id="SVGRepo_iconCarrier"> <path d="M6 12H18M12 6V18" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> </g>
+                                            </svg>
+                                        </span>
+                                        <span class="guest-count">0</span>
+                                        <span class= "reduce-guest">
+                                            <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+                                            <svg fill="#000000" width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" d="M4.5 12.75a.75.75 0 01.75-.75h13.5a.75.75 0 010 1.5H5.25a.75.75 0 01-.75-.75z"/>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="guest-box flex-between">
+                                    <div class="guest-details flex-column">
+                                        <span class="guest-name">Children</span>
+                                        <span class="guest-age">Ages 2 - 12</span>
+                                    </div>
+
+                                    <div class="children guest-control-container flex gp-10">
+                                        <span class = "add-guest">
+                                            <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+                                            <!-- Uploaded to: SVG Repo, www.svgrepo.com, Transformed by: SVG Repo Mixer Tools -->
+                                            <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <g id="SVGRepo_iconCarrier"> <path d="M6 12H18M12 6V18" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> </g>
+                                            </svg>
+                                        </span>
+                                        <span class="guest-count">0</span>
+                                        <span class= "reduce-guest">
+                                            <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+                                            <svg fill="#000000" width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" d="M4.5 12.75a.75.75 0 01.75-.75h13.5a.75.75 0 010 1.5H5.25a.75.75 0 01-.75-.75z"/>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="guest-box flex-between">
+                                    <div class="guest-details flex-column">
+                                        <span class="guest-name">Infants</span>
+                                        <span class="guest-age">Under 2</span>
+                                    </div>
+
+                                    <div class="infant guest-control-container flex gp-10">
+                                        <span class = "add-guest">
+                                            <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+                                            <!-- Uploaded to: SVG Repo, www.svgrepo.com, Transformed by: SVG Repo Mixer Tools -->
+                                            <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <g id="SVGRepo_iconCarrier"> <path d="M6 12H18M12 6V18" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> </g>
+                                            </svg>
+                                        </span>
+                                        <span class="guest-count">0</span>
+                                        <span class= "reduce-guest">
+                                            <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+                                            <svg fill="#000000" width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" d="M4.5 12.75a.75.75 0 01.75-.75h13.5a.75.75 0 010 1.5H5.25a.75.75 0 01-.75-.75z"/>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                
+                                <div class="guest-box flex-between">
+                                    <div class="guest-details flex-column">
+                                        <span class="guest-name">Pets</span>
+                                        <span class="guest-age"><a href="#" class="pet-link">Bringing a service animal?</a></span>
+                                    </div>
+
+                                    <div class="pet guest-control-container flex gp-10">
+                                        <span class = "add-guest">
+                                            <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+                                            <!-- Uploaded to: SVG Repo, www.svgrepo.com, Transformed by: SVG Repo Mixer Tools -->
+                                            <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <g id="SVGRepo_iconCarrier"> <path d="M6 12H18M12 6V18" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> </g>
+                                            </svg>
+                                        </span>
+                                        <span class="guest-count">0</span>
+                                        <span class= "reduce-guest">
+                                            <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+                                            <svg fill="#000000" width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" d="M4.5 12.75a.75.75 0 01.75-.75h13.5a.75.75 0 010 1.5H5.25a.75.75 0 01-.75-.75z"/>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                    </form>
+    
+                    <div class="mobile category-container">
+                            <div class="category-highlight flex gp-10">
+    
+                                <span class="mobile search-icon flex-center">
+                                    <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+                                    <svg width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z" stroke="#f7f7f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </span>
+    
+                                <div class="category-field-container">
+                                    <span class="category-name">Where to</span>
+                                    <span class="category-val">Place . Date . Guests</span>
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="mobile-search-container">
+
+                    </div>
+                </div>
+            </header>
+            <main>
+                <div class="main-content">
+                    <div class="util-card-wrapper">
+                        <h3 class="util-card-head">Popular Experiences</h3>   
+                        <div class="util-card-container grid">
+
+                            <!-- Start Loop Here-->
+                             {% for result in result %}
+                             
+                            <a href = "{% url 'experience' result.pk  %}" class="animate util-card">
+                                <div class="util-card-img-container">
+                                    <img src="{{result.images.url}}" alt="Picture of a woman in a nice background" class="util-card-img">
+                                    <!--<span data-id = "{{ experience.id }}" data-watched="false" class="add-watchlist-btn love-icon-span">
+                                        <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+                                        Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools 
+                                        <svg width="800px" height="800px" viewBox="0 -2.5 21 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                            
+                                            <title>love [#1488]</title>
+                                            <desc>Created with Sketch.</desc>
+                                            <defs>
+                                        
+                                            </defs>
+                                            <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <g id="Dribbble-Light-Preview" transform="translate(-139.000000, -361.000000)" fill="#000000">
+                                                    <g id="icons" transform="translate(56.000000, 160.000000)">
+                                                        <path d="M103.991908,206.599878 C103.779809,210.693878 100.744263,212.750878 96.9821188,215.798878 C94.9997217,217.404878 92.0324261,217.404878 90.042679,215.807878 C86.3057345,212.807878 83.1651892,210.709878 83.0045394,206.473878 C82.8029397,201.150878 89.36438,198.971878 93.0918745,203.314878 C93.2955742,203.552878 93.7029736,203.547878 93.9056233,203.309878 C97.6205178,198.951878 104.274358,201.159878 103.991908,206.599878" id="love-[#1488]">
+                                                        </path>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </svg>
+                                    </span>-->
+                                </div>
+                                <div class="util-card-content flex-between gp-10">
+                                    <div class= "util-card-details">
+                                        <p class="util-card-content-name">{{result.title}}</p>
+                                        <div class="location-container flex gp-5">
+                                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#f2f2f2">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                                <g id="SVGRepo_iconCarrier"> 
+                                                    <path d="M12 21C15.5 17.4 19 14.1764 19 10.2C19 6.22355 15.866 3 12 3C8.13401 3 5 6.22355 5 10.2C5 14.1764 8.5 17.4 12 21Z" stroke="#f2f2f2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> 
+                                                    <path d="M12 12C13.1046 12 14 11.1046 14 10C14 8.89543 13.1046 8 12 8C10.8954 8 10 8.89543 10 10C10 11.1046 10.8954 12 12 12Z" stroke="#f2f2f2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> 
+                                                </g>
+                                            </svg>
+                                            <p class="util-card-content-time">{{result.location}}</p>
+                                        </div>
+                                    </div>
+
+                                    <button data-id = "{{ result.id }}" data-watched="false" class="add-watchlist-btn flex gp-10">
+                                        <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+                                        <svg fill="#000000" width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M8,3V7H21l-2,7H8v2H18a1,1,0,0,1,0,2H7a1,1,0,0,1-1-1V4H4A1,1,0,0,1,4,2H7A1,1,0,0,1,8,3ZM6,20.5A1.5,1.5,0,1,0,7.5,19,1.5,1.5,0,0,0,6,20.5Zm9,0A1.5,1.5,0,1,0,16.5,19,1.5,1.5,0,0,0,15,20.5Z"/>
+                                        </svg>
+
+                                        <span class="price-span">Add to cart</span>
+                                    </button>
+                                </div>
+                            </a>
+                         
+                            {% endfor %}
+                            <!-- End Loop Here-->
+                        </div>
+                    </div>
+    
+                    <div class="util-card-wrapper">
+                        <h3 class="util-card-head">Past Experiences</h3>   
+                        <div class="util-card-container grid">
+
+                        <!-- Start Loop Here-->
+                            <a href = "#" class="animate util-card">
+                                <div class="util-card-img-container">
+                                    <img src="{% static 'img/gallery-img-2.jpg' %}" alt="Picture of a woman in a nice background" class="util-card-img">
+                                    <!-- <span class="love-icon-span">
+                                        <?xml version="1.0" encoding="UTF-8" standalone="no"?>-->
+                                        <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools 
+                                        <svg class = "love-icon" width="800px" height="800px" viewBox="0 -2.5 21 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                            
+                                            <title>love [#1488]</title>
+                                            <desc>Created with Sketch.</desc>
+                                            <defs>
+                                        
+                                            </defs>
+                                            <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <g id="Dribbble-Light-Preview" transform="translate(-139.000000, -361.000000)" fill="#000000">
+                                                    <g id="icons" transform="translate(56.000000, 160.000000)">
+                                                        <path d="M103.991908,206.599878 C103.779809,210.693878 100.744263,212.750878 96.9821188,215.798878 C94.9997217,217.404878 92.0324261,217.404878 90.042679,215.807878 C86.3057345,212.807878 83.1651892,210.709878 83.0045394,206.473878 C82.8029397,201.150878 89.36438,198.971878 93.0918745,203.314878 C93.2955742,203.552878 93.7029736,203.547878 93.9056233,203.309878 C97.6205178,198.951878 104.274358,201.159878 103.991908,206.599878" id="love-[#1488]">
+                                                        </path>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </svg>
+                                    </span> -->
+                                </div>
+                                <div class="util-card-content flex-between gp-10">
+                                    <div class= "util-card-details">
+                                        <p class="util-card-content-name">Stay in Prince's Purple Rain House</p>
+                                        <div class="location-container flex gp-5">
+                                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#f2f2f2">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                                <g id="SVGRepo_iconCarrier"> 
+                                                    <path d="M12 21C15.5 17.4 19 14.1764 19 10.2C19 6.22355 15.866 3 12 3C8.13401 3 5 6.22355 5 10.2C5 14.1764 8.5 17.4 12 21Z" stroke="#f2f2f2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> 
+                                                    <path d="M12 12C13.1046 12 14 11.1046 14 10C14 8.89543 13.1046 8 12 8C10.8954 8 10 8.89543 10 10C10 11.1046 10.8954 12 12 12Z" stroke="#f2f2f2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> 
+                                                </g>
+                                            </svg>
+                                            <p class="util-card-content-time">Lagos, Nigeria</p>
+                                        </div>
+                                    </div>
+
+                                    <span class="soldout-text">Sold out</span>
+                                </div>
+                            </a>
+                        <!-- End Loop Here-->
+        
+                        </div>
+                    </div>
+                   
+                </div>
+            </main>
+      
+            {% endblock context %}
+        </div>
+ 
+    </div>
+  
+</body>
+</html>
+

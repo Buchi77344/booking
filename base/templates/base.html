@@ -21,30 +21,48 @@
     
                     <div class="nav-links-container">
                         <ul class="flex gp-10">
+                           
+                            {% if not request.user.role == 'vendor' %}
                             <li><a href="/" class="stay-link">Home</a></li>
                             <li><a href="{% url 'about' %}" class="experience-link">About</a></li>
                             <li><a href="{% url 'contact' %}" class="experience-link">Contact Us</a></li>
                             <li><a href="{% url 'privacy' %}" class="experience-link">Privacy Policy</a></li>
-                            <li><a href="#" class="experience-link">Host Experience</a></li>
-                            <li><a href="#" class="experience-link">Dashboard</a></li>
-                            <li><a href="#" class="experience-link">Earning</a></li>
-                            <li><a href="#" class="experience-link">Vendor List</a></li>
-                            <li><a href="#" class="experience-link">Payment Method</a></li>
+                            <li><a href="{% url 'vendor:form' %}" class="experience-link">Become a Vendor</a></li>
+                            {%endif%}
+                          
+                            {% if request.user.is_authenticated %}
+                            {% if request.user.role == 'vendor' %}
+                            <li><a href="/" class="stay-link">Home</a></li>
+                            <li><a href="{% url 'vendor:dashboard' %}" class="experience-link">Dashboard</a></li>
+                            <li><a href="{% url 'vendor:host' %}" class="experience-link">Host Experience</a></li>
+                            <li><a href="{% url 'vendor:vendor_list' %}" class="experience-link">Vendor List</a></li>
+                            <li><a href="{% url 'vendor:earn' %}" class="experience-link">Earning</a></li>
+                            <li><a href="{% url 'vendor:payment' %}" class="experience-link">Payment Method</a></li>
+                            {%endif%}
+                            {% endif %}
                         </ul>
                         
                     </div>
 
                     <div class="mobile nav-links-container">
                         <ul class="flex-column gp-20">
+                            {% if not request.user.role == 'vendor' %}
                             <li><a href="/" class="stay-link">Home</a></li>
                             <li><a href="{% url 'about' %}" class="experience-link">About</a></li>
                             <li><a href="{% url 'contact' %}" class="experience-link">Contact Us</a></li>
                             <li><a href="{% url 'privacy' %}" class="experience-link">Privacy Policy</a></li>
-                            <li><a href="#" class="experience-link">Host Experience</a></li>
-                            <li><a href="#" class="experience-link">Dashboard</a></li>
-                            <li><a href="#" class="experience-link">Earning</a></li>
-                            <li><a href="#" class="experience-link">Vendor List</a></li>
-                            <li><a href="#" class="experience-link">Payment Method</a></li>
+                            <li><a href="{% url 'vendor:form' %}" class="experience-link">Become a Vendor</a></li>
+                            {%endif%}
+                            {% if request.user.is_authenticated %}
+                            {% if request.user.role == 'vendor' %}
+                            <li><a href="/" class="experience-link">Home</a></li>
+                            <li><a href="{% url 'vendor:dashboard' %}" class="experience-link">Dashboard</a></li>
+                            <li><a href="{% url 'vendor:host' %}" class="experience-link">Host Experience</a></li>
+                            <li><a href="{% url 'vendor:vendor_list' %}" class="experience-link">Vendor List</a></li>
+                            <li><a href="{% url 'vendor:earn' %}" class="experience-link">Earning</a></li>
+                            <li><a href="{% url 'vendor:payment' %}" class="experience-link">Payment Method</a></li>
+                            {%endif%}
+                            {% endif %}
                         </ul>
                         
                     </div>

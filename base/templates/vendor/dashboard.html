@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load static %}
+{% block context %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f7f7f7;
+            padding: 20px;
+        }
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .card {
+            margin-bottom: 20px;
+            transition: box-shadow 0.3s;
+        }
+        .card:hover {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .btn-black {
+            background-color: black;
+            color: white;
+            border-radius: 5px;
+        }
+        .btn-black:hover {
+            background-color: #333;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Vendor Dashboard</h1>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Total Experiences</h5>
+                    <p class="card-text">{{experience_number}}</p>
+                    <a href="{% url 'vendor:vendor_list' %}" class="btn btn-black">View Experiences</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Total Earnings</h5>
+                    <p class="card-text">$5,000</p>
+                    <a href="/vendor/earnings" class="btn btn-black">View Earnings</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Pending Requests</h5>
+                    <p class="card-text">3</p>
+                    <a href="/vendor/requests" class="btn btn-black">View Requests</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2>Your Recent Experiences</h2>
+
+ {% for latest_experiences in latest_experiences %}
+    <div class="experience-card">
+        <h5>{{latest_experiences.title}}</h5>
+        <p>Description: A brief description of the experience hosted.</p>
+        <p>Location: City, Country</p>
+        <p>Price: $150</p>
+        <p>Available Slots: 5</p>
+        <a href="/vendor/experiences/edit/2" class="btn btn-black">Edit</a>
+        <a href="#" class="btn btn-danger">Delete</a>
+    </div>
+    {%endfor%}
+
+    <!-- Add more experience cards as needed -->
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+{% endblock context %}

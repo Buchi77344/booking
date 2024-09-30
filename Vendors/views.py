@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render ,get_object_or_404
 
 # Create your views here.
 
@@ -7,7 +7,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib import messages
 from django.core.mail import send_mail
-from base.models import CustomUser
+from base.models import CustomUser ,Experience,VendorProfile
 from django.conf import settings
 
 from django.shortcuts import render, redirect
@@ -115,3 +115,172 @@ def login(request):
             return redirect('login')
 
     return render(request, 'vendor/login.html')
+
+
+
+# views.py
+
+from django.shortcuts import render, redirect
+from base.models import Experience
+from django.core.files.storage import FileSystemStorage  # For handling image upload
+
+def create_experience(request):
+    if request.method == 'POST':
+        # Retrieve form data
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+        category = request.POST.get('category')
+        location = request.POST.get('location')
+        price = request.POST.get('price')
+        available_slots = request.POST.get('available_slots')
+        start_date = request.POST.get('start_date')
+        end_date = request.POST.get('end_date')
+        tags = request.POST.get('tags')
+        duration = request.POST.get('duration')
+        requirements = request.POST.get('requirements')
+        what_to_bring = request.POST.get('what_to_bring')
+        images = request.FILES.get('images')
+        # Assuming the user has a VendorProfile
+        vendor_profile =get_object_or_404 (VendorProfile, user=request.user)
+        
+
+        # Create the Experience instance
+        new_experience = Experience.objects.create(
+            title=title,
+            description=description,
+            category=category,
+            location=location,
+            price=price,
+            available_slots=available_slots,
+            start_date=start_date,
+            end_date=end_date,
+            vendor=vendor_profile,
+            tags=tags,
+            duration=duration,
+            requirements=requirements,
+            what_to_bring=what_to_bring,
+            images=images
+        )
+
+        # Redirect to a success page or the newly created experience
+        return redirect("vendor:vendor_list")
+
+    else:
+        # Get all category choices from the model for the dropdown
+        categories = Experience.CATEGORY_CHOICES
+
+    return render(request, 'vendor/host.html', {
+        'categories': categories
+    })
+# views.py
+
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from base.models import CustomUser
+
+@login_required(login_url='signin')
+def form(request):
+    user = request.user
+
+    if request.method == 'POST':
+        # Get form data
+        phone_number = request.POST.get('phone_number')
+        business_name = request.POST.get('business_name')
+        vendor_type = request.POST.get('vendor_type')
+        is_agreed = request.POST.get('is_agreed') == 'on'  # Check if the checkbox is checked
+
+        # Update the user fields
+        user.phone_number = phone_number
+        user.business_name = business_name
+        user.vendor_type = vendor_type
+        user.is_agreed = is_agreed
+        user.role= 'vendor'
+        user.is_vendor = True
+
+        # Save the user profile
+        user.save()
+
+        # Redirect to some success page or back to the profile page
+        return redirect('vendor:congrat')
+
+    # Render the form with current user data
+    return render(request, 'vendor/form.html', {
+        'user': user,
+    })
+def congrat(request):
+    return render (request, 'vendor/congrat.html')
+def dashboard(request):
+    experience_number = Experience.objects.filter(vendor__user=request.user).count()
+    latest_experiences = Experience.objects.filter(vendor__user=request.user).order_by('-created_at')[:2]
+    
+    context = {
+        'experience_number':experience_number,
+        'latest_experiences':latest_experiences
+    }
+    return render (request, 'vendor/dashboard.html',context)
+
+def earn(request):
+    return render (request, 'vendor/earn.html')
+
+def vendor_list(request):
+    list = Experience.objects.filter(vendor__user=request.user)
+    context = {
+        'list':list
+    }
+    return render(request, 'vendor/vendor-list.html',context)
+
+
+def payment(request):
+    return render (request, 'vendor/payment.html')
+
+
+def vendor_edit(request,title):
+    if Experience.objects.filter(vendor__user=request.user).exists():
+        edit = get_object_or_404(Experience,title=title,vendor__user=request.user)
+        if request.method == "POST":
+            title = request.POST.get('title')
+            description = request.POST.get('description')
+            category = request.POST.get('category')
+            location = request.POST.get('location')
+            price = request.POST.get('price')
+            available_slots = request.POST.get('available_slots')
+            start_date = request.POST.get('start_date')
+            end_date = request.POST.get('end_date')
+            tags = request.POST.get('tags')
+            duration = request.POST.get('duration')
+            requirements = request.POST.get('requirements')
+            what_to_bring = request.POST.get('what_to_bring')
+            images = request.FILES.get('images')
+
+            edit.title =title
+            edit.description =description
+            edit.category =category
+            edit.location =location
+            edit.price =price
+            edit.available_slots =available_slots
+            edit.start_date =start_date
+            edit.end_date =end_date
+            edit.tags =tags
+            edit.duration =duration
+            edit.requirements =requirements
+            edit.what_to_bring =what_to_bring
+            edit.images =images
+
+            edit.save()
+            messages.success(request, 'Saved Successfully')
+            return redirect('vendor:vendor_edit',title=title)
+        print(edit.category)
+        categories = Experience.CATEGORY_CHOICES
+        context = {
+            'edit':edit,
+            'categories':categories
+        }
+
+        return render (request, 'vendor/vendor-edit.html',context)
+    
+def delete_expricence(request,pk):
+     if Experience.objects.filter(vendor__user=request.user).exists():
+         dek = get_object_or_404(Experience,pk=pk,vendor__user=request.user)
+         dek.delete()
+         return redirect('vendor:vendor_list')
+

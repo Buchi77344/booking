@@ -1,19 +1,26 @@
 from django.shortcuts import render ,get_object_or_404
 from django.contrib import messages
-
+from django.contrib.auth.decorators import login_required
 from math import floor
 
 
 
 
 # Create your views here.
-def index(request):
-    experiences =  Experience.objects.all() 
-    context = {
-        'experiences':experiences
-    }
-    return render (request, 'index.html',context)
 
+def index(request):
+    # Check if the role is ' vendor'
+    experiences = Experience.objects.all()
+
+    context = {
+        'experiences': experiences,
+       
+    }
+
+    return render(request, 'index.html', context)
+
+ 
+@login_required(login_url='signin')
 def experience(request,pk):
     experience = get_object_or_404(Experience,pk=pk)
     full_stars = int(floor(experience.rating))  # Full stars based on the rating
@@ -347,8 +354,28 @@ def payment_success(request):
 
 
 
+from django.conf import settings
+from django.core.mail import send_mail
+from django.shortcuts import render, redirect
+
 def contact (request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email =request.POST.get('email')
+        message =request.POST.get('message')
+                
+            # Send email
+        subject = f"Contact Inquiry from {name} - {settings.SITE_NAME}"
+        message_body = f"You have received a new message from {name} ({email}):\n\n{message}"
+        send_mail(subject, message_body, settings.EMAIL_HOST_USER, [settings.ADMIN_EMAIL])
+
+        messages.success(request, 'your message has been sent succesfully ')
+        
+        return redirect('contact')  # Redirect to a success page (to be created)
+   
+
     return render(request, 'contact.html')
+
 
 def about (request):
     return render(request, 'about.html')
@@ -359,7 +386,7 @@ from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from .models import Experience, Watchlist
 
-@login_required(login_url='login')
+@login_required(login_url='signin')
 def add_to_watchlist(request, experience_id):
     if request.method == 'POST':
         experience = get_object_or_404(Experience, id=experience_id)
@@ -370,7 +397,7 @@ def add_to_watchlist(request, experience_id):
         else:
             return JsonResponse({'message': 'Experience is already in your watchlist'}, status=200)
     return JsonResponse({'message': 'Invalid request method'}, status=400)
-@login_required(login_url='login')
+@login_required(login_url='signin')
 def remove_from_watchlist(request, experience_id):
     if request.method == 'DELETE':
         experience = get_object_or_404(Experience, id=experience_id)
@@ -379,7 +406,7 @@ def remove_from_watchlist(request, experience_id):
 
         return JsonResponse({'message': 'Experience removed from watchlist'}, status=200)
     
-@login_required(login_url='login')
+@login_required(login_url='signinsignin')
 def view_watchlist(request):
     watchlist = Watchlist.objects.filter(user=request.user)
     watchlist_data = [{
@@ -393,7 +420,7 @@ def view_watchlist(request):
 
     return JsonResponse({'watchlist': watchlist_data}, status=200)
 
-@login_required(login_url='login')
+@login_required(login_url='signin')
 def countwatch(request):
     count = Watchlist.objects.filter(user=request.user).count()
     return JsonResponse({'count':count},status=200)
@@ -401,21 +428,33 @@ def countwatch(request):
 
 def watch(request):
     return render (request, 'watchlist.html')
-# from base.forms import SearchForm 
-# from django.db.models import Q
-# @login_required(login_url='admins:login')
-# def search(request):
-    
-#     form = SearchForm()
-#     query = None
-#     result = []
-#     if 'query' in request.GET:
-#         form = SearchForm(request.GET)
-#         if form.is_valid():
-#             query = form.cleaned_data['query']
-#             result = Experience.objects.filter(
-#                 Q(generated_id__icontains=query) |
-#                 Q(user__username__icontains=query)|
-#                 Q(user__last_name__icontains=query)
-#             )
-#     return render(request, 'admins/search.html', {'form': form, 'query': query, 'result': result})
+
+@login_required(login_url='signin')
+def cart_status(request, experience_id):
+    try:
+        experience = Experience.objects.get(id=experience_id)
+        in_cart = Watchlist.objects.filter(user=request.user, experience=experience).exists()
+        return JsonResponse({'inCart': in_cart})
+    except Experience.DoesNotExist:
+        return JsonResponse({'error': 'Experience not found'}, status=404)
+
+from django.db.models import Q
+
+def search(request):
+    result = []  # Initialize result
+    if request.method == 'GET':
+        query = request.GET.get('query', '')  # Safely retrieve query parameter
+        
+        result = Experience.objects.filter(
+            Q(location__icontains=query)
+        )
+        
+    return render(request, 'search.html', {'result': result})
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
+import json
+from .models import Watchlist, Experience
+
+
+
