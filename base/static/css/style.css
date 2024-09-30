@@ -192,6 +192,8 @@ nav{
     align-items: center;
 }
 
+
+
 .logo-img{
     width : 20px;
     height: 20px;
@@ -206,7 +208,7 @@ nav{
     top : 70px;
     right : 0;
     min-width: 250px;
-    height: calc(100vh - 70px);
+    max-height: calc(100vh - 70px);
     padding : 0px 0px 20px;
     background-color: hsla(0, 0%, 98%, 0.6);
     backdrop-filter: blur(10px);
@@ -214,6 +216,7 @@ nav{
     transform: translateX(100%);
     transition: transform .5s ease;
     z-index: 9999;
+    overflow-y: auto;
 }
 
 .mobile.nav-links-container.slideIn{
@@ -1019,6 +1022,11 @@ span.mobile.search-icon svg path{
     font-size: clamp(.75rem, 3.5vw, 1rem);
 }
 
+.mobile.logo-container{
+    display: none;
+    margin-bottom: 15px;
+}
+
 .form-graphics-container{
     width : 50%;
     padding : 20px 40px;
@@ -1243,6 +1251,10 @@ span.mobile.search-icon svg path{
     font-size: 1.1rem;
     width : fit-content;
     margin-bottom: 0px;
+}
+
+.check-input-container .foem-label{
+    font-size: clamp(.85rem, 2.5vw, 1.1rem);
 }
 
 .form-input{
@@ -1488,6 +1500,8 @@ input[type = "file"].form-input::file-selector-button{
     margin-top: 5px;
     border: 1px solid hsla(0, 0%, 10%, .2);
     padding: 2px 12px;
+    flex: 1;
+    min-width: fit-content;
 }
 
 .section-head{
@@ -1640,6 +1654,10 @@ ul.offer-list{
 @media(max-width : 1000px){
     .form-graphics-container{
         display: none;
+    }
+
+    .mobile.logo-container{
+        display: flex;
     }
 /* 
     .verify.form-graphics-container{
