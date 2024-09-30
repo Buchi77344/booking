@@ -208,7 +208,7 @@ nav{
     top : 70px;
     right : 0;
     min-width: 250px;
-    max-height: calc(100vh - 70px);
+    min-height: calc(100vh - 70px);
     padding : 0px 0px 20px;
     background-color: hsla(0, 0%, 98%, 0.6);
     backdrop-filter: blur(10px);
@@ -910,7 +910,7 @@ span.mobile.search-icon svg path{
 }
 
 .util-card-details{
-    width : 70%;
+    width : 78%;
 }
 
 .add-watchlist-btn{
@@ -1502,6 +1502,7 @@ input[type = "file"].form-input::file-selector-button{
     padding: 2px 12px;
     flex: 1;
     min-width: fit-content;
+    width : 20%
 }
 
 .section-head{
