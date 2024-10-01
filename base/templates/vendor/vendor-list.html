@@ -11,7 +11,7 @@
     <style>
         body {
             background-color: #f7f7f7;
-            padding: 20px;
+            /* padding: 20px; */
         }
         .container {
             background-color: white;
@@ -33,48 +33,68 @@
         .experience-card:hover {
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
+        .btn{
+            padding : 5px 30px;
+            display: inline-block;
+            border-radius: 5px;
+        }
         .btn-black {
             background-color: black;
             color: white;
-            border-radius: 5px;
+            margin-top: 12px;
         }
         .btn-black:hover {
             background-color: #333;
+        }
+        .btn-danger{
+            background-color: hsl(0, 87%, 40%);
+            color : hsl(0,0%,98%);
+        }
+        .btn-danger:hover{
+            background-color: hsl(0, 87%, 35%);
+        }
+        .vendor_list-page{
+            padding : 20px 0px;
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>Your Hosted Experiences</h1>
-   {% for list in list %}
-    <div class="experience-card">
-        <h5>{{list.title}}</h5>
-        <p>Description: A brief description of the experience hosted.</p>
-        <p>Location: City, Country</p>
-        <p>Price: $100</p>
-        <p>Available Slots: 10</p>
-        <p>Start Date: 2024-10-01</p>
-        <p>End Date: 2024-10-05</p>
-        <div class="d-flex justify-content-end">
-            <a href="{% url 'vendor:vendor_edit' list.title %}" class="btn btn-black me-2">Edit</a>
-            <a href="#" class="btn btn-danger">Delete</a>
+<div class="vendor_list-page">
+    <div class="wrapper">
+        <h1 class="page-head">Your Hosted Experiences</h1>
+        <div class="experience-card-container grid">
+            {% for list in list %}
+             <div class="experience-card">
+                 <h5 class = "experience-card-head">{{list.title}}</h5>
+                 <p class = "experience-card-text">Description: A brief description of the experience hosted.</p>
+                 <p class = "experience-card-text">Location: City, Country</p>
+                 <p class = "experience-card-text">Price: $100</p>
+                 <p class = "experience-card-text">Available Slots: 10</p>
+                 <p class = "experience-card-text">Start Date: 2024-10-01</p>
+                 <p class = "experience-card-text">End Date: 2024-10-05</p>
+                 <div class="d-flex justify-content-end">
+                     <a href="{% url 'vendor:vendor_edit' list.title %}" class="btn btn-black me-2">Edit</a>
+                     <a href="#" class="btn btn-danger">Delete</a>
+                 </div>
+             </div>
+             {% endfor %}
+         
+             <div class="experience-card">
+                 <h5 class = "experience-card-head">Experience Title 2</h5>
+                 <p class = "experience-card-text">Description: A brief description of the experience hosted.</p>
+                 <p class = "experience-card-text">Location: City, Country</p>
+                 <p class = "experience-card-text">Price: $150</p>
+                 <p class = "experience-card-text">Available Slots: 5</p>
+                 <p class = "experience-card-text">Start Date: 2024-10-10</p>
+                 <p class = "experience-card-text">End Date: 2024-10-12</p>
+                 <div class="d-flex justify-content-end">
+                     <a href="#" class="btn btn-black me-2">Edit</a>
+                     <a href="#" class="btn btn-danger">Delete</a>
+                 </div>
+             </div>
         </div>
-    </div>
-    {% endfor %}
 
-    <div class="experience-card">
-        <h5>Experience Title 2</h5>
-        <p>Description: A brief description of the experience hosted.</p>
-        <p>Location: City, Country</p>
-        <p>Price: $150</p>
-        <p>Available Slots: 5</p>
-        <p>Start Date: 2024-10-10</p>
-        <p>End Date: 2024-10-12</p>
-        <div class="d-flex justify-content-end">
-            <a href="#" class="btn btn-black me-2">Edit</a>
-            <a href="#" class="btn btn-danger">Delete</a>
-        </div>
     </div>
 
     <!-- Add more experience cards as needed -->
