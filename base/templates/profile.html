@@ -23,6 +23,10 @@
                     </div>
                 </div>
                 <div class="acct-form-wrapper ">
+                    <a href = "/" class="mobile logo-container flex gp-10">
+                        <img class = "logo-img" src="{% static 'img/booking-logo.png' %}" alt="logo for experience hotspot">
+                        <span class = "logo-text">Experience Hotspot</span>
+                    </a>
                     <form class= "profile-form flex-column gp-15" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="profile-pic-container flex gp-20">

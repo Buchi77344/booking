@@ -254,11 +254,14 @@ if(document.querySelector(".category-container")){
         document.body.classList.add("over-hidden")
     })
 
-    cancelSearch.addEventListener("click", function(){
-        mobileSearchContainer.classList.remove("reveal")
-        document.body.classList.remove("over-hidden")
+    if(document.querySelector(".cancel-search")){
+        cancelSearch.addEventListener("click", function(){
+            mobileSearchContainer.classList.remove("reveal")
+            document.body.classList.remove("over-hidden")
+    
+        })
+    }
 
-    })
 
     accordSearchContainer.forEach(accordCon => {
         // accord.addEventListener("click", function(){

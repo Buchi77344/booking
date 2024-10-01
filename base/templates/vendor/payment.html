@@ -74,7 +74,8 @@
 
     <div class="mb-4">
         <h5>Add New Payment Method</h5>
-        <form>
+        <form method="post">
+            {% csrf_token %}
             <div class="mb-3">
                 <label for="paymentType" class="form-label">Payment Type</label>
                 <select id="paymentType" class="form-select">
@@ -92,7 +93,7 @@
             </div>
             <div class="mb-3" id="paypalDetails" style="display:none;">
                 <label for="paypalEmail" class="form-label">PayPal Email</label>
-                <input type="email" class="form-control" id="paypalEmail" placeholder="example@example.com" />
+                <input type="email" name="paypal_email" class="form-control" id="paypalEmail" placeholder="example@example.com" />
             </div>
             <button type="submit" class="btn btn-black">Add Payment Method</button>
         </form>

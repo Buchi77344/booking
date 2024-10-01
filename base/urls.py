@@ -20,6 +20,9 @@ urlpatterns = [
     path('view-watchlist/', views.view_watchlist, name='view_watchlist'),
     path('count-watchlist/', views.countwatch, name='count_watchlist'),
     path('api/cart/status/<int:experience_id>/', views.cart_status, name='cart_status'),
+    path('create-payment/<int:experience_id>/', views.create_paypal_order, name='create_paypal_order'),
+    path('payment/success/', views.payment_success, name='payment_success'),
+    path('payment/cancel/', views.payment_cancel, name='payment_cancel'),
     
 
     

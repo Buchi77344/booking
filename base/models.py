@@ -175,7 +175,8 @@ class Experience(models.Model):
     is_featured = models.BooleanField(default=False)  # Flag for featured experiences
     duration = models.CharField(max_length=50)  # Duration of the experience (e.g., "3 hours", "2 days")
     requirements = models.TextField(blank=True)  # Any special requirements (age limits, physical fitness, etc.)
-    what_to_bring = models.TextField(blank=True)  # A list of recommended things to bring
+    what_to_bring = models.TextField(blank=True) 
+    paypal = models.ForeignKey("Vendorpaypal", on_delete=models.CASCADE,null=True) # A list of recommended things to bring
     
     def __str__(self):
         return f"{self.title} by {self.vendor.user.username}"
@@ -213,3 +214,11 @@ class Watchlist(models.Model):
 
     def __str__(self):
         return f'{self.user.username} - {self.experience.title}'
+    
+
+class Vendorpaypal(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    paypal_email =models.EmailField(max_length=254)
+
+    def __str__(self):
+        return self.paypal_email

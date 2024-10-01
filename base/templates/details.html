@@ -20,9 +20,9 @@
             display : flex;
             justify-content: space-between;
         }
-        .details-main-content .col{
+        /* .details-main-content .col{
             width: 49%;
-        }
+        } */
         .rating {
             color: #ffc107; /* Gold star color */
             font-size: 1.5rem;
@@ -123,13 +123,14 @@
 
 
     <!-- Header Banner -->
-    <div class="header-banner text-center">
-        <h1 class = "header-banner-head">{{ experience.title }}</h1>
-        <p>Hosted by {{ experience.vendor.user.username }} | Located at {{ experience.location }}</p>
-    </div>
+    
 
     <!-- Main Content -->
     <div class="details-product-wrapper my-5">
+        <div class="experience-title-div">
+            <p class = "experience-title-text">{{ experience.title }}</p>
+            <!-- <p>Hosted by {{ experience.vendor.user.username }} | Located at {{ experience.location }}</p> -->
+        </div>
         <div class="details-main-content">
             <!-- Experience Image -->
             <div class="col col-lg-7">
@@ -152,7 +153,8 @@
                         <li class="list-group-item"><strong>Duration:</strong> {{ experience.duration }}</li>
                     </ul>
                     <div class="d-grid">
-                        <a href="{% url 'experience_payment' experience.id %}" class="btn btn-book-now btn-lg">Book Now</a>
+                        <a href="{% url 'experience_payment' experience.id %}" class="btn btn-book-now btn-lg"> pay with razoy pay</a>
+                        <a href="{% url 'create_paypal_order' experience.id %}" class="btn btn-book-now btn-lg"> pay with paypal</a>
                     </div>
                 </div>
             </div>
