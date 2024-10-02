@@ -551,8 +551,10 @@ observedElements.forEach(el => observer.observe(el))
 if(document.querySelector(".mobile.hamburger")){
     let mobileHamburger = document.querySelector(".mobile.hamburger")
     let mobileNav = document.querySelector(".mobile.nav-links-container")
-
+    let overlayEl = document.querySelector(".overlay")
     mobileHamburger.addEventListener("click", function(){
+        overlayEl.classList.toggle("visible")
+        document.body.classList.toggle("over-hidden")
         mobileNav.classList.toggle("slideIn")
     })
 }
