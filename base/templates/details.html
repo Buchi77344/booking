@@ -73,21 +73,33 @@
             padding : 0px 10px 20px;
             background-color: hsl(0, 0%, 100%);
         }
-        .btn-book-now {
-            background-color: #28a745;
-            border-color: #28a745;
-            color: white;
+        .btn-pay {
+            /* border-color: #28a745; */
+            color: hsl(0, 0%, 97%);
             display: block;
             margin-top: 20px;
             text-align: center;
             padding :7px;
             border-radius: 10px;
+            font-size: 1.1rem;
+        }
 
+        .btn-pay.pal{
+            background-color: hsl(221, 94%, 43%);
         }
-        .btn-book-now:hover {
-            background-color: #218838;
-            border-color: #1e7e34;
+
+        .btn-pay.pal:hover{
+            background-color: hsl(221, 94%, 33%);
         }
+
+        .btn-pay.ray{
+            background-color: hsl(273, 95%, 36%);
+        }
+
+        .btn-pay.ray:hover{
+            background-color: hsl(273, 95%, 26%);
+        }
+      
         .requirement-item {
             margin-bottom: 10px;
         }
@@ -233,7 +245,8 @@
                                     </div>
                                 </div>
                                 <div class="d-grid">
-                                    <a href="{% url 'experience_payment' experience.id %}" class="btn btn-book-now btn-lg">Book Now</a>
+                                    <a href="{% url 'experience_payment' experience.id %}" class="btn btn-pay pal">Pay with Paypal</a>
+                                    <a href="{% url 'experience_payment' experience.id %}" class="btn btn-pay ray">Pay with RazorPay</a>
                                 </div>
                             </div>
                         </div>

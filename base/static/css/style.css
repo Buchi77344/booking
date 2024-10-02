@@ -490,6 +490,10 @@ input.category-field::placeholder{
     margin-bottom: 20px;
 }
 
+.guest-box.flex-between{
+    gap : 10px;
+}
+
 .guest-name{
     font-size: 1.3rem;
     font-weight: 500;
@@ -1849,6 +1853,13 @@ ul.offer-list{
     .watchlist-container{
         display: none;
     }
+    .category-container{
+        display: none;
+    }
+
+    .mobile.category-container{
+        display: flex;
+    }
 }
 
 @media(max-width : 1000px){
@@ -1885,16 +1896,6 @@ ul.offer-list{
     .nav{
         padding : 10px 30px;
     }
-
-    .category-container{
-        display: none;
-    }
-
-    .mobile.category-container{
-        display: flex;
-    }
-
-
 
     .fixed-nav-container{
         display: flex;
