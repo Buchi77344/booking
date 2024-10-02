@@ -11,14 +11,18 @@
             padding: 20px 0;
             text-align: center;
         }
+        .details-page{
+            padding : 20px 0px;
+            background-color: hsl(0, 0%, 99%);
+        }
         .details-product-wrapper{
             width : 90%;
             max-width : 1200px;
-            margin : 30px auto;
+            margin : 0px auto;
         }
         .details-main-content{
-            display : flex;
-            justify-content: space-between;
+            /* display : flex;
+            justify-content: space-between; */
         }
         /* .details-main-content .col{
             width: 49%;
@@ -33,26 +37,41 @@
         .experience-img {
             max-height: 400px;
             object-fit: cover;
+            width: 100%;
         }
         .details-card {
-            background-color: white;
+            /* background-color: white; */
             border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+            padding: 0px 20px 20px 0px;
+            /* border: 1px solid hsla(0, 0%, 10%, .3); */
+            /* box-shadow: 0px 0px 10px rgba(0,0,0,0.1); */
         }
         .details-card h4{
-            margin-bottom: 0;
-            font-size : 1.4rem;
+            margin: 0;
+            font-size : 1.8rem;
+            line-height: 100%;
         }
         .details-card p{
             margin-top: 5px;
             margin-bottom: 12px;
-            line-height: 100%;
         }
         .booking-section {
             background-color: #f1f1f1;
-            padding: 20px;
+            padding: 0px;
             border-radius: 10px;
+            box-shadow: 4px 4px 12px 4px rgba(0, 0, 0, .1);
+        }
+        .Booking-head{
+            font-size: 1.5rem;
+            text-align: center;
+            background-color: hsl(0, 0%, 30%);
+            color : hsl(0, 0%, 97%);
+            padding: 10px 12px;
+            margin : 0;
+        }
+        .booking-section-details{
+            padding : 0px 10px 20px;
+            background-color: hsl(0, 0%, 100%);
         }
         .btn-book-now {
             background-color: #28a745;
@@ -72,22 +91,27 @@
         .requirement-item {
             margin-bottom: 10px;
         }
-        .Booking-head{
-            font-size: 1.5rem;
-            text-align: center;
-        }
-
+      
         .list-group{
-            background-color: hsl(0, 0%, 100%);
-            border-radius: 7px;
-            margin-top: 15px;
+            /* background-color: hsl(0, 0%, 100%); */
+            /* border-radius: 7px; */
+            /* margin-top: 15px; */
         }
 
         .list-group-item{
-            padding : 12px;
+            padding : 5px 12px;
         }
-        .list-group-item:not(:last-of-type){
-            border-bottom: 1px solid hsla(0,0%,10%,.5);
+        .list-group-item{
+            border-top: 1px solid hsla(0,0%,10%,.1);
+            border-bottom: 1px solid hsla(0,0%,10%,.1);
+        }
+        .group-item-name{
+            color : hsla(0,0%,10%,.9);
+            font-size: 1.2rem;
+        }
+        .group-item-value{
+            font-size :1.1rem;
+            color: hsla(0,0%,10%,.7);
         }
         .product-desc-container{
             display: flex;
@@ -95,10 +119,18 @@
             margin-top: 20px;
         }
         .product-desc-container .col-1{
-            width : 60%;
+            width : 65%;
         }
+
+        .product-desc-container .col-1 .details-card{
+            padding-right: 0;
+        }
+        
         .product-desc-container .col-2{
             width : 35%;
+        }
+        .product-desc-container .col-lg-5{
+            width : 33%;
         }
         .badge{
             background-color: #007bff;
@@ -119,99 +151,112 @@
         .header-banner-head{
             margin-bottom: 5px;
         }
+        .price-text{
+            font-size: 2rem;
+            margin-top: 0;
+        }
     </style>
 
 
     <!-- Header Banner -->
     
+    <div class="details-page">
+        <!-- Main Content -->
+        <div class="details-product-wrapper my-5">
+            <div class="experience-title-div ">
+                <p class = "experience-title-text">{{ experience.title }}</p>
+                <!-- <p>Hosted by {{ experience.vendor.user.username }} | Located at {{ experience.location }}</p> -->
+                <div class="experience-li_details-div flex gp-10">
+                    <span class="rating-span li_details-span flex gp-5">
+                        <img src="{% static 'img/favourite-svg.svg' %}" alt="favorite icon from svgrepo">
+                        <span class = "li_details-text"><strong>4.5</strong>(1.5k)reviews</span>
+                    </span>
 
-    <!-- Main Content -->
-    <div class="details-product-wrapper my-5">
-        <div class="experience-title-div">
-            <p class = "experience-title-text">{{ experience.title }}</p>
-            <!-- <p>Hosted by {{ experience.vendor.user.username }} | Located at {{ experience.location }}</p> -->
-        </div>
-        <div class="details-main-content">
-            <!-- Experience Image -->
-            <div class="col col-lg-7">
-                {% if experience.images %}
-                <img src="{{ experience.images.url }}" class="img-fluid experience-img rounded mb-4" alt="{{ experience.title }}">
-                {% else %}
-                <img src="default-image.jpg" class="img-fluid experience-img rounded mb-4" alt="No Image Available">
-                {% endif %}
+                    <span class="location-span li_details-span flex gp-5">
+                        <img src="{% static 'img/location.svg' %}" alt="favorite icon from svgrepo">
+                        <span class = "li_details-text">India</span>
+                    </span>
+                </div>
             </div>
+            <div class="details-main-content">
+                <!-- Experience Image -->
+                <div class="col col-lg-7">
+                    {% if experience.images %}
+                    <img src="{{ experience.images.url }}" class="img-fluid experience-img rounded mb-4" alt="{{ experience.title }}">
+                    {% else %}
+                    <img src="default-image.jpg" class="img-fluid experience-img rounded mb-4" alt="No Image Available">
+                    {% endif %}
+                </div>
+                
+                <!-- Description and Details -->
+                <div class="product-desc-container mt-5">
+                    <div class="col col-1">
+                        <div class="details-card">
+                            <h4>Description</h4>
+                            <p>{{ experience.description }}
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus enim qui porro perspiciatis, iste repellat possimus illo et beatae sed neque veniam voluptatum quo officiis reprehenderit nobis, at explicabo ab non minus eaque, cum magnam perferendis ad. Labore maxime exercitationem repellat quae accusamus sequi earum totam quaerat, maiores eligendi. Natus exercitationem numquam enim ab voluptates error consequuntur ut commodi nostrum?
+                            </p>
+                            <h4>What to Bring</h4>
+                            <p>{{ experience.what_to_bring|default:"Not specified" }}
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum voluptas odit, modi rem explicabo hic quas eius nemo nesciunt aspernatur temporibus, id pariatur ratione nobis, voluptatum sit! Velit amet perspiciatis eum mollitia deleniti nam modi laboriosam provident exercitationem officia aperiam itaque voluptatum totam, quidem neque eligendi ratione necessitatibus voluptate cum saepe, nobis iusto ab. Assumenda a quaerat quidem incidunt repellat?
+                            </p>
+                            <h4>Special Requirements</h4>
+                            <p>{{ experience.requirements|default:"None" }} Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus tempore incidunt nisi molestias velit officiis tenetur voluptas fugiat id nostrum voluptatibus cum, explicabo cupiditate sint ut at, assumenda magnam! Ipsam consequuntur voluptatum magni. Qui repudiandae repellat quod, facere non, incidunt, quas dolor cumque vel provident nam. Ea et nobis voluptas quasi dolor natus voluptates praesentium porro cum. Et, accusantium doloremque!</p>
+                        </div>
+                    </div>
+    
+                    <!-- Booking Information -->
+                    <div class="col col-lg-5">
+                        <div class="booking-section">
+                            <h3 class="Booking-head text-center mb-3">Book This Experience</h3>
+                            <div class="booking-section-details">
+                                <h3 class="price-text">${{ experience.price }}</h3>
+                                <div class="list-group">
+                                    <div class="list-group-item">
+                                        <h4 class = "group-item-name">Available Slots:</h4>
+                                        <p class = "group-item-value">{{ experience.available_slots }}</p>
+                                    </div>
 
-            <!-- Booking Information -->
-            <div class="col col-lg-5">
-                <div class="booking-section">
-                    <h3 class="Booking-head text-center mb-3">Book This Experience</h3>
-                    <ul class="list-group list-group-flush mb-3">
-                        <li class="list-group-item"><strong>Price:</strong> ${{ experience.price }}</li>
-                        <li class="list-group-item"><strong>Available Slots:</strong> {{ experience.available_slots }}</li>
-                        <li class="list-group-item"><strong>Start Date:</strong> {{ experience.start_date }}</li>
-                        <li class="list-group-item"><strong>End Date:</strong> {{ experience.end_date }}</li>
-                        <li class="list-group-item"><strong>Duration:</strong> {{ experience.duration }}</li>
-                    </ul>
-                    <div class="d-grid">
-                        <a href="{% url 'experience_payment' experience.id %}" class="btn btn-book-now btn-lg"> pay with razoy pay</a>
-                        <a href="{% url 'create_paypal_order' experience.id %}" class="btn btn-book-now btn-lg"> pay with paypal</a>
+                                    <div class="list-group-item">
+                                        <h4 class = "group-item-name">Start Date:</h4>
+                                        <p class = "group-item-value">{{ experience.start_date }}</p>
+                                    </div>
+
+                                    <div class="list-group-item">
+                                        <h4 class = "group-item-name">End Date:</h4>
+                                        <p class = "group-item-value">{{ experience.end_date }}</p>
+                                    </div>
+
+                                    <div class="list-group-item">
+                                        <h4 class = "group-item-name">Duration:</h4>
+                                        <p class = "group-item-value">{{ experience.duration }}</p>
+                                    </div>
+                                </div>
+                                <div class="d-grid">
+                                    <a href="{% url 'experience_payment' experience.id %}" class="btn btn-book-now btn-lg">Book Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+
+         
+    
+            <!-- Vendor Info and Additional Features -->
+            <div class="details-info-container mt-5">
+                <div class="col-lg-12">
+                    <div class="details-card">
+                        <h4>About the Host</h4>
+                        <p>{{ experience.vendor.business_name }} offers this unique experience in {{ experience.location }}. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reprehenderit ipsam expedita dicta facilis quae non, incidunt minima in laboriosam dolores maiores exercitationem culpa nemo labore dolorem eveniet sequi eaque perspiciatis? Nisi minima dolore eius architecto laudantium officia necessitatibus cumque maiores et consequatur mollitia esse magni sapiente eos sunt deleniti quo, reprehenderit facere incidunt eaque adipisci repudiandae? Aliquam iure natus distinctio!</p>
+                        <p class = "contact-text"><strong>Contact Information:</strong> {{ experience.vendor.contact_info }}</p>
+                        <p><strong>Reviews:</strong> Coming soon...</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Description and Details -->
-        <div class="product-desc-container mt-5">
-            <div class="col col-1">
-                <div class="details-card">
-                    <h4>Description</h4>
-                    <p>{{ experience.description }}</p>
-                    <h4>What to Bring</h4>
-                    <p>{{ experience.what_to_bring|default:"Not specified" }}</p>
-                    <h4>Special Requirements</h4>
-                    <p>{{ experience.requirements|default:"None" }}</p>
-                </div>
-            </div>
-
-            <!-- Rating and Reviews -->
-            <div class="col col-2">
-                <div class="details-card">
-                    <h4>Rating</h4>
-                    <div class="rating mb-3">
-                        <!-- Full stars -->
-                        {% for i in full_stars|make_list %}
-                        <i class="fa fa-star"></i>
-                        {% endfor %}
-                        
-                        <!-- Half star -->
-                        {% if half_star %}
-                        <i class="fa fa-star-half-alt"></i>
-                        {% endif %}
-                        
-                        <!-- Empty stars -->
-                        {% for i in empty_stars|make_list %}
-                        <i class="fa fa-star-o"></i>
-                        {% endfor %}
-                        
-                        ({{ experience.rating }} / 5.0)
-                    </div>
-                    <h4>Tags</h4>
-                    <span class="badge bg-primary">{{ experience.tags|join:", " }}</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Vendor Info and Additional Features -->
-        <div class="details-info-container mt-5">
-            <div class="col-lg-12">
-                <div class="details-card">
-                    <h4>About the Host</h4>
-                    <p>{{ experience.vendor.business_name }} offers this unique experience in {{ experience.location }}.</p>
-                    <p class = "contact-text"><strong>Contact Information:</strong> {{ experience.vendor.contact_info }}</p>
-                    <p><strong>Reviews:</strong> Coming soon...</p>
-                </div>
-            </div>
-        </div>
     </div>
 
     <!-- Footer -->

@@ -4,8 +4,9 @@ const categoryHighlight = document.querySelectorAll(".category-highlight")
 const destinationCategoryHighlight = document.querySelector(".destination-container .category-highlight")
 const mapRegionsWrapper = document.querySelector(".map-regions-wrapper")
 const dateWrapper = document.querySelector(".date-wrapper")
-const checkinHighlight = document.querySelector(".checkin.date-wrapper .category-highlight")
+// const checkinHighlight = document.querySelector(".checkin.date-wrapper .category-highlight")
 const dateCategoryHighlight = document.querySelector(".date-wrapper .category-highlight")
+const choiceCategoryHighlight = document.querySelector(".category_choice-wrapper .category-highlight")
 const dateContentContainer = document.querySelector(".date-content-container")
 const guestCatHihglight = document.querySelector(".guest-container .category-highlight")
 const guestShowDrop = document.querySelector(".guest-container .show-drop")
@@ -43,6 +44,14 @@ if(document.querySelector(".category-container")){
             document.querySelectorAll(".category-highlight").forEach(el => el.classList.remove("active"))
             this.classList.add("active")
         })
+    })
+
+    console.log(choiceCategoryHighlight)
+
+    choiceCategoryHighlight.addEventListener("click", function(){
+        document.querySelector(".category_choice-wrapper .show-drop").classList.toggle("reveal")
+        let dropEl = document.querySelector(".category_choice-wrapper .show-drop")
+        revealDropFunc(".category_choice-wrapper", dropEl)
     })
 
     guestCatHihglight.addEventListener("click", function(){
@@ -185,6 +194,7 @@ if(document.querySelector(".category-container")){
         if(el.closest(".show-drop")){
             parent.querySelector(".location-list").innerHTML = ""
         }else{
+            console.log(locationList)
             locationList.innerHTML = ""
         }
 
@@ -276,7 +286,19 @@ if(document.querySelector(".category-container")){
 
     })
 
+    const categoryChoiceItem = document.querySelectorAll(".category_choice-wrapper .category_choice-item")
+    const mobileCategoryChoiceItem = document.querySelectorAll(".accord-search-container .category_choice-item")
 
+    function inputItemVal(itemEl, valElstr){
+        itemEl.forEach(el => {
+            el.addEventListener("click", function(){
+                document.querySelector(valElstr).textContent = el.textContent
+            })
+        })
+    }
+
+    inputItemVal(categoryChoiceItem, ".category_choice-wrapper .category-val")
+    inputItemVal(mobileCategoryChoiceItem, ".choice.accord-search-container .accord-search-val")
 }
 
 if(document.querySelector(".form-page")){
