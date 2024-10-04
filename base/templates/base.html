@@ -53,6 +53,7 @@
                             <li><a href="{% url 'contact' %}" class="experience-link">Contact Us</a></li>
                             <li><a href="{% url 'privacy' %}" class="experience-link">Privacy Policy</a></li>
                             <li><a href="{% url 'vendor:form' %}" class="experience-link">Become a Vendor</a></li>
+                            <li><a href="{% url 'logout' %}" class="profile-link flex gp-15">Logout</a></li>
                             {%endif%}
                             {% if request.user.is_authenticated %}
                             {% if request.user.role == 'vendor' %}
@@ -62,6 +63,7 @@
                             <li><a href="{% url 'vendor:vendor_list' %}" class="experience-link">Vendor List</a></li>
                             <li><a href="{% url 'vendor:earn' %}" class="experience-link">Earning</a></li>
                             <li><a href="{% url 'vendor:payment' %}" class="experience-link">Payment Method</a></li>
+                            <li><a href="{% url 'logout' %}" class="profile-link flex gp-15">Logout</a></li>
                             {%endif%}
                             {% endif %}
                         </ul>

@@ -293,11 +293,22 @@ if(document.querySelector(".category-container")){
         itemEl.forEach(el => {
             el.addEventListener("click", function(){
                 document.querySelector(valElstr).textContent = el.textContent
+                console.log(document.querySelector(valElstr))
             })
         })
     }
 
-    inputItemVal(categoryChoiceItem, ".category_choice-wrapper .category-val")
+    function categoryInputLap(){
+        categoryChoiceItem.forEach(el => {
+            el.addEventListener("click", function(){
+                document.querySelector(".category_choice-wrapper .category-field").value = el.textContent
+                console.log(document.querySelector(valElstr))
+            })
+        })
+    }
+
+    // inputItemVal(categoryChoiceItem, ".category_choice-wrapper .category-field")
+    categoryInputLap()
     inputItemVal(mobileCategoryChoiceItem, ".choice.accord-search-container .accord-search-val")
 }
 
@@ -597,7 +608,12 @@ if(document.querySelector(".comment-form")){
         let messageInput = document.querySelector(".comment-form textarea#message").value
         let ratingInput = document.querySelector("input[name = 'rating']:checked").value
         if(nameInput && messageInput && ratingInput){
-            
+            const newReview = document.createElement('div')
+            newReview.classList.add("review-item")
+            newReview.innerHTML = `
+                <h3 class = "name-review_item">${nameInput}</h3>
+                <p>${messageInput}</p>
+            `
         }
     })
 }

@@ -54,51 +54,25 @@
                 </tr>
             </thead>
             <tbody>
+                {% for trac in trac %}
                 <tr>
-                    <td>1</td>
-                    <td>JohnDoe</td>
-                    <td>City Walking Tour</td>
-                    <td>ORD123456</td>
-                    <td>$49.99</td>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{trac.user.username}}</td>
+                    <td>{{trac.experience.title}}</td>
+                    <td>{{trac.order_id}}</td>
+                    <td>${{trac.amount}}</td>
                     <td>
                         <span class="badge badge-success">Success</span>
                     </td>
                     <td>2024-09-28</td>
                     <td>
-                        <a href="#" class="btn btn-sm btn-secondary">View</a>
-                        <a href="#" class="btn btn-sm btn-danger">Refund</a>
+                        
+                        <a href="#" class="btn btn-sm btn-danger">Delete</a>
                     </td>
                 </tr>
-                <tr>
-                    <td>2</td>
-                    <td>JaneSmith</td>
-                    <td>Wine Tasting Experience</td>
-                    <td>ORD987654</td>
-                    <td>$99.99</td>
-                    <td>
-                        <span class="badge badge-failed">Failed</span>
-                    </td>
-                    <td>2024-09-27</td>
-                    <td>
-                        <a href="#" class="btn btn-sm btn-secondary">View</a>
-                        <a href="#" class="btn btn-sm btn-black">Retry Payment</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>MikeJones</td>
-                    <td>Luxury Boat Rental</td>
-                    <td>ORD654321</td>
-                    <td>$499.99</td>
-                    <td>
-                        <span class="badge badge-success">Success</span>
-                    </td>
-                    <td>2024-09-25</td>
-                    <td>
-                        <a href="#" class="btn btn-sm btn-secondary">View</a>
-                        <a href="#" class="btn btn-sm btn-danger">Refund</a>
-                    </td>
-                </tr>
+                {% endfor %}
+             
+               
                 <!-- Add more transactions here -->
             </tbody>
         </table>
