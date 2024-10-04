@@ -55,11 +55,13 @@
                 </tr>
             </thead>
             <tbody>
+                {%  for vendor in vendor%}
                 <tr>
-                    <td>1</td>
-                    <td>JohnDoe</td>
-                    <td>johndoe@example.com</td>
-                    <td>John's Adventure Tours</td>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{vendor.first_name}}</td>
+                    <td>{{vendor.email}}</td>
+                    <td>{{vendor.vendor_type}}</td>
                     <td>
                         <span class="badge badge-approved">Approved</span>
+                    {% endfor %}
     

@@ -20,7 +20,11 @@ def dashboard(request):
     return render (request, 'admin/dashboard.html',context)
 
 def experience(request):
-    return render (request, 'admin/experience.html')
+    exp = Experience.objects.all()
+    context ={
+        'exp':exp
+    }
+    return render (request, 'admin/experience.html',context)
 
 def user_management(request):
     user = CustomUser.objects.all()
@@ -30,9 +34,17 @@ def user_management(request):
     return render (request, 'admin/user_management.html',context)
 
 def vendor_management(request):
-    return render (request, 'admin/vendor_management.html')
+    vendor = CustomUser.objects.filter(role='vendor')
+    context = {
+        'vendor':vendor
+    }
+    return render (request, 'admin/vendor_management.html',context)
 def view_transactons(request):
-    return render (request, 'admin/view_transactions.html')
+    trac = Transaction.objects.all()
+    context = {
+        'trac':trac
+    }
+    return render (request, 'admin/view_transactions.html',context)
 
 def view_reviews(request):
     return render (request, 'admin/view_reviews.html')

@@ -56,69 +56,31 @@
                 </tr>
             </thead>
             <tbody>
+                {% for exp in exp %}
                 <tr>
-                    <td>1</td>
-                    <td>City Walking Tour</td>
-                    <td>JohnDoe</td>
-                    <td>Adventure & Outdoor</td>
-                    <td>$49.99</td>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{exp.title}}</td>
+                    <td>{{exp.vendor.user.username}}</td>
+                    <td>{{exp.category}}</td>
+                    <td>${{exp.price}}</td>
                     <td>
                         <span class="badge badge-approved">Approved</span>
                     </td>
                     <td>
-                        <a href="#" class="btn btn-sm btn-black">Edit</a>
-                        <a href="#" class="btn btn-sm btn-secondary">View</a>
+                        
                         <a href="#" class="btn btn-sm btn-danger">Delete</a>
                     </td>
                 </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Wine Tasting Experience</td>
-                    <td>JaneSmith</td>
-                    <td>Food & Drink</td>
-                    <td>$99.99</td>
-                    <td>
-                        <span class="badge badge-pending">Pending</span>
-                    </td>
-                    <td>
-                        <a href="#" class="btn btn-sm btn-black">Approve</a>
-                        <a href="#" class="btn btn-sm btn-danger">Reject</a>
-                        <a href="#" class="btn btn-sm btn-secondary">View</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Luxury Boat Rental</td>
-                    <td>MikeJones</td>
-                    <td>Water Activities</td>
-                    <td>$499.99</td>
-                    <td>
-                        <span class="badge badge-rejected">Rejected</span>
-                    </td>
-                    <td>
-                        <a href="#" class="btn btn-sm btn-black">Edit</a>
-                        <a href="#" class="btn btn-sm btn-secondary">View</a>
-                        <a href="#" class="btn btn-sm btn-danger">Delete</a>
-                    </td>
-                </tr>
+                {% endfor %}
+              
+                
+          
                 <!-- Add more experiences here -->
             </tbody>
         </table>
 
         <!-- Pagination -->
-        <nav aria-label="Experience table pagination">
-            <ul class="pagination justify-content-center">
-                <li class="page-item disabled">
-                    <a class="page-link">Previous</a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#">Next</a>
-                </li>
-            </ul>
-        </nav>
+       
     </div>
 
     <!-- Bootstrap JS -->

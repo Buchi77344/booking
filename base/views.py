@@ -168,6 +168,9 @@ def verify_code(request):
 
 from django.contrib.auth import authenticate, login
 from django.contrib import auth
+from django.contrib import messages, auth
+from django.shortcuts import render, redirect
+
 def signin(request):
     if request.method == 'POST':
         email = request.POST.get('email')
@@ -179,13 +182,23 @@ def signin(request):
         if user is not None:
             # Successful authentication, log in the user
             auth.login(request, user)
-            messages.success(request, "You have successfully logged in!")
-            return redirect('/')  # Redirect to home or dashboard after login
+
+            # Check if the user is an admin (superuser or based on role)
+            if user.is_superuser:
+                # Redirect admin to the admin page
+                messages.success(request, "Welcome, Admin! You have successfully logged in!")
+                return redirect('admix:dashboard')  # Admin page URL
+            else:
+                # Redirect regular users to the home page or dashboard
+                messages.success(request, "You have successfully logged in!")
+                return redirect('/')
         else:
             # Invalid credentials
             messages.error(request, "Invalid email or password. Please try again.")
             return redirect('signin')
-    return render (request, 'signin.html')
+
+    return render(request, 'signin.html')
+
 
 def logout(request):
     auth.logout(request)
