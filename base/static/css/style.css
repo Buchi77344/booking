@@ -228,7 +228,7 @@ nav{
     top : 70px;
     right : 0;
     min-width: 250px;
-    max-height: calc(100vh - 130px);
+    height: calc(100vh - 130px);
     padding : 0px 0px 20px;
     background-color: hsla(0, 0%, 98%, 0.8);
     backdrop-filter: blur(10px);
@@ -988,6 +988,11 @@ span.mobile.search-icon svg path{
     color : hsl(0, 0%, 93%)
 }
 
+.location-container svg{
+    width : 25px;
+    height : 25px;
+}
+
 .location-container svg path{
     stroke: hsl(0, 0%, 20%);
 }
@@ -1000,8 +1005,8 @@ span.mobile.search-icon svg path{
 
 .util-card-content-time{
     font-weight : 600;
-    font-size: clamp(.85rem, 3.5vw, 1.1rem);
-    margin-top: 0px;
+    font-size: clamp(.85rem, 3.5vw, 1rem);
+    margin: 0px;
 }
 
 .banner-content-container{
@@ -1550,8 +1555,10 @@ input[type = "file"].form-input::file-selector-button{
 }
 
 .cominfo-title{
-    font-size : clamp(3.5rem, 5.5vw, 5rem);
+    font-size : clamp(3.7rem, 5.5vw, 5rem);
     color : hsla(0, 0%, 98%, 0.7);
+    padding : 0px 5px;
+    text-align: center;
 }
 
 .about-content-wrapper{
@@ -1802,7 +1809,7 @@ ul.offer-list{
     background-color: hsl(0,0%,95%);
 }
 
-.contact-form-container{
+.util-form-container{
     width : 90%;
     max-width : 700px;
     background-color: white;
@@ -1811,7 +1818,43 @@ ul.offer-list{
     border-radius: 10px;
 }
 
-.contact-form-container .page-head{
+.comment.util-form-container{
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0px 4px 10px 0px rgb(0 0 0 / 35%);
+    border-radius: 10px;
+    max-width : 500px;
+    margin: 0;
+}
+
+.rating-div {
+    direction: rtl;
+    unicode-bidi: bidi-override;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.rating-div input {
+    display: none;
+}
+
+.rating-div label {
+    font-size: 30px;
+    color: #ccc;
+    cursor: pointer;
+}
+
+.rating-div input:checked ~ label {
+    color: gold;    
+}
+
+.rating-div label:hover,
+.rating-div label:hover ~ label {
+    color: gold;
+}
+
+
+.util-form-container .page-head{
     text-align: center;
 }
 
