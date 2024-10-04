@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Transactions</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .btn-black {
+            background-color: black;
+            color: white;
+        }
+        .btn-black:hover {
+            background-color: #333;
+        }
+        .badge-success {
+            background-color: green;
+        }
+        .badge-failed {
+            background-color: red;
+        }
+        .table th, .table td {
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <!-- Page Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="h3">View Transactions</h1>
+            <a href="{% url 'admix:dashboard' %}" class="btn btn-black">Back to Dashboard</a>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="input-group mb-4">
+            <input type="text" class="form-control" placeholder="Search transactions by user, experience, or order ID...">
+            <button class="btn btn-black" type="button">Search</button>
+        </div>
+
+        <!-- Transactions Table -->
+        <table class="table table-bordered table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>#</th>
+                    <th>User</th>
+                    <th>Experience</th>
+                    <th>Order ID</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>JohnDoe</td>
+                    <td>City Walking Tour</td>
+                    <td>ORD123456</td>
+                    <td>$49.99</td>
+                    <td>
+                        <span class="badge badge-success">Success</span>
+                    </td>
+                    <td>2024-09-28</td>
+                    <td>
+                        <a href="#" class="btn btn-sm btn-secondary">View</a>
+                        <a href="#" class="btn btn-sm btn-danger">Refund</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>JaneSmith</td>
+                    <td>Wine Tasting Experience</td>
+                    <td>ORD987654</td>
+                    <td>$99.99</td>
+                    <td>
+                        <span class="badge badge-failed">Failed</span>
+                    </td>
+                    <td>2024-09-27</td>
+                    <td>
+                        <a href="#" class="btn btn-sm btn-secondary">View</a>
+                        <a href="#" class="btn btn-sm btn-black">Retry Payment</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>MikeJones</td>
+                    <td>Luxury Boat Rental</td>
+                    <td>ORD654321</td>
+                    <td>$499.99</td>
+                    <td>
+                        <span class="badge badge-success">Success</span>
+                    </td>
+                    <td>2024-09-25</td>
+                    <td>
+                        <a href="#" class="btn btn-sm btn-secondary">View</a>
+                        <a href="#" class="btn btn-sm btn-danger">Refund</a>
+                    </td>
+                </tr>
+                <!-- Add more transactions here -->
+            </tbody>
+        </table>
+
+        <!-- Pagination -->
+        <nav aria-label="Transaction table pagination">
+            <ul class="pagination justify-content-center">
+                <li class="page-item disabled">
+                    <a class="page-link">Previous</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

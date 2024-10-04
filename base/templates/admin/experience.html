@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Experiences</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .btn-black {
+            background-color: black;
+            color: white;
+        }
+        .btn-black:hover {
+            background-color: #333;
+        }
+        .table th, .table td {
+            vertical-align: middle;
+        }
+        .badge-approved {
+            background-color: green;
+        }
+        .badge-pending {
+            background-color: orange;
+        }
+        .badge-rejected {
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <!-- Page Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="h3">Manage Experiences</h1>
+            <a href="{% url 'admix:dashboard' %}" class="btn btn-black">Back to Dashboard</a>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="input-group mb-4">
+            <input type="text" class="form-control" placeholder="Search experiences by title, vendor, or category...">
+            <button class="btn btn-black" type="button">Search</button>
+        </div>
+
+        <!-- Experiences Table -->
+        <table class="table table-bordered table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Title</th>
+                    <th>Vendor</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>City Walking Tour</td>
+                    <td>JohnDoe</td>
+                    <td>Adventure & Outdoor</td>
+                    <td>$49.99</td>
+                    <td>
+                        <span class="badge badge-approved">Approved</span>
+                    </td>
+                    <td>
+                        <a href="#" class="btn btn-sm btn-black">Edit</a>
+                        <a href="#" class="btn btn-sm btn-secondary">View</a>
+                        <a href="#" class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Wine Tasting Experience</td>
+                    <td>JaneSmith</td>
+                    <td>Food & Drink</td>
+                    <td>$99.99</td>
+                    <td>
+                        <span class="badge badge-pending">Pending</span>
+                    </td>
+                    <td>
+                        <a href="#" class="btn btn-sm btn-black">Approve</a>
+                        <a href="#" class="btn btn-sm btn-danger">Reject</a>
+                        <a href="#" class="btn btn-sm btn-secondary">View</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Luxury Boat Rental</td>
+                    <td>MikeJones</td>
+                    <td>Water Activities</td>
+                    <td>$499.99</td>
+                    <td>
+                        <span class="badge badge-rejected">Rejected</span>
+                    </td>
+                    <td>
+                        <a href="#" class="btn btn-sm btn-black">Edit</a>
+                        <a href="#" class="btn btn-sm btn-secondary">View</a>
+                        <a href="#" class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                </tr>
+                <!-- Add more experiences here -->
+            </tbody>
+        </table>
+
+        <!-- Pagination -->
+        <nav aria-label="Experience table pagination">
+            <ul class="pagination justify-content-center">
+                <li class="page-item disabled">
+                    <a class="page-link">Previous</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

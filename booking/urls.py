@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('base.urls')),
     path('vendor/',include('Vendors.urls', namespace='vendor')),
+    path('admix/',include('Admin.urls', namespace='admix')),
     path('accounts/', include('allauth.urls')),
     path('',views.index,name="index"),
 

@@ -588,3 +588,16 @@ if (document.querySelector(".add-watchlist-btn")) {
         });
     });
 }
+
+if(document.querySelector(".comment-form")){
+    let commentForm = document.querySelector(".comment-form")
+    commentForm.addEventListener("submit", function(e){
+        e.preventDefault()
+        let nameInput = document.querySelector(".comment-form input#name").value
+        let messageInput = document.querySelector(".comment-form textarea#message").value
+        let ratingInput = document.querySelector("input[name = 'rating']:checked").value
+        if(nameInput && messageInput && ratingInput){
+            
+        }
+    })
+}

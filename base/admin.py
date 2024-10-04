@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import CustomUser,Userprofile ,VendorProfile,ExperienceCategory,Experience,Review,Transaction ,Watchlist
+from .models import *
  
 admin.site.register(CustomUser)
 admin.site.register(Userprofile)
@@ -11,3 +11,5 @@ admin.site.register(Experience)
 admin.site.register(Review) 
 admin.site.register(Transaction) 
 admin.site.register(Watchlist)
+admin.site.register(Vendorpaypal)
+admin.site.register(Notification)

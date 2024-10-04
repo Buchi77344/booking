@@ -11,9 +11,11 @@ from math import floor
 def index(request):
     # Check if the role is ' vendor'
     experiences = Experience.objects.all()
+    category = Experience.CATEGORY_CHOICES
 
     context = {
         'experiences': experiences,
+        'category':category
        
     }
 
@@ -457,4 +459,77 @@ import json
 from .models import Watchlist, Experience
 
 
+import uuid
+# paypal_helper.py
+import paypalrestsdk
+from django.conf import settings
 
+def get_paypal_client():
+    paypalrestsdk.configure({
+        "mode": settings.PAYPAL_ENVIRONMENT,  # sandbox or live
+        "client_id": settings.PAYPAL_CLIENT_ID,
+        "client_secret": settings.PAYPAL_CLIENT_SECRET
+    })
+
+
+# views.py
+from django.shortcuts import render, redirect, get_object_or_404
+from paypalrestsdk import Payment
+from .models import *
+
+
+def create_paypal_order(request, experience_id):
+    get_paypal_client()  # Initialize PayPal client with credentials
+   
+    experience = get_object_or_404(Experience, id=experience_id)
+    vendor_paypal = experience.paypal
+    vendor_email = vendor_paypal.paypal_email if vendor_paypal else None
+    print('vendor',vendor_email)
+
+    if not vendor_email:
+        return render(request, 'payment_error.html', {"error": "Vendor does not have a PayPal email."})
+    
+    
+    amount = experience.price
+
+    # Create PayPal payment
+    payment = Payment({
+        "intent": "sale",
+        "payer": {
+            "payment_method": "paypal"
+        },
+        "transactions": [{
+            "amount": {
+                "total": str(amount),
+                "currency": "USD"
+            },
+            "payee": {
+                "email": vendor_email  # Send payment to the vendor's PayPal account
+            },
+            "description": f"Payment for {experience.title}"
+        }],
+        "redirect_urls": {
+            "return_url": request.build_absolute_uri('/payment/success/'),
+            "cancel_url": request.build_absolute_uri('/payment/cancel/')
+        }
+    })
+
+    if payment.create():
+        # Save the transaction temporarily in the database (pending success)
+        Transaction.objects.create(
+            user=request.user,
+            experience=experience,
+            order_id=payment.id,
+            payment_id =uuid.uuid4,
+            amount=amount
+        )
+
+        # Redirect the user to PayPal to approve the payment
+        for link in payment.links:
+            if link.rel == "approval_url":
+                return redirect(link.href)
+    else:
+        return render(request, 'payment_error.html', {"error": payment.error})
+
+def payment_cancel(request):
+    return render(request, 'payment_cancel.html')

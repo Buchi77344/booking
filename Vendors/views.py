@@ -142,6 +142,10 @@ def create_experience(request):
         images = request.FILES.get('images')
         # Assuming the user has a VendorProfile
         vendor_profile =get_object_or_404 (VendorProfile, user=request.user)
+        if not Vendorpaypal.objects.filter(user=request.user).exists():
+            return redirect('vendor:payment')
+        vendor = get_object_or_404(Vendorpaypal,user=request.user)
+        vendor_paypal = vendor.paypal_email
         
 
         # Create the Experience instance
@@ -155,6 +159,7 @@ def create_experience(request):
             start_date=start_date,
             end_date=end_date,
             vendor=vendor_profile,
+            paypal =vendor_paypal,
             tags=tags,
             duration=duration,
             requirements=requirements,
@@ -199,6 +204,7 @@ def form(request):
 
         # Save the user profile
         user.save()
+        Notification.objects.create(user=user,message =f'{user.username} became a new vendor')
 
         # Redirect to some success page or back to the profile page
         return redirect('vendor:congrat')
@@ -229,8 +235,14 @@ def vendor_list(request):
     }
     return render(request, 'vendor/vendor-list.html',context)
 
-
+from base.models import *
 def payment(request):
+    if request.method == "POST":
+        paypal_email = request.POST.get('paypal_email')
+
+        Vendorpaypal.objects.create(paypal_email =paypal_email ,user =request.user)
+        return redirect('vendor:payment')
+
     return render (request, 'vendor/payment.html')
 
 

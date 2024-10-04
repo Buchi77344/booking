@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'base',
     'Vendors',
+    'Admin',
     'Experiences', 
     'django_countries',
    
@@ -254,3 +255,7 @@ SOCIALACCOUNT_ADAPTER = 'allauth.socialaccount.adapter.DefaultSocialAccountAdapt
 
 
 
+# settings.py
+PAYPAL_CLIENT_ID = 'AYZiSvqeeleSoGAc9VlL0MwArUKV-4kSqR-EAQPaqV8aQtVqLgZ2lvFFC2YgJSKzbYwtx8RYk0EfvMm9'
+PAYPAL_CLIENT_SECRET = 'ECQ4_9AVQsM78XyB_liUcesFXghJh6m4citwi_7yWsO5SEAwO-jnnKvZxLIRP72i_aBVhbZ_GV-J4ZCW'
+PAYPAL_ENVIRONMENT = 'sandbox'  
