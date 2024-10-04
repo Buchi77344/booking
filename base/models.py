@@ -222,3 +222,8 @@ class Vendorpaypal(models.Model):
 
     def __str__(self):
         return self.paypal_email
+    
+class Notification(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    message =models.CharField( max_length=50,null=True)
+    created_at = models.DateTimeField(auto_now_add=True,null=True) 

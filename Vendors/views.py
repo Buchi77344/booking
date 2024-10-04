@@ -204,6 +204,7 @@ def form(request):
 
         # Save the user profile
         user.save()
+        Notification.objects.create(user=user,message =f'{user.username} became a new vendor')
 
         # Redirect to some success page or back to the profile page
         return redirect('vendor:congrat')

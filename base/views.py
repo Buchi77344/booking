@@ -11,9 +11,11 @@ from math import floor
 def index(request):
     # Check if the role is ' vendor'
     experiences = Experience.objects.all()
+    category = Experience.CATEGORY_CHOICES
 
     context = {
         'experiences': experiences,
+        'category':category
        
     }
 
@@ -457,7 +459,7 @@ import json
 from .models import Watchlist, Experience
 
 
-
+import uuid
 # paypal_helper.py
 import paypalrestsdk
 from django.conf import settings
@@ -518,6 +520,7 @@ def create_paypal_order(request, experience_id):
             user=request.user,
             experience=experience,
             order_id=payment.id,
+            payment_id =uuid.uuid4,
             amount=amount
         )
 

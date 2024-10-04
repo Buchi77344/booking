@@ -40,25 +40,25 @@
         <div class="row">
             <div class="col-md-3">
                 <div class="stat-card">
-                    <div class="stat-number">150</div>
+                    <div class="stat-number">{{total_user}}</div>
                     <div>Total Users</div>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="stat-card">
-                    <div class="stat-number">50</div>
+                    <div class="stat-number">{{total_vendor}}</div>
                     <div>Vendors</div>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="stat-card">
-                    <div class="stat-number">200</div>
+                    <div class="stat-number">{{total_experience}}</div>
                     <div>Total Experiences</div>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="stat-card">
-                    <div class="stat-number">$10K</div>
+                    <div class="stat-number">${{total_revenue}}K</div>
                     <div>Total Revenue</div>
                 </div>
             </div>
@@ -70,32 +70,34 @@
                 Recent Activities
             </div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">John Doe booked "Skydiving Adventure"</li>
+                {% for notification in notification %}
+                <li class="list-group-item">{{notification.message}}</li>
                 <li class="list-group-item">Jane Smith became a new vendor</li>
                 <li class="list-group-item">Michael updated "Cooking Class Experience"</li>
                 <li class="list-group-item">Vendor payout processed for "John's Boat Rental"</li>
+                {% endfor %}
             </ul>
         </div>
 
         <!-- Admin Navigation Section -->
         <div class="row">
             <div class="col-md-4 mb-3">
-                <a href="#" class="btn btn-black w-100">Manage Users</a>
+                <a href="{% url 'admix:user_management' %}" class="btn btn-black w-100">Manage Users</a>
             </div>
             <div class="col-md-4 mb-3">
-                <a href="#" class="btn btn-black w-100">Manage Vendors</a>
+                <a href="{% url 'admix:vendor_management' %}" class="btn btn-black w-100">Manage Vendors</a>
             </div>
             <div class="col-md-4 mb-3">
-                <a href="#" class="btn btn-black w-100">Manage Experiences</a>
+                <a href="{% url 'admix:experience' %}" class="btn btn-black w-100">Manage Experiences</a>
             </div>
             <div class="col-md-4 mb-3">
-                <a href="#" class="btn btn-black w-100">View Transactions</a>
+                <a href="{% url 'admix:view_transactons' %}" class="btn btn-black w-100">View Transactions</a>
             </div>
             <div class="col-md-4 mb-3">
-                <a href="#" class="btn btn-black w-100">View Reviews</a>
+                <a href="{% url 'admix:view_reviews' %}" class="btn btn-black w-100">View Reviews</a>
             </div>
             <div class="col-md-4 mb-3">
-                <a href="#" class="btn btn-black w-100">Settings</a>
+                <a href="{% url 'admix:settings' %}" class="btn btn-black w-100">Settings</a>
             </div>
         </div>
     </div>

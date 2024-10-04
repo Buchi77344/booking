@@ -163,13 +163,12 @@
                                 </div>
         
                                 <div class="show-drop category_choice">
+                                    {% for key, value in category %}
                                    <ul class="category_choice-list flex-column gp-5">
-                                    <li class="category_choice-item">Food and Drinks</li>
-                                    <li class="category_choice-item">Beach</li>
-                                    <li class="category_choice-item">Hotel</li>
-                                    <li class="category_choice-item">Travel</li>
-                                    <li class="category_choice-item">Sea</li>
+                                    <li class="category_choice-item">{{value}}</li>
+                                  
                                    </ul>
+                                   {% endfor %}
                                 </div>
                             </div>
                         </div>
@@ -505,15 +504,12 @@
                                     <h3 class="accord-search-head">Category</h3>
                                     <span class="accord-search-val"></span>
                                 </div>
-
                                 <div class="show-drop category_choice">
+                                    {% for key, value in category %}
                                     <ul class="category_choice-list flex-column gp-5">
-                                    <li class="category_choice-item">Food and Drinks</li>
-                                    <li class="category_choice-item">Beach</li>
-                                    <li class="category_choice-item">Hotel</li>
-                                    <li class="category_choice-item">Travel</li>
-                                    <li class="category_choice-item">Sea</li>
+                                    <li class="category_choice-item">{{value}}</li>
                                     </ul>
+                                    {% endfor %}
                                 </div>
                             </div>
 
@@ -586,7 +582,7 @@
                         </div>
                     </div>
     
-                    <div class="util-card-wrapper">
+                    {% comment %} <div class="util-card-wrapper">
                         <h3 class="util-card-head">Past Experiences</h3>   
                         <div class="util-card-container grid">
 
@@ -637,7 +633,7 @@
                         <!-- End Loop Here-->
         
                         </div>
-                    </div>
+                    </div> {% endcomment %}
                    
                 </div>
             </main>
