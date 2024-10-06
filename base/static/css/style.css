@@ -1758,12 +1758,14 @@ ul.offer-list{
     display: inline-block;
     border-radius: 5px;
 }
+
 .btn-black {
     background-color: black;
     color: white;
 }
 .btn-black:hover {
     background-color: #333;
+    color : hsl(0, 0%, 96%)
 }
 .total-earning-text{
     font-size: 1.4rem;
@@ -1853,6 +1855,30 @@ ul.offer-list{
     color: gold;
 }
 
+.review-item{
+    padding: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    margin : 20px 0;
+    max-width: 500px;
+}
+
+.name-review_item{
+    color : hsl(0 0% 35%);
+}
+
+.star{
+    font-size: 20px;
+    line-height: 100%;
+}
+
+.star.gray{
+    color : #ccc
+}
+
+.star.gold{
+    color : gold
+}
 
 .util-form-container .page-head{
     text-align: center;
@@ -1872,6 +1898,144 @@ ul.offer-list{
 .filter-container .form-control{
     width : auto;
     margin-top: 0px;
+}
+
+.geo-control-container{
+    display: flex;
+    gap : 15px;
+    align-items : center;
+    margin : 0px 10px 0px auto;
+}
+
+.language-span svg{
+    width : 30px;
+    height : 30px;
+}
+
+.currency-span svg{
+    width : 20px;
+    height : 20px;
+}
+
+.chat-system-container{
+    position : fixed;
+    bottom : 20px;
+    right : 40px;
+}
+
+.chat-box-container{
+    width: 300px;
+    height: 400px;
+    margin-bottom: 12px;
+    background-color: white;
+    border-radius: 10px;
+    overflow-x: hidden;
+    box-shadow: 0px 4px 10px 0px rgb(0 0 0 / 35%);
+    visibility: hidden;
+    transform: scale(0.3);
+    transition: transform .2s ease-in, visibility .2s ease-in;
+}
+
+.chat-box-container.shrink{
+    visibility: visible;
+    transform: scale(1);
+}
+
+.chat-header{
+    background-color: var(--logo-clr);
+    color : hsl(0, 0%, 98%);
+    /* padding : 12px 0px; */
+    height: 12%
+}
+
+
+.chat-header span{
+    font-size: 1.2rem;
+    display: block;
+    font-weight: 500;
+    text-align: center;
+}
+
+.chat-main{
+    max-height: 75%;
+    overflow-y: auto;
+    height: 75%;
+    background-color: hsl(0, 0%, 93%);
+    padding: 10px;
+}
+
+.chat-main::-webkit-scrollbar{
+    width : 6px;
+    background-color: hsl(0, 0%, 90%);
+}
+
+.chat-main::-webkit-scrollbar-thumb{
+    background-color: hsl(0, 0%, 30%);
+    border-radius: 10px;
+}
+
+.message{
+    padding : 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    color : hsl(0, 0%, 98%)
+}
+
+.message:nth-child(even){
+    background-color: var(--variant-clr);
+}
+
+.message:nth-child(odd){
+    background-color:#06b443;
+}
+
+.chat-form-container{
+    height : 13%;
+}
+
+.chat-cta{
+    background-color: var(--btn-clr);
+    width: 60px;
+    height : 60px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-left: auto;
+}
+
+.chat-cta svg{
+    width : 30px;
+    height : 30px;
+}
+
+.chat-form{
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    /* padding : 0px 10px; */
+}
+
+.chat-input{
+    width : 83%;
+    padding: 0px 5px 0px 10px;
+    font-size: 1rem;
+}
+
+.chat-input:focus{
+    outline: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.submit-chat{
+    width : 17%;
+    background-color: var(--variant-clr);
+}
+
+.submit-chat svg{
+    width : 25px;
+    height : 25px;
+}
+
+.submit-chat svg path{
+    stroke : hsl(0, 0%, 98%)
 }
 
 /* .experience-card-details-head{

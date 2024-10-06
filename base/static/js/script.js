@@ -602,6 +602,7 @@ if (document.querySelector(".add-watchlist-btn")) {
 
 if(document.querySelector(".comment-form")){
     let commentForm = document.querySelector(".comment-form")
+    let reviewContainer = document.querySelector(".review-container")
     commentForm.addEventListener("submit", function(e){
         e.preventDefault()
         let nameInput = document.querySelector(".comment-form input#name").value
@@ -610,10 +611,77 @@ if(document.querySelector(".comment-form")){
         if(nameInput && messageInput && ratingInput){
             const newReview = document.createElement('div')
             newReview.classList.add("review-item")
+            let starRating = getStarRating(ratingInput)
             newReview.innerHTML = `
                 <h3 class = "name-review_item">${nameInput}</h3>
+                ${starRating}
                 <p>${messageInput}</p>
             `
+            reviewContainer.appendChild(newReview)
         }
     })
+
+    function getStarRating(rating){
+        let star = ""
+        for(let i = 0; i < 5; i++){
+            if(i <= rating){
+                star += `<span class="star gold">★</span>`
+            }else{
+                star += `<span class= "star gray">★</span>`
+            }
+        }
+
+        return star
+    }
+}
+
+if(document.querySelector(".chat-cta")){
+    let chatCta = document.querySelector(".chat-cta")
+    let chatBoxContainer = document.querySelector(".chat-box-container")
+    chatCta.addEventListener("click", function(){
+        chatBoxContainer.classList.toggle("shrink")
+    })
+
+    // Get DOM elements
+    const chatBox = document.querySelector('.chat-main');
+    const messageInput = document.querySelector('.chat-input');
+    const sendBtn = document.querySelector('.submit-chat');
+
+    // Function to add a message to the chat box
+    function addMessage(message, isUser = true) {
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('message');
+        messageDiv.textContent = isUser ? `You: ${message}` : `Bot: ${message}`;
+        chatBox.appendChild(messageDiv);
+        chatBox.scrollTop = chatBox.scrollHeight; // Auto scroll to bottom
+    }
+
+    // Function to handle message sending
+    function sendMessage() {
+        const message = messageInput.value.trim();
+        if (message === '') return; // Don't send empty messages
+        addMessage(message); // Add user's message
+        messageInput.value = ''; // Clear input field
+        respondToMessage(message); // Simulate bot response
+    }
+
+    // Simulate a bot response
+    function respondToMessage(userMessage) {
+        setTimeout(() => {
+            const botResponse = `I received your message: "${userMessage}"`; // Example response
+            addMessage(botResponse, false); // Add bot's response
+        }, 1000); // Delay to mimic typing
+    }
+
+    // Event listener for the Send button
+    sendBtn.addEventListener('click', sendMessage);
+
+    // Allow sending messages by pressing Enter
+    messageInput.addEventListener('keypress', (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault()
+            sendMessage();
+        }
+    });
+
 }
