@@ -27,12 +27,14 @@ def experience(request,pk):
     experience = get_object_or_404(Experience,pk=pk)
     full_stars = int(floor(experience.rating))  # Full stars based on the rating
     half_star = experience.rating - full_stars >= 0.5  # Check if there's a half star
-    empty_stars = 5 - full_stars - int(half_star)  # Remainin
+    empty_stars = 5 - full_stars - int(half_star)
+    vendor = experience.vendor   # Remainin
     context ={
         'experience':experience,
         'full_stars': full_stars,
         'half_star': half_star,
         'empty_stars': empty_stars,
+        'vendor':vendor
     }
     return render (request, 'details.html',context)
 
@@ -162,7 +164,7 @@ def verify_code(request):
             return redirect('signup')
 
         messages.success(request, "Your email has been verified. You can now log in.")
-        return redirect('signin')
+        return redirect('/')
 
      return render (request, 'otp.html')
 
@@ -546,3 +548,21 @@ def create_paypal_order(request, experience_id):
 
 def payment_cancel(request):
     return render(request, 'payment_cancel.html')
+
+
+
+from django.shortcuts import render, get_object_or_404
+from .models import ChatMessage, Experience
+
+def chat_view(request, experience_id):
+    experience = get_object_or_404(Experience, id=experience_id)
+    messages = ChatMessage.objects.filter(experience=experience).order_by('-timestamp')
+    return render(request, 'chat.html', {
+        'experience': experience,
+        'messages': messages
+    })
+
+
+
+def faq(request):
+    return render (request, 'faq.html')

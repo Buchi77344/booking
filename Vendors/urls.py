@@ -1,5 +1,6 @@
 from django.urls import path
 from Vendors import views
+from  Vendors.views import *
 app_name = 'Vendors'
 
 
@@ -16,4 +17,6 @@ urlpatterns = [
     path('payment',views.payment,name="payment"),
     path('vendor_edit/<str:title>/',views.vendor_edit,name="vendor_edit"),
     path('delete_expricence/<int:pk>/',views.delete_expricence,name="delete_expricence"),
+    path('vendorchat', vendorchat, name='vendorchat'), 
+  
 ]

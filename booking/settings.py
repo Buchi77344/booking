@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
     'django.contrib.sites',  # Required by Allauth
     'allauth',
     'allauth.account',
@@ -49,9 +50,14 @@ INSTALLED_APPS = [
     'Admin',
     'Experiences', 
     'django_countries',
+    'channels',
    
 ]
+ASGI_APPLICATION = "booking.asgi.application"
 
+CHANNEL_LAYERS = {
+    "default": {"BACKEND": "channels.layers.InMemoryChannelLayer"},
+}
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -155,6 +161,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 AUTH_USER_MODEL = 'base.CustomUser'
+
 
 
 

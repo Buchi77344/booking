@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from .views import chat_view
 urlpatterns = [
     path('',views.index,name="index"),
     path('signup',views.signup,name="signup"),
@@ -23,6 +24,9 @@ urlpatterns = [
     path('create-payment/<int:experience_id>/', views.create_paypal_order, name='create_paypal_order'),
     path('payment/success/', views.payment_success, name='payment_success'),
     path('payment/cancel/', views.payment_cancel, name='payment_cancel'),
+    path('chat/<int:experience_id>/', chat_view, name='chat'),
+     path('faq',views.faq,name="faq"),
+
     
 
     

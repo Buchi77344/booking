@@ -252,6 +252,8 @@
                         </div>
                     </div>
                 </div>
+
+                
             </div>
     
 
@@ -265,6 +267,48 @@
                         <p>{{ experience.vendor.business_name }} offers this unique experience in {{ experience.location }}. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reprehenderit ipsam expedita dicta facilis quae non, incidunt minima in laboriosam dolores maiores exercitationem culpa nemo labore dolorem eveniet sequi eaque perspiciatis? Nisi minima dolore eius architecto laudantium officia necessitatibus cumque maiores et consequatur mollitia esse magni sapiente eos sunt deleniti quo, reprehenderit facere incidunt eaque adipisci repudiandae? Aliquam iure natus distinctio!</p>
                         <p class = "contact-text"><strong>Contact Information:</strong> {{ experience.vendor.contact_info }}</p>
                         <p><strong>Reviews:</strong> Coming soon...</p>
+                    </div>
+                    <h2>Chat with {{ experience.vendor.user.username }}</h2>
+                    <a href="{% url 'chat' experience.id %}" class="chat-link">Open Chat</a>
+                    
+                    <style>
+                        .chat-link {
+                            padding: 10px 15px;
+                            background-color: #007BFF; /* Bootstrap primary color */
+                            color: white;
+                            text-decoration: none;
+                            border-radius: 5px;
+                        }
+                        .chat-link:hover {
+                            background-color: #0056b3; /* Darker shade on hover */
+                        }
+                    </style>
+                    <h3>Leave a review</h3>
+                    <div class="comment util-form-container">
+                        <form class ="comment-form" method="post">
+                            {% csrf_token %}
+                            <div class="form-control-container">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" name="name" class="form-control" id="name" required>
+                            </div>
+                            
+                            <div class="form-control-container">
+                                <label for="message" class="form-label">Message</label>
+                                <textarea name= "message" class="form-control" id="message" rows="4" required></textarea>
+                            </div>
+
+                            <div class="form-control-container">
+                                <label for="rating" class="form-label">Rating</label>
+                                <div class="rating-div">
+                                    <input type="radio" id="star5" name="rating" value="5" required><label for="star5" title="5 stars">★</label>
+                                    <input type="radio" id="star4" name="rating" value="4"><label for="star4" title="4 stars">★</label>
+                                    <input type="radio" id="star3" name="rating" value="3"><label for="star3" title="3 stars">★</label>
+                                    <input type="radio" id="star2" name="rating" value="2"><label for="star2" title="2 stars">★</label>
+                                    <input type="radio" id="star1" name="rating" value="1"><label for="star1" title="1 star">★</label>                        
+                                </div>
+                            </div>
+                            <button type="submit" class="submit-btn btn btn-black">Send Message</button>
+                        </form>
                     </div>
                 </div>
             </div>

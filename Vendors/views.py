@@ -295,4 +295,45 @@ def delete_expricence(request,pk):
          dek = get_object_or_404(Experience,pk=pk,vendor__user=request.user)
          dek.delete()
          return redirect('vendor:vendor_list')
+     
 
+
+
+from django.db.models import Max
+
+from base.models import Experience  # Assuming Experience model is in base app
+
+def vendorchat(request):
+    # Get messages where the user is the vendor
+    messages = ChatMessage.objects.filter(vendor=request.user)
+
+    # Get the latest message for each user who messaged the vendor
+    latest_messages = messages.values('user').annotate(
+        last_message_time=Max('timestamp')
+    ).order_by('-last_message_time')
+
+    # Get all users who messaged the vendor with their last message content
+    users = []
+    for message in latest_messages:
+        # Get the user who sent the last message
+        chat_message = ChatMessage.objects.get(
+            user=message['user'],
+            vendor=request.user,
+            timestamp=message['last_message_time']
+        )
+        
+        # Fetch the last message content
+        last_message = chat_message.message
+        
+        # Get the experience associated with the chat message
+        experience = chat_message.experience  # Assuming ChatMessage has an experience field
+
+        users.append({
+            'username': chat_message.user.username,
+            'user_id': chat_message.user.id, 
+            'last_message': last_message,  # Get the message content
+            'last_message_time': message['last_message_time'],  # Optionally show the time too
+            'experience_id': experience.id  # Pass the experience id
+        })
+
+    return render(request, 'vendor/vendor_chat_list.html', {'users': users})
