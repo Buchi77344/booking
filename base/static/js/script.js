@@ -14,6 +14,7 @@ const destinationInput = document.querySelectorAll(".destination-input")
 const calNext = document.querySelectorAll(".cal-next")
 const calPrev = document.querySelectorAll(".cal-prev")
 let isLiked;
+console.log(document.querySelector(".faq-content-item"))
 
 
 function revealDropFunc(highlightEl, dropEl){
@@ -684,4 +685,27 @@ if(document.querySelector(".chat-cta")){
         }
     });
 
+    let initialMessage = `Hi there, my name is agent`
+    addMessage(initialMessage, false)
+
+}
+if(document.querySelector(".faq-content-item")){
+    let faqItemHead = document.querySelectorAll(".faq-item-head")
+    let faqItemContent = document.querySelectorAll(".faq-item-content")
+
+    faqItemHead.forEach((el, index) => {
+        el.onclick = function(){    
+            removeOtherAccordions(index)
+            faqItemContent[index].classList.toggle("lengthen")
+        }
+    })
+
+    function removeOtherAccordions(index){
+        faqItemContent.forEach((item, i) => {
+            if(i !== index){
+                console.log(item)
+                item.classList.remove("lengthen")
+            }
+        })
+    }
 }
