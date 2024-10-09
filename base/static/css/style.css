@@ -1975,6 +1975,7 @@ input.accord-search-val{
     visibility: hidden;
     transform: scale(0.3);
     transition: transform .2s ease-in, visibility .2s ease-in;
+    display: none;
 }
 
 .chat-box-container.shrink{
