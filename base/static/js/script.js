@@ -293,8 +293,12 @@ if(document.querySelector(".category-container")){
     function inputItemVal(itemEl, valElstr){
         itemEl.forEach(el => {
             el.addEventListener("click", function(){
-                document.querySelector(valElstr).textContent = el.textContent
-                console.log(document.querySelector(valElstr))
+                console.log(el.closest(".accord-search-val"))
+                if(el.closest(".accord-search-val")){
+                    document.querySelector(valElstr).value = el.textContent
+                }
+                document.querySelector(valElstr).value = el.textContent
+                // console.log(document.querySelector(valElstr))
             })
         })
     }
@@ -302,8 +306,9 @@ if(document.querySelector(".category-container")){
     function categoryInputLap(){
         categoryChoiceItem.forEach(el => {
             el.addEventListener("click", function(){
+                // console.log("hi")
                 document.querySelector(".category_choice-wrapper .category-field").value = el.textContent
-                console.log(document.querySelector(valElstr))
+                // console.log(document.querySelector(valElstr))
             })
         })
     }
@@ -689,23 +694,23 @@ if(document.querySelector(".chat-cta")){
     addMessage(initialMessage, false)
 
 }
-if(document.querySelector(".faq-content-item")){
-    let faqItemHead = document.querySelectorAll(".faq-item-head")
-    let faqItemContent = document.querySelectorAll(".faq-item-content")
+// if(document.querySelector(".faq-content-item")){
+//     let faqItemHead = document.querySelectorAll(".faq-item-head")
+//     let faqItemContent = document.querySelectorAll(".faq-item-content")
 
-    faqItemHead.forEach((el, index) => {
-        el.onclick = function(){    
-            removeOtherAccordions(index)
-            faqItemContent[index].classList.toggle("lengthen")
-        }
-    })
+//     faqItemHead.forEach((el, index) => {
+//         el.onclick = function(){    
+//             removeOtherAccordions(index)
+//             faqItemContent[index].classList.toggle("lengthen")
+//         }
+//     })
 
-    function removeOtherAccordions(index){
-        faqItemContent.forEach((item, i) => {
-            if(i !== index){
-                console.log(item)
-                item.classList.remove("lengthen")
-            }
-        })
-    }
-}
+//     function removeOtherAccordions(index){
+//         faqItemContent.forEach((item, i) => {
+//             if(i !== index){
+//                 console.log(item)
+//                 item.classList.remove("lengthen")
+//             }
+//         })
+//     }
+// }

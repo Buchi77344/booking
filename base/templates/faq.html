@@ -1,10 +1,11 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     
 </head>
 <body>
@@ -327,7 +328,6 @@
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", function(){
-
             console.log("hi")
             if(document.querySelector(".faq-content-item")){
                 let faqItemHead = document.querySelectorAll(".faq-item-head")

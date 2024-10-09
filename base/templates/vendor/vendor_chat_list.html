@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #000; /* Black background */
+            color: white;
+        }
+        .user-list {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #1c1c1c; /* Dark background for the user list */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+        .user {
+            padding: 10px;
+            border-bottom: 1px solid #444;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .user:hover {
+            background-color: #333; /* Highlight on hover */
+        }
+        .user:last-child {
+            border-bottom: none; /* Remove last border */
+        }
+    </style>
+</head>
+<body>
+
+<div class="user-list">
+    <h2 class="text-center">User Messages</h2>
+    {% for user in users %}
+        <div class="user" onclick="window.location.href='{% url chat  user.experience_id%}'">
+            <strong>{{ user.username }}</strong> <br>
+            <small>Last message: {{ user.last_message }}</small>
+        </div>
+    {% empty %}
+        <p>No messages yet.</p>
+    {% endfor %}
+</div>
+
+</body>
+</html>

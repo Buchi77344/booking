@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Room</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000; /* Black background for the body */
+            color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        h1 {
+            text-align: center;
+            color: #fff;
+            margin: 20px 0;
+        }
+        #chatContainer {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background-color: #1c1c1c; /* Dark background for chat area */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1); /* Subtle shadow for depth */
+        }
+        .message {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 20px;
+            position: relative;
+            max-width: 70%;
+            word-wrap: break-word;
+        }
+        .receive {
+            background-color: #2b2b2b; /* Dark gray for received messages */
+            align-self: flex-start; /* Align received messages to the left */
+        }
+        .send {
+            background-color: #1a73e8; /* Blue for sent messages */
+            color: white;
+            align-self: flex-end; /* Align sent messages to the right */
+        }
+        .send p, .receive p {
+            margin: 0;
+        }
+        .send strong, .receive strong {
+            display: block;
+            font-size: 0.8em;
+            margin-top: 5px;
+            color: #aaa; /* Light gray for sender info */
+        }
+        .chat-form {
+            display: flex;
+            padding: 10px;
+            background-color: #1c1c1c; /* Dark background for input area */
+            border-top: 1px solid #444;
+        }
+        input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border-radius: 20px;
+            border: none;
+            font-size: 16px;
+            margin-right: 10px;
+            background-color: #333; /* Darker input background */
+            color: white;
+        }
+        input[type="submit"] {
+            background-color: #1a73e8; /* Blue for send button */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s; /* Smooth transition for hover */
+        }
+        input[type="submit"]:hover {
+            background-color: #155cb4; /* Darker blue on hover */
+        }
+        .typing-indicator {
+            color: #aaa;
+            font-size: 0.9em;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container-fluid d-flex flex-column">
+    <h1 class="text-center">Vendor chat</h1>
+    
+    <div id="chatContainer" class="d-flex flex-column">
+        <!-- Received messages are displayed here -->
+        {% for message in messages reversed %}
+            {% if message.user != user %}
+                <div class="message receive">
+                    <p>{{ message.message }}</p>
+                    <strong>- {{ message.user.username }}</strong>
+                </div>
+            {% else %}
+                <div class="message send">
+                    <p>{{ message.message }}</p>
+                </div>
+            {% endif %}
+        {% endfor %}
+        <!-- End of received messages -->
+        <div id="typingIndicator" class="typing-indicator" style="display: none;"></div>
+    </div>
+
+    <form id="message-form" class="chat-form">
+        {% csrf_token %}
+        <input type="text" id="msg" placeholder="Type your message..." required>
+        <input type="submit" value="Send">
+    </form>
+</div>
+
+<script>
+    const websocketProtocol = window.location.protocol === "https:" ? "wss" : "ws";
+    const experienceId = "{{ experience.id }}";
+    const vendorId = "{{ experience.vendor.id }}";
+    const roomName = `chat_${experienceId}`;
+    const wsEndpoint = `${websocketProtocol}://${window.location.host}/ws/chat/${roomName}/${vendorId}/`;
+    const socket = new WebSocket(wsEndpoint);
+
+    socket.onopen = () => {
+        console.log("WebSocket connection opened!");
+    };
+
+    socket.onclose = () => {
+        console.log("WebSocket connection closed!");
+    };
+
+    document.getElementById('message-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const message = document.getElementById('msg').value;
+
+        if (message.trim() !== "") {
+            socket.send(
+                JSON.stringify({
+                    'type': 'message',
+                    'message': message,
+                    'experience_id': experienceId,
+                    'vendor_id': vendorId,
+                    'sender': '{{ user.username }}'
+                })
+            );
+            console.log("Sending message: " + message);
+            document.getElementById('msg').value = ''; // Clear input field after sending
+        }
+    });
+
+    // Handle incoming messages
+    socket.addEventListener("message", (event) => {
+        const messageData = JSON.parse(event.data);
+
+        if (messageData.type === 'message') {
+            const sender = messageData.sender;
+            const message = messageData.message;
+
+            // Append the message to the chatbox
+            const messageDiv = document.createElement("div");
+            messageDiv.className = sender === '{{ user.username }}' ? 'message send' : 'message receive';
+            messageDiv.innerHTML = `<p>${message}</p><strong>${sender === '{{ user.username }}' ? 'You' : sender}</strong>`;
+            document.getElementById("chatContainer").appendChild(messageDiv);
+
+            scrollToBottom();
+            document.getElementById("typingIndicator").style.display = "none"; // Hide typing indicator
+        } else if (messageData.type === 'typing') {
+            const typingSender = messageData.sender;
+            document.getElementById("typingIndicator").textContent = typingSender + ' is typing...';
+            document.getElementById("typingIndicator").style.display = "block";
+        }
+    });
+
+    // Send typing notification when typing
+    const msgInput = document.getElementById('msg');
+    msgInput.addEventListener('input', () => {
+        socket.send(JSON.stringify({
+            'type': 'typing',
+            'sender': '{{ user.username }}'
+        }));
+    });
+
+    function scrollToBottom() {
+        var chatContainer = document.getElementById("chatContainer");
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+</script>
+    
+</body>
+</html>
