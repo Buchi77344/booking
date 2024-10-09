@@ -1958,9 +1958,10 @@ input.accord-search-val{
 }
 
 .chat-system-container{
-    position : fixed;
-    bottom : 20px;
-    right : 40px;
+    position: fixed;
+    bottom: 75px;
+    right: 20px;
+    z-index: 100;
 }
 
 .chat-box-container{
