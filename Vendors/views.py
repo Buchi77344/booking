@@ -142,6 +142,7 @@ def create_experience(request):
         images = request.FILES.get('images')
         # Assuming the user has a VendorProfile
         vendor_profile =get_object_or_404 (VendorProfile, user=request.user)
+        vendor_user =get_object_or_404(Userprofileuser=request.user)
         # if not Vendorpaypal.objects.filter(user=request.user).exists():
         #     return redirect('vendor:payment')
         # vendor = get_object_or_404(Vendorpaypal,user=request.user)
@@ -160,6 +161,7 @@ def create_experience(request):
             end_date=end_date,
             vendor=vendor_profile,
             # paypal =vendor_paypal,
+            vendor_user =vendor_user,
             tags=tags,
             duration=duration,
             requirements=requirements,

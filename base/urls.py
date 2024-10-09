@@ -26,6 +26,7 @@ urlpatterns = [
     path('payment/success/', views.payment_success, name='payment_success'),
     path('payment/cancel/', views.payment_cancel, name='payment_cancel'),
     path('chat/<int:experience_id>/', chat_view, name='chat'),
+    path('update-status/', views.update_status, name='update_status'),
     
 
     

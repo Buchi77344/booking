@@ -39,7 +39,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             # Send message to room group
             await self.channel_layer.group_send(
                 self.room_name,
-                {
+                { 
                     'type': 'chat_message',
                     'message': message,
                     'sender': sender.username,  # Send sender's username

@@ -582,5 +582,56 @@ def chat_view(request, experience_id):
     })
 
 
+# views.py
+from django.http import JsonResponse
+from django.utils import timezone
+from django.views.decorators.csrf import csrf_exempt
+import json
+
+import json
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.utils import timezone
+
+@csrf_exempt  # Consider using CSRF tokens in production
+def update_status(request):
+    if request.method == 'POST':
+        # Check if the user is authenticated and is a vendor
+      
+            try:
+                # Load JSON data from the request body
+                data = json.loads(request.body)
+
+                # Check the status in the request data
+                status = data.get('status')
+                if status == 'online':
+                    # Update the vendor's status to online
+                    request.user.is_online = True
+                    request.user.last_activity = timezone.now()
+                    request.user.save()
+                    return JsonResponse({'message': 'Status updated to online'}, status=200)
+
+                elif status == 'offline':
+                    # Update the vendor's status to offline
+                    request.user.is_online = False
+                    request.user.save()
+                    return JsonResponse({'message': 'Status updated to offline'}, status=200) 
+
+                # If status is not recognized
+                return JsonResponse({'error': 'Invalid status value'}, status=400)
+
+            except json.JSONDecodeError:
+                return JsonResponse({'error': 'Invalid JSON'}, status=400)
+            except Exception as e:
+                return JsonResponse({'error': str(e)}, status=500)
+
+      
+
+    # Invalid request method 
+    return JsonResponse({'error': 'Invalid request method'}, status=405)
+
+
+
+
 
 
