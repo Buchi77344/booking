@@ -629,7 +629,7 @@ if(document.querySelector(".comment-form")){
 
     function getStarRating(rating){
         let star = ""
-        for(let i = 0; i < 5; i++){
+        for(let i = 1; i <= 5; i++){
             if(i <= rating){
                 star += `<span class="star gold">★</span>`
             }else{

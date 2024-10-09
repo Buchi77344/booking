@@ -67,7 +67,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
-    'base.middleware.UpdateLastActivityMiddleware', 
+     
 ]
 
 ROOT_URLCONF = 'booking.urls'
