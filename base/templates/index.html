@@ -77,8 +77,47 @@
             return cookieValue;
         }
     });
+
+    function updateVendorStatus(status) {
+        fetch('/update-status/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken')
+            },
+            body: JSON.stringify({
+                'status': status  // Can be 'online' or 'offline'
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data.message);  // Log the server's response
+            // Update the span to reflect the vendor's status
+            document.getElementById('vendor-status').textContent = status.charAt(0).toUpperCase() + status.slice(1);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+
+   
+
+    // Periodically update the vendor's online status (every minute)
+    setInterval(() => {
+        updateVendorStatus('online');
+    }, 60000);  // 60000 ms = 1 minute
+
+    // Send an "offline" status update when the user leaves the page
+    window.addEventListener('beforeunload', function () {
+        updateVendorStatus('offline');
+    });
+
+    // Set initial status to "online" when page loads
+    updateVendorStatus('online');
     
 </script>
+
+
 
                 <div class="banner-content-container">
                     <h2 class="banner-content-head trans-down flex">
@@ -566,11 +605,16 @@
                                 </div>
                                 <div class="exp-profile-info-wrapper flex gp-5">
                                     <div class="exp-profile-info-img-container">
-                                        <img src="{% static 'img/pic-2.jpg' %}" class = "exp-profile-info-img" alt="profile picture of host">
+                                        {% if experience.vendor_user.profile_picture %}
+                                        <img src="{{experience.vendor_user.profile_picture.url}}" class = "exp-profile-info-img" alt="profile picture of host">
+                                        {% else %}
+                                        <img src="static/img/demo_pic.jpg" class = "exp-profile-info-img" alt="profile picture of host">
+                                        {% endif %}
                                         <span class="online-indicator"></span>
+                                      
                                     </div>
 
-                                    <p class="exp-profile-info-name">Hosted by Festus</p>
+                                    <p class="exp-profile-info-name">Hosted by {{experience.vendor.user.first_name|upper}}</p>
                                 </div>
                                 <div class="location-container flex gp-5">
                                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#f2f2f2">

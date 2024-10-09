@@ -15,7 +15,8 @@ class CustomUser(AbstractUser):
     verification_code = models.CharField(max_length=6, blank=True, null=True)  # Store the verification code
     is_verified = models.BooleanField(default=False) 
     is_agreed = models.BooleanField(default=False) 
-    is_vendor  = models.BooleanField(default=False)  
+    is_vendor  = models.BooleanField(default=False)
+    is_online = models.BooleanField(default=False) 
     date_birth =models.DateField( null=True)
     
     # Other fields
@@ -166,6 +167,7 @@ class Experience(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     vendor = models.ForeignKey(VendorProfile, on_delete=models.CASCADE, related_name='experiences')
+    vendor_user =  models.ForeignKey(Userprofile,  on_delete=models.CASCADE,null=True,)
     guest = models.IntegerField(default=0)
     
     # Additional fields
