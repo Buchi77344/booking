@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> -->
     <title>Profile</title>
 </head>
 <body>
@@ -27,6 +27,7 @@
                         <img class = "logo-img" src="{% static 'img/booking-logo.png' %}" alt="logo for experience hotspot">
                         <span class = "logo-text">Experience Hotspot</span>
                     </a>
+                    <h2 class = "profile-welcome-head">Welcome Festus</h2>
                     <form class= "profile-form flex-column gp-15" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="profile-pic-container flex gp-20">
