@@ -66,7 +66,7 @@
         </div>
     
         <div class="total-earning-div">
-            <h5 class = "total-earning-text">Total Earnings: $5,000</h5>
+            <h5 class = "total-earning-text">Total Earnings: ${{total_earnings}}</h5>
         </div>
     
         <table class="ern-table table-bordered">
@@ -79,24 +79,14 @@
                 </tr>
             </thead>
             <tbody>
+                {% for transactions in transactions %}
                 <tr>
-                    <td>Experience Title 1</td>
-                    <td>2024-09-01</td>
-                    <td>$100</td>
+                    <td>{{transactions.experience.title}}</td>
+                    <td>{{transactions.payment_date}}</td>
+                    <td>${{transactions.amount}}</td>
                     <td>Completed</td>
                 </tr>
-                <tr>
-                    <td>Experience Title 2</td>
-                    <td>2024-09-10</td>
-                    <td>$150</td>
-                    <td>Completed</td>
-                </tr>
-                <tr>
-                    <td>Experience Title 3</td>
-                    <td>2024-09-15</td>
-                    <td>$200</td>
-                    <td>Completed</td>
-                </tr>
+              {% endfor %}
                 <!-- Add more rows as needed -->
             </tbody>
         </table>

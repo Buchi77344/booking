@@ -16,6 +16,7 @@ urlpatterns = [
     path('payment-success/', views.payment_success, name='payment_success'),
     path('contact',views.contact,name="contact"),
     path('about',views.about,name="about"),
+    path('faq',views.faq,name="faq"),
     path('add-to-watchlist/<int:experience_id>/', views.add_to_watchlist, name='add_to_watchlist'),
     path('remove-from-watchlist/<int:experience_id>/', views.remove_from_watchlist, name='remove_from_watchlist'),
     path('view-watchlist/', views.view_watchlist, name='view_watchlist'),
@@ -25,8 +26,6 @@ urlpatterns = [
     path('payment/success/', views.payment_success, name='payment_success'),
     path('payment/cancel/', views.payment_cancel, name='payment_cancel'),
     path('chat/<int:experience_id>/', chat_view, name='chat'),
-     path('faq',views.faq,name="faq"),
-
     
 
     

@@ -160,7 +160,7 @@ class Experience(models.Model):
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES)
     location = models.CharField(max_length=255)
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    available_slots = models.IntegerField()
+    available_slots = models.IntegerField(blank=True,null=True)
     start_date = models.DateField()
     end_date = models.DateField()
     created_at = models.DateTimeField(auto_now_add=True)
@@ -203,6 +203,7 @@ class Transaction(models.Model):
     payment_id = models.CharField(max_length=255)  # Razorpay Payment ID
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     payment_date = models.DateTimeField(auto_now_add=True)
+    is_paid = models.BooleanField(default=False)
 
     def __str__(self):
         return f"Transaction {self.order_id} for {self.experience.title}"
@@ -236,11 +237,10 @@ class Notification(models.Model):
 from django.db import models
 from django.contrib.auth import get_user_model
 
-User = get_user_model()
 
 class ChatMessage(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='messages',null =True)
-    vendor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='vendor_messages',null =True)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='messages',null =True)
+    vendor = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='vendor_messages',null =True)
     experience = models.ForeignKey(Experience, on_delete=models.CASCADE, related_name='chat_messages',null =True)  # Foreign key to Experience
     message = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
@@ -250,3 +250,4 @@ class ChatMessage(models.Model):
 
 
 
+ 

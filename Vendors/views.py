@@ -142,10 +142,10 @@ def create_experience(request):
         images = request.FILES.get('images')
         # Assuming the user has a VendorProfile
         vendor_profile =get_object_or_404 (VendorProfile, user=request.user)
-        if not Vendorpaypal.objects.filter(user=request.user).exists():
-            return redirect('vendor:payment')
-        vendor = get_object_or_404(Vendorpaypal,user=request.user)
-        vendor_paypal = vendor.paypal_email
+        # if not Vendorpaypal.objects.filter(user=request.user).exists():
+        #     return redirect('vendor:payment')
+        # vendor = get_object_or_404(Vendorpaypal,user=request.user)
+        # vendor_paypal = vendor.paypal_email
         
 
         # Create the Experience instance
@@ -159,7 +159,7 @@ def create_experience(request):
             start_date=start_date,
             end_date=end_date,
             vendor=vendor_profile,
-            paypal =vendor_paypal,
+            # paypal =vendor_paypal,
             tags=tags,
             duration=duration,
             requirements=requirements,
@@ -224,9 +224,36 @@ def dashboard(request):
         'latest_experiences':latest_experiences
     }
     return render (request, 'vendor/dashboard.html',context)
-
+from django.db.models import *
 def earn(request):
-    return render (request, 'vendor/earn.html')
+    # Assuming the logged-in user is a CustomUser with a related VendorProfile
+    user = request.user
+    
+    try:
+        # Retrieve the VendorProfile instance associated with the user
+        vendor_profile = VendorProfile.objects.get(user=user)
+
+        # Get all experiences hosted by this vendor
+        vendor_experiences = Experience.objects.filter(vendor=vendor_profile)
+
+        # Get all paid transactions related to those experiences
+        transactions = Transaction.objects.filter(experience__in=vendor_experiences, is_paid=True)
+
+        # Calculate total earnings by summing up the amounts of those transactions
+        total_earnings = transactions.aggregate(Sum('amount'))['amount__sum'] or 0
+
+    except VendorProfile.DoesNotExist:
+        # Handle case where the user does not have a VendorProfile
+        vendor_experiences = []
+        transactions = []
+        total_earnings = 0
+
+    # Pass transactions and total earnings to the template
+    return render(request, 'vendor/earn.html', {
+        'transactions': transactions,
+        'total_earnings': total_earnings
+    })
+   
 
 def vendor_list(request):
     list = Experience.objects.filter(vendor__user=request.user)

@@ -186,7 +186,7 @@
 
                     <span class="location-span li_details-span flex gp-5">
                         <img src="{% static 'img/location.svg' %}" alt="favorite icon from svgrepo">
-                        <span class = "li_details-text">India</span>
+                        <span class = "li_details-text">{{ experience.location }}</span>
                     </span>
                 </div>
             </div>
@@ -206,14 +206,13 @@
                         <div class="details-card">
                             <h4>Description</h4>
                             <p>{{ experience.description }}
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus enim qui porro perspiciatis, iste repellat possimus illo et beatae sed neque veniam voluptatum quo officiis reprehenderit nobis, at explicabo ab non minus eaque, cum magnam perferendis ad. Labore maxime exercitationem repellat quae accusamus sequi earum totam quaerat, maiores eligendi. Natus exercitationem numquam enim ab voluptates error consequuntur ut commodi nostrum?
                             </p>
                             <h4>What to Bring</h4>
                             <p>{{ experience.what_to_bring|default:"Not specified" }}
                                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum voluptas odit, modi rem explicabo hic quas eius nemo nesciunt aspernatur temporibus, id pariatur ratione nobis, voluptatum sit! Velit amet perspiciatis eum mollitia deleniti nam modi laboriosam provident exercitationem officia aperiam itaque voluptatum totam, quidem neque eligendi ratione necessitatibus voluptate cum saepe, nobis iusto ab. Assumenda a quaerat quidem incidunt repellat?
                             </p>
                             <h4>Special Requirements</h4>
-                            <p>{{ experience.requirements|default:"None" }} Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus tempore incidunt nisi molestias velit officiis tenetur voluptas fugiat id nostrum voluptatibus cum, explicabo cupiditate sint ut at, assumenda magnam! Ipsam consequuntur voluptatum magni. Qui repudiandae repellat quod, facere non, incidunt, quas dolor cumque vel provident nam. Ea et nobis voluptas quasi dolor natus voluptates praesentium porro cum. Et, accusantium doloremque!</p>
+                            <p>{{ experience.requirements|default:"None" }} </p>
                         </div>
                     </div>
     

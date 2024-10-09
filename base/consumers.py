@@ -1,61 +1,58 @@
 import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.db import database_sync_to_async
-from .models import ChatMessage
-from django.contrib.auth import get_user_model
-
-User = get_user_model()
+from .models import ChatMessage, CustomUser, Experience
 
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
+        # Get experience ID and vendor ID from URL
         self.experience_id = self.scope['url_route']['kwargs']['experience_id']
         self.vendor_id = self.scope['url_route']['kwargs']['vendor_id']
-        self.room_group_name = f'chat_{self.experience_id}'
-
+        self.room_name = f'chat_{self.experience_id}_{self.vendor_id}'
+        
         # Join the room group
         await self.channel_layer.group_add(
-            self.room_group_name,
+            self.room_name,
             self.channel_name
         )
-
         await self.accept()
 
     async def disconnect(self, close_code):
-        # Leave the room group
+        # Leave room group
         await self.channel_layer.group_discard(
-            self.room_group_name,
+            self.room_name,
             self.channel_name
         )
 
     async def receive(self, text_data):
         data = json.loads(text_data)
 
-        # Handle message sending
         if data['type'] == 'message':
             message = data['message']
-            vendor_id = data['vendor_id']
             experience_id = data['experience_id']
-            sender = self.scope["user"]
+            vendor_id = data['vendor_id']
+            sender = self.scope['user']  # Use the authenticated user
 
             # Save the message to the database
             await self.save_message(sender, vendor_id, experience_id, message)
 
-            # Send the message to the room group
+            # Send message to room group
             await self.channel_layer.group_send(
-                self.room_group_name,
+                self.room_name,
                 {
                     'type': 'chat_message',
                     'message': message,
-                    'sender': sender.username
+                    'sender': sender.username,  # Send sender's username
                 }
             )
+
         elif data['type'] == 'typing':
-            # Send typing notification to room group
+            # Broadcast typing indicator to the room
             await self.channel_layer.group_send(
-                self.room_group_name,
+                self.room_name,
                 {
-                    'type': 'typing_notification',
-                    'sender': data['sender']
+                    'type': 'typing_indicator',
+                    'sender': self.scope['user'].username,  # Use the authenticated user
                 }
             )
 
@@ -63,29 +60,36 @@ class ChatConsumer(AsyncWebsocketConsumer):
         message = event['message']
         sender = event['sender']
 
-        # Send the message to WebSocket
+        # Send message to WebSocket
         await self.send(text_data=json.dumps({
             'type': 'message',
             'message': message,
-            'sender': sender
+            'sender': sender,
         }))
 
-    async def typing_notification(self, event):
+    async def typing_indicator(self, event):
         sender = event['sender']
 
-        # Send the typing notification to WebSocket
+        # Send typing indicator to WebSocket
         await self.send(text_data=json.dumps({
             'type': 'typing',
-            'sender': sender
+            'sender': sender,
         }))
 
     @database_sync_to_async
-    def save_message(self, user, vendor_id, experience_id, message):
-        # Save the message in the database
-        chat_message = ChatMessage(
-            user=user,
-            vendor_id=vendor_id,
-            experience_id=experience_id,
-            message=message
-        )
-        chat_message.save()
+    def save_message(self, sender, vendor_id, experience_id, message):
+        # Check for vendor and experience existence before saving
+        vendor = CustomUser.objects.filter(id=vendor_id).first()
+        experience = Experience.objects.filter(id=experience_id).first()
+
+        if vendor and experience:  # Ensure both exist
+            return ChatMessage.objects.create(
+                user=sender,
+                vendor=vendor,
+                experience=experience,
+                message=message
+            )
+        else:
+            # Log or raise an error if vendor or experience does not exist
+            print(f'Error: Vendor {vendor_id} or Experience {experience_id} does not exist.')
+            return None

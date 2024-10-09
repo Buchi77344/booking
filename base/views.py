@@ -396,7 +396,8 @@ def contact (request):
 
 def about (request):
     return render(request, 'about.html')
-
+def faq(request):
+    return render (request, 'faq.html')
 
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
@@ -461,9 +462,13 @@ def search(request):
     result = []  # Initialize result
     if request.method == 'GET':
         query = request.GET.get('query', '')  # Safely retrieve query parameter
-        
+
+        # Filter experiences based on title, description, location, or category
         result = Experience.objects.filter(
-            Q(location__icontains=query)
+            Q(title__icontains=query) |  # Search in the title field
+            Q(description__icontains=query) |  # Search in the description field
+            Q(location__icontains=query) |  # Search in the location field
+            Q(category__icontains=query)  # Search in the category field
         )
         
     return render(request, 'search.html', {'result': result})
@@ -554,15 +559,28 @@ def payment_cancel(request):
 from django.shortcuts import render, get_object_or_404
 from .models import ChatMessage, Experience
 
+from django.urls import reverse
+from django.shortcuts import redirect
+from django.shortcuts import get_object_or_404, render
+from .models import Experience, ChatMessage
+
 def chat_view(request, experience_id):
+    # Fetch the Experience object or return 404 if not found
     experience = get_object_or_404(Experience, id=experience_id)
+    
+    # Fetch messages associated with the specific experience and order by timestamp (newest first)
     messages = ChatMessage.objects.filter(experience=experience).order_by('-timestamp')
+
+    # Generate a unique room name using username and vendor id
+    room_name = f'chat_{request.user.username}_{experience.vendor.id}'
+
+    # Render the chat template with the experience, messages, and room name
     return render(request, 'chat.html', {
         'experience': experience,
-        'messages': messages
+        'messages': messages,
+        'room_name': room_name  # Pass the room name to the template
     })
 
 
 
-def faq(request):
-    return render (request, 'faq.html')
+
