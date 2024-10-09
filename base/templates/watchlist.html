@@ -3,14 +3,11 @@
 {% block context %}
 
     <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"> -->
 
     <!-- Custom Styles -->
     <style>
-        body {
-            background-color: #000; /* Black background */
-            color: #fff; /* White text */
-        }
+
         .watchlist-item {
             background-color: #1a1a1a; /* Dark gray for the item background */
             border-radius: 8px;
@@ -24,22 +21,21 @@
         .watchlist-item p {
             color: #ccc; /* Lighter gray for paragraph text */
         }
-        .btn-refresh {
-            background-color: #f39c12; /* Orange for the button */
-            color: #fff;
-            border: none;
+        .btn-refresh { 
+            color: hsl(0, 0%, 90%);
             margin-bottom: 20px;
+            text-decoration: underline;
         }
         .btn-refresh:hover {
-            background-color: #e67e22; /* Darker orange on hover */
+            color: hsl(0, 0%, 88%); /* Darker orange on hover */
         }
     </style>
 </head>
 <body>
-    <div class="container mt-5">
-        <div class="text-center">
-            <h1>Your Watchlist</h1>
-            <button class="btn btn-refresh" onclick="fetchWatchlist()">Refresh Watchlist</button>
+    <div class="watchlist-page">
+        <div class="watchlist-page-head-div">
+            <h1 class = "watchlist-page-head-text">Your Watchlist</h1>
+            <span class="btn btn-refresh" onclick="fetchWatchlist()">Refresh Watchlist</span>
         </div>
 
         <!-- Container where the watchlist items will be displayed -->
