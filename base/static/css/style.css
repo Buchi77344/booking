@@ -2173,6 +2173,7 @@ footer {
 
 .faq.main-page .cominfo-banner-section{
     height: 40vh;
+    background-image: url("../img/bg-4.jpg");
 }
 
 .faq-content-container{
@@ -2214,7 +2215,8 @@ footer {
 
 .faq-item-head-text{
     color : hsl(257deg 93.57% 3.88%);
-    font-size: 1.1rem;
+    font-size: 1.2rem;
+    font-weight: 500;
 }
 
 .faq-item-plus{
@@ -2247,6 +2249,8 @@ footer {
 
 .faq-content-item-details-text{
     padding: 10px 20px;
+    font-size: 1.1rem;
+    color: hsl(256, 85%, 3% / 1);
 }
 
 .faq-content-item-details.lengthen{
@@ -2286,8 +2290,8 @@ footer {
 }
 
 .exp-profile-info-img{
-    width: 55px;
-    height : 55px;
+    width: 45px;
+    height : 45px;
     object-fit: cover;
     object-position: center;
     border-radius: 50%;
@@ -2297,8 +2301,8 @@ footer {
     position: absolute;
     bottom: 0px;
     right: 4px;
-    width: 15px;
-    height: 15px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
     background-color: #06d229;
 }
