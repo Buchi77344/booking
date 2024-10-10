@@ -434,6 +434,7 @@ def view_watchlist(request):
         'start_date': item.experience.start_date,
         'end_date': item.experience.end_date,
         'location': item.experience.location,
+        'images':item.experience.images,
     } for item in watchlist]
 
     return JsonResponse({'watchlist': watchlist_data}, status=200)
@@ -551,7 +552,7 @@ def create_paypal_order(request, experience_id):
             if link.rel == "approval_url":
                 tran.is_paid =True
                 tran.save()
-                notification.objects.create
+                Notification.objects.create(title='Payment Successful', message=f'Payment of ${amount} for your booking "{experience.title}" has been successfully processed. Thank you!',user=request.user)
                 return redirect('history')
     else:
         return render(request, 'payment_error.html', {"error": payment.error})
