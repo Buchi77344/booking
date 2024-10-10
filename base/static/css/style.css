@@ -1204,7 +1204,8 @@ span.mobile.search-icon svg path{
     /* border: 1px solid hsl(0deg 0% 30% / 37%); */
     text-align: center;
     letter-spacing: 1px;
-    border-radius: 7px
+    border-radius: 7px;
+    margin-bottom: 10px;
 }
 
 .profile-pic-container{
@@ -1284,8 +1285,8 @@ span.mobile.search-icon svg path{
 }
 
 .profile-picture-img{
-    width: 150px;
-    height: 150px;
+    width: 120px;
+    height: 120px;
     object-fit: cover;
     border-radius: 50%;
 }
