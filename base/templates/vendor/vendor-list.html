@@ -66,32 +66,17 @@
             {% for list in list %}
              <div class="experience-card">
                  <h5 class = "experience-card-head">{{list.title}}</h5>
-                 <p class = "experience-card-text">Description: A brief description of the experience hosted.</p>
-                 <p class = "experience-card-text">Location: City, Country</p>
-                 <p class = "experience-card-text">Price: $100</p>
-                 <p class = "experience-card-text">Available Slots: 10</p>
-                 <p class = "experience-card-text">Start Date: 2024-10-01</p>
-                 <p class = "experience-card-text">End Date: 2024-10-05</p>
+                 <p class = "experience-card-text">{{list.description|truncatechars:50}}</p>
+                 <p class = "experience-card-text">Location: {{list.location}}</p>
+                 <p class = "experience-card-text">Price: ${{list.price}}</p>
                  <div class="d-flex justify-content-end">
                      <a href="{% url 'vendor:vendor_edit' list.title %}" class="btn btn-black me-2">Edit</a>
-                     <a href="#" class="btn btn-danger">Delete</a>
+                     <a href="{% url 'vendor:delete_expricence' list.pk %}" class="btn btn-danger">Delete</a>
                  </div>
              </div>
              {% endfor %}
          
-             <div class="experience-card">
-                 <h5 class = "experience-card-head">Experience Title 2</h5>
-                 <p class = "experience-card-text">Description: A brief description of the experience hosted.</p>
-                 <p class = "experience-card-text">Location: City, Country</p>
-                 <p class = "experience-card-text">Price: $150</p>
-                 <p class = "experience-card-text">Available Slots: 5</p>
-                 <p class = "experience-card-text">Start Date: 2024-10-10</p>
-                 <p class = "experience-card-text">End Date: 2024-10-12</p>
-                 <div class="d-flex justify-content-end">
-                     <a href="#" class="btn btn-black me-2">Edit</a>
-                     <a href="#" class="btn btn-danger">Delete</a>
-                 </div>
-             </div>
+             
         </div>
 
     </div>

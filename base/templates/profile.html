@@ -27,15 +27,15 @@
                         <img class = "logo-img" src="{% static 'img/booking-logo.png' %}" alt="logo for experience hotspot">
                         <span class = "logo-text">Experience Hotspot</span>
                     </a>
-                    <h2 class = "profile-welcome-head">Welcome Festus</h2>
-                    <form class= "profile-form flex-column gp-15" method="POST" enctype="multipart/form-data">
+                    <h2 class = "profile-welcome-head">Welcome, {{request.user.first_name|upper}}</h2>
+                    <form class= "profile-form flex-column gp-15" method="post"  enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="profile-pic-container flex gp-20">
                             <div class="profile-img-container">
                                 {% if userprofile.profile_picture %}
                                 <img src="{{userprofile.profile_picture.url}}" alt="" class="profile-picture-img">
                                 {% else %}
-                                <img src="{% static 'images/default-profile-picture.png' %}" alt="Default Profile Picture" class="profile-picture-img">
+                                <img src="{% static 'img/demo_pic.png' %}" alt="Default Profile Picture" class="profile-picture-img">
                             {% endif %}
                                 <label for = "profile_picture" class="camera-icon flex-center">
                                     <span class="camera-circle flex-center">

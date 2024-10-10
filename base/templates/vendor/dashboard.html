@@ -90,16 +90,16 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Total Earnings</h5>
-                    <p class="card-text">$5,000</p>
+                    <p class="card-text">${{total_earnings}}</p>
                     <a href="{% url 'vendor:earn' %}" class="btn btn-black">View Earnings</a>
                 </div>
             </div>
 
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Pending Requests</h5>
-                    <p class="card-text">3</p>
-                    <a href="/vendor/requests" class="btn btn-black">View Requests</a>
+                    <h5 class="card-title">Add payment method</h5>
+                    <p class="card-text">onyebuchi77@gmail.com</p>
+                    <a href="{% url 'vendor:payment' %}" class="btn btn-black">Add payment</a>
                 </div>
             </div>
         </div>
@@ -110,11 +110,10 @@
                <div class="experience-card">
                    <h5 class = "experience-card-head">{{latest_experiences.title}}</h5>
                    <p class = "experience-card-text">Description: A brief description of the experience hosted.</p>
-                   <p class = "experience-card-text">Location: City, Country</p>
-                   <p class = "experience-card-text">Price: $150</p>
-                   <p class = "experience-card-text">Available Slots: 5</p>
-                   <a href="/vendor/experiences/edit/2" class="btn btn-black">Edit</a>
-                   <a href="#" class="btn btn-danger">Delete</a>
+                   <p class = "experience-card-text">Location: {{latest_experiences.location}}</p>
+                   <p class = "experience-card-text">Price: ${{latest_experiences.price}}</p>
+                   <a href="{% url 'vendor:vendor_edit' latest_experiences.title  %}" class="btn btn-black">Edit</a>
+                   <a href="{% url 'vendor:delete_expricence' latest_experiences.pk  %}" class="btn btn-danger">Delete</a>
                </div>
                {%endfor%}
         </div>

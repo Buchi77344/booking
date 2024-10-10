@@ -108,7 +108,7 @@
                     <strong>{{ message.user.username }}</strong>
                 </div>
         {% endfor %}
-        <div id="typingIndicator" class="typing-indicator">{{request.user.username}} is typing...</div>
+        <div id="typingIndicator" class="typing-indicator"></div>
     </div>
 
     <form id="message-form" class="chat-form">
@@ -148,7 +148,7 @@
             appendMessage(data.message, data.sender);
             typingIndicator.style.display = 'none';
         } else if (data.type === "typing") {
-            showTypingIndicator();
+            showTypingIndicator(data.sender);
         }
     });
 
@@ -187,8 +187,9 @@
         }));
     });
 
-    // Function to show the typing indicator
-    function showTypingIndicator() {
+    // Function to show the typing indicator with the sender's name
+    function showTypingIndicator(sender) {
+        typingIndicator.textContent = `${sender} is typing...`;
         typingIndicator.style.display = 'block';
         clearTimeout(typingTimeout);
         typingTimeout = setTimeout(() => {

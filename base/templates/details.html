@@ -242,8 +242,8 @@
                                     </div>
                                 </div>
                                 <div class="d-grid">
-                                    <a href="{% url 'create_paypal_order' experience.id %}" class="btn btn-pay pal">Pay with Paypal</a>
-                                    <a href="{% url 'experience_payment' experience.id %}" class="btn btn-pay ray">Pay with RazorPay</a>
+                                 <a href="{% url 'create_paypal_order' experience.id %}" class="btn btn-pay pal">Pay with Paypal</a>
+                                     <!--  <a href="{% url 'experience_payment' experience.id %}" class="btn btn-pay ray">Pay with RazorPay</a>-->
                                 </div>
                             </div>
                         </div>
@@ -262,8 +262,7 @@
                         <p class = "contact-text"><strong>Contact Information:</strong> {{ experience.vendor.contact_info }}</p>
                         <p><strong>Reviews:</strong> Coming soon...</p>
                     </div>
-                    <h2>Chat with {{ experience.vendor.user.username }}</h2>
-                    <a href="{% url 'chat' experience.id %}" class="chat-link">Open Chat</a>
+                    
                     
                     <style>
                         .chat-link {

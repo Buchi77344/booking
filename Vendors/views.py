@@ -123,7 +123,10 @@ def login(request):
 from django.shortcuts import render, redirect
 from base.models import Experience
 from django.core.files.storage import FileSystemStorage  # For handling image upload
+from django.contrib.auth.decorators import login_required
 
+
+@login_required(login_url='signin')
 def create_experience(request):
     if request.method == 'POST':
         # Retrieve form data
@@ -140,14 +143,13 @@ def create_experience(request):
         requirements = request.POST.get('requirements')
         what_to_bring = request.POST.get('what_to_bring')
         images = request.FILES.get('images')
-        # Assuming the user has a VendorProfile
-        vendor_profile =get_object_or_404 (VendorProfile, user=request.user)
-        vendor_user =get_object_or_404(Userprofileuser=request.user)
-        # if not Vendorpaypal.objects.filter(user=request.user).exists():
-        #     return redirect('vendor:payment')
-        # vendor = get_object_or_404(Vendorpaypal,user=request.user)
-        # vendor_paypal = vendor.paypal_email
-        
+
+        # Retrieve the vendor profile and ensure the vendor has a PayPal email
+        vendor_profile = get_object_or_404(VendorProfile, user=request.user)
+        vendor_user = get_object_or_404(Userprofile, user=request.user)
+
+        # Check if the user has added their PayPal email
+        vendor_paypal_instance = get_object_or_404(Vendorpaypal, user=request.user)
 
         # Create the Experience instance
         new_experience = Experience.objects.create(
@@ -160,8 +162,8 @@ def create_experience(request):
             start_date=start_date,
             end_date=end_date,
             vendor=vendor_profile,
-            # paypal =vendor_paypal,
-            vendor_user =vendor_user,
+            paypal=vendor_paypal_instance,  # Assign the Vendorpaypal instance
+            vendor_user=vendor_user,
             tags=tags,
             duration=duration,
             requirements=requirements,
@@ -179,6 +181,7 @@ def create_experience(request):
     return render(request, 'vendor/host.html', {
         'categories': categories
     })
+
 # views.py
 
 from django.shortcuts import render, redirect
@@ -217,13 +220,26 @@ def form(request):
     })
 def congrat(request):
     return render (request, 'vendor/congrat.html')
+@login_required(login_url='signin')
 def dashboard(request):
+    user = request.user
+    vendor_profile = VendorProfile.objects.get(user=user)
+
+        # Get all experiences hosted by this vendor
+    vendor_experiences = Experience.objects.filter(vendor=vendor_profile)
+
+        # Get all paid transactions related to those experiences
+    transactions = Transaction.objects.filter(experience__in=vendor_experiences, is_paid=True)
+
+        # Calculate total earnings by summing up the amounts of those transactions
+    total_earnings = transactions.aggregate(Sum('amount'))['amount__sum'] or 0
     experience_number = Experience.objects.filter(vendor__user=request.user).count()
     latest_experiences = Experience.objects.filter(vendor__user=request.user).order_by('-created_at')[:2]
     
     context = {
         'experience_number':experience_number,
-        'latest_experiences':latest_experiences
+        'latest_experiences':latest_experiences,
+        'total_earnings':total_earnings
     }
     return render (request, 'vendor/dashboard.html',context)
 from django.db.models import *
@@ -256,7 +272,7 @@ def earn(request):
         'total_earnings': total_earnings
     })
    
-
+@login_required(login_url='signin')
 def vendor_list(request):
     list = Experience.objects.filter(vendor__user=request.user)
     context = {
@@ -265,16 +281,34 @@ def vendor_list(request):
     return render(request, 'vendor/vendor-list.html',context)
 
 from base.models import *
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.shortcuts import redirect, render
+ # Adjust the import as necessary
+
+@login_required(login_url='signin')
 def payment(request):
     if request.method == "POST":
         paypal_email = request.POST.get('paypal_email')
 
-        Vendorpaypal.objects.create(paypal_email =paypal_email ,user =request.user)
+        # Get or update the Vendorpaypal instance for the current user
+        vendor_paypal_instance, created = Vendorpaypal.objects.get_or_create(user=request.user)
+
+        # Update the PayPal email
+        vendor_paypal_instance.paypal_email = paypal_email
+        vendor_paypal_instance.save()
+
+        if created:
+            messages.success(request, 'Your PayPal email has been added successfully.')
+        else:
+            messages.success(request, 'Your PayPal email has been updated successfully.')
+
         return redirect('vendor:payment')
 
-    return render (request, 'vendor/payment.html')
+    return render(request, 'vendor/payment.html')
 
 
+@login_required(login_url='signin')
 def vendor_edit(request,title):
     if Experience.objects.filter(vendor__user=request.user).exists():
         edit = get_object_or_404(Experience,title=title,vendor__user=request.user)
@@ -318,7 +352,7 @@ def vendor_edit(request,title):
         }
 
         return render (request, 'vendor/vendor-edit.html',context)
-    
+@login_required(login_url='signin')
 def delete_expricence(request,pk):
      if Experience.objects.filter(vendor__user=request.user).exists():
          dek = get_object_or_404(Experience,pk=pk,vendor__user=request.user)

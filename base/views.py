@@ -536,24 +536,28 @@ def create_paypal_order(request, experience_id):
 
     if payment.create():
         # Save the transaction temporarily in the database (pending success)
-        Transaction.objects.create(
+        tran ,created =  Transaction.objects.get_or_create(
             user=request.user,
             experience=experience,
             order_id=payment.id,
             payment_id =uuid.uuid4,
-            amount=amount
+            amount=amount,
+            
         )
+        tran.save()
 
         # Redirect the user to PayPal to approve the payment
         for link in payment.links:
             if link.rel == "approval_url":
+                tran.is_paid =True
+                tran.save()
                 return redirect(link.href)
     else:
         return render(request, 'payment_error.html', {"error": payment.error})
 
 def payment_cancel(request):
     return render(request, 'payment_cancel.html')
-
+ 
 
 
 from django.shortcuts import render, get_object_or_404
