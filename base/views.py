@@ -635,7 +635,9 @@ def update_status(request):
     return JsonResponse({'error': 'Invalid request method'}, status=405)
 
 
-
+def history(request):
+    transaction = Transaction.objects.filter(user=request.user, is_paid =True)
+    return render (request, 'history.hml')
 
 
 
