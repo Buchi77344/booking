@@ -2364,7 +2364,9 @@ footer {
 }
 
 .watchlist-item-details-div{
-    width : 54%
+    width: 54%;
+    padding: 20px;
+    background-color: hsl(0, 0%, 95%);
 }
 
 .watchlist-item-title{
