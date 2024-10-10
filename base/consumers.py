@@ -6,8 +6,8 @@ from .models import ChatMessage, CustomUser, Experience
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         # Get experience ID and vendor ID from URL
-        self.experience_id = self.scope['url_route']['kwargs']['experience_id']
-        self.vendor_id = self.scope['url_route']['kwargs']['vendor_id']
+        self.experience_id = self.scope['url_route']['kwargs'].get('experience_id')
+        self.vendor_id = self.scope['url_route']['kwargs'].get('vendor_id')
         self.room_name = f'chat_{self.experience_id}_{self.vendor_id}'
         
         # Join the room group
@@ -26,11 +26,12 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
     async def receive(self, text_data):
         data = json.loads(text_data)
+        message_type = data.get('type')
 
-        if data['type'] == 'message':
-            message = data['message']
-            experience_id = data['experience_id']
-            vendor_id = data['vendor_id']
+        if message_type == 'message':
+            message = data.get('message')
+            experience_id = data.get('experience_id')
+            vendor_id = data.get('vendor_id')
             sender = self.scope['user']  # Use the authenticated user
 
             # Save the message to the database
@@ -39,20 +40,20 @@ class ChatConsumer(AsyncWebsocketConsumer):
             # Send message to room group
             await self.channel_layer.group_send(
                 self.room_name,
-                { 
+                {
                     'type': 'chat_message',
                     'message': message,
-                    'sender': sender.username,  # Send sender's username
+                    'sender': sender.username if sender.is_authenticated else 'Anonymous',
                 }
             )
 
-        elif data['type'] == 'typing':
+        elif message_type == 'typing':
             # Broadcast typing indicator to the room
             await self.channel_layer.group_send(
                 self.room_name,
                 {
                     'type': 'typing_indicator',
-                    'sender': self.scope['user'].username,  # Use the authenticated user
+                    'sender': self.scope['user'].username if self.scope['user'].is_authenticated else 'Anonymous',
                 }
             )
 
@@ -90,6 +91,5 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 message=message
             )
         else:
-            # Log or raise an error if vendor or experience does not exist
             print(f'Error: Vendor {vendor_id} or Experience {experience_id} does not exist.')
             return None

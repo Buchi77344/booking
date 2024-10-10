@@ -1730,7 +1730,7 @@ input.accord-search-val{
     background-color: var(--btn-clr);
     color: hsl(0, 0%, 98%);
     display: block;
-    padding: 10px 0px;
+    padding: 15px 0px;
     border-radius: 50px;
     font-size: 1.3rem;
     width: 100%;
@@ -2337,6 +2337,92 @@ footer {
 
 }
 
+.watchlist-page{
+    background-color: hsl(0, 0%, 98%);
+    padding : 20px;
+}
+
+.watchlist-page-head-text{
+    margin: 0;
+    font-weight: 500;
+    font-size: clamp(2.6rem, 4.5vw, 3rem);
+    line-height: 1.2;
+}
+
+.watchlist-item-container{
+    margin-top : 40px;
+}
+
+.watchlist-item{
+    height : 400px;
+    margin-bottom: 20px;
+}
+
+.watchlist-item-img-div{
+    width : 43%
+}
+
+.watchlist-item-details-div{
+    width : 54%
+}
+
+.watchlist-item-title{
+    font-size: clamp(1.8rem, 3.5vw, 2.2rem);
+    font-weight: 400;
+    margin: 0;
+}
+
+.watchlist-item-desc{
+    margin: 0;
+    color: hsl(0, 0%, 20%);
+}
+
+.watchlist-item-price{
+    margin: 10px 0px;
+    display: inline-block;
+    font-size: 1.6rem;
+    font-weight: 400;
+}
+
+.watchlist-item-date-div{
+    display: flex;
+    gap: 15px;
+    justify-content: space-between;
+}
+
+.watchlist-item-date-div p{
+    font-size: 1.1rem;
+    color: hsla(0, 0%, 10%, .8);
+    margin: 0;
+}
+
+.watchlist-item-date-div strong{
+    color: hsl(0, 0%, 20%);
+    font-weight: 500;
+}
+
+.cart.location-span{
+    margin-top : 15px;
+}
+
+.cart-location-span-text{
+    color: hsla(0, 0%, 10%, .9);
+    font-size: 1rem;
+}
+
+.location-icon-img{
+    width : 20px;
+    height : 20px;
+}
+
+.watchlist-item-img{
+    width : 100%;
+    max-height : 100%;
+    object-fit: cover;
+    object-position: center; 
+    border-radius : 10px;
+}
+
 /* .experience-card-details-head{
     color: hsla(0, 0%, 10%, .8);
     font-weight: 500;
@@ -2433,14 +2519,35 @@ footer {
     .product-desc-container{
         flex-direction: column;
     }
-    .product-desc-container div.col-1{
+    .product-desc-container div.details-info-wrapper{
         width : 100%;
     }
-    .product-desc-container div.col-lg-5{
+    .product-desc-container div.booking-section-container{
         width : 100%;
     }
     .camera-icon::after{
         transform: translate(-50%, -50%);
+    }
+
+    .watchlist-item{
+        height : auto;
+    }
+
+    .watchlist-item.flex-between{
+        flex-direction: column;
+        gap : 20px
+    }
+    
+    .watchlist-item-img-div{
+        width : 100%;
+    }
+
+    .watchlist-item-img{
+        height : 300px;
+    }
+    
+    .watchlist-item-details-div{
+        width : 100%
     }
 }
 

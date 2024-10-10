@@ -130,18 +130,15 @@
             justify-content: space-between;
             margin-top: 20px;
         }
-        .product-desc-container .col-1{
-            width : 65%;
+        
+        .product-desc-container .details-info-wrapper{
+            width: 65%;
         }
 
-        .product-desc-container .col-1 .details-card{
-            padding-right: 0;
+        .product-desc-container .details-info-wrapper .details-card{
+            padding-right : 0;
         }
-        
-        .product-desc-container .col-2{
-            width : 35%;
-        }
-        .product-desc-container .col-lg-5{
+        .product-desc-container .booking-section-container{
             width : 33%;
         }
         .badge{
@@ -185,7 +182,7 @@
                     </span>
 
                     <span class="location-span li_details-span flex gp-5">
-                        <img src="{% static 'img/location.svg' %}" alt="favorite icon from svgrepo">
+                        <img src="{% static 'img/location.svg' %}" alt="location icon from svgrepo">
                         <span class = "li_details-text">{{ experience.location }}</span>
                     </span>
                 </div>
@@ -193,7 +190,7 @@
 
             <div class="details-main-content">
                 <!-- Experience Image -->
-                <div class="col col-lg-7">
+                <div class="details-img-container">
                     {% if experience.images %}
                     <img src="{{ experience.images.url }}" class="img-fluid experience-img rounded mb-4" alt="{{ experience.title }}">
                     {% else %}
@@ -203,7 +200,7 @@
                 
                 <!-- Description and Details -->
                 <div class="product-desc-container mt-5">
-                    <div class="col col-1">
+                    <div class="details-info-wrapper">
                         <div class="details-card">
                             <h4>Description</h4>
                             <p>{{ experience.description }}
@@ -215,19 +212,26 @@
                             <h4>Special Requirements</h4>
                             <p>{{ experience.requirements|default:"None" }} </p>
                         </div>
+
+                        <div class="details-info-container mt-5">
+                            <div class="details-info-div">
+                                <div class="details-card">
+                                    <h4>About the Host</h4>
+                                    <p>{{ experience.vendor.business_name }} offers this unique experience in {{ experience.location }}. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reprehenderit ipsam expedita dicta facilis quae non, incidunt minima in laboriosam dolores maiores exercitationem culpa nemo labore dolorem eveniet sequi eaque perspiciatis? Nisi minima dolore eius architecto laudantium officia necessitatibus cumque maiores et consequatur mollitia esse magni sapiente eos sunt deleniti quo, reprehenderit facere incidunt eaque adipisci repudiandae? Aliquam iure natus distinctio!</p>
+                                    <p class = "contact-text"><strong>Contact Information:</strong> {{ experience.vendor.contact_info }}</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
     
                     <!-- Booking Information -->
-                    <div class="col col-lg-5">
+                    <div class="booking-section-container">
                         <div class="booking-section">
                             <h3 class="Booking-head text-center mb-3">Book This Experience</h3>
                             <div class="booking-section-details">
                                 <h3 class="price-text">${{ experience.price }}</h3>
                                 <div class="list-group">
-                                    <div class="list-group-item">
-                                        <h4 class = "group-item-name">Available Slots:</h4>
-                                        <p class = "group-item-value">{{ experience.available_slots }}</p>
-                                    </div>
+                                  
 
                                     <div class="list-group-item">
                                         <h4 class = "group-item-name">Start Date:</h4>
@@ -252,33 +256,8 @@
                         </div>
                     </div>
                 </div>
-
                 
-            </div>
-
-            <!-- Vendor Info and Additional Features -->
-            <div class="details-info-container mt-5">
-                <div class="col-lg-12">
-                    <div class="details-card">
-                        <h4>About the Host</h4>
-                        <p>{{ experience.vendor.business_name }} offers this unique experience in {{ experience.location }}. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reprehenderit ipsam expedita dicta facilis quae non, incidunt minima in laboriosam dolores maiores exercitationem culpa nemo labore dolorem eveniet sequi eaque perspiciatis? Nisi minima dolore eius architecto laudantium officia necessitatibus cumque maiores et consequatur mollitia esse magni sapiente eos sunt deleniti quo, reprehenderit facere incidunt eaque adipisci repudiandae? Aliquam iure natus distinctio!</p>
-                        <p class = "contact-text"><strong>Contact Information:</strong> {{ experience.vendor.contact_info }}</p>
-                    </div>
-                    <h2>Chat with {{ experience.vendor.user.username }}</h2>
-                    <a href="{% url 'chat' experience.id %}" class="chat-link">Open Chat</a>
-                    
-                    <style>
-                        .chat-link {
-                            padding: 10px 15px;
-                            background-color: #007BFF; /* Bootstrap primary color */
-                            color: white;
-                            text-decoration: none;
-                            border-radius: 5px;
-                        }
-                        .chat-link:hover {
-                            background-color: #0056b3; /* Darker shade on hover */
-                        }
-                    </style>
+                <div class="comment-system">
                     <h3>Leave a review</h3>
                     <div class="comment util-form-container">
                         <form class ="comment-form" method="post">
@@ -307,12 +286,14 @@
                         </form>
                     </div>
 
-                    <h3><strong>Reviews</h3>
+                    <h3><strong>Reviews</strong></h3>
                     <div class="review-container">
                         
                     </div>
                 </div>
             </div>
+
+           
         </div>
         <div class="chat-system-container">
             <div class="chat-box-container">
