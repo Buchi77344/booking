@@ -41,7 +41,7 @@
             </div>
     
             <!-- Container where the watchlist items will be displayed -->
-            <div class = "watchlist-item-container" id="watchlist-container" class="mt-4">
+            <!-- <div class = "watchlist-item-container" id="watchlist-container" class="mt-4">
                 <div class="watchlist-item flex-between">
                     <div class="watchlist-item-img-div">
                         <img src="{% static 'img/gallery-img_1.jpg' %}" alt="watchlist item image" class="watchlist-item-img">
@@ -63,6 +63,11 @@
                         </span>
                     </div>
                 </div>
+            </div> -->
+            <div class="empty-watchlist-div flex-center">
+                <span class="empty-watchlist-span">
+                    No Item Yet, Pls Add To Cart To Preview
+                </span>
             </div>
         </div>
     </div>
@@ -94,24 +99,37 @@
 
         // Function to display the watchlist
         function displayWatchlist(watchlist) {
-            // const watchlistContainer = document.getElementById('watchlist-container');
-            // watchlistContainer.innerHTML = ''; // Clear any existing content
+            const watchlistContainer = document.getElementById('watchlist-container');
+            watchlistContainer.innerHTML = ''; // Clear any existing content
 
-            // watchlist.forEach(item => {
-            //     const watchlistItem = document.createElement('div');
-            //     watchlistItem.classList.add('watchlist-item', 'shadow', 'p-4', 'rounded');
+            watchlist.forEach(item => {
+                const watchlistItem = document.createElement('div');
+                watchlistItem.classList.add('watchlist-item', 'flex-between');
 
-            //     watchlistItem.innerHTML = `
-            //         <h3>${item.title}</h3>
-            //         <p>${item.description}</p>
-            //         <p><strong>Price:</strong> ${item.price}</p>
-            //         <p><strong>Start Date:</strong> ${new Date(item.start_date).toLocaleDateString()}</p>
-            //         <p><strong>End Date:</strong> ${new Date(item.end_date).toLocaleDateString()}</p>
-            //         <p><strong>Location:</strong> ${item.location}</p>
-            //     `;
+                watchlistItem.innerHTML = `
+                    <div class="watchlist-item-img-div">
+                        <img src="../static/img/gallery-img_1.jpg" alt="watchlist item image" class="watchlist-item-img">
+                    </div>
+    
+                    <div class="watchlist-item-details-div">
+                        <h3 class = "watchlist-item-title">${item.title}</h3>
+                        <p class="watchlist-item-desc">
+                            ${item.description}
+                        </p>
+                        <span class="watchlist-item-price">$${item.price}</span>
+                        <div class="watchlist-item-date-div">
+                            <p class="start-date"><strong>Start Date: </strong>${new Date(item.start_date).toLocaleDateString()}</p>
+                            <p class="end-date"><strong>End Date: </strong>${new Date(item.end_date).toLocaleDateString()}</p>
+                        </div>
+                        <span class="cart location-span flex gp-5">
+                            <img class = "location-icon-img" src="{% static 'img/location.svg' %}" alt="location icon from svgrepo">
+                            <span class = "cart-location-span-text">${item.location}</span>
+                        </span>
+                    </div>
+                `;
 
-            //     watchlistContainer.appendChild(watchlistItem);
-            // });
+                watchlistContainer.appendChild(watchlistItem);
+            });
         }
 
         // Function to get CSRF token from cookies

@@ -2503,6 +2503,18 @@ input.message-system-type-input{
     font-size: 1rem;
 }
 
+.empty-watchlist-div{
+    height : 400px;
+    
+}
+
+.empty-watchlist-span{
+    font-size: clamp(2.2rem, 3.5vw, 3.5rem);
+    color: hsl(0, 0%, 10%, .5);
+    text-align: center;
+
+}
+
 /* .experience-card-details-head{
     color: hsla(0, 0%, 10%, .8);
     font-weight: 500;
