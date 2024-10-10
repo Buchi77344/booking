@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .notification-card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+        .notification-card:hover {
+            transform: translateY(-3px);
+        }
+        .notification-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .notification-text {
+            font-size: 14px;
+            color: #555555;
+            margin-top: 8px;
+        }
+        .notification-time {
+            font-size: 12px;
+            color: #888888;
+            margin-top: 5px;
+        }
+        .notification-unread {
+            border-left: 4px solid #ff0000;
+            padding-left: 16px;
+        }
+        .btn-mark-read {
+            background-color: #000000;
+            color: #ffffff;
+            font-size: 12px;
+            padding: 6px 12px;
+        }
+        .notification-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .notification-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #eeeeee;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .notification-icon i {
+            font-size: 18px;
+            color: #333333;
+        }
+        .notification-content {
+            flex-grow: 1;
+            margin-left: 15px;
+        }
+        .section-title {
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2 class="section-title">Your Notifications</h2>
+
+    <!-- Notification #1 - Unread Booking Confirmation -->
+    <div class="notification-card notification-unread">
+        <div class="notification-actions">
+            <div class="d-flex">
+                <div class="notification-icon">
+                    <i class="bi bi-calendar-check"></i>
+                </div>
+                <div class="notification-content">
+                    <div class="notification-title">Booking Confirmed</div>
+                    <div class="notification-text">Your booking for the "Mountain Hiking Adventure" on October 15th, 2024 has been confirmed. Get ready for an amazing experience!</div>
+                    <div class="notification-time">5 minutes ago</div>
+                </div>
+            </div>
+            <button class="btn btn-mark-read">Mark as Read</button>
+        </div>
+    </div>
+
+    <!-- Notification #2 - Upcoming Experience Reminder -->
+    <div class="notification-card">
+        <div class="notification-actions">
+            <div class="d-flex">
+                <div class="notification-icon">
+                    <i class="bi bi-clock"></i>
+                </div>
+                <div class="notification-content">
+                    <div class="notification-title">Experience Reminder</div>
+                    <div class="notification-text">Reminder: Your experience "Kayaking on the Rapids" is coming up tomorrow, October 12th, 2024. Don't forget to bring your safety gear!</div>
+                    <div class="notification-time">3 hours ago</div>
+                </div>
+            </div>
+            <button class="btn btn-mark-read">Mark as Read</button>
+        </div>
+    </div>
+
+    <!-- Notification #3 - Payment Alert -->
+    <div class="notification-card">
+        <div class="notification-actions">
+            <div class="d-flex">
+                <div class="notification-icon">
+                    <i class="bi bi-credit-card"></i>
+                </div>
+                <div class="notification-content">
+                    <div class="notification-title">Payment Successful</div>
+                    <div class="notification-text">Payment of $250 for your booking "Scuba Diving Adventure" has been successfully processed. Thank you!</div>
+                    <div class="notification-time">1 day ago</div>
+                </div>
+            </div>
+            <button class="btn btn-mark-read">Mark as Read</button>
+        </div>
+    </div>
+
+    <!-- Notification #4 - Refund Processed -->
+    <div class="notification-card">
+        <div class="notification-actions">
+            <div class="d-flex">
+                <div class="notification-icon">
+                    <i class="bi bi-arrow-repeat"></i>
+                </div>
+                <div class="notification-content">
+                    <div class="notification-title">Refund Processed</div>
+                    <div class="notification-text">Your refund for "Sunset Boat Tour" has been processed. You should see the funds in your account within 5-7 business days.</div>
+                    <div class="notification-time">2 days ago</div>
+                </div>
+            </div>
+            <button class="btn btn-mark-read">Mark as Read</button>
+        </div>
+    </div>
+
+    <!-- Notification #5 - New Message from Vendor -->
+    <div class="notification-card notification-unread">
+        <div class="notification-actions">
+            <div class="d-flex">
+                <div class="notification-icon">
+                    <i class="bi bi-chat-dots"></i>
+                </div>
+                <div class="notification-content">
+                    <div class="notification-title">Message from Vendor</div>
+                    <div class="notification-text">The vendor for "Skydiving Thrills" has sent you a message: "Looking forward to having you join the adventure! Please feel free to ask any last-minute questions."</div>
+                    <div class="notification-time">4 hours ago</div>
+                </div>
+            </div>
+            <button class="btn btn-mark-read">Mark as Read</button>
+        </div>
+    </div>
+
+    <!-- Load More Button -->
+    <div class="text-center mt-4">
+        <button class="btn btn-dark">Load More Notifications</button>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

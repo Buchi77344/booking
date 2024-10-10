@@ -551,7 +551,8 @@ def create_paypal_order(request, experience_id):
             if link.rel == "approval_url":
                 tran.is_paid =True
                 tran.save()
-                return redirect(link.href)
+                notification.objects.create
+                return redirect('history')
     else:
         return render(request, 'payment_error.html', {"error": payment.error})
 
@@ -636,8 +637,26 @@ def update_status(request):
 
 
 def history(request):
-    transaction = Transaction.objects.filter(user=request.user, is_paid =True)
-    return render (request, 'history.hml')
+    transaction =Transaction.objects.filter(user=request.user, is_paid =True)
+    context = {
+        'transaction':transaction
+    }
+    return render (request, 'history.html',context)
 
+def customer(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email =request.POST.get('email')
+        message =request.POST.get('message')
+                
+            # Send email
+        subject = f"Contact Inquiry from {name} - {settings.SITE_NAME}"
+        message_body = f"You have received a new message from {name} ({email}):\n\n{message}"
+        send_mail(subject, message_body, settings.EMAIL_HOST_USER, [settings.ADMIN_EMAIL])
 
+        messages.success(request, 'your message has been sent succesfully ')
+        return redirect('customer')
+    return render (request, 'customer.html')
 
+def notification(request):
+    return render(request, 'notification.html')

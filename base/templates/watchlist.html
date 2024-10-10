@@ -41,33 +41,14 @@
             </div>
     
             <!-- Container where the watchlist items will be displayed -->
-            <!-- <div class = "watchlist-item-container" id="watchlist-container" class="mt-4">
-                <div class="watchlist-item flex-between">
-                    <div class="watchlist-item-img-div">
-                        <img src="{% static 'img/gallery-img_1.jpg' %}" alt="watchlist item image" class="watchlist-item-img">
-                    </div>
-    
-                    <div class="watchlist-item-details-div">
-                        <h3 class = "watchlist-item-title">Hostel In Abuja</h3>
-                        <p class="watchlist-item-desc">
-                            good hostel for school Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos quidem qui quibusdam quis hic, eius tenetur vel itaque reiciendis neque deleniti labore dolorem quaerat voluptatem ad consequatur fugit ullam ea est nisi facere odio rerum. Fugiat omnis vitae dolor maiores.
-                        </p>
-                        <span class="watchlist-item-price">$2444.00</span>
-                        <div class="watchlist-item-date-div">
-                            <p class="start-date"><strong>Start Date: </strong>9/12/2024</p>
-                            <p class="end-date"><strong>End Date: </strong>9/22/2024</p>
-                        </div>
-                        <span class="cart location-span flex gp-5">
-                            <img class = "location-icon-img" src="{% static 'img/location.svg' %}" alt="location icon from svgrepo">
-                            <span class = "cart-location-span-text">USA, Califonia</span>
-                        </span>
-                    </div>
-                </div>
-            </div> -->
+            <div class = "watchlist-item-container" id="watchlist-container" class="mt-4">
+             
+            </div>
+
             <div class="empty-watchlist-div flex-center">
-                <span class="empty-watchlist-span">
-                    No Item Yet, Pls Add To Cart To Preview
-                </span>
+                    <span class="empty-watchlist-span">
+                        No Item Yet, Pls Add To Cart To Preview
+                    </span>
             </div>
         </div>
     </div>
@@ -127,9 +108,16 @@
                         </span>
                     </div>
                 `;
-
+                // document.querySelector(".empty-watchlist-div").style.display = "none"
                 watchlistContainer.appendChild(watchlistItem);
             });
+        }
+
+
+        const watchlistContainer = document.getElementById('watchlist-container');
+        console.log(watchlistContainer.childNodes.length)
+        if(watchlistContainer.childNodes.length > 0){
+            document.querySelector(".empty-watchlist-div").style.display = "none"
         }
 
         // Function to get CSRF token from cookies

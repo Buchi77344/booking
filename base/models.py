@@ -228,6 +228,7 @@ class Vendorpaypal(models.Model):
     
 class Notification(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    title = models.CharField(null=True, max_length=50)
     message =models.CharField( max_length=50,null=True)
     created_at = models.DateTimeField(auto_now_add=True,null=True) 
 
