@@ -1730,7 +1730,7 @@ input.accord-search-val{
     background-color: var(--btn-clr);
     color: hsl(0, 0%, 98%);
     display: block;
-    padding: 10px 0px;
+    padding: 15px 0px;
     border-radius: 50px;
     font-size: 1.3rem;
     width: 100%;
@@ -1744,7 +1744,7 @@ input.accord-search-val{
     font-weight : 500;
     text-transform: capitalize;
     margin-bottom: 0;
-    line-height: 100%;
+    line-height: 1.3;
 }
 
 .experience-li_details-div{
@@ -2337,6 +2337,184 @@ footer {
 
 }
 
+.watchlist-page{
+    background-color: hsl(0, 0%, 98%);
+    padding : 20px;
+}
+
+.watchlist-page-head-text{
+    margin: 0;
+    font-weight: 500;
+    font-size: clamp(2.6rem, 4.5vw, 3rem);
+    line-height: 1.2;
+}
+
+.watchlist-item-container{
+    margin-top : 40px;
+}
+
+.watchlist-item{
+    height : 400px;
+    margin-bottom: 20px;
+}
+
+.watchlist-item-img-div{
+    width : 43%
+}
+
+.watchlist-item-details-div{
+    width : 54%
+}
+
+.watchlist-item-title{
+    font-size: clamp(1.8rem, 3.5vw, 2.2rem);
+    font-weight: 400;
+    margin: 0;
+}
+
+.watchlist-item-desc{
+    margin: 0;
+    color: hsl(0, 0%, 20%);
+}
+
+.watchlist-item-price{
+    margin: 10px 0px;
+    display: inline-block;
+    font-size: 1.6rem;
+    font-weight: 400;
+}
+
+.watchlist-item-date-div{
+    display: flex;
+    gap: 15px;
+    justify-content: space-between;
+}
+
+.watchlist-item-date-div p{
+    font-size: 1.1rem;
+    color: hsla(0, 0%, 10%, .8);
+    margin: 0;
+}
+
+.watchlist-item-date-div strong{
+    color: hsl(0, 0%, 20%);
+    font-weight: 500;
+}
+
+.cart.location-span{
+    margin-top : 15px;
+}
+
+.cart-location-span-text{
+    color: hsla(0, 0%, 10%, .9);
+    font-size: 1rem;
+}
+
+.location-icon-img{
+    width : 20px;
+    height : 20px;
+}
+
+.watchlist-item-img{
+    width : 100%;
+    max-height : 100%;
+    object-fit: cover;
+    object-position: center; 
+    border-radius : 10px;
+}
+
+.message-system-page{
+    background-color: hsl(0, 0%, 0%);
+    color : hsl(0, 0%, 100%);
+    min-height: 100vh;
+    padding: 10px 0px;
+}
+
+.vendor-chat-head{
+    margin : 0 10px;
+    font-weight: 500;
+    font-size: clamp(2rem, 3.5vw, 2.6rem);
+    line-height: 70px;
+    text-align: center;
+}
+
+.message-system.wrapper{
+    height: calc(100vh - 100px);
+    background-color: hsl(0, 0%, 10%);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.message-system-head{
+    display : flex;
+    align-items: center;
+    gap : 12px;
+    padding : 10px 12px;
+    background-color: hsl(0, 0%, 15%);
+    height : 12%; 
+}
+
+.message-profile-img{
+    width : 30px;
+    height : 30px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.message-platform-container{
+    height: 75%;
+    max-height: 75%;
+    overflow-y: auto;
+    /* margin: 10px 0px; */
+    background-color: hsl(0, 0%, 20%);
+    padding: 0px 10px;
+}
+
+.message-platform-container::-webkit-scrollbar{
+    width : 7px;
+    background-color: hsla(0, 0%, 70%, 0.8);
+    border-radius: inherit;
+
+}
+
+.message-platform-container::-webkit-scrollbar-thumb{
+    background-color: hsla(0, 0%, 10%, .6);
+    border-radius: 10px;
+}
+
+.message-system-form{
+    background-color: hsl(0,0%,15%);
+    padding : 5px 12px;
+    height : 13%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+input.message-system-type-input{
+    width: 90%;
+    border-radius: 50px;
+    padding: 5px 10px;
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, .4);
+    outline: none;
+    color: hsl(0,0%,98%);
+    font-size: 1rem;
+}
+
+.empty-watchlist-div{
+    height : 400px;
+    
+}
+
+.empty-watchlist-span{
+    font-size: clamp(2.2rem, 3.5vw, 3.5rem);
+    color: hsl(0, 0%, 10%, .5);
+    text-align: center;
+
+}
+
 /* .experience-card-details-head{
     color: hsla(0, 0%, 10%, .8);
     font-weight: 500;
@@ -2433,14 +2611,35 @@ footer {
     .product-desc-container{
         flex-direction: column;
     }
-    .product-desc-container div.col-1{
+    .product-desc-container div.details-info-wrapper{
         width : 100%;
     }
-    .product-desc-container div.col-lg-5{
+    .product-desc-container div.booking-section-container{
         width : 100%;
     }
     .camera-icon::after{
         transform: translate(-50%, -50%);
+    }
+
+    .watchlist-item{
+        height : auto;
+    }
+
+    .watchlist-item.flex-between{
+        flex-direction: column;
+        gap : 20px
+    }
+    
+    .watchlist-item-img-div{
+        width : 100%;
+    }
+
+    .watchlist-item-img{
+        height : 300px;
+    }
+    
+    .watchlist-item-details-div{
+        width : 100%
     }
 }
 
