@@ -434,7 +434,7 @@ def view_watchlist(request):
         'start_date': item.experience.start_date,
         'end_date': item.experience.end_date,
         'location': item.experience.location,
-        'images':item.experience.images,
+        'images':item.experience.images.url,
     } for item in watchlist]
 
     return JsonResponse({'watchlist': watchlist_data}, status=200)
