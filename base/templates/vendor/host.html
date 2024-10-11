@@ -1,8 +1,8 @@
-    {% extends "base.html" %}
-    {% load static %}
-    {% block context %}
+{% extends "base.html" %}
+{% load static %}
+{% block context %}
     <style>
-        body {
+          body {
             background-color: #f7f7f7;
         }
         .form-container {
@@ -45,106 +45,179 @@
             margin-bottom: 15px;
         }
     </style>
-    <div class="host-page">
-        <div class="form-wrapper">
-            <div class="form-container">
-                <h2 class="form-container-head">Create New Experience</h2>
-                <form class="host-form" method="post" enctype="multipart/form-data">
+    <div class="form-container">
+        <h2 class="text-center">Create a New Experience</h2>
+        <div class="card">
+            <div class="card-body">
+                <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
-
-                    <!-- Title Field -->
-                    <div class="mb-3">
-                        <label for="title" class="form-label">Title</label>
+                    <!-- Title -->
+                    <div class="form-group">
+                        <label for="title">Experience Title</label>
                         <input type="text" class="form-control" id="title" name="title" placeholder="Enter experience title" required>
+                        {% if form.title.errors %}
+                            <div class="text-danger">{{ form.title.errors }}</div>
+                        {% endif %}
                     </div>
 
-                    <!-- Description Field -->
-                    <div class="mb-3">
-                        <label for="description" class="form-label">Description</label>
-                        <textarea class="form-control" id="description" name="description" rows="4" placeholder="Describe the experience" required></textarea>
+                    <!-- Description -->
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" id="description" name="description" rows="4" placeholder="Enter experience description" required></textarea>
+                        {% if form.description.errors %}
+                            <div class="text-danger">{{ form.description.errors }}</div>
+                        {% endif %}
                     </div>
 
-                    <!-- Category Dropdown -->
-                    <div class="mb-3">
-                        <label for="category" class="form-label">Category</label>
-                        <select class="form-select" id="category" name="category" required>
+                    <!-- Category -->
+                    <div class="form-group">
+                        <label for="category">Category</label>
+                        <select class="form-control" id="category" name="category" required>
                             <option value="">Select a category</option>
-                            {% for key, value in categories %}
-                            <option value="{{ key }}">{{ value }}</option>
+                            {% for category in categories %}
+                                <option value="{{ category.0 }}">{{ category.1 }}</option>
                             {% endfor %}
                         </select>
+                        {% if form.category.errors %}
+                            <div class="text-danger">{{ form.category.errors }}</div>
+                        {% endif %}
                     </div>
 
-                    <!-- Location Field -->
-                    <div class="mb-3">
-                        <label for="location" class="form-label">Location</label>
+                    <!-- Location -->
+                    <div class="form-group">
+                        <label for="location">Location</label>
                         <input type="text" class="form-control" id="location" name="location" placeholder="Enter location" required>
+                        {% if form.location.errors %}
+                            <div class="text-danger">{{ form.location.errors }}</div>
+                        {% endif %}
                     </div>
 
-                    <!-- Price Section (Private Group Price, Price per Guest, Discount Price) -->
-                    <div class="mb-3">
-                        <label for="private_group_price" class="form-label">Private Group Price</label>
-                        <input type="number" class="form-control" id="private_group_price" name="private_group_price" step="0.01" placeholder="Enter private group price" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="price_per_guest" class="form-label">Price per Guest</label>
-                        <input type="number" class="form-control" id="price_per_guest" name="price_per_guest" step="0.01" placeholder="Enter price per guest" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="discount_price" class="form-label">Discount Price</label>
-                        <input type="number" class="form-control" id="discount_price" name="discount_price" step="0.01" placeholder="Enter discount price (optional)">
+                    <!-- Price -->
+                    <div class="form-group">
+                        <label for="price">Price</label>
+                        <input type="number" class="form-control" id="price" name="price" placeholder="Enter price" required>
+                        {% if form.price.errors %}
+                            <div class="text-danger">{{ form.price.errors }}</div>
+                        {% endif %}
                     </div>
 
-                    <!-- Available Slots Field -->
-                    <div class="mb-3">
-                        <label for="available_slots" class="form-label">Available Slots</label>
-                        <input type="number" class="form-control" id="available_slots" name="available_slots" placeholder="Enter number of available slots">
+                    <!-- Private Group Price -->
+                    <div class="form-group">
+                        <label for="private_group_price">Private Group Price</label>
+                        <input type="number" class="form-control" id="private_group_price" name="private_group_price" placeholder="Enter private group price" required>
+                        {% if form.private_group_price.errors %}
+                            <div class="text-danger">{{ form.private_group_price.errors }}</div>
+                        {% endif %}
                     </div>
 
-                    <!-- Calendar View for Sessions -->
-                    <div class="mb-3">
-                        <label for="sessions_calendar" class="form-label">Experience Sessions</label>
-                        <input type="date" class="form-control" id="sessions_calendar" name="sessions_calendar" multiple>
+                    <!-- Price Per Guest -->
+                    <div class="form-group">
+                        <label for="price_per_guest">Price Per Guest</label>
+                        <input type="number" class="form-control" id="price_per_guest" name="price_per_guest" placeholder="Enter price per guest" required>
+                        {% if form.price_per_guest.errors %}
+                            <div class="text-danger">{{ form.price_per_guest.errors }}</div>
+                        {% endif %}
                     </div>
 
-                    <!-- Duration Field -->
-                    <div class="mb-3">
-                        <label for="duration" class="form-label">Duration</label>
-                        <input type="text" class="form-control" id="duration" name="duration" placeholder="e.g., 3 hours, 2 days" required>
+                    <!-- Available Slots -->
+                    <div class="form-group">
+                        <label for="available_slots">Available Slots</label>
+                        <input type="number" class="form-control" id="available_slots" name="available_slots" placeholder="Enter available slots" required>
+                        {% if form.available_slots.errors %}
+                            <div class="text-danger">{{ form.available_slots.errors }}</div>
+                        {% endif %}
                     </div>
 
-                    <!-- Images Upload -->
-                    <div class="mb-3">
-                        <label for="images" class="form-label">Images</label>
-                        <input type="file" class="form-control" id="images" name="images" accept="image/*" multiple>
+                    <!-- Start Date -->
+                    <div class="form-group">
+                        <label for="start_date">Start Date</label>
+                        <input type="date" class="form-control" id="start_date" name="start_date" required>
+                        {% if form.start_date.errors %}
+                            <div class="text-danger">{{ form.start_date.errors }}</div>
+                        {% endif %}
                     </div>
 
-                    <!-- Tags Field -->
-                    <div class="mb-3">
-                        <label for="tags" class="form-label">Tags</label>
-                        <input type="text" class="form-control" id="tags" name="tags" placeholder="Enter comma-separated tags">
+                    <!-- End Date -->
+                    <div class="form-group">
+                        <label for="end_date">End Date</label>
+                        <input type="date" class="form-control" id="end_date" name="end_date" required>
+                        {% if form.end_date.errors %}
+                            <div class="text-danger">{{ form.end_date.errors }}</div>
+                        {% endif %}
                     </div>
 
-                    <!-- Requirements Field -->
-                    <div class="mb-3">
-                        <label for="requirements" class="form-label">Requirements</label>
-                        <textarea class="form-control" id="requirements" name="requirements" rows="3" placeholder="Enter any special requirements"></textarea>
+                    <!-- Tags -->
+                    <div class="form-group">
+                        <label for="tags">Tags (comma separated)</label>
+                        <input type="text" class="form-control" id="tags" name="tags" placeholder="Enter tags, separated by commas">
+                        {% if form.tags.errors %}
+                            <div class="text-danger">{{ form.tags.errors }}</div>
+                        {% endif %}
                     </div>
 
-                    <!-- What to Bring Field -->
-                    <div class="mb-3">
-                        <label for="what_to_bring" class="form-label">What to Bring</label>
-                        <textarea class="form-control" id="what_to_bring" name="what_to_bring" rows="3" placeholder="List things to bring"></textarea>
+                    <!-- Duration -->
+                    <div class="form-group">
+                        <label for="duration">Duration</label>
+                        <input type="text" class="form-control" id="duration" name="duration" placeholder="Enter duration" required>
+                        {% if form.duration.errors %}
+                            <div class="text-danger">{{ form.duration.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Requirements -->
+                    <div class="form-group">
+                        <label for="requirements">Requirements</label>
+                        <textarea class="form-control" id="requirements" name="requirements" rows="3" placeholder="Enter any requirements"></textarea>
+                        {% if form.requirements.errors %}
+                            <div class="text-danger">{{ form.requirements.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- What to Bring -->
+                    <div class="form-group">
+                        <label for="what_to_bring">What to Bring</label>
+                        <textarea class="form-control" id="what_to_bring" name="what_to_bring" rows="3" placeholder="Enter what to bring"></textarea>
+                        {% if form.what_to_bring.errors %}
+                            <div class="text-danger">{{ form.what_to_bring.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Minimum Guests -->
+                    <div class="form-group">
+                        <label for="min_guests">Minimum Guests</label>
+                        <input type="number" class="form-control" id="min_guests" name="min_guests" placeholder="Enter minimum guests" required>
+                        {% if form.min_guests.errors %}
+                            <div class="text-danger">{{ form.min_guests.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Maximum Guests -->
+                    <div class="form-group">
+                        <label for="max_guests">Maximum Guests</label>
+                        <input type="number" class="form-control" id="max_guests" name="max_guests" placeholder="Enter maximum guests" required>
+                        {% if form.max_guests.errors %}
+                            <div class="text-danger">{{ form.max_guests.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Experience Images -->
+                    <div class="form-group">
+                        <label for="images">Experience Image</label>
+                        <input type="file" class="form-control" id="images" name="images" accept="image/*" required>
+                        {% if form.images.errors %}
+                            <div class="text-danger">{{ form.images.errors }}</div>
+                        {% endif %}
                     </div>
 
                     <!-- Submit Button -->
-                    <div class="d-grid gap-2">
-                        <button type="submit" class="btn btn-black">Create Experience</button>
-                    </div>
+                    <button type="submit" class="btn btn-black btn-block">Create Experience</button>
                 </form>
             </div>
         </div>
     </div>
-    {% endblock context %}
 
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+{% endblock context %}

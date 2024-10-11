@@ -12,7 +12,7 @@ from django.conf import settings
 
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from base.models import CustomUser
+from base.models import *
 from django.contrib.auth import login
 
 def signup(request):
@@ -131,85 +131,57 @@ from django.contrib.auth.decorators import login_required
 @login_required(login_url='signin')
 def create_experience(request):
     if request.method == 'POST':
-        # Retrieve form data from POST request
+        # Retrieve form data
         title = request.POST.get('title')
         description = request.POST.get('description')
         category = request.POST.get('category')
         location = request.POST.get('location')
         price = request.POST.get('price')
-        private_group_price = request.POST.get('private_group_price')
-        price_per_guest = request.POST.get('price_per_guest')
-        discount_price = request.POST.get('discount_price')
+        private_group_price = request.POST.get('private_group_price')  # New field for private group pricing
+        price_per_guest = request.POST.get('price_per_guest')  # New field for price per guest
         available_slots = request.POST.get('available_slots')
         start_date = request.POST.get('start_date')
         end_date = request.POST.get('end_date')
-        calendar_view = request.POST.get('calendar_view')  # assuming it's passed as JSON string
-        sessions_per_day = request.POST.get('sessions_per_day')
         tags = request.POST.get('tags')
         duration = request.POST.get('duration')
         requirements = request.POST.get('requirements')
         what_to_bring = request.POST.get('what_to_bring')
         images = request.FILES.get('images')
+        min_guests = request.POST.get('min_guests')  # New field for minimum guests
+        max_guests = request.POST.get('max_guests')  # New field for maximum guests
 
-        # Ensure all required fields are filled
-        if not all([title, description, category, location, price, start_date, end_date, duration]):
-            messages.error(request, "Please fill in all required fields.")
-            return redirect('vendor:create_experience')
-
-        # Retrieve the current user's vendor profile and PayPal details
+        # Retrieve the vendor profile and ensure the vendor has a PayPal email
         vendor_profile = get_object_or_404(VendorProfile, user=request.user)
-        vendor_paypal = get_object_or_404(Vendorpaypal, user=request.user)
+        vendor_user = get_object_or_404(Userprofile, user=request.user)
 
-        # Convert price fields to decimal values and handle potential errors
-        try:
-            price = float(price)
-            if private_group_price:
-                private_group_price = float(private_group_price)
-            if price_per_guest:
-                price_per_guest = float(price_per_guest)
-            if discount_price:
-                discount_price = float(discount_price)
-            if price < 0 or (private_group_price and private_group_price < 0) or (price_per_guest and price_per_guest < 0):
-                raise ValueError("Prices cannot be negative.")
-        except ValueError:
-            messages.error(request, "Please enter valid prices.")
-            return redirect('vendor:create_experience')
+        # Check if the user has added their PayPal email
+        vendor_paypal_instance = get_object_or_404(Vendorpaypal, user=request.user)
 
-        try:
-            available_slots = int(available_slots) if available_slots else None
-            sessions_per_day = int(sessions_per_day) if sessions_per_day else 1
-            if available_slots is not None and available_slots < 0:
-                raise ValueError("Available slots cannot be negative.")
-        except ValueError:
-            messages.error(request, "Please enter valid numeric values for available slots and sessions per day.")
-            return redirect('vendor:create_experience')
-
-        # Create a new Experience object
+        # Create the Experience instance
         new_experience = Experience.objects.create(
             title=title,
             description=description,
             category=category,
             location=location,
             price=price,
-            private_group_price=private_group_price,
-            price_per_guest=price_per_guest,
-            discount_price=discount_price,
-            available_slots=available_slots,
+            private_group_price=private_group_price,  # Assign private group price
+            price_per_guest=price_per_guest,  # Assign price per guest
+            available_slots=available_slots, 
             start_date=start_date,
             end_date=end_date,
-            calendar_view=calendar_view,  # assuming calendar_view is JSON
-            sessions_per_day=sessions_per_day,
+            vendor=vendor_profile,
+            paypal=vendor_paypal_instance,  # Assign the Vendorpaypal instance
+            vendor_user=vendor_user,
             tags=tags,
             duration=duration,
             requirements=requirements,
             what_to_bring=what_to_bring,
             images=images,
-            vendor=vendor_profile,
-            paypal=vendor_paypal
+            min_guests=min_guests,  # Assign minimum guests
+            max_guests=max_guests   # Assign maximum guests
         )
 
         # Redirect to a success page or the newly created experience
-        messages.success(request, "Experience created successfully!")
         return redirect("vendor:vendor_list")
 
     else:
@@ -219,6 +191,7 @@ def create_experience(request):
     return render(request, 'vendor/host.html', {
         'categories': categories
     })
+
 
 # views.py
 
