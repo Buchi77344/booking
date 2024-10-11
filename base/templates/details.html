@@ -53,7 +53,7 @@
         }
         .details-card p{
             margin-top: 5px;
-            margin-bottom: 12px;
+            /* margin-bottom: 12px; */
         }
         .booking-section {
             background-color: #f1f1f1;
@@ -148,9 +148,9 @@
             border-radius: 5px;
             margin-top: 5px;
         }
-        .details-info-container{
+        /* .details-info-container{
             margin-top: 20px;
-        }
+        } */
         .details-info-container .details-card p{
             margin-top: 0;
         }
@@ -163,6 +163,9 @@
         .price-text{
             font-size: 2rem;
             margin-top: 0;
+        }
+        .review-container-head{
+            margin-top: 30px;
         }
     </style>
 
@@ -205,12 +208,20 @@
                             <h4>Description</h4>
                             <p>{{ experience.description }}
                             </p>
+                         
+                        </div>
+
+                        <div class="details-card">
                             <h4>What to Bring</h4>
                             <p>{{ experience.what_to_bring|default:"Not specified" }}
                                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum voluptas odit, modi rem explicabo hic quas eius nemo nesciunt aspernatur temporibus, id pariatur ratione nobis, voluptatum sit! Velit amet perspiciatis eum mollitia deleniti nam modi laboriosam provident exercitationem officia aperiam itaque voluptatum totam, quidem neque eligendi ratione necessitatibus voluptate cum saepe, nobis iusto ab. Assumenda a quaerat quidem incidunt repellat?
                             </p>
+                        </div>
+
+                        <div class="details-card">
                             <h4>Special Requirements</h4>
                             <p>{{ experience.requirements|default:"None" }} </p>
+
                         </div>
 
                         <div class="details-info-container mt-5">
@@ -286,7 +297,7 @@
                         </form>
                     </div>
 
-                    <h3><strong>Reviews</strong></h3>
+                    <h3 class = "review-container-head"><strong>Reviews</strong></h3>
                     <div class="review-container">
                         
                     </div>

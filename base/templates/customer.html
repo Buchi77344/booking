@@ -47,7 +47,7 @@
         /* Chatbot Modal */
         .chatbot-modal {
             position: fixed;
-            bottom: 20px;
+            bottom: 80px;
             right: 20px;
             width: 300px;
             border-radius: 10px;
@@ -57,6 +57,7 @@
             flex-direction: column;
             justify-content: space-between;
             height: 400px;
+            z-index : 100;
         }
         .chatbot-header {
             background-color: #000000;
@@ -176,7 +177,7 @@
             <h3 class="section-title">Live Chat Support</h3>
             <div class="live-chat-box">
                 <p>Need help now? Start a live chat with our support team:</p>
-                <button class="btn btn-outline-light" onclick="openChat()">Start Chat</button>
+                <button id = "open-chatbot-modal" class="btn btn-outline-light" onclick="openChat()">Start Chat</button>
             </div>
         </div>
 

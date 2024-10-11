@@ -28,6 +28,12 @@ function revealDropFunc(highlightEl, dropEl){
     })
 }
 
+document.addEventListener("click", function(event){
+    if(event.target.closest("#open-chatbot-modal, .chatbot-modal") == null){
+        document.querySelector(".chatbot-modal").style.display = "none"
+    }
+})
+
 if(document.querySelector(".category-container")){
     dateCategoryHighlight.addEventListener("click", function(){
         dateContentContainer.style.width = `${categoryContainer.clientWidth}px`
