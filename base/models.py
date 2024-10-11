@@ -141,6 +141,8 @@ class ExperienceCategory(models.Model):
         return self.name
 
 # Experience Model (Offered by Vendors)
+from django.db import models
+
 class Experience(models.Model):
     CATEGORY_CHOICES = [
         ('adventure_outdoor', 'Adventure & Outdoor'),
@@ -156,32 +158,49 @@ class Experience(models.Model):
         ('luxury_experiences', 'Luxury Experiences'),
         ('seasonal_holiday', 'Seasonal & Holiday'),
     ]
+    
     title = models.CharField(max_length=255)
     description = models.TextField()
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES)
     location = models.CharField(max_length=255)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-    available_slots = models.IntegerField(blank=True,null=True)
+    
+    # Pricing fields
+    price = models.DecimalField(max_digits=10, decimal_places=2)  # Base price
+    private_group_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)  # Price for private groups
+    price_per_guest = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)  # Price per guest
+    discount_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)  # Discount price (if applicable)
+    
+    available_slots = models.IntegerField(blank=True, null=True)
     start_date = models.DateField()
     end_date = models.DateField()
+    
+    # Calendar and session details
+    calendar_view = models.JSONField(blank=True, null=True)  # To store session details and dates in JSON format
+    sessions_per_day = models.PositiveIntegerField(default=1)  # Number of sessions per day
+    
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    vendor = models.ForeignKey(VendorProfile, on_delete=models.CASCADE, related_name='experiences')
-    vendor_user =  models.ForeignKey(Userprofile,  on_delete=models.CASCADE,null=True,)
-    guest = models.IntegerField(default=0)
     
-    # Additional fields
+    # Relationships
+    vendor = models.ForeignKey('VendorProfile', on_delete=models.CASCADE, related_name='experiences')
+    vendor_user = models.ForeignKey('UserProfile', on_delete=models.CASCADE, null=True)
+    
+    # Guest and additional information
+    guest = models.IntegerField(default=0)
     images = models.ImageField(upload_to='experience_images/', null=True, blank=True)  # Image upload
     tags = models.CharField(max_length=255, blank=True)  # Comma-separated tags for searching/filtering
     rating = models.DecimalField(max_digits=3, decimal_places=2, default=0.0)  # Average rating
     is_featured = models.BooleanField(default=False)  # Flag for featured experiences
     duration = models.CharField(max_length=50)  # Duration of the experience (e.g., "3 hours", "2 days")
     requirements = models.TextField(blank=True)  # Any special requirements (age limits, physical fitness, etc.)
-    what_to_bring = models.TextField(blank=True) 
-    paypal = models.ForeignKey("Vendorpaypal", on_delete=models.CASCADE,null=True,blank=True) # A list of recommended things to bring
+    what_to_bring = models.TextField(blank=True)  # A list of recommended things to bring
+    
+    # Payment information
+    paypal = models.ForeignKey('Vendorpaypal', on_delete=models.CASCADE, null=True, blank=True)
     
     def __str__(self):
         return f"{self.title} by {self.vendor.user.username}"
+
 
 # Booking Model (Users booking an experience from a Vendor)
 class Booking(models.Model):
