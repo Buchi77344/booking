@@ -178,7 +178,7 @@ class Experience(models.Model):
     duration = models.CharField(max_length=50)  # Duration of the experience (e.g., "3 hours", "2 days")
     requirements = models.TextField(blank=True)  # Any special requirements (age limits, physical fitness, etc.)
     what_to_bring = models.TextField(blank=True) 
-    paypal = models.ForeignKey("Vendorpaypal", on_delete=models.CASCADE,null=True) # A list of recommended things to bring
+    paypal = models.ForeignKey("Vendorpaypal", on_delete=models.CASCADE,null=True,blank=True) # A list of recommended things to bring
     
     def __str__(self):
         return f"{self.title} by {self.vendor.user.username}"
@@ -228,6 +228,7 @@ class Vendorpaypal(models.Model):
     
 class Notification(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    title = models.CharField(null=True, max_length=50)
     message =models.CharField( max_length=50,null=True)
     created_at = models.DateTimeField(auto_now_add=True,null=True) 
 

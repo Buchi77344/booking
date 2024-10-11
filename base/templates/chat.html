@@ -99,37 +99,21 @@
 </head>
 <body>
 
-<div class="message-system-page">
-    <h1 class="vendor-chat-head">Vendor Chat</h1>
-    <div class="message-system wrapper">
-        <div class="message-system-head">
-            <div class="message-profile-img-div">
-                <img src="{% static 'img/pic-2.jpg' %}" alt="Experience Host Profile Pic" class="message-profile-img">
-            </div>
-
-            <div class="message-profile-details-div">
-                <span class="message-vendor-name">{{request.user.username}}</span>
-                <span id = "typing-indicator" class="typing-indicator message-ty-status">{{request.user.username}} is typing...</span>
-            </div>
-        </div>
-        <div id="chatContainer" class="message-platform-container">
-            {% for message in messages %}
-                {% if message.user == user %}
-                    <div class="message send">
-                {% else %}
-                    <div class="message receive">
-                {% endif %}
-                        <p>{{ message.message }}</p>
-                        <strong>{{ message.user.username }}</strong>
-                    </div>
-            {% endfor %}
-            <!-- <div id="typingIndicator" class="typing-indicator">{{request.user.username}} is typing...</div> -->
-        </div>
-        <form id="message-form" class="message-system-form">
-            {% csrf_token %}
-            <input class= "message-system-type-input" type="text" id="msg" placeholder="Type your message..." required autocomplete="off">
-            <input class = "message-system-submit-btn" type="submit" value="Send">
-        </form>
+<div class="container-fluid d-flex flex-column">
+    <h1 class="text-center">Vendor Chat</h1>
+    
+    <div id="chatContainer" class="d-flex flex-column">
+        {% for message in messages %}
+            {% if message.user == user %}
+                <div class="message send">
+            {% else %}
+                <div class="message receive">
+            {% endif %}
+                    <p>{{ message.message }}</p>
+                    <strong>{{ message.user.username }}</strong>
+                </div>
+        {% endfor %}
+        <div id="typingIndicator" class="typing-indicator"></div>
     </div>
 
 
@@ -166,7 +150,7 @@
             appendMessage(data.message, data.sender);
             typingIndicator.style.display = 'none';
         } else if (data.type === "typing") {
-            showTypingIndicator();
+            showTypingIndicator(data.sender);
         }
     });
 
@@ -205,8 +189,9 @@
         }));
     });
 
-    // Function to show the typing indicator
-    function showTypingIndicator() {
+    // Function to show the typing indicator with the sender's name
+    function showTypingIndicator(sender) {
+        typingIndicator.textContent = `${sender} is typing...`;
         typingIndicator.style.display = 'block';
         clearTimeout(typingTimeout);
         typingTimeout = setTimeout(() => {

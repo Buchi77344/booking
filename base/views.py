@@ -434,6 +434,7 @@ def view_watchlist(request):
         'start_date': item.experience.start_date,
         'end_date': item.experience.end_date,
         'location': item.experience.location,
+        'images':item.experience.images,
     } for item in watchlist]
 
     return JsonResponse({'watchlist': watchlist_data}, status=200)
@@ -536,24 +537,29 @@ def create_paypal_order(request, experience_id):
 
     if payment.create():
         # Save the transaction temporarily in the database (pending success)
-        Transaction.objects.create(
+        tran ,created =  Transaction.objects.get_or_create(
             user=request.user,
             experience=experience,
             order_id=payment.id,
             payment_id =uuid.uuid4,
-            amount=amount
+            amount=amount,
+            
         )
+        tran.save()
 
         # Redirect the user to PayPal to approve the payment
         for link in payment.links:
             if link.rel == "approval_url":
-                return redirect(link.href)
+                tran.is_paid =True
+                tran.save()
+                Notification.objects.create(title='Payment Successful', message=f'Payment of ${amount} for your booking "{experience.title}" has been successfully processed. Thank you!',user=request.user)
+                return redirect('history')
     else:
         return render(request, 'payment_error.html', {"error": payment.error})
 
 def payment_cancel(request):
     return render(request, 'payment_cancel.html')
-
+ 
 
 
 from django.shortcuts import render, get_object_or_404
@@ -631,7 +637,27 @@ def update_status(request):
     return JsonResponse({'error': 'Invalid request method'}, status=405)
 
 
+def history(request):
+    transaction =Transaction.objects.filter(user=request.user, is_paid =True)
+    context = {
+        'transaction':transaction
+    }
+    return render (request, 'history.html',context)
 
+def customer(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email =request.POST.get('email')
+        message =request.POST.get('message')
+                
+            # Send email
+        subject = f"Contact Inquiry from {name} - {settings.SITE_NAME}"
+        message_body = f"You have received a new message from {name} ({email}):\n\n{message}"
+        send_mail(subject, message_body, settings.EMAIL_HOST_USER, [settings.ADMIN_EMAIL])
 
+        messages.success(request, 'your message has been sent succesfully ')
+        return redirect('customer')
+    return render (request, 'customer.html')
 
-
+def notification(request):
+    return render(request, 'notification.html')

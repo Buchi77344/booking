@@ -184,7 +184,8 @@ EMAIL_PORT = 587  # Use 465 if you're using SSL
 EMAIL_USE_TLS = True  # Set to True for TLS
 EMAIL_HOST_USER = 'experiencehotspot@zohomail.com'  # Your Zoho email address
 EMAIL_HOST_PASSWORD = 'BsBUiZ6A0LrW'
-
+DEFAULT_FROM_EMAIL = 'experiencehotspot@zohomail.com'
+EMAIL_USE_TLS = True 
 
 ADMIN_EMAIL = 'experiencehotspot@gmail.com'
 
@@ -264,6 +265,6 @@ SOCIALACCOUNT_ADAPTER = 'allauth.socialaccount.adapter.DefaultSocialAccountAdapt
 
 
 # settings.py
-PAYPAL_CLIENT_ID = 'AYZiSvqeeleSoGAc9VlL0MwArUKV-4kSqR-EAQPaqV8aQtVqLgZ2lvFFC2YgJSKzbYwtx8RYk0EfvMm9'
-PAYPAL_CLIENT_SECRET = 'ECQ4_9AVQsM78XyB_liUcesFXghJh6m4citwi_7yWsO5SEAwO-jnnKvZxLIRP72i_aBVhbZ_GV-J4ZCW'
+PAYPAL_CLIENT_ID = 'ARWkH3oFTYT3O2FtN5lns1cAYishkmadhnv6PD311QHf70fHME8Ct4nGhYseFwCc91HLRLXH8qfl95Po'
+PAYPAL_CLIENT_SECRET = 'EJiUT9EMCwW5aj7xRToCLN3MobohQREc-AYOEr8xcHxFl4YYgresqTlKE4exapJZ_iMsJFf_DzxYORC8'
 PAYPAL_ENVIRONMENT = 'sandbox'  

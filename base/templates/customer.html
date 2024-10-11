@@ -1,190 +1,264 @@
+{% extends "base.html" %}
+{% load static %}
+{% block context %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up - Experience Hotspot</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Customer Support</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            background: url('https://source.unsplash.com/1600x900/?travel,adventure') no-repeat center center/cover;
-            color: white;
-            font-family: 'Arial', sans-serif;
-            min-height: 100vh;
-            position: relative;
-            overflow: hidden;
+            background-color: #ffffff;
+            color: #000000;
         }
-        /* Bubble animation */
-        .bubble {
-            position: absolute;
-            bottom: -50px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            animation: bubble 15s infinite;
+        .container {
+            margin-top: 50px;
         }
-        @keyframes bubble {
-            0% {
-                transform: translateY(0) scale(0.8);
-            }
-            100% {
-                transform: translateY(-1000px) scale(1.2);
-                opacity: 0;
-            }
+        .support-section {
+            margin-bottom: 40px;
         }
-        /* More Bubbles with Random Sizes and Durations */
-        .bubble:nth-child(1) { left: 5%; width: 40px; height: 40px; animation-duration: 18s; }
-        .bubble:nth-child(2) { left: 15%; width: 60px; height: 60px; animation-duration: 22s; }
-        .bubble:nth-child(3) { left: 25%; width: 30px; height: 30px; animation-duration: 12s; }
-        .bubble:nth-child(4) { left: 35%; width: 50px; height: 50px; animation-duration: 20s; }
-        .bubble:nth-child(5) { left: 45%; width: 70px; height: 70px; animation-duration: 25s; }
-        .bubble:nth-child(6) { left: 55%; width: 20px; height: 20px; animation-duration: 15s; }
-        .bubble:nth-child(7) { left: 65%; width: 45px; height: 45px; animation-duration: 28s; }
-        .bubble:nth-child(8) { left: 75%; width: 55px; height: 55px; animation-duration: 24s; }
-        .bubble:nth-child(9) { left: 85%; width: 35px; height: 35px; animation-duration: 18s; }
-        .bubble:nth-child(10) { left: 95%; width: 65px; height: 65px; animation-duration: 30s; }
-        .overlay {
-            background: rgb(245 245 245 / 60%);
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
+        .section-title {
+            font-size: 24px;
+            margin-bottom: 20px;
         }
-        .signup-container {
-            margin-top: 100px;
-            padding: 50px;
-            background: rgba(0, 0, 0, 0.7);
-            border-radius: 20px;
-            animation: fadeIn 2s;
-            max-width: 900px;
-            margin-left: auto;
-            margin-right: auto;
+        .contact-form .form-control {
+            margin-bottom: 15px;
         }
-        h1 {
-            font-weight: bold;
-            margin-bottom: 30px;
+        .btn-black {
+            background-color: #000000;
+            color: #ffffff;
         }
-        .signup-option {
-            border: none;
-            padding: 30px;
-            border-radius: 15px;
-            background: rgba(255, 255, 255, 0.1);
-            transition: transform 0.5s, background-color 0.3s;
-            color: white;
-            position: relative;
+        .faq .card-header {
+            background-color: #000000;
+            color: #ffffff;
         }
-        .signup-option:hover {
-            background-color: rgba(255, 255, 255, 0.3);
-            transform: scale(1.05);
+        .faq .card-body {
+            background-color: #f8f9fa;
         }
-        .btn-custom {
-            background: linear-gradient(45deg, #ffcc00, #ff6600);
-            border: none;
-            padding: 12px 25px;
-            border-radius: 50px;
-            font-size: 16px;
-            color: white;
-            transition: background 0.3s, transform 0.3s;
+        .live-chat-box {
+            background-color: #000000;
+            color: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
         }
-        .btn-custom:hover {
-            background: linear-gradient(45deg, #ff6600, #ffcc00);
-            transform: scale(1.1);
-        }
-        .signup-link {
-            color: #ffcc00;
-            text-decoration: none;
-            font-size: 18px;
-        }
-        .signup-link:hover {
-            text-decoration: underline;
-        }
-        .vendor-page {
+
+        /* Chatbot Modal */
+        .chatbot-modal {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 300px;
+            border-radius: 10px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 400px;
+            z-index : 100;
+        }
+        .chatbot-header {
+            background-color: #000000;
+            color: #ffffff;
+            padding: 10px;
             text-align: center;
-            animation: fadeInUp 1.5s;
+            border-radius: 10px 10px 0 0;
         }
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .signup-container {
-                padding: 30px;
-                margin-top: 50px;
-            }
-            .signup-option {
-                padding: 20px;
-            }
-            h1 {
-                font-size: 24px;
-            }
+        .chatbot-body {
+            padding: 10px;
+            overflow-y: auto;
+            flex: 1;
         }
-        /* Animations */
-        @keyframes fadeIn {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
+        .chatbot-footer {
+            display: flex;
+            padding: 10px;
         }
-        @keyframes fadeInUp {
-            0% { opacity: 0; transform: translateY(30px); }
-            100% { opacity: 1; transform: translateY(0); }
+        .chatbot-footer input {
+            flex: 1;
+            margin-right: 10px;
+        }
+        .message {
+            margin-bottom: 10px;
+        }
+        .message.user-message {
+            text-align: right;
+            color: #0000ff;
+        }
+        .message.bot-message {
+            text-align: left;
+            color: #008000;
         }
     </style>
 </head>
 <body>
-    <div class="overlay"></div>
+    <div class="container">
+        <h2 class="text-center mb-5">Customer Support</h2>
+        {% if messages %}
+        <div class="mb-3">
+            {% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-info{% endif %} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+            {% endif %}
+        <!-- Contact Support Section -->
+        <div class="support-section">
+            <h3 class="section-title">Contact Support</h3>
+            <p>If you have any issues or need assistance, feel free to contact our support team by filling out the form below:</p>
+            <form class="contact-form" method='post' >
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="email" name="email" class="form-control" placeholder="Your Email" required>
+                    </div>
+                </div>
+                <textarea class="form-control" name="message" rows="5" placeholder="Your Message" required></textarea>
+                <button type="submit" class="btn btn-black">Submit</button>
+            </form>
+        </div>
 
-    <!-- Bubble Animation -->
-    <div class="bubble"></div>
-    <div class="bubble"></div>
-    <div class="bubble"></div>
-    <div class="bubble"></div>
-    <div class="bubble"></div>
-    <div class="bubble"></div>
-    <div class="bubble"></div>
-    <div class="bubble"></div>
-    <div class="bubble"></div>
-    <div class="bubble"></div>
-
-    <div class="container signup-container text-center text-white">
-        <h1>Choose Your Role</h1>
-        <div class="row mt-5">
-            <!-- User Signup Option -->
-            <div class="col-md-6 mb-4">
-                <div class="signup-option">
-                    <h2>Sign Up as a User</h2>
-                    <p>Explore the best experiences and adventures around the world.</p>
-                    <a href="user-signup.html" class="btn btn-custom mt-3">Sign Up as User</a>
+        <!-- FAQ Section -->
+        <div class="support-section">
+            <h3 class="section-title">Frequently Asked Questions (FAQ)</h3>
+            <div class="accordion faq" id="faqAccordion">
+                <div class="card">
+                    <div class="card-header" id="faqOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                How do I book an experience?
+                            </button>
+                        </h2>
+                    </div>
+                    <div id="collapseOne" class="collapse show" aria-labelledby="faqOne" data-bs-parent="#faqAccordion">
+                        <div class="card-body">
+                            To book an experience, simply browse our website, select your preferred experience, and follow the booking instructions on the page.
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="faqTwo">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                What payment methods are accepted?
+                            </button>
+                        </h2>
+                    </div>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="faqTwo" data-bs-parent="#faqAccordion">
+                        <div class="card-body">
+                            We accept credit/debit cards, PayPal, and other local payment options.
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="faqThree">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                Can I cancel or reschedule my booking?
+                            </button>
+                        </h2>
+                    </div>
+                    <div id="collapseThree" class="collapse" aria-labelledby="faqThree" data-bs-parent="#faqAccordion">
+                        <div class="card-body">
+                            Yes, you can cancel or reschedule your booking up to 24 hours before the experience date. Refer to our cancellation policy for more details.
+                        </div>
+                    </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Vendor Signup Option -->
-            <div class="col-md-6 mb-4">
-                <div class="signup-option">
-                    <h2>Sign Up as a Vendor</h2>
-                    <p>Share your unique experiences with travelers globally.</p>
-                    <button class="btn btn-custom mt-3">Sign Up as Vendor</button>
-                </div>
+        <!-- Live Chat Section -->
+        <div class="support-section">
+            <h3 class="section-title">Live Chat Support</h3>
+            <div class="live-chat-box">
+                <p>Need help now? Start a live chat with our support team:</p>
+                <button id = "open-chatbot-modal" class="btn btn-outline-light" onclick="openChat()">Start Chat</button>
+            </div>
+        </div>
+
+        <!-- Chatbot Modal -->
+        <div class="chatbot-modal" id="chatbotModal">
+            <div class="chatbot-header">
+                Chat with Us
+            </div>
+            <div class="chatbot-body" id="chatbotBody">
+                <div class="message bot-message">Hi! How can I assist you today?</div>
+            </div>
+            <div class="chatbot-footer">
+                <input type="text" id="userInput" placeholder="Type your message..." class="form-control">
+                <button class="btn btn-black" onclick="sendMessage()">Send</button>
             </div>
         </div>
     </div>
 
-    <!-- Vendor Page (with link) -->
-    <div id="vendor-page" class="vendor-page">
-        <h1>Vendor Signup</h1>
-        <p class="mt-4">For vendors, <a href="https://vendor-portal.com" class="signup-link">click here to proceed</a>.</p>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        document.querySelectorAll('.btn-custom').forEach(button => {
-            button.addEventListener('click', function (e) {
-                e.preventDefault();
-                if (this.innerText.includes('Vendor')) {
-                    document.querySelector('.signup-container').style.display = 'none';
-                    document.querySelector('#vendor-page').style.display = 'block';
-                } else {
-                    window.location.href = 'user-signup.html';
-                }
-            });
-        });
+        // Open the chatbot modal
+        function openChat() {
+            document.getElementById('chatbotModal').style.display = 'flex';
+        }
+
+        // Send message and receive bot response
+        function sendMessage() {
+            const userInput = document.getElementById('userInput').value;
+            const chatBody = document.getElementById('chatbotBody');
+
+            // Display user's message
+            if (userInput.trim() !== "") {
+                const userMessage = document.createElement('div');
+                userMessage.classList.add('message', 'user-message');
+                userMessage.textContent = userInput;
+                chatBody.appendChild(userMessage);
+
+                // Clear input field
+                document.getElementById('userInput').value = "";
+
+                // Scroll chat body to the bottom
+                chatBody.scrollTop = chatBody.scrollHeight;
+
+                // Bot response logic
+                setTimeout(() => {
+                    let botMessageText;
+                    
+                    if (userInput.toLowerCase().includes('book')) {
+                        botMessageText = "You can book an experience by browsing our website and following the instructions on the booking page.";
+                    } else if (userInput.toLowerCase().includes('payment')) {
+                        botMessageText = "We accept multiple payment methods, including credit cards, PayPal, and local options.";
+                    } else if (userInput.toLowerCase().includes('cancel')) {
+                        botMessageText = "You can cancel or reschedule your booking up to 24 hours before the experience date.";
+                    } else if (userInput.toLowerCase().includes('ok')) {
+                        botMessageText = "Great! If you have any more questions, feel free to ask.";
+                    } else if (userInput.toLowerCase().includes('availability')) {
+                        botMessageText = "Please select your preferred date on the experience page to check availability.";
+                    } else if (userInput.toLowerCase().includes('refund')) {
+                        botMessageText = "Refunds are processed within 5-7 business days after cancellation, based on our policy.";
+                    } else if (userInput.toLowerCase().includes('hello') || userInput.toLowerCase().includes('hi')) {
+                        botMessageText = "Hello! How can I assist you with your booking today?";
+                    } else if (userInput.toLowerCase().includes('thank')) {
+                        botMessageText = "You're welcome! If you need further assistance, feel free to ask.";
+                    } else {
+                        botMessageText = "I'm sorry, I didn't understand that. Can you please rephrase?";
+                    }
+
+                    // Display bot's message
+                    const botMessage = document.createElement('div');
+                    botMessage.classList.add('message', 'bot-message');
+                    botMessage.textContent = botMessageText;
+                    chatBody.appendChild(botMessage);
+
+                    // Scroll chat body to the bottom
+                    chatBody.scrollTop = chatBody.scrollHeight;
+                }, 1000);
+            }
+        }
     </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
+{% endblock context %}

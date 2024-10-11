@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 from .views import chat_view
+from django.contrib.auth import views as auth_views
 urlpatterns = [
     path('',views.index,name="index"),
     path('signup',views.signup,name="signup"),
@@ -17,6 +18,9 @@ urlpatterns = [
     path('contact',views.contact,name="contact"),
     path('about',views.about,name="about"),
     path('faq',views.faq,name="faq"),
+    path('history',views.history,name="history"),
+    path('customer',views.customer,name="customer"),
+    path('notification',views.notification,name="notification"),
     path('add-to-watchlist/<int:experience_id>/', views.add_to_watchlist, name='add_to_watchlist'),
     path('remove-from-watchlist/<int:experience_id>/', views.remove_from_watchlist, name='remove_from_watchlist'),
     path('view-watchlist/', views.view_watchlist, name='view_watchlist'),
@@ -27,6 +31,18 @@ urlpatterns = [
     path('payment/cancel/', views.payment_cancel, name='payment_cancel'),
     path('chat/<int:experience_id>/', chat_view, name='chat'),
     path('update-status/', views.update_status, name='update_status'),
+    path('reset_password/', 
+         auth_views.PasswordResetView.as_view(template_name="registration/password_reset.html"), 
+         name="reset_password"),
+    path('reset_password_sent/', 
+         auth_views.PasswordResetDoneView.as_view(template_name="registration/password_reset_sent.html"), 
+         name="password_reset_done"),
+    path('reset/<uidb64>/<token>/', 
+         auth_views.PasswordResetConfirmView.as_view(template_name="registration/password_reset_form.html"), 
+         name="password_reset_confirm"),
+    path('reset_password_complete/', 
+         auth_views.PasswordResetCompleteView.as_view(template_name="registration/password_reset_done.html"), 
+         name="password_reset_complete"),
     
 
     

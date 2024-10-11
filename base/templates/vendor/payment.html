@@ -6,116 +6,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Payment Methods</title>
+    <title>PayPal Email Entry</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #f7f7f7;
-            /* padding: 20px; */
+            background-color: #f8f9fa; /* Light background for contrast */
         }
-        .container {
-            background-color: white;
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        .form-container {
+            background-color: #ffffff; /* White background for the form */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+            padding: 30px; /* Padding inside the form */
         }
-        h1 {
-            color: #333;
-            margin-bottom: 30px;
+        h2 {
+            color: #343a40; /* Dark color for headings */
         }
-        .btn-black {
-            background-color: black;
-            color: white;
-            border-radius: 5px;
+        .btn-dark {
+            background-color: #343a40; /* Custom dark button color */
+            border-color: #343a40; /* Ensure border matches the button */
         }
-        .btn-black:hover {
-            background-color: #333;
-        }
-        .payment-card {
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 20px;
-            transition: box-shadow 0.3s;
-        }
-        .payment-card:hover {
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        .btn-dark:hover {
+            background-color: #23272b; /* Darker shade on hover */
+            border-color: #1d2124; /* Darker border on hover */
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>Manage Payment Methods</h1>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="form-container">
+                <h2 class="text-center mb-4">Enter Your PayPal Email</h2>
+                
+                <!-- Alert Messages -->
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                
+                <!-- PayPal Email Form -->
+                <form method="POST" > <!-- Update action URL as needed -->
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        <label for="paypal_email" class="form-label">PayPal Email</label>
+                        <input type="email" class="form-control" id="paypal_email" name="paypal_email" placeholder="example@paypal.com" required>
+                    </div>
 
-    <div class="mb-4">
-        <h5>Your Payment Methods</h5>
-        <div class="payment-card">
-            <h6 class = "experience-card-head">Credit Card</h6>
-            <p>Card Number: **** **** **** 1234</p>
-            <p>Expiration Date: 12/25</p>
-            <div class="d-flex justify-content-end">
-                <button class="btn btn-black me-2">Edit</button>
-                <button class="btn btn-danger">Remove</button>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-dark">Submit</button>
+                    </div>
+                </form>
             </div>
         </div>
-
-        <div class="payment-card">
-            <h6>PayPal</h6>
-            <p>Email: example@example.com</p>
-            <div class="d-flex justify-content-end">
-                <button class="btn btn-black me-2">Edit</button>
-                <button class="btn btn-danger">Remove</button>
-            </div>
-        </div>
-
-        <!-- Add more payment methods as needed -->
-    </div>
-
-    <div class="mb-4">
-        <h5>Add New Payment Method</h5>
-        <form method="post">
-            {% csrf_token %}
-            <div class="mb-3">
-                <label for="paymentType" class="form-label">Payment Type</label>
-                <select id="paymentType" class="form-select">
-                    <option selected>Select Payment Type</option>
-                    <option value="credit_card">Credit Card</option>
-                    <option value="paypal">PayPal</option>
-                    <option value="bank_transfer">Bank Transfer</option>
-                </select>
-            </div>
-            <div class="mb-3" id="cardDetails" style="display:none;">
-                <label for="cardNumber" class="form-label">Card Number</label>
-                <input type="text" class="form-control" id="cardNumber" placeholder="**** **** **** ****" />
-                <label for="expirationDate" class="form-label">Expiration Date</label>
-                <input type="text" class="form-control" id="expirationDate" placeholder="MM/YY" />
-            </div>
-            <div class="mb-3" id="paypalDetails" style="display:none;">
-                <label for="paypalEmail" class="form-label">PayPal Email</label>
-                <input type="email" name="paypal_email" class="form-control" id="paypalEmail" placeholder="example@example.com" />
-            </div>
-            <button type="submit" class="btn btn-black">Add Payment Method</button>
-        </form>
     </div>
 </div>
 
+<!-- Bootstrap JS (Optional) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    // Show relevant input fields based on selected payment type
-    document.getElementById('paymentType').addEventListener('change', function() {
-        const cardDetails = document.getElementById('cardDetails');
-        const paypalDetails = document.getElementById('paypalDetails');
-        
-        cardDetails.style.display = 'none';
-        paypalDetails.style.display = 'none';
-        
-        if (this.value === 'credit_card') {
-            cardDetails.style.display = 'block';
-        } else if (this.value === 'paypal') {
-            paypalDetails.style.display = 'block';
-        }
-    });
-</script>
 </body>
 </html>
+
 {% endblock context %}
