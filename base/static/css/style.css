@@ -2558,6 +2558,10 @@ input.message-system-type-input{
         display: flex;
     }
 
+    .fixed-nav-container{
+        display: flex;
+    }
+
     .profile-container{
         display: none;
     }
@@ -2608,10 +2612,6 @@ input.message-system-type-input{
     .nav{
         padding : 10px 30px;
     }
-
-    .fixed-nav-container{
-        display: flex;
-    }
     .product-desc-container{
         flex-direction: column;
     }
@@ -2644,6 +2644,9 @@ input.message-system-type-input{
     
     .watchlist-item-details-div{
         width : 100%
+    }
+    .comment-system{
+        margin-top: 30px;
     }
 }
 
