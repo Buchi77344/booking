@@ -1772,6 +1772,20 @@ input.accord-search-val{
     height: 15px;
 }
 
+.experience-details_profile-img{
+    width : 50px;
+    height : 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.details-ratinginfo-wrapper{
+    padding : 20px 0px;
+    border-top : 1px solid rgba(0, 0, 0, 0.2);
+    border-bottom : 1px solid rgba(0, 0, 0, 0.2);
+    margin-top: 20px;
+}
+
 .dashboard-page{
     padding : 20px 0px;
 }
@@ -1781,6 +1795,38 @@ input.accord-search-val{
     font-size: 2.3rem;
     margin: 0px 0px 10px;
 }
+
+.page-sub-head{
+    font-weight: 500;
+    font-size: 1.8rem;
+    margin: 0px;
+    line-height: 1.3;
+}
+
+.page-mini-head{
+    font-weight: 500;
+    font-size: 1.4rem;
+    margin: 0px;
+    line-height: 1.3;
+}
+
+.page-mini-h5-head{
+    font-weight: 500;
+    font-size: 1.2rem;
+    margin: 0px;
+    line-height: 1.3;
+}
+
+.mac-light-text{
+    color : hsl(0, 0%, 10%, .8);
+    margin : 0;
+}
+
+.mac-lighter-text{
+    color : hsl(0, 0%, 10%, .6);
+    margin : 0;
+}
+
 
 .experience-card{
     border: 1px solid hsla(0, 0%, 10%, .2);
