@@ -1830,12 +1830,13 @@ input.accord-search-val{
 
 .ern-table th{
     text-align: left;
+    background-color: hsl(0, 0%, 15%);
 }
 
 .ern-table th,td{
     border: 1px solid hsla(0, 0%, 10%, .3);
     padding : 10px 12px;
-    font-size : clamp(.75rem, 2.5vw, 1.1rem)
+    font-size : clamp(.7rem, 3.5vw, 1.1rem)
 }
 
 .ern-table thead tr{
@@ -2656,6 +2657,10 @@ input.message-system-type-input{
     }
     .comment-system{
         margin-top: 30px;
+    }
+
+    .ern-table{
+        width : 90%;
     }
 }
 
