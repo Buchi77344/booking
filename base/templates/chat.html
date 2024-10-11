@@ -122,8 +122,8 @@
 
 <script>
     const websocketProtocol = window.location.protocol === "https:" ? "wss" : "ws";
-    const experienceId = {{ experience.id }};
-    const vendorId = {{ experience.vendor.id }};
+    const experienceId = "{{ experience.id }}";
+    const vendorId = "{{ experience.vendor.id }}";
     const roomName = `chat_${experienceId}`;
     const wsEndpoint = `${websocketProtocol}://${window.location.host}/ws/chat/${roomName}/${vendorId}/`;
     const socket = new WebSocket(wsEndpoint);
