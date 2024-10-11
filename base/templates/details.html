@@ -38,10 +38,11 @@
             max-height: 400px;
             object-fit: cover;
             width: 100%;
+            border-radius: 10px;
         }
         .details-card {
             /* background-color: white; */
-            border-radius: 10px;
+            /* border-radius: 10px; */
             padding: 0px 20px 20px 0px;
             /* border: 1px solid hsla(0, 0%, 10%, .3); */
             /* box-shadow: 0px 0px 10px rgba(0,0,0,0.1); */
@@ -204,11 +205,13 @@
                 <!-- Description and Details -->
                 <div class="product-desc-container mt-5">
                     <div class="details-info-wrapper">
-                        <div class="details-card">
-                            <h4>Description</h4>
-                            <p>{{ experience.description }}
-                            </p>
-                         
+                        <div class="experience-details_profile details-card">
+                            <div class="experience-details_profile-text">
+                                <h4>Experience hosted by Jd</h4>
+                                <p>3 hours . Hosted in English</p>
+                            </div>
+
+                            <img src="{% static 'img/pic' %}" alt="" class="experience-details_profile-img">
                         </div>
 
                         <div class="details-card">

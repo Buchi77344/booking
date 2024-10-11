@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Booking History</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> -->
     <style>
         body {
             background-color: #ffffff;
@@ -28,33 +28,51 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2 class="text-center mb-4">Booking History</h2>
-        <table class="ern-table table-bordered">
-            <thead class="table-light">
-                <tr>
-                    <th scope="col">Experience Title</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Earnings</th>
-                    <th scope="col">Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for transactions in transactions %}
-                <tr>
-                    <td>{{transactions.experience.title}}</td>
-                    <td>{{transactions.payment_date}}</td>
-                    <td>${{transactions.amount}}</td>
-                    <td>Completed</td>
-                </tr>
-              {% endfor %}
-                <!-- Add more rows as needed -->
-            </tbody>
-        </table>
+    <div class="history-page">
+        <div class="wrapper">
+            <h2 class="history-head-text page-head">Booking History</h2>
+            <table class="ern-table table-bordered">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col">Experience Title</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Earnings</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% comment %}
+                    {% for transactions in transactions %}
+                    <tr>
+                        <td>{{transactions.experience.title}}</td>
+                        <td>{{transactions.payment_date}}</td>
+                        <td>${{transactions.amount}}</td>
+                        <td>Completed</td>
+                    </tr>
+                  {% endfor %}
+                  {% endcomment %}
+
+                    <tr>
+                        <td>Booking in Abuja</td>
+                        <td>19/04/2025</td>
+                        <td>$2440</td>
+                        <td>Completed</td>
+                    </tr>
+
+                    <tr>
+                        <td>Booking in Abuja</td>
+                        <td>19/04/2025</td>
+                        <td>$2440</td>
+                        <td>Completed</td>
+                    </tr>
+                    <!-- Add more rows as needed -->
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
 
-{% endblock context %}
+ {% endblock context %}

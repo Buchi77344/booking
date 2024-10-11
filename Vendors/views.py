@@ -243,6 +243,8 @@ def dashboard(request):
     }
     return render (request, 'vendor/dashboard.html',context)
 from django.db.models import *
+
+@login_required(login_url='signin')
 def earn(request):
     # Assuming the logged-in user is a CustomUser with a related VendorProfile
     user = request.user

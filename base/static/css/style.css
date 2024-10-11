@@ -231,7 +231,8 @@ a.logo-container{
     top : 70px;
     right : 0;
     min-width: 250px;
-    height: calc(100vh - 130px);
+    max-height: calc(100dvh - 130px);
+    height: calc(100dvh - 130px);
     padding : 0px 0px 20px;
     background-color: hsla(0, 0%, 98%, 0.8);
     backdrop-filter: blur(10px);
@@ -1830,13 +1831,14 @@ input.accord-search-val{
 
 .ern-table th{
     text-align: left;
-    background-color: hsl(0, 0%, 15%);
+    background-color: hsl(0, 0%, 35%);
+    color : hsl(0,0%,96%);
 }
 
 .ern-table th,td{
     border: 1px solid hsla(0, 0%, 10%, .3);
     padding : 10px 12px;
-    font-size : clamp(.7rem, 3.5vw, 1.1rem)
+    font-size : clamp(.7rem, 2.5vw, 1.1rem)
 }
 
 .ern-table thead tr{
@@ -2529,6 +2531,10 @@ input.message-system-type-input{
 
 }
 
+.history-page{
+    padding: 20px 0px;
+}
+
 /* .experience-card-details-head{
     color: hsla(0, 0%, 10%, .8);
     font-weight: 500;
@@ -2619,7 +2625,7 @@ input.message-system-type-input{
 }
 
 @media(max-width : 950px){
-    .nav{
+    nav div.nav{
         padding : 10px 30px;
     }
     .product-desc-container{
@@ -2715,7 +2721,7 @@ input.message-system-type-input{
         height: 35px
     }
 
-    .nav{
+    nav div.nav{
         padding : 10px 15px;
     }
 
