@@ -424,7 +424,7 @@ def remove_from_watchlist(request, experience_id):
 
         return JsonResponse({'message': 'Experience removed from watchlist'}, status=200)
     
-@login_required(login_url='signinsignin')
+@login_required(login_url='signin')
 def view_watchlist(request):
     watchlist = Watchlist.objects.filter(user=request.user)
     watchlist_data = [{
@@ -636,7 +636,7 @@ def update_status(request):
     # Invalid request method 
     return JsonResponse({'error': 'Invalid request method'}, status=405)
 
-
+@login_required(login_url='signin')
 def history(request):
     transaction =Transaction.objects.filter(user=request.user, is_paid =True)
     context = {
@@ -658,6 +658,6 @@ def customer(request):
         messages.success(request, 'your message has been sent succesfully ')
         return redirect('customer')
     return render (request, 'customer.html')
-
+@login_required(login_url='signin')
 def notification(request):
     return render(request, 'notification.html')
