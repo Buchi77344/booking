@@ -144,7 +144,6 @@ class ExperienceCategory(models.Model):
 from django.db import models
 
 from django.db import models
-
 class Experience(models.Model):
     CATEGORY_CHOICES = [
         ('adventure_outdoor', 'Adventure & Outdoor'),
@@ -161,6 +160,7 @@ class Experience(models.Model):
         ('seasonal_holiday', 'Seasonal & Holiday'),
     ]
 
+    # Basic fields
     title = models.CharField(max_length=255)
     description = models.TextField()
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES)
@@ -172,18 +172,20 @@ class Experience(models.Model):
     price_per_guest = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)  # Price per guest
     discount_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)  # Discount price (if applicable)
 
+    # Availability fields
     available_slots = models.IntegerField(blank=True, null=True)
     start_date = models.DateField()
     end_date = models.DateField()
 
-    # Minimum and maximum guest settings
+    # Guest settings
     min_guests = models.PositiveIntegerField(default=1)  # Minimum number of guests
     max_guests = models.PositiveIntegerField(default=20)  # Maximum number of guests
 
-    # Calendar and session details
+    # Session details
     calendar_view = models.JSONField(blank=True, null=True)  # To store session details and dates in JSON format
     sessions_per_day = models.PositiveIntegerField(default=1)  # Number of sessions per day
 
+    # Creation and update timestamps
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -191,7 +193,7 @@ class Experience(models.Model):
     vendor = models.ForeignKey('VendorProfile', on_delete=models.CASCADE, related_name='experiences')
     vendor_user = models.ForeignKey('UserProfile', on_delete=models.CASCADE, null=True)
 
-    # Guest and additional information
+    # Additional fields for guest and experience details
     guest = models.IntegerField(default=0)
     images = models.ImageField(upload_to='experience_images/', null=True, blank=True)  # Image upload
     tags = models.CharField(max_length=255, blank=True)  # Comma-separated tags for searching/filtering
@@ -205,7 +207,7 @@ class Experience(models.Model):
     paypal = models.ForeignKey('Vendorpaypal', on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
-        return f"{self.title} by {self.vendor.user.username}"
+        return f"{self.title} by {self.vendor_user.username}"
 
 
 

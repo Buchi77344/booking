@@ -30,7 +30,9 @@ function revealDropFunc(highlightEl, dropEl){
 
 document.addEventListener("click", function(event){
     if(event.target.closest("#open-chatbot-modal, .chatbot-modal") == null){
-        document.querySelector(".chatbot-modal").style.display = "none"
+        if(document.querySelector(".chatbot-modal")){
+            document.querySelector(".chatbot-modal").style.display = "none"
+        }
     }
 })
 

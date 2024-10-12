@@ -148,7 +148,8 @@ def create_experience(request):
         what_to_bring = request.POST.get('what_to_bring')
         images = request.FILES.get('images')
         min_guests = request.POST.get('min_guests')  # New field for minimum guests
-        max_guests = request.POST.get('max_guests')  # New field for maximum guests
+        max_guests = request.POST.get('max_guests') 
+        calendar_view = request.POST.get('calendar_view') # New field for maximum guests
 
         # Retrieve the vendor profile and ensure the vendor has a PayPal email
         vendor_profile = get_object_or_404(VendorProfile, user=request.user)
@@ -178,7 +179,8 @@ def create_experience(request):
             what_to_bring=what_to_bring,
             images=images,
             min_guests=min_guests,  # Assign minimum guests
-            max_guests=max_guests   # Assign maximum guests
+            max_guests=max_guests,
+            calendar_view=calendar_view,  # Assign maximum guests
         )
 
         # Redirect to a success page or the newly created experience
