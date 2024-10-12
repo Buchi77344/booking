@@ -5,193 +5,92 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Experience</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body {
-            background-color: #f8f9fa; /* Light gray background */
-        }
-        .container {
-            margin-top: 50px;
-        }
-        .btn-black {
-            background-color: black;
-            color: white;
-        }
-    </style>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-    <div class="container">
-        <h2 class="text-center">Create a New Experience</h2>
-        <div class="card">
-            <div class="card-body">
-                <form method="POST" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <!-- Title -->
-                    <div class="form-group">
-                        <label for="title">Experience Title</label>
-                        <input type="text" class="form-control" id="title" name="title" placeholder="Enter experience title" required>
-                        {% if form.title.errors %}
-                            <div class="text-danger">{{ form.title.errors }}</div>
-                        {% endif %}
-                    </div>
-
-                    <!-- Description -->
-                    <div class="form-group">
-                        <label for="description">Description</label>
-                        <textarea class="form-control" id="description" name="description" rows="4" placeholder="Enter experience description" required></textarea>
-                        {% if form.description.errors %}
-                            <div class="text-danger">{{ form.description.errors }}</div>
-                        {% endif %}
-                    </div>
-
-                    <!-- Category -->
-                    <div class="form-group">
-                        <label for="category">Category</label>
-                        <select class="form-control" id="category" name="category" required>
-                            <option value="">Select a category</option>
-                            {% for category in categories %}
-                                <option value="{{ category.0 }}">{{ category.1 }}</option>
-                            {% endfor %}
-                        </select>
-                        {% if form.category.errors %}
-                            <div class="text-danger">{{ form.category.errors }}</div>
-                        {% endif %}
-                    </div>
-
-                    <!-- Location -->
-                    <div class="form-group">
-                        <label for="location">Location</label>
-                        <input type="text" class="form-control" id="location" name="location" placeholder="Enter location" required>
-                        {% if form.location.errors %}
-                            <div class="text-danger">{{ form.location.errors }}</div>
-                        {% endif %}
-                    </div>
-
-                    <!-- Price -->
-                    <div class="form-group">
-                        <label for="price">Price</label>
-                        <input type="number" class="form-control" id="price" name="price" placeholder="Enter price" required>
-                        {% if form.price.errors %}
-                            <div class="text-danger">{{ form.price.errors }}</div>
-                        {% endif %}
-                    </div>
-
-                    <!-- Private Group Price -->
-                    <div class="form-group">
-                        <label for="private_group_price">Private Group Price</label>
-                        <input type="number" class="form-control" id="private_group_price" name="private_group_price" placeholder="Enter private group price" required>
-                        {% if form.private_group_price.errors %}
-                            <div class="text-danger">{{ form.private_group_price.errors }}</div>
-                        {% endif %}
-                    </div>
-
-                    <!-- Price Per Guest -->
-                    <div class="form-group">
-                        <label for="price_per_guest">Price Per Guest</label>
-                        <input type="number" class="form-control" id="price_per_guest" name="price_per_guest" placeholder="Enter price per guest" required>
-                        {% if form.price_per_guest.errors %}
-                            <div class="text-danger">{{ form.price_per_guest.errors }}</div>
-                        {% endif %}
-                    </div>
-
-                    <!-- Available Slots -->
-                    <div class="form-group">
-                        <label for="available_slots">Available Slots</label>
-                        <input type="number" class="form-control" id="available_slots" name="available_slots" placeholder="Enter available slots" required>
-                        {% if form.available_slots.errors %}
-                            <div class="text-danger">{{ form.available_slots.errors }}</div>
-                        {% endif %}
-                    </div>
-
-                    <!-- Start Date -->
-                    <div class="form-group">
-                        <label for="start_date">Start Date</label>
-                        <input type="date" class="form-control" id="start_date" name="start_date" required>
-                        {% if form.start_date.errors %}
-                            <div class="text-danger">{{ form.start_date.errors }}</div>
-                        {% endif %}
-                    </div>
-
-                    <!-- End Date -->
-                    <div class="form-group">
-                        <label for="end_date">End Date</label>
-                        <input type="date" class="form-control" id="end_date" name="end_date" required>
-                        {% if form.end_date.errors %}
-                            <div class="text-danger">{{ form.end_date.errors }}</div>
-                        {% endif %}
-                    </div>
-
-                    <!-- Tags -->
-                    <div class="form-group">
-                        <label for="tags">Tags (comma separated)</label>
-                        <input type="text" class="form-control" id="tags" name="tags" placeholder="Enter tags, separated by commas">
-                        {% if form.tags.errors %}
-                            <div class="text-danger">{{ form.tags.errors }}</div>
-                        {% endif %}
-                    </div>
-
-                    <!-- Duration -->
-                    <div class="form-group">
-                        <label for="duration">Duration</label>
-                        <input type="text" class="form-control" id="duration" name="duration" placeholder="Enter duration" required>
-                        {% if form.duration.errors %}
-                            <div class="text-danger">{{ form.duration.errors }}</div>
-                        {% endif %}
-                    </div>
-
-                    <!-- Requirements -->
-                    <div class="form-group">
-                        <label for="requirements">Requirements</label>
-                        <textarea class="form-control" id="requirements" name="requirements" rows="3" placeholder="Enter any requirements"></textarea>
-                        {% if form.requirements.errors %}
-                            <div class="text-danger">{{ form.requirements.errors }}</div>
-                        {% endif %}
-                    </div>
-
-                    <!-- What to Bring -->
-                    <div class="form-group">
-                        <label for="what_to_bring">What to Bring</label>
-                        <textarea class="form-control" id="what_to_bring" name="what_to_bring" rows="3" placeholder="Enter what to bring"></textarea>
-                        {% if form.what_to_bring.errors %}
-                            <div class="text-danger">{{ form.what_to_bring.errors }}</div>
-                        {% endif %}
-                    </div>
-
-                    <!-- Minimum Guests -->
-                    <div class="form-group">
-                        <label for="min_guests">Minimum Guests</label>
-                        <input type="number" class="form-control" id="min_guests" name="min_guests" placeholder="Enter minimum guests" required>
-                        {% if form.min_guests.errors %}
-                            <div class="text-danger">{{ form.min_guests.errors }}</div>
-                        {% endif %}
-                    </div>
-
-                    <!-- Maximum Guests -->
-                    <div class="form-group">
-                        <label for="max_guests">Maximum Guests</label>
-                        <input type="number" class="form-control" id="max_guests" name="max_guests" placeholder="Enter maximum guests" required>
-                        {% if form.max_guests.errors %}
-                            <div class="text-danger">{{ form.max_guests.errors }}</div>
-                        {% endif %}
-                    </div>
-
-                    <!-- Experience Images -->
-                    <div class="form-group">
-                        <label for="images">Experience Image</label>
-                        <input type="file" class="form-control" id="images" name="images" accept="image/*" required>
-                        {% if form.images.errors %}
-                            <div class="text-danger">{{ form.images.errors }}</div>
-                        {% endif %}
-                    </div>
-
-                    <!-- Submit Button -->
-                    <button type="submit" class="btn btn-black btn-block">Create Experience</button>
-                </form>
-            </div>
+<div class="container mt-5">
+    <h2>Create Experience</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="title">Title:</label>
+            <input type="text" class="form-control" id="title" name="title" required>
         </div>
-    </div>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <textarea class="form-control" id="description" name="description" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="category">Category:</label>
+            <select class="form-control" id="category" name="category" required>
+                <option value="">Select a category</option>
+                <option value="Adventure">Adventure</option>
+                <option value="Outdoor">Outdoor</option>
+                <option value="Wellness">Wellness</option>
+                <!-- Add more categories as needed -->
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="location">Location:</label>
+            <input type="text" class="form-control" id="location" name="location" required>
+        </div>
+        <div class="form-group">
+            <label for="price">Price:</label>
+            <input type="number" class="form-control" id="price" name="price" required>
+        </div>
+        <div class="form-group">
+            <label for="private_group_price">Private Group Price:</label>
+            <input type="number" class="form-control" id="private_group_price" name="private_group_price" required>
+        </div>
+        <div class="form-group">
+            <label for="price_per_guest">Price Per Guest:</label>
+            <input type="number" class="form-control" id="price_per_guest" name="price_per_guest" required>
+        </div>
+        <div class="form-group">
+            <label for="time_slots">Available Time Slots (comma-separated, e.g. 10:00 AM, 2:00 PM):</label>
+            <input type="text" class="form-control" id="time_slots" name="time_slots" required>
+        </div>
+        <div class="form-group">
+            <label for="start_date">Start Date:</label>
+            <input type="date" class="form-control" id="start_date" name="start_date" required>
+        </div>
+        <div class="form-group">
+            <label for="end_date">End Date:</label>
+            <input type="date" class="form-control" id="end_date" name="end_date" required>
+        </div>
+        <div class="form-group">
+            <label for="tags">Tags:</label>
+            <input type="text" class="form-control" id="tags" name="tags">
+        </div>
+        <div class="form-group">
+            <label for="duration">Duration:</label>
+            <input type="text" class="form-control" id="duration" name="duration" required>
+        </div>
+        <div class="form-group">
+            <label for="requirements">Special Requirements:</label>
+            <textarea class="form-control" id="requirements" name="requirements"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="what_to_bring">What to Bring:</label>
+            <textarea class="form-control" id="what_to_bring" name="what_to_bring"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="min_guests">Minimum Guests:</label>
+            <input type="number" class="form-control" id="min_guests" name="min_guests" required>
+        </div>
+        <div class="form-group">
+            <label for="max_guests">Maximum Guests:</label>
+            <input type="number" class="form-control" id="max_guests" name="max_guests" required>
+        </div>
+        <div class="form-group">
+            <label for="images">Images:</label>
+            <input type="file" class="form-control" id="images" name="images" multiple>
+        </div>
+        <button type="submit" class="btn btn-primary">Create Experience</button>
+    </form>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 </body>
 </html>

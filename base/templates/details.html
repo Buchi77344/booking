@@ -47,15 +47,15 @@
             /* border: 1px solid hsla(0, 0%, 10%, .3); */
             /* box-shadow: 0px 0px 10px rgba(0,0,0,0.1); */
         }
-        .details-card h4{
+        /* .details-card h4{
             margin: 0;
             font-size : 1.8rem;
             line-height: 100%;
-        }
-        .details-card p{
+        } */
+        /* .details-card p{
             margin-top: 5px;
-            /* margin-bottom: 12px; */
-        }
+            /* margin-bottom: 12px; 
+        } */
         .booking-section {
             background-color: #f1f1f1;
             padding: 0px;
@@ -204,14 +204,34 @@
                 
                 <!-- Description and Details -->
                 <div class="product-desc-container mt-5">
-                    <div class="details-info-wrapper">
-                        <div class="experience-details_profile details-card">
-                            <div class="experience-details_profile-text">
-                                <h4>Experience hosted by Jd</h4>
-                                <p>3 hours . Hosted in English</p>
+                    <div class="details-info-wrapper ">
+                        <div class="details-card">
+                            <div class="experience-details_profile flex-between">
+                                <div class="experience-details_profile-textcontent">
+                                    <h4 class = "page-mini-head">Experience hosted by Jd</h4>
+                                    <p class = "mac-light-text">3 hours . Hosted in English</p>
+                                </div>
+    
+                                <img src="{% static 'img/pic-2.jpg' %}" alt="" class="experience-details_profile-img">
                             </div>
 
-                            <img src="{% static 'img/pic-2.jpg' %}" alt="" class="experience-details_profile-img">
+                            <div class="details-ratinginfo-wrapper flex-column gp-15">
+                                <div class="event-lf-div flex gp-15">
+                                    <img src="{% static 'img/stars-star.svg' %}" alt="" class="event-lf-icon">
+                                    <div class="textcontent">
+                                        <h5 class = "page-mini-h5-head">Once-in-a-lifetime</h5>
+                                        <p class = "mac-light-text">Guests say its special and unique</p>
+                                    </div>
+                                </div>
+
+                                <div class="event-lf-div flex gp-15">
+                                    <span></span>
+                                    <div class="textcontent">
+                                        <h5 class = "page-mini-h5-head">Once-in-a-lifetime</h5>
+                                        <p class = "mac-light-text">Guests say its special and unique</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="details-card">
