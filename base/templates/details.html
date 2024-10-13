@@ -186,10 +186,11 @@
             border: 1px solid rgba(0, 0, 0, .3);
             border-radius : 10px;
             margin-top: 30px;
+            position: relative;
         }
         .list-group-item{
             width : 50%;
-            position: relative;
+            /* position: relative; */
             cursor : pointer;
         }
         .list-group-item:first-of-type{
@@ -238,6 +239,53 @@
         }
         .sim-exp-card .mac-light-text{
             margin: 5px 0px;
+        }
+        .date.list-group-item .show-drop{
+            width: 700px;
+            padding: 30px 15px;
+        }
+
+        .cta-group .list-group-item .show-drop{
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+   
+        .date.list-group-item .weekdays-container, 
+        .date.list-group-item .days-container{
+            grid-template-columns: repeat(7, minmax(30px, 40px));
+            justify-content: center;
+        }
+
+        .hide-details-date,
+        .hide-details-guests{
+            visibility: hidden;
+            height: 0;
+            width: 0;
+            padding: 0;
+        }
+
+        @media(max-width : 1350px){
+            .date.list-group-item .calendar{
+                min-width: 100%;
+            }
+
+            .date.list-group-item .weekdays-container, 
+            .date.list-group-item .days-container{
+                grid-template-columns: repeat(7, minmax(30px, 60px));
+                justify-content: center;
+            }
+
+            .cta-group .list-group-item .show-drop{
+                width : clamp(300px, 30vw, 700px);
+            }
+        }
+
+        @media(max-width : 950px){
+            .cta-group .list-group-item .show-drop{
+                width : 100%;
+                max-width: 700px;
+            }
         }
     </style>
 
@@ -401,11 +449,12 @@
                                 <h3 class="price-text">From ${{ experience.price }} <span>/ person</span></h3>
                                 <span class="line-link">Show more</span>
                                 <div class="cta-group flex">
-                                    <div class="list-group-item">
-                                        <div class="pd-20 flex-between">
+                                    <div class="date list-group-item">
+                                        <div class="highlight pd-20 flex-between">
                                             <div class="textcontent flex-column">
                                                 <span class = "group-item-name">Dates</span>
-                                                <span class="mac-light-text">Add dates</span>
+                                                <span class="group-item-val mac-light-text">Add dates</span>
+                                                <input type="text" class="hide-details-date">
                                             </div>
                                             <?xml version="1.0" encoding="utf-8"?>
                                             <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
@@ -449,15 +498,125 @@
                                         {% comment %}<p class = "group-item-value">{{ experience.start_date }}</p>{% endcomment %}
                                     </div>
 
-                                    <div class="list-group-item ">
-                                        <div class="pd-20 flex-between">
+                                    <div class="guest list-group-item ">
+                                        <div class="highlight pd-20 flex-between">
                                             <div class="textcontent flex-column">
                                                 <span class = "group-item-name">Guests</span>
-                                                <span class="mac-light-text">1 guest</span>
+                                                <span class="group-item-val mac-light-text">0 guest</span>
+                                                <input type="number" class="hide-details-guests">
+                                                
                                             </div>
                                             <?xml version="1.0" encoding="utf-8"?>
                                             <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
                                             <svg transform = "rotate(-90)" width="800px" height="800px" viewBox="0 0 1024 1024" class="icon"  version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M768 903.232l-50.432 56.768L256 512l461.568-448 50.432 56.768L364.928 512z" fill="#000000" /></svg>
+                                        </div>
+
+                                        
+                                        <div class="show-drop">
+                                            <div class="guest-box flex-between">
+                                                <div class="guest-details flex-column">
+                                                    <span class="guest-name">Adult</span>
+                                                    <span class="guest-age">Ages 13 or above</span>
+                                                </div>
+
+                                                <div class="adult guest-control-container flex gp-10">
+                                                    <span class = "add-guest">
+                                                        <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+                                                        <!-- Uploaded to: SVG Repo, www.svgrepo.com, Transformed by: SVG Repo Mixer Tools -->
+                                                        <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+                                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+                                                            <g id="SVGRepo_iconCarrier"> <path d="M6 12H18M12 6V18" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> </g>
+                                                        </svg>
+                                                    </span>
+                                                    <span class="guest-count">0</span>
+                                                    <span class= "reduce-guest">
+                                                        <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+                                                        <svg fill="#000000" width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                            <path fill-rule="evenodd" d="M4.5 12.75a.75.75 0 01.75-.75h13.5a.75.75 0 010 1.5H5.25a.75.75 0 01-.75-.75z"/>
+                                                        </svg>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            <div class="guest-box flex-between">
+                                                <div class="guest-details flex-column">
+                                                    <span class="guest-name">Children</span>
+                                                    <span class="guest-age">Ages 2 - 12</span>
+                                                </div>
+
+                                                <div class="children guest-control-container flex gp-10">
+                                                    <span class = "add-guest">
+                                                        <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+                                                        <!-- Uploaded to: SVG Repo, www.svgrepo.com, Transformed by: SVG Repo Mixer Tools -->
+                                                        <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+                                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+                                                            <g id="SVGRepo_iconCarrier"> <path d="M6 12H18M12 6V18" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> </g>
+                                                        </svg>
+                                                    </span>
+                                                    <span class="guest-count">0</span>
+                                                    <span class= "reduce-guest">
+                                                        <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+                                                        <svg fill="#000000" width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                            <path fill-rule="evenodd" d="M4.5 12.75a.75.75 0 01.75-.75h13.5a.75.75 0 010 1.5H5.25a.75.75 0 01-.75-.75z"/>
+                                                        </svg>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            <div class="guest-box flex-between">
+                                                <div class="guest-details flex-column">
+                                                    <span class="guest-name">Infants</span>
+                                                    <span class="guest-age">Under 2</span>
+                                                </div>
+
+                                                <div class="infant guest-control-container flex gp-10">
+                                                    <span class = "add-guest">
+                                                        <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+                                                        <!-- Uploaded to: SVG Repo, www.svgrepo.com, Transformed by: SVG Repo Mixer Tools -->
+                                                        <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+                                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+                                                            <g id="SVGRepo_iconCarrier"> <path d="M6 12H18M12 6V18" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> </g>
+                                                        </svg>
+                                                    </span>
+                                                    <span class="guest-count">0</span>
+                                                    <span class= "reduce-guest">
+                                                        <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+                                                        <svg fill="#000000" width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                            <path fill-rule="evenodd" d="M4.5 12.75a.75.75 0 01.75-.75h13.5a.75.75 0 010 1.5H5.25a.75.75 0 01-.75-.75z"/>
+                                                        </svg>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            
+                                            <div class="guest-box flex-between">
+                                                <div class="guest-details flex-column">
+                                                    <span class="guest-name">Pets</span>
+                                                    <span class="guest-age"><a href="#" class="pet-link">Bringing a service animal?</a></span>
+                                                </div>
+
+                                                <div class="pet guest-control-container flex gp-10">
+                                                    <span class = "add-guest">
+                                                        <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+                                                        <!-- Uploaded to: SVG Repo, www.svgrepo.com, Transformed by: SVG Repo Mixer Tools -->
+                                                        <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+                                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+                                                            <g id="SVGRepo_iconCarrier"> <path d="M6 12H18M12 6V18" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> </g>
+                                                        </svg>
+                                                    </span>
+                                                    <span class="guest-count">0</span>
+                                                    <span class= "reduce-guest">
+                                                        <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+                                                        <svg fill="#000000" width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                            <path fill-rule="evenodd" d="M4.5 12.75a.75.75 0 01.75-.75h13.5a.75.75 0 010 1.5H5.25a.75.75 0 01-.75-.75z"/>
+                                                        </svg>
+                                                    </span>
+                                                </div>
+                                            </div>
                                         </div>
                                         {% comment %}<p class = "group-item-value">{{ experience.start_date }}</p>{% endcomment %}
                                     </div>

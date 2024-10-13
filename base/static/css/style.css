@@ -711,26 +711,34 @@ span.mobile.search-icon svg path{
     gap: 7px;
 }
 
-.weekday-span,
+/* .weekday-span,
 .day-cell{
     text-align: center;
     padding : 10px;
-}
+} */
 
-.weekday-span{
+.weekday-span, 
+.empty-cell{
     color : hsl(0 0% 60%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* width: 40px; */
+    /* height: 40px; */
+    aspect-ratio: 1;
 }
 
 .day-cell {
     text-align: center;
     /* padding: 10px; */
-    height: 40px;
-    width: 40px;
+    /* height: 40px; */
+    /* width: 40px; */
     border-radius: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    aspect-ratio: 1;
 }
 
 .day-cell:hover{
@@ -1734,7 +1742,14 @@ input.accord-search-val{
 }
 
 .date.accord-search-container .calendar{
-    min-width: 100%;
+    min-width: calc(100% - 3.5px);
+}
+
+.date.accord-search-container .day-cell,
+.date.accord-search-container .empty-cell{
+    width : auto;
+    height : auto;
+    aspect-ratio: 1;
 }
 
 .mobile-search-btn{
