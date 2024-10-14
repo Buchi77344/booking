@@ -667,17 +667,22 @@ def customer(request):
 def notification(request):
     return render(request, 'notification.html')
 
-def checkout(request):
-    return render (request, 'checkout.html')
+def checkout(request, booking_id):
+    # Get the specific booking by its ID
+    booking = get_object_or_404(Booking, id=booking_id, user=request.user)
+
+    context = {
+        'booking': booking
+    }
+    return render(request, 'checkout.html', context)
 
 
-def booking(request,experience_id):
+
+@login_required
+def booking(request, experience_id):
     experience = get_object_or_404(Experience, id=experience_id)
     number_of_people = 1  # Default number of guests
     price_per_guest = experience.price_per_guest  # Assuming this field exists in the Experience model
-
-    # Calculate total price
-    total_price = price_per_guest * number_of_people
 
     # Automatically create a booking on GET if it doesn't exist
     booking, created = Booking.objects.get_or_create(
@@ -685,12 +690,13 @@ def booking(request,experience_id):
         experience=experience,
         defaults={
             'number_of_people': number_of_people,
-            'total_price': total_price
+            'total_price': price_per_guest * number_of_people  # Initial price
         }
     )
 
     if request.method == "POST":
-        number_of_people = int(request.POST.get('number_of_people', 1))  # Get number of guests from form
+        # Get the number of people from the form
+        number_of_people = int(request.POST.get('number_of_people', 1))
         
         # Recalculate the total price
         total_price = price_per_guest * number_of_people
@@ -699,9 +705,12 @@ def booking(request,experience_id):
         booking.number_of_people = number_of_people
         booking.total_price = total_price
         booking.save()
-        
-        return redirect('checkout') 
-    return render (request, 'checkout.html') 
+
+        # Redirect to the checkout page with the experience_id
+        return redirect('checkout', experience_id=experience_id)
+
+    # On GET, if a new booking was created or already exists, pass it to the checkout template
+    return render(request, 'checkout.html', {'booking': booking})
 
 
 def private_booking(request,experience_id):
@@ -735,7 +744,7 @@ def private_booking(request,experience_id):
         booking.save()
         
         return redirect('checkout') 
-    return render (request, 'checkout.html') 
+    return render (request, 'private_check.html', {'booking': booking}) 
 
 
 # Redirect to booking details page

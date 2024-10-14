@@ -648,7 +648,7 @@
 
                                     <div class="schedule-cta-div flex-column gp-10">
                                         <span class="aval-price-span">${{ experience.price_per_guest }}</span>
-                                        <a href="{% url 'checkout' %}" class="choose-link">Choose</a>
+                                        <a href="{% url 'checkout' experience.id %}" class="choose-link">Choose</a>
                                     </div>
                                 </div>
                                 <div class="time-schedule-group">
@@ -660,7 +660,7 @@
 
                                     <div class="schedule-cta-div flex-column gp-10">
                                         <span class="aval-price-span">${{ experience.price_per_guest }}</span>
-                                        <a href="{% url 'checkout' %}" class="choose-link">Choose</a>
+                                        <a href="{% url 'checkout' experience.id  %}" class="choose-link">Choose</a>
                                     </div>
                                 </div>
                                 <div class="d-grid">

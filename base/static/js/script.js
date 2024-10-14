@@ -15,9 +15,20 @@ const calNext = document.querySelectorAll(".cal-next")
 const calPrev = document.querySelectorAll(".cal-prev")
 const detailsDateCategory = document.querySelector(".date.list-group-item .highlight")
 const detailsGuestCategory = document.querySelector(".guest.list-group-item .highlight")
-let isLiked;
-console.log(document.querySelector(".faq-content-item"))
+const checkoutGuestHighlight = document.querySelector(".checkout-guest-val-div .highlight")
+const addPhoneOverlay = document.querySelector(".phone-add-btn")
+const removeIconDiv = document.querySelector(".remove-icon-div")
+const phoneOverlay = document.querySelector(".phone-number-overlay")
 
+let isLiked;
+
+addPhoneOverlay.addEventListener("click", function(){
+    phoneOverlay.classList.add("reveal")
+})
+
+removeIconDiv.addEventListener("click", function(){
+    phoneOverlay.classList.remove("reveal")
+})
 
 function revealDropFunc(highlightEl, dropEl){
     
@@ -31,6 +42,8 @@ function revealDropFunc(highlightEl, dropEl){
         }
     })
 }
+
+revealDropFunc(".phone-number-select-container, .phone-add-btn", phoneOverlay)
 
 document.addEventListener("click", function(event){
     if(event.target.closest("#open-chatbot-modal, .chatbot-modal") == null){
@@ -53,12 +66,19 @@ if(document.querySelector(".list-group-item")){
         revealDropFunc(".guest.list-group-item", dropEl)
     }) 
 
-    
 
 }
 
+if(document.querySelector(".checkout-guest-val-div")){
+    
+    checkoutGuestHighlight.addEventListener("click", function(){
+        let dropEl = document.querySelector(".checkout-guest-val-div .show-drop")
+        dropEl.classList.toggle("reveal")
+        revealDropFunc(".checkout-guest-val-div", dropEl)
+    })
+}
 
-if(document.querySelector(".category-container") || document.querySelector(".guest.list-group-item")){
+if(document.querySelector(".show-drop") ){
     if(dateCategoryHighlight){
         dateCategoryHighlight.addEventListener("click", function(){
             dateContentContainer.style.width = `${categoryContainer.clientWidth}px`
@@ -136,111 +156,137 @@ if(document.querySelector(".category-container") || document.querySelector(".gue
         let totalGuests = adultGuestCount + childrenGuestCount + infantGuestCount + petGuestCount
         document.querySelector(".guest.list-group-item .group-item-val").textContent = `${totalGuests} ${totalGuests < 2 ? 'guest' : 'guests'}`;
         document.querySelector(".guest.list-group-item .hide-details-guests").value = `${totalGuests}`;
-        console.log(document.querySelector(".guest.list-group-item .hide-details-guests").value)
     }
 
-    let adultGuestBox = document.querySelectorAll(".adult.guest-control-container")
-    adultGuestBox.forEach(el => el.querySelector(".add-guest").addEventListener("click", function(){
-        adultGuestCount = increaseGuestCount(el, adultGuestCount, 14)
-        if(el.closest(".accord-search-container .show-drop")){
-            mobileGuestSum()
-        }else if(el.closest(".guest.list-group-item .show-drop")){
-            detailsGuestSum()
-        }else{
-            updateGuestSum()
-        }
-    }))
+    function checkoutGuestSum(){
+        let totalGuests = adultGuestCount + childrenGuestCount + infantGuestCount + petGuestCount
+        document.querySelector(".checkout-guests-val").textContent = `${totalGuests} ${totalGuests < 2 ? 'guest' : 'guests'}`;
+        // document.querySelector(".guest.list-group-item .hide-details-guests").value = `${totalGuests}`;
+    }
 
-    adultGuestBox.forEach(el => el.querySelector(".reduce-guest").addEventListener("click", function(){
-        adultGuestCount = decreaseGuestCount(el, adultGuestCount)
-        if(el.closest(".accord-search-container .show-drop")){
-            mobileGuestSum()
-        }else if(el.closest(".guest.list-group-item .show-drop")){
-            detailsGuestSum()
-        }else{
-            updateGuestSum()
-        }
-    }))
-
-    let childrenGuestBox = document.querySelectorAll(".children.guest-control-container")
-    childrenGuestBox.forEach(el => el.querySelector(".add-guest").addEventListener("click", function(){
-        childrenGuestCount = increaseGuestCount(el, childrenGuestCount, 5)
-        if(el.closest(".accord-search-container .show-drop")){
-            mobileGuestSum()
-        }else if(el.closest(".guest.list-group-item .show-drop")){
-            detailsGuestSum()
-        }else{
-            updateGuestSum()
-        }
-    }))
-
-    childrenGuestBox.forEach(el => el.querySelector(".reduce-guest").addEventListener("click", function(){
-        childrenGuestCount = decreaseGuestCount(el, childrenGuestCount)
-        if(el.closest(".accord-search-container .show-drop")){
-            mobileGuestSum()
-        }else if(el.closest(".guest.list-group-item .show-drop")){
-            detailsGuestSum()
-        }else{
-            updateGuestSum()
-        }
-    }))
-
-
-    let infantGuestBox = document.querySelectorAll(".infant.guest-control-container")
-    infantGuestBox.forEach(el => el.querySelector(".add-guest").addEventListener("click", function(){
-        infantGuestCount = increaseGuestCount(el, infantGuestCount, 5)
-        // updateGuestSum()
-        if(el.closest(".accord-search-container .show-drop")){
-            mobileGuestSum()
-        }else if(el.closest(".guest.list-group-item .show-drop")){
-            detailsGuestSum()
-        }else{
-            document.querySelector(".guest-container .infant-guest").textContent = `${infantGuestCount} ${infantGuestCount < 2 ? 'infant' : 'infants'},`;
-        }
-
-    }))
-
-    infantGuestBox.forEach(el => el.querySelector(".reduce-guest").addEventListener("click", function(){
-        infantGuestCount = decreaseGuestCount(el, infantGuestCount)
-        // updateGuestSum()
-        if(el.closest(".accord-search-container .show-drop")){
-            mobileGuestSum()
-        }else if(el.closest(".guest.list-group-item .show-drop")){
-            detailsGuestSum()
-        }else{
-            document.querySelector(".guest-container .infant-guest").textContent = `${infantGuestCount} ${infantGuestCount < 2 ? 'infant' : 'infants'},`;
-        }
-
-    }))
-
-
-    let petGuestBox = document.querySelectorAll(".pet.guest-control-container")
-    petGuestBox.forEach(el => el.querySelector(".add-guest").addEventListener("click", function(){
-        petGuestCount = increaseGuestCount(el, petGuestCount, 5)
-        // updateGuestSum()
+    //Add Guest functionality
+    if(document.querySelectorAll(".guest-control-container")){
+        let adultGuestBox = document.querySelectorAll(".adult.guest-control-container")
+        adultGuestBox.forEach(el => el.querySelector(".add-guest").addEventListener("click", function(){
+            adultGuestCount = increaseGuestCount(el, adultGuestCount, 14)
+            if(el.closest(".accord-search-container .show-drop")){
+                mobileGuestSum()
+            }else if(el.closest(".guest.list-group-item .show-drop")){
+                detailsGuestSum()
+            }else if(el.closest(".checkout-guest-val-div .show-drop")){
+                checkoutGuestSum()
+            }else{
+                updateGuestSum()
+            }
+        }))
     
-        if(el.closest(".accord-search-container .show-drop")){
-            mobileGuestSum()
-        }else if(el.closest(".guest.list-group-item .show-drop")){
-            detailsGuestSum()
-        }else{
-            document.querySelector(".guest-container .pet-guest").textContent = `${petGuestCount} ${petGuestCount < 2 ? 'pet' : 'pets'}`;
-        }
+        adultGuestBox.forEach(el => el.querySelector(".reduce-guest").addEventListener("click", function(){
+            adultGuestCount = decreaseGuestCount(el, adultGuestCount)
+            if(el.closest(".accord-search-container .show-drop")){
+                mobileGuestSum()
+            }else if(el.closest(".guest.list-group-item .show-drop")){
+                detailsGuestSum()
+            }else if(el.closest(".checkout-guest-val-div .show-drop")){
+                checkoutGuestSum()
+            }else{
+                updateGuestSum()
+            }
+        }))
+    
+        let childrenGuestBox = document.querySelectorAll(".children.guest-control-container")
+        childrenGuestBox.forEach(el => el.querySelector(".add-guest").addEventListener("click", function(){
+            childrenGuestCount = increaseGuestCount(el, childrenGuestCount, 5)
+            if(el.closest(".accord-search-container .show-drop")){
+                mobileGuestSum()
+            }else if(el.closest(".guest.list-group-item .show-drop")){
+                detailsGuestSum()
+            }else if(el.closest(".checkout-guest-val-div .show-drop")){
+                checkoutGuestSum()
+            }else{
+                updateGuestSum()
+            }
+        }))
+    
+        childrenGuestBox.forEach(el => el.querySelector(".reduce-guest").addEventListener("click", function(){
+            childrenGuestCount = decreaseGuestCount(el, childrenGuestCount)
+            if(el.closest(".accord-search-container .show-drop")){
+                mobileGuestSum()
+            }else if(el.closest(".guest.list-group-item .show-drop")){
+                detailsGuestSum()
+            }else if(el.closest(".checkout-guest-val-div .show-drop")){
+                checkoutGuestSum()
+            }else{
+                updateGuestSum()
+            }
+        }))
+    
+    
+        let infantGuestBox = document.querySelectorAll(".infant.guest-control-container")
+        infantGuestBox.forEach(el => el.querySelector(".add-guest").addEventListener("click", function(){
+            infantGuestCount = increaseGuestCount(el, infantGuestCount, 5)
+            // updateGuestSum()
+            if(el.closest(".accord-search-container .show-drop")){
+                mobileGuestSum()
+            }else if(el.closest(".guest.list-group-item .show-drop")){
+                detailsGuestSum()
+            }else if(el.closest(".checkout-guest-val-div .show-drop")){
+                checkoutGuestSum()
+            }else{
+                document.querySelector(".guest-container .infant-guest").textContent = `${infantGuestCount} ${infantGuestCount < 2 ? 'infant' : 'infants'},`;
+            }
+    
+        }))
+    
+        infantGuestBox.forEach(el => el.querySelector(".reduce-guest").addEventListener("click", function(){
+            infantGuestCount = decreaseGuestCount(el, infantGuestCount)
+            // updateGuestSum()
+            if(el.closest(".accord-search-container .show-drop")){
+                mobileGuestSum()
+            }else if(el.closest(".guest.list-group-item .show-drop")){
+                detailsGuestSum()
+            }else if(el.closest(".checkout-guest-val-div .show-drop")){
+                checkoutGuestSum()
+            }else{
+                document.querySelector(".guest-container .infant-guest").textContent = `${infantGuestCount} ${infantGuestCount < 2 ? 'infant' : 'infants'},`;
+            }
+    
+        }))
+    
+    
+        let petGuestBox = document.querySelectorAll(".pet.guest-control-container")
+        petGuestBox.forEach(el => el.querySelector(".add-guest").addEventListener("click", function(){
+            petGuestCount = increaseGuestCount(el, petGuestCount, 5)
+            // updateGuestSum()
+        
+            if(el.closest(".accord-search-container .show-drop")){
+                mobileGuestSum()
+            }else if(el.closest(".guest.list-group-item .show-drop")){
+                detailsGuestSum()
+            }else if(el.closest(".checkout-guest-val-div .show-drop")){
+                checkoutGuestSum()
+            }else{
+                document.querySelector(".guest-container .pet-guest").textContent = `${petGuestCount} ${petGuestCount < 2 ? 'pet' : 'pets'}`;
+            }
+    
+        }))
+    
+        petGuestBox.forEach(el => el.querySelector(".reduce-guest").addEventListener("click", function(){
+            petGuestCount = decreaseGuestCount(el, petGuestCount)
+            // updateGuestSum()
+            if(el.closest(".accord-search-container .show-drop")){
+                mobileGuestSum()
+            }else if(el.closest(".guest.list-group-item .show-drop")){
+                detailsGuestSum()
+            }else if(el.closest(".checkout-guest-val-div .show-drop")){
+                checkoutGuestSum()
+            }else{
+                document.querySelector(".guest-container .pet-guest").textContent = `${petGuestCount} ${petGuestCount < 2 ? 'pet' : 'pets'}`;
+            }
+    
+        }))
 
-    }))
+    }
 
-    petGuestBox.forEach(el => el.querySelector(".reduce-guest").addEventListener("click", function(){
-        petGuestCount = decreaseGuestCount(el, petGuestCount)
-        // updateGuestSum()
-        if(el.closest(".accord-search-container .show-drop")){
-            mobileGuestSum()
-        }else if(el.closest(".guest.list-group-item .show-drop")){
-            detailsGuestSum()
-        }else{
-            document.querySelector(".guest-container .pet-guest").textContent = `${petGuestCount} ${petGuestCount < 2 ? 'pet' : 'pets'}`;
-        }
-
-    }))
 
     //Search Functionality
     const categoryField = document.querySelector(".category-field")
