@@ -676,9 +676,15 @@ def checkout(request, booking_id):
     }
     return render(request, 'checkout.html', context)
 
+import razorpay
+from django.conf import settings
+from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from .models import Booking, Transaction
+
+client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
 
 
-@login_required
 def booking(request, experience_id):
     experience = get_object_or_404(Experience, id=experience_id)
     number_of_people = 1  # Default number of guests
@@ -693,7 +699,30 @@ def booking(request, experience_id):
             'total_price': price_per_guest * number_of_people  # Initial price
         }
     )
+    booking = get_object_or_404(Booking, user=request.user)
+    
+    # Razorpay order amount (in paise, so multiply by 100)
+    amount = int(booking.total_price * 100)  # Convert to paise
 
+    # Create a Razorpay order
+    razorpay_order = client.order.create({
+        "amount": amount,
+        "currency": "INR",
+        "payment_capture": 1  # Auto-capture
+    })
+
+    # Create a transaction record
+    transaction = Transaction.objects.create(
+        user=request.user,
+        experience=booking.experience,
+        order_id=razorpay_order['id'],
+        amount=booking.total_price  # Store the total price directly
+    )
+
+    # Generate the payment link
+    payment_link = f"https://checkout.razorpay.com/v1/checkout.js?key={settings.RAZORPAY_KEY_ID}&amount={amount}&currency=INR&order_id={razorpay_order['id']}"
+
+  
     if request.method == "POST":
         # Get the number of people from the form
         number_of_people = int(request.POST.get('number_of_people', 1))
@@ -708,9 +737,14 @@ def booking(request, experience_id):
 
         # Redirect to the checkout page with the experience_id
         return redirect('checkout', experience_id=experience_id)
-
+    context ={
+        "payment_link": payment_link,
+        "booking": booking,
+        "transaction": transaction,
+        "booking":booking,
+    }
     # On GET, if a new booking was created or already exists, pass it to the checkout template
-    return render(request, 'checkout.html', {'booking': booking})
+    return render(request, 'checkout.html', context)
 
 
 def private_booking(request,experience_id):
@@ -744,6 +778,7 @@ def private_booking(request,experience_id):
         booking.save()
         
         return redirect('checkout') 
+    
     return render (request, 'private_check.html', {'booking': booking}) 
 
 

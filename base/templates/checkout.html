@@ -1,6 +1,40 @@
 {% extends "base.html" %}
 {% load static %}
 {% block context %}
+<script>
+    document.getElementById('pay-button').onclick = function(e) {
+        e.preventDefault(); // Prevent default button behavior
+
+        // Multiply the total price by 100 in JavaScript
+        var totalPrice = {{ booking.total_price }}; // Get the total price from Django context
+        var amount = totalPrice * 100; // Multiply by 100 to convert to smallest currency unit (e.g., paise)
+
+        var options = {
+            "key": "{{ settings.RAZORPAY_KEY_ID }}", // Your Razorpay key id
+            "amount": amount, // Amount in smallest currency unit
+            "currency": "INR",
+            "name": "{{ booking.experience.title }}",
+            "description": "Booking for {{ booking.experience.title }}",
+            "image": "", // You can add your logo URL here
+            "order_id": "{{ transaction.order_id }}", // Razorpay order ID generated on the server
+            "handler": function (response) {
+                // Send the response to your server for verification
+                var payment_id = response.razorpay_payment_id;
+                var order_id = response.razorpay_order_id;
+
+                // Redirect to your payment verification view
+               // window.location.href = "?razorpay_order_id=" + order_id + "&razorpay_payment_id=" + payment_id;
+            },
+            "theme": {
+                "color": "#F37254" // Customize the color of the Razorpay checkout window
+            }
+        };
+
+        var rzp = new Razorpay(options);
+        rzp.open(); // Open the Razorpay checkout
+    };
+</script>
+
     <div class="checkout-page">
         <div class="wrapper">
             <div class="checkout-page-head">
@@ -225,7 +259,7 @@
                                 <span class="mac-light-text">and more...</span>
                             </div>
                         </div>
-                        <a href =  "#" class="pay-now-btn">Confirm and pay</a>
+                        <a id="pay-button" class="pay-now-btn" href="#">Confirm and pay</a>
                     </div>
                 </div>
         
@@ -280,6 +314,7 @@
 
         </div>
     </div>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
     <script>

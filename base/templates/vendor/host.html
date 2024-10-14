@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,91 +9,97 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 </head>
-<body>
-<div class="container mt-5">
-    <h2>Create Experience</h2>
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="form-group">
-            <label for="title">Title:</label>
-            <input type="text" class="form-control" id="title" name="title" required>
-        </div>
-        <div class="form-group">
-            <label for="description">Description:</label>
-            <textarea class="form-control" id="description" name="description" required></textarea>
-        </div>
-        <div class="form-group">
-            <label for="category">Category:</label>
-            
-            <select class="form-control" id="category" name="category" required>
-                {% for category in categories %}
-                <option value="{{category.0}}">{{category.1}}</option>
-                {% endfor %}
-                <!-- Add more categories as needed -->
-            </select>
-         
-        </div>
-        <div class="form-group">
-            <label for="location">Location:</label>
-            <input type="text" class="form-control" id="location" name="location" required>
-        </div>
-      
-        <div class="form-group">
-            <label for="private_group_price">Private Group Price:</label>
-            <input type="number" class="form-control" id="private_group_price" name="private_group_price" required>
-        </div>
-        <div class="form-group">
-            <label for="price_per_guest">Price Per Guest:</label>
-            <input type="number" class="form-control" id="price_per_guest" name="price_per_guest" required>
-        </div>
-        <div class="form-group">
-            <label for="available_dates">Available Dates:</label>
-            <input type="text" class="form-control" id="available_dates" name="calendar_view" required placeholder="Select available dates" readonly>
-        </div>
-        <div class="form-group">
-            <label for="time_slots">Available Time Slots (comma-separated, e.g. 10:00 AM-2:00 PM):</label>
-            <input type="text" class="form-control" id="time_slots" name="time_slots" required>
-        </div>
-        <div class="form-group">
-            <label for="start_date">Start Date:</label>
-            <input type="date" class="form-control" id="start_date" name="start_date" required>
-        </div>
-        <div class="form-group">
-            <label for="end_date">End Date:</label>
-            <input type="date" class="form-control" id="end_date" name="end_date" required>
-        </div>
-        <div class="form-group">
-            <label for="tags">Tags:</label>
-            <input type="text" class="form-control" id="tags" name="tags">
-        </div>
-        <div class="form-group">
-            <label for="duration">Duration:</label>
-            <input type="text" class="form-control" id="duration" name="duration" required>
-        </div>
-        <div class="form-group">
-            <label for="requirements">Special Requirements:</label>
-            <textarea class="form-control" id="requirements" name="requirements"></textarea>
-        </div>
-        <div class="form-group">
-            <label for="what_to_bring">What to Bring:</label>
-            <textarea class="form-control" id="what_to_bring" name="what_to_bring"></textarea>
-        </div>
-        <div class="form-group">
-            <label for="min_guests">Minimum Guests:</label>
-            <input type="number" class="form-control" id="min_guests" name="min_guests" required>
-        </div>
-        <div class="form-group">
-            <label for="max_guests">Maximum Guests:</label>
-            <input type="number" class="form-control" id="max_guests" name="max_guests" required>
-        </div>
-        <div class="form-group">
-            <label for="images">Images:</label>
-            <input type="file" class="form-control" id="images" name="images" multiple>
-        </div>
-        <button type="submit" class="btn btn-primary">Create Experience</button>
-    </form>
+<body> -->
+
+<div class="host-page">
+    <div class="container mt-5">
+        <h2>Create Experience</h2>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="title">Title:</label>
+                <input type="text" class="form-control" id="title" name="title" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea class="form-control" id="description" name="description" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="category">Category:</label>
+                
+                <select class="form-control" id="category" name="category" required>
+                    {% for category in categories %}
+                    <option value="{{category.0}}">{{category.1}}</option>
+                    {% endfor %}
+                    <!-- Add more categories as needed -->
+                </select>
+             
+            </div>
+            <div class="form-group">
+                <label for="location">Location:</label>
+                <input type="text" class="form-control" id="location" name="location" required>
+            </div>
+          
+            <div class="form-group">
+                <label for="private_group_price">Private Group Price:</label>
+                <input type="number" class="form-control" id="private_group_price" name="private_group_price" required>
+            </div>
+            <div class="form-group">
+                <label for="price_per_guest">Price Per Guest:</label>
+                <input type="number" class="form-control" id="price_per_guest" name="price_per_guest" required>
+            </div>
+            <div class="form-group">
+                <label for="available_dates">Available Dates:</label>
+                <input type="text" class="form-control" id="available_dates" name="calendar_view" required placeholder="Select available dates" readonly>
+            </div>
+            <div class="form-group">
+                <label for="time_slots">Available Time Slots (comma-separated, e.g. 10:00 AM-2:00 PM):</label>
+                <input type="text" class="form-control" id="time_slots" name="time_slots" required>
+            </div>
+            <div class="form-group">
+                <label for="start_date">Start Date:</label>
+                <input type="date" class="form-control" id="start_date" name="start_date" required>
+            </div>
+            <div class="form-group">
+                <label for="end_date">End Date:</label>
+                <input type="date" class="form-control" id="end_date" name="end_date" required>
+            </div>
+            <div class="form-group">
+                <label for="tags">Tags:</label>
+                <input type="text" class="form-control" id="tags" name="tags">
+            </div>
+            <div class="form-group">
+                <label for="duration">Duration:</label>
+                <input type="text" class="form-control" id="duration" name="duration" required>
+            </div>
+            <div class="form-group">
+                <label for="requirements">Special Requirements:</label>
+                <textarea class="form-control" id="requirements" name="requirements"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="what_to_bring">What to Bring:</label>
+                <textarea class="form-control" id="what_to_bring" name="what_to_bring"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="min_guests">Minimum Guests:</label>
+                <input type="number" class="form-control" id="min_guests" name="min_guests" required>
+            </div>
+            <div class="form-group">
+                <label for="max_guests">Maximum Guests:</label>
+                <input type="number" class="form-control" id="max_guests" name="max_guests" required>
+            </div>
+            <div class="form-group">
+                <label for="images">Images:</label>
+                <input type="file" class="form-control" id="images" name="images" multiple>
+            </div>
+            <button type="submit" class="btn btn-primary">Create Experience</button>
+        </form>
+    </div>
 </div>
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
     // Initialize Flatpickr for the available dates input
     flatpickr("#available_dates", {
