@@ -22,13 +22,16 @@ const phoneOverlay = document.querySelector(".phone-number-overlay")
 
 let isLiked;
 
-addPhoneOverlay.addEventListener("click", function(){
-    phoneOverlay.classList.add("reveal")
-})
+if(addPhoneOverlay){
+    addPhoneOverlay.addEventListener("click", function(){
+        phoneOverlay.classList.add("reveal")
+    })
+    
+    removeIconDiv.addEventListener("click", function(){
+        phoneOverlay.classList.remove("reveal")
+    })
+}
 
-removeIconDiv.addEventListener("click", function(){
-    phoneOverlay.classList.remove("reveal")
-})
 
 function revealDropFunc(highlightEl, dropEl){
     

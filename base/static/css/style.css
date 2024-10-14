@@ -3025,6 +3025,19 @@ input.message-system-type-input{
     align-self: end;
 }
 
+.pay-now-btn{
+    width : 100%;
+    padding : 15px 0px;
+    border-radius: 50px;
+    color :hsl(0,0%,98%);
+    font-size: 1.1rem;
+    margin-top: 20px;
+    letter-spacing: .5px;
+    display: block;
+    text-align: center;
+    background: linear-gradient(90deg, var(--btn-clr), var(--variant-clr));
+}
+
 /* .experience-card-details-head{
     color: hsla(0, 0%, 10%, .8);
     font-weight: 500;
