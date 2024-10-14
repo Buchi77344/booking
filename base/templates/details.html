@@ -630,13 +630,13 @@
                                        
                                         <h5 class="page-mini-h5-head">{{clan.0}}</h5>
                                         <span class="mac-light-text">10:00 AM - 1:00 PM</span>
-                                        <a href="#" class="line-link">Book for a private group</a>     
+                                        <a href="{% url 'private_booking' experience.id  %}" class="line-link">Book for a private group</a>     
                                   
                                     </div>
 
                                     <div class="schedule-cta-div flex-column gp-10">
                                         <span class="aval-price-span">${{ experience.price_per_guest }}</span>
-                                        <a href="{% url 'checkout' %}" class="choose-link">Choose</a>
+                                        <a href="{% url 'booking' experience.id  %}" class="choose-link">Choose</a>
                                     </div>
                                 </div>
                                 <div class="time-schedule-group">

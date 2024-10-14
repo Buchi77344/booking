@@ -662,9 +662,80 @@ def customer(request):
         messages.success(request, 'your message has been sent succesfully ')
         return redirect('customer')
     return render (request, 'customer.html')
+
 @login_required(login_url='signin')
 def notification(request):
     return render(request, 'notification.html')
 
 def checkout(request):
     return render (request, 'checkout.html')
+
+
+def booking(request,experience_id):
+    experience = get_object_or_404(Experience, id=experience_id)
+    number_of_people = 1  # Default number of guests
+    price_per_guest = experience.price_per_guest  # Assuming this field exists in the Experience model
+
+    # Calculate total price
+    total_price = price_per_guest * number_of_people
+
+    # Automatically create a booking on GET if it doesn't exist
+    booking, created = Booking.objects.get_or_create(
+        user=request.user,
+        experience=experience,
+        defaults={
+            'number_of_people': number_of_people,
+            'total_price': total_price
+        }
+    )
+
+    if request.method == "POST":
+        number_of_people = int(request.POST.get('number_of_people', 1))  # Get number of guests from form
+        
+        # Recalculate the total price
+        total_price = price_per_guest * number_of_people
+        
+        # Update the booking
+        booking.number_of_people = number_of_people
+        booking.total_price = total_price
+        booking.save()
+        
+        return redirect('checkout') 
+    return render (request, 'checkout.html') 
+
+
+def private_booking(request,experience_id):
+    experience = get_object_or_404(Experience, id=experience_id)
+    number_of_people = 1  # Default number of guests
+    price_per_guest = experience.private_group_price 
+    # Assuming this field exists in the Experience model
+
+    # Calculate total price
+    total_price = price_per_guest * number_of_people
+
+    # Automatically create a booking on GET if it doesn't exist
+    booking, created = Private_Booking.objects.get_or_create(
+        user=request.user,
+        experience=experience,
+        defaults={
+            'number_of_people': number_of_people,
+            'total_price': total_price
+        }
+    )
+    
+    if request.method == "POST":
+        number_of_people = int(request.POST.get('number_of_people', 1))  # Get number of guests from form
+        
+        # Recalculate the total price
+        total_price = price_per_guest * number_of_people
+        
+        # Update the booking
+        booking.number_of_people = number_of_people
+        booking.total_price = total_price
+        booking.save()
+        
+        return redirect('checkout') 
+    return render (request, 'checkout.html') 
+
+
+# Redirect to booking details page
