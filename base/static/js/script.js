@@ -26,7 +26,7 @@ if(addPhoneOverlay){
     addPhoneOverlay.addEventListener("click", function(){
         phoneOverlay.classList.add("reveal")
     })
-    
+
     removeIconDiv.addEventListener("click", function(){
         phoneOverlay.classList.remove("reveal")
     })
@@ -679,7 +679,7 @@ const observerCallback = (entries, observer) => {
 
 const options = {
     root : null,
-    threshold : 0.1
+    threshold : 0.5
 }
 
 const observer = new IntersectionObserver(observerCallback, options)

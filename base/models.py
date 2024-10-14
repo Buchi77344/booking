@@ -259,7 +259,7 @@ class Watchlist(models.Model):
 
 class Vendorpaypal(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    paypal_email =models.EmailField(max_length=254)
+    Razor_account_id =models.EmailField(max_length=254)
 
     def __str__(self):
         return self.paypal_email

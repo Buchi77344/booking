@@ -3038,6 +3038,15 @@ input.message-system-type-input{
     background: linear-gradient(90deg, var(--btn-clr), var(--variant-clr));
 }
 
+.host-page{
+    background-color: hsl(0, 0%, 96%);
+    padding : 30px 0px;
+}
+
+.form-group{
+    margin-top: 10px;
+}
+
 /* .experience-card-details-head{
     color: hsla(0, 0%, 10%, .8);
     font-weight: 500;
