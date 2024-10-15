@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <script defer src="../static/js/script.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="overlay"></div>
+    <nav>
+        <div class="nav flex-between">
+            <a href = "/" class="logo-container flex gp-10">
+                <img class = "logo-img" src="{% static 'img/booking-logo.png' %}" alt="logo for experience hotspot">
+                <span class = "logo-text">Experience Hotspot</span>
+            </a>
+
+            <div class="nav-links-container">
+                <ul class="flex gp-10">
+                   
+                    {% if not request.user.role == 'vendor' %}
+                    <li><a href="/" class="stay-link">Home</a></li>
+                    <li><a href="{% url 'about' %}" class="experience-link">About</a></li>
+                    <li><a href="{% url 'contact' %}" class="experience-link">Contact Us</a></li>
+                    <li><a href="{% url 'privacy' %}" class="experience-link">Privacy Policy</a></li>
+                    <li><a href="{% url 'notification' %}" class="experience-link">Notification</a></li>
+                    <li><a href="{% url 'history' %}" class="experience-link">Bookings</a></li>
+                    <li><a href="{% url 'vendor:form' %}" class="experience-link">Become a Vendor</a></li>
+                    {%endif%}
+                  
+                    {% if request.user.is_authenticated %}
+                    {% if request.user.role == 'vendor' %}
+                    <li><a href="/" class="stay-link">Home</a></li>
+                    <li><a href="{% url 'vendor:dashboard' %}" class="experience-link">Dashboard</a></li>
+                    <li><a href="{% url 'vendor:vendorchat' %}" class="experience-link">User Message</a></li>
+                    <li><a href="{% url 'vendor:host' %}" class="experience-link">Host Experience</a></li>
+                    <li><a href="{% url 'vendor:vendor_list' %}" class="experience-link">Vendor List</a></li>
+                    <li><a href="{% url 'vendor:earn' %}" class="experience-link">Earning</a></li>
+                    <li><a href="{% url 'vendor:payment' %}" class="experience-link">Payment Method</a></li>
+                    {%endif%}
+                    {% endif %}
+                </ul>
+                
+            </div>
+
+            <div class="mobile nav-links-container">
+                <ul class="flex-column gp-20">
+                    {% if not request.user.role == 'vendor' %}
+                    <li><a href="/" class="stay-link">Home</a></li>
+                    <li><a href="{% url 'about' %}" class="experience-link">About</a></li>
+                    <li><a href="{% url 'contact' %}" class="experience-link">Contact Us</a></li>
+                    <li><a href="{% url 'privacy' %}" class="experience-link">Privacy Policy</a></li>
+                    <li><a href="{% url 'notification' %}" class="experience-link">Notification</a></li>
+                    <li><a href="{% url 'history' %}" class="experience-link">Bookings</a></li>
+                    <li><a href="{% url 'vendor:form' %}" class="experience-link">Become a Vendor</a></li>
+                    <li><a href="{% url 'logout' %}" class="profile-link flex gp-15">Logout</a></li>
+                    {%endif%}
+                    {% if request.user.is_authenticated %}
+                    {% if request.user.role == 'vendor' %}
+                    <li><a href="/" class="experience-link">Home</a></li>
+                    <li><a href="{% url 'vendor:dashboard' %}" class="experience-link">Dashboard</a></li>
+                    <li><a href="{% url 'vendor:host' %}" class="experience-link">Host Experience</a></li>
+                    <li><a href="{% url 'vendor:vendor_list' %}" class="experience-link">Vendor List</a></li>
+                    <li><a href="{% url 'vendor:earn' %}" class="experience-link">Earning</a></li>
+                    <li><a href="{% url 'vendor:payment' %}" class="experience-link">Payment Method</a></li>
+                    <li><a href="{% url 'logout' %}" class="profile-link flex gp-15">Logout</a></li>
+                    {%endif%}
+                    {% endif %}
+                </ul>
+                
+            </div>
+
+            <div class="profile-cta-container flex gp-20">
+                
+                <div class="mobile hamburger flex-column gp-5">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+                {% if  request.user.is_authenticated %}
+            <a href="{% url 'watch' %}">    <div class="watchlist-container">
+                   <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+                   <svg fill="#000000" width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                       <path d="M8,3V7H21l-2,7H8v2H18a1,1,0,0,1,0,2H7a1,1,0,0,1-1-1V4H4A1,1,0,0,1,4,2H7A1,1,0,0,1,8,3ZM6,20.5A1.5,1.5,0,1,0,7.5,19,1.5,1.5,0,0,0,6,20.5Zm9,0A1.5,1.5,0,1,0,16.5,19,1.5,1.5,0,0,0,15,20.5Z"/>
+                   </svg>
+
+                   <span id="count-number" class="watchlist-number">0</span>
+                </div></a>
+
+                {%  endif %}
+                {% if not request.user.is_authenticated %}
+                 <a href="{% url 'signin' %}" class="login-link">Login</a>
+                 {% endif %}
+                 {%  if request.user.is_authenticated %}
+                 <div class="profile-container">
+                    <div class="profile-cta flex gp-10">
+                        <div class="hamburger flex-column gp-5">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+
+                        <img src="{% static 'img/profile-circle-svgrepo.svg' %}" alt="Profile by svgrepo.com" class="profile-icon">
+                    </div>
+
+                    <div class="profile-drop-down">
+                        <ul class="profile-list flex-column gp-5">
+                            <li><a href="{% url 'profile' %}" class="flex gp-10 profile-link">
+                                <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+                                <!-- Uploaded to: SVG Repo, www.svgrepo.com, Transformed by: SVG Repo Mixer Tools -->
+                                <svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <g id="SVGRepo_iconCarrier"> <path d="M22 12C22 6.49 17.51 2 12 2C6.49 2 2 6.49 2 12C2 14.9 3.25 17.51 5.23 19.34C5.23 19.35 5.23 19.35 5.22 19.36C5.32 19.46 5.44 19.54 5.54 19.63C5.6 19.68 5.65 19.73 5.71 19.77C5.89 19.92 6.09 20.06 6.28 20.2C6.35 20.25 6.41 20.29 6.48 20.34C6.67 20.47 6.87 20.59 7.08 20.7C7.15 20.74 7.23 20.79 7.3 20.83C7.5 20.94 7.71 21.04 7.93 21.13C8.01 21.17 8.09 21.21 8.17 21.24C8.39 21.33 8.61 21.41 8.83 21.48C8.91 21.51 8.99 21.54 9.07 21.56C9.31 21.63 9.55 21.69 9.79 21.75C9.86 21.77 9.93 21.79 10.01 21.8C10.29 21.86 10.57 21.9 10.86 21.93C10.9 21.93 10.94 21.94 10.98 21.95C11.32 21.98 11.66 22 12 22C12.34 22 12.68 21.98 13.01 21.95C13.05 21.95 13.09 21.94 13.13 21.93C13.42 21.9 13.7 21.86 13.98 21.8C14.05 21.79 14.12 21.76 14.2 21.75C14.44 21.69 14.69 21.64 14.92 21.56C15 21.53 15.08 21.5 15.16 21.48C15.38 21.4 15.61 21.33 15.82 21.24C15.9 21.21 15.98 21.17 16.06 21.13C16.27 21.04 16.48 20.94 16.69 20.83C16.77 20.79 16.84 20.74 16.91 20.7C17.11 20.58 17.31 20.47 17.51 20.34C17.58 20.3 17.64 20.25 17.71 20.2C17.91 20.06 18.1 19.92 18.28 19.77C18.34 19.72 18.39 19.67 18.45 19.63C18.56 19.54 18.67 19.45 18.77 19.36C18.77 19.35 18.77 19.35 18.76 19.34C20.75 17.51 22 14.9 22 12ZM16.94 16.97C14.23 15.15 9.79 15.15 7.06 16.97C6.62 17.26 6.26 17.6 5.96 17.97C4.44 16.43 3.5 14.32 3.5 12C3.5 7.31 7.31 3.5 12 3.5C16.69 3.5 20.5 7.31 20.5 12C20.5 14.32 19.56 16.43 18.04 17.97C17.75 17.6 17.38 17.26 16.94 16.97Z" fill="#4e545a"/> <path d="M12 6.92969C9.93 6.92969 8.25 8.60969 8.25 10.6797C8.25 12.7097 9.84 14.3597 11.95 14.4197C11.98 14.4197 12.02 14.4197 12.04 14.4197C12.06 14.4197 12.09 14.4197 12.11 14.4197C12.12 14.4197 12.13 14.4197 12.13 14.4197C14.15 14.3497 15.74 12.7097 15.75 10.6797C15.75 8.60969 14.07 6.92969 12 6.92969Z" fill="#4e545a"/> </g>
+                                </svg> 
+                                Profile
+                            </a></li>
+                            <li><a href="{% url 'history' %}" class="flex gp-10 profile-link">
+                                Bookings
+                            </a></li>
+                            <li><a href="{% url 'logout' %}" class="profile-link flex gp-10">Logout</a></li>
+                        </ul>
+                    </div>
+                 </div>
+                 {%  endif %}
+
+
+            </div>
+
+        </div>
+    </nav>
+    <div class="checkout-page">
+        <div class="wrapper">
+            <div class="checkout-page-head">
+                <h2 class="page-head">Confirm and pay</h2>
+            </div>
+            <div class="checkout-page-wrapper flex-between">
+                <div class="phone-number-overlay flex-center">
+                    <div class="phone-number-select-container trans-down">
+                        <div class="head-div">
+                            <div class = "remove-icon-div flex-center">
+                                <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+                                <!-- Uploaded to: SVG Repo, www.svgrepo.com, Transformed by: SVG Repo Mixer Tools -->
+                                <svg class = "remove-icon" width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <g id="SVGRepo_iconCarrier"> <path d="M6 12H18M12 6V18" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> </g>
+                                </svg>
+                            </div>
+                            <h4 class="page-micro-head">Add phone number</h4>
+                        </div>
+
+                        <div class="phone-number-select-content">
+                            <p class="mac-text">We will send you trip updates and a text to verify this number</p>
+                            <div class="number-select-form-container">
+                                <form action="" class="number-select-form mt">
+                                    <div class="input-container">
+                                        <label for="phone" class="form-label">Phone Number</label>
+                                        <input type="tel" class="form-input" id="phone" name="phone_number" placeholder="123-456-7890"  required>
+                                    </div>
+                                </form>
+                                <p class="mac-light-text">We'll text you a code to confirm your number. Standard message and data rates apply.</p>
+                            </div>
+                            <button class="mt btn-black">Continue</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="checkout-cta">
+                    <div class="checkout-card">
+                        <h3 class="page-sub-h3-head">Your experience</h3>
+                        <div class="date-div mt">
+                            <h5 class="page-mini-h5-head">Date</h5>
+                            <p class="mac-light-text">Tue, 15 Oct 1:00 pm - 4:00 pm</p>
+                        </div>
+            
+                        <div class="guest-div mt">
+                            <h5 class="page-mini-h5-head">Guests</h5>
+                            <div class="checkout-guest-val-div">
+                                <div class="highlight flex-between bd-300 br-10 pd-10 mt-10">
+                                    <span class="checkout-guests-val">1 guest</span>
+                                    <img src="../static/img/arrow-45-icon.svg" alt="Down arrow icon" class="arrow-icon">
+                                </div>
+
+                                <div class="show-drop">
+                                    <div class="guest-box flex-between">
+                                        <div class="guest-details flex-column">
+                                            <span class="guest-name">Adult</span>
+                                            <span class="guest-age">Ages 13 or above</span>
+                                        </div>
+
+                                        <div class="adult guest-control-container flex gp-10">
+                                            <span class = "add-guest">
+                                                <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+                                                <!-- Uploaded to: SVG Repo, www.svgrepo.com, Transformed by: SVG Repo Mixer Tools -->
+                                                <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+                                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <g id="SVGRepo_iconCarrier"> <path d="M6 12H18M12 6V18" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> </g>
+                                                </svg>
+                                            </span>
+                                            <span class="guest-count">0</span>
+                                            <span class= "reduce-guest">
+                                                <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+                                                <svg fill="#000000" width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" d="M4.5 12.75a.75.75 0 01.75-.75h13.5a.75.75 0 010 1.5H5.25a.75.75 0 01-.75-.75z"/>
+                                                </svg>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="guest-box flex-between">
+                                        <div class="guest-details flex-column">
+                                            <span class="guest-name">Children</span>
+                                            <span class="guest-age">Ages 2 - 12</span>
+                                        </div>
+
+                                        <div class="children guest-control-container flex gp-10">
+                                            <span class = "add-guest">
+                                                <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+                                                <!-- Uploaded to: SVG Repo, www.svgrepo.com, Transformed by: SVG Repo Mixer Tools -->
+                                                <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+                                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <g id="SVGRepo_iconCarrier"> <path d="M6 12H18M12 6V18" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> </g>
+                                                </svg>
+                                            </span>
+                                            <span class="guest-count">0</span>
+                                            <span class= "reduce-guest">
+                                                <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+                                                <svg fill="#000000" width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" d="M4.5 12.75a.75.75 0 01.75-.75h13.5a.75.75 0 010 1.5H5.25a.75.75 0 01-.75-.75z"/>
+                                                </svg>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="guest-box flex-between">
+                                        <div class="guest-details flex-column">
+                                            <span class="guest-name">Infants</span>
+                                            <span class="guest-age">Under 2</span>
+                                        </div>
+
+                                        <div class="infant guest-control-container flex gp-10">
+                                            <span class = "add-guest">
+                                                <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+                                                <!-- Uploaded to: SVG Repo, www.svgrepo.com, Transformed by: SVG Repo Mixer Tools -->
+                                                <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+                                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <g id="SVGRepo_iconCarrier"> <path d="M6 12H18M12 6V18" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> </g>
+                                                </svg>
+                                            </span>
+                                            <span class="guest-count">0</span>
+                                            <span class= "reduce-guest">
+                                                <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+                                                <svg fill="#000000" width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" d="M4.5 12.75a.75.75 0 01.75-.75h13.5a.75.75 0 010 1.5H5.25a.75.75 0 01-.75-.75z"/>
+                                                </svg>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    
+                                    <div class="guest-box flex-between">
+                                        <div class="guest-details flex-column">
+                                            <span class="guest-name">Pets</span>
+                                            <span class="guest-age"><a href="#" class="pet-link">Bringing a service animal?</a></span>
+                                        </div>
+
+                                        <div class="pet guest-control-container flex gp-10">
+                                            <span class = "add-guest">
+                                                <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+                                                <!-- Uploaded to: SVG Repo, www.svgrepo.com, Transformed by: SVG Repo Mixer Tools -->
+                                                <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+                                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <g id="SVGRepo_iconCarrier"> <path d="M6 12H18M12 6V18" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> </g>
+                                                </svg>
+                                            </span>
+                                            <span class="guest-count">0</span>
+                                            <span class= "reduce-guest">
+                                                <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+                                                <svg fill="#000000" width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" d="M4.5 12.75a.75.75 0 01.75-.75h13.5a.75.75 0 010 1.5H5.25a.75.75 0 01-.75-.75z"/>
+                                                </svg>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="checkout-card">
+                        <h3 class="page-sub-h3-head">Required for your trip</h3>
+                        <div class="flex-between">
+                            <div class="flex-column mt">
+                                <p class="page-micro-head">Phone Number</p>
+                                <p class="mac-light-text-900">Add and verify your number so we can send you trip updates</p>
+                            </div>
+    
+                            <button class= "phone-add-btn bd-900">Add</button>
+                        </div>
+                    </div>
+    
+                    <div class="checkout-card">
+                        <h3 class="page-sub-h3-head">Things to know</h3>
+                        
+                        <div class="flex-column mt">
+                            <p class="page-micro-head">Guest requirements</p>
+                            <p class="mac-light-text-900">Up to 10 guests of all ages can attend</p>
+                        </div>
+    
+                    </div>
+    
+                    <div class="checkout-card">
+                        
+                        <div class="flex-between mt">
+                            <p class="page-micro-head">Booking for work?</p>
+                            <input class= "book-work-toggle" type="checkbox" name="book-work" id="book-work-id">
+                        </div>
+    
+                    </div>
+
+                    <div class="checkout-card">
+                        <h3 class="page-sub-h3-head">Pay with</h3>
+                        <a href="#" class = "payment-wrapper">
+                            <div class="razor-container flex-wrap gp-10">
+                                <img src="../static/img/razorpay-img.png" alt="" class="razor-img">
+                                <div class = "card-details flex-column gp-10">
+                                    <span class="card-span page-micro-head">Cards, UPI, Wallets</span>
+                                    <span class="mobile-bank-span page-micro-head">Paypal, Netbanking</span>
+                                </div>
+                            </div>
+
+                            <div class="mobile-trans-container flex-wrap gp-10">
+                                <div class="mobile-trans-icon">
+                                    <img src="../static/img/visa.svg" alt="">
+                                </div>
+
+                                <div class="mobile-trans-icon">
+                                    <img src="../static/img/mastercard.svg" alt="">
+                                </div>
+
+                                <div class="mobile-trans-icon">
+                                    <img src="../static/img/amex-icon.svg" alt="">
+                                </div>
+
+                                <div class="rupay mobile-trans-icon">
+                                    <img src="../static/img/rupay-img.png" alt="">
+                                </div>
+
+                                <span class="mac-light-text">and more...</span>
+                            </div>
+                        </a>
+                       
+                    </div>
+                </div>
+        
+                <div class="checkout-details pd bd-300">
+                    <div class="checkout-details-info flex gp-10">
+                        <div class="img-container">
+                            <img src="../static/img/pic-2.jpg" alt="Experience details image" class="checkout-details-info-img">
+                        </div>
+    
+                        <div class="textcontent flex-column gp-5">
+                            <span class="location mac-light-text">New Delhi . 3 hours</span>
+                            <div>
+                                <p class="mac-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Et rem eum necessitatibus reiciendis inventore. Dolorem.</p>
+                                <span class="mac-light-text">Hosted in English</span>
+                            </div>
+                            <div class="flex gp-5">
+                                        
+                                <!-- Uploaded to: SVG Repo, www.svgrepo.com, Transformed by: SVG Repo Mixer Tools -->
+                                <svg fill="#000" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="800px" height="800px" viewBox="0 0 126.729 126.73" xml:space="preserve">
+                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                    <g id="SVGRepo_iconCarrier"> <g> <path d="M121.215,44.212l-34.899-3.3c-2.2-0.2-4.101-1.6-5-3.7l-12.5-30.3c-2-5-9.101-5-11.101,0l-12.4,30.3 c-0.8,2.1-2.8,3.5-5,3.7l-34.9,3.3c-5.2,0.5-7.3,7-3.4,10.5l26.3,23.1c1.7,1.5,2.4,3.7,1.9,5.9l-7.9,32.399 c-1.2,5.101,4.3,9.3,8.9,6.601l29.1-17.101c1.9-1.1,4.2-1.1,6.1,0l29.101,17.101c4.6,2.699,10.1-1.4,8.899-6.601l-7.8-32.399 c-0.5-2.2,0.2-4.4,1.9-5.9l26.3-23.1C128.615,51.212,126.415,44.712,121.215,44.212z"></path> </g> </g>
+                                </svg>
+                                <div>
+                                    <span>4.89 <span class="mac-light-text">(293 reviews)</span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="checkout-details-tag">
+                        <h4 class="page-mini-head">Price details</h4>
+                        <div class="flex-between mt">
+                            <span class="bold-p">$54.09 X 1 adult</span>
+                            <span class="bold-p">$54.09</span>
+                        </div>
+                    </div>
+                    
+                    <div class="checkout-details-tag">
+                        <div class="flex-between">
+                            <span class="page-micro-head">Total<a href = "#" class="line-link">(USD)</a></span>
+                            <span class="page-micro-head">$54.09</span>
+                        </div>
+                    </div>
+
+                    <div class="checkout-details-tag">
+                        <h4 class="page-mini-head">Cancellation policy</h4>
+                        <span class="mac-light-text-900">Non-refundable.</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+    <script>
+        const phoneInputField = document.querySelector("#phone");
+        const phoneInput = window.intlTelInput(phoneInputField, {
+            initialCountry: "auto",
+            geoIpLookup: function(callback) {
+                fetch('https://ipinfo.io/json', { cache: 'reload' })
+                .then(response => response.json())
+                .then(data => {
+                    const countryCode = (data && data.country) ? data.country : "us";
+                    callback(countryCode);
+                });
+            },
+            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js", // for number formatting
+        });
+    </script>
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section about">
+                <h2>About Us</h2>
+                <p>Explore unique experiences, tours, and adventures with us. Book your next experience today and make memories to last a lifetime.</p>
+            </div>
+    
+            <div class="footer-section links flex-column">
+                <h2>Quick Links</h2>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="#">Experiences</a></li>
+                    <li><a href="{% url 'contact' %}">Contact</a></li>
+                    <li><a href="{% url 'faq' %}">FAQs</a></li>
+                    <li><a href="{% url 'privacy' %}">Privacy Policy</a></li>
+                </ul>
+            </div>
+    
+            <div class="footer-section contact">
+                <h2>Contact Us</h2>
+                <p>Email: info@experiencehotspot.com</p>
+                <p>Phone: +919317791773</p>
+                <ul> <li><a href="{% url 'customer' %}">Customer Support</a></li></ul>
+                <div class="socials">
+                    <a href="#"><i class="fa fa-facebook"></i></a>
+                    <a href="#"><i class="fa fa-twitter"></i></a>
+                    <a href="#"><i class="fa fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    
+        <div class="footer-bottom">
+            <p>&copy; 2024 ExperienceHostspot.com | All rights reserved.</p>
+        </div>
+    </footer>
+ 
+</body>
+</html>
