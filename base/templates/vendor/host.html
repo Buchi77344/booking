@@ -10,10 +10,12 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 </head>
 <body> -->
-
+{% extends "base.html" %}
+{% load static %}
+{% block context %}
 <div class="host-page">
-    <div class="container mt-5">
-        <h2>Create Experience</h2>
+    <div class="bs util-form-container">
+        <h2 class="page-head">Create Experience</h2>
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="form-group">
@@ -92,7 +94,7 @@
                 <label for="images">Images:</label>
                 <input type="file" class="form-control" id="images" name="images" multiple>
             </div>
-            <button type="submit" class="btn btn-primary">Create Experience</button>
+            <button type="submit" class="submit-btn btn-black mt br-5">Create Experience</button>
         </form>
     </div>
 </div>
@@ -120,5 +122,5 @@
         }
     });
 </script>
-</body>
-</html>
+
+{% endblock context %}
