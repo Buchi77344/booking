@@ -136,7 +136,6 @@ def create_experience(request):
         description = request.POST.get('description')
         category = request.POST.get('category')
         location = request.POST.get('location')
-        price = request.POST.get('price')
         private_group_price = request.POST.get('private_group_price')  # New field for private group pricing
         price_per_guest = request.POST.get('price_per_guest')  # New field for price per guest
         available_slots = request.POST.get('available_slots')
@@ -148,7 +147,8 @@ def create_experience(request):
         what_to_bring = request.POST.get('what_to_bring')
         images = request.FILES.get('images')
         min_guests = request.POST.get('min_guests')  # New field for minimum guests
-        max_guests = request.POST.get('max_guests')  # New field for maximum guests
+        max_guests = request.POST.get('max_guests') 
+        calendar_view = request.POST.get('calendar_view') # New field for maximum guests
 
         # Retrieve the vendor profile and ensure the vendor has a PayPal email
         vendor_profile = get_object_or_404(VendorProfile, user=request.user)
@@ -163,7 +163,6 @@ def create_experience(request):
             description=description,
             category=category,
             location=location,
-            price=price,
             private_group_price=private_group_price,  # Assign private group price
             price_per_guest=price_per_guest,  # Assign price per guest
             available_slots=available_slots, 
@@ -178,7 +177,8 @@ def create_experience(request):
             what_to_bring=what_to_bring,
             images=images,
             min_guests=min_guests,  # Assign minimum guests
-            max_guests=max_guests   # Assign maximum guests
+            max_guests=max_guests,
+            calendar_view=calendar_view,  # Assign maximum guests
         )
 
         # Redirect to a success page or the newly created experience
@@ -235,6 +235,9 @@ def congrat(request):
 def dashboard(request):
     user = request.user
     vendor_profile = VendorProfile.objects.get(user=user)
+    if Vendorpaypal.objects.filter(user=user).exists():
+
+        paypal = Vendorpaypal.objects.get(user=user)
 
         # Get all experiences hosted by this vendor
     vendor_experiences = Experience.objects.filter(vendor=vendor_profile)
@@ -250,7 +253,8 @@ def dashboard(request):
     context = {
         'experience_number':experience_number,
         'latest_experiences':latest_experiences,
-        'total_earnings':total_earnings
+        'total_earnings':total_earnings,
+        'paypal':paypal
     }
     return render (request, 'vendor/dashboard.html',context)
 from django.db.models import *

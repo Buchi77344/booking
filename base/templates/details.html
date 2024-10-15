@@ -327,12 +327,16 @@
                         <div class="details-card">
                             <div class="experience-details_profile flex-between">
                                 <div class="experience-details_profile-textcontent">
-                                    <h4 class = "page-mini-head">Experience hosted by Jd</h4>
-                                    <p class = "mac-light-text">3 hours . Hosted in English</p>
+                                    <h4 class = "page-mini-head">Experience hosted by {{experience.vendor_user.user.first_name}}</h4>
+                                    <p class = "mac-light-text">{{experience.created_at|timesince}} ago. Hosted in English</p>
                                 </div>
-    
-                                <img src="{% static 'img/pic-2.jpg' %}" alt="" class="profile-img">
+                                {% if experience.vendor_user.profile_picture %}
+                                <img src="{{experience.vendor_user.profile_picture.url}}" alt="" class="profile-img">
+                                {% else %}
+                                <img src="static/img/demo_pic.jpg" alt="" class="profile-img">
+                                {% endif %}
                             </div>
+
 
                             <div class="details-ratinginfo-wrapper flex-column gp-15">
                                 <div class="event-lf-div flex gp-15">
@@ -398,8 +402,8 @@
                             <div class="meet-host-profile-container flex gp-20">
                                 <img src="{% static 'img/pic-2.jpg' %}" alt="Host profile picture" class="meet-host profile-img">
                                 <div class="textcontent">
-                                    <h4 class="page-mini-head">Meet your host, Jd</h4>
-                                    <p class="mac-light-text">Host on Airbnb since 2017</p>
+                                    <h4 class="page-mini-head">Meet your host, {{experience.vendor_user.user.first_name}}</h4>
+                                    <p class="mac-light-text">Host on ExpericeHotspot since 2017</p>
                                 </div>
                             </div>
 
@@ -425,7 +429,7 @@
                                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis dolore corporis ex doloribus sunt omnis temporibus cupiditate ullam labore quis dolorum eius iusto beatae, sed possimus eligendi. Incidunt consectetur officiis sequi quibusdam harum! Dolor ipsum harum non deserunt aut inventore!
                             </p>
 
-                            <a href="#" class="contact-host-link mt">Contact host</a>
+                            <a href="https://wa.me/8135495049" class="contact-host-link mt">Contact host</a>
                         </div>
 
                      
@@ -446,7 +450,7 @@
                         <div class="booking-section">
                             <!-- <h3 class="Booking-head text-center mb-3">Book This Experience</h3> -->
                             <div class="booking-section-details">
-                                <h3 class="price-text">From ${{ experience.price }} <span>/ person</span></h3>
+                                <h3 class="price-text">From ${{ experience.price_per_guest }} <span>/ person</span></h3>
                                 <span class="line-link">Show more</span>
                                 <div class="cta-group flex">
                                     <div class="date list-group-item">
@@ -623,38 +627,40 @@
                                 </div>
                                 <div class="time-schedule-group">
                                     <div class="textcontent flex-column">
-                                        <h5 class="page-mini-h5-head">Sat, 12 Oct</h5>
+                                       
+                                        <h5 class="page-mini-h5-head">{{clan.0}}</h5>
                                         <span class="mac-light-text">10:00 AM - 1:00 PM</span>
-                                        <a href="#" class="line-link">Book for a private group</a>        
+                                        <a href="#" class="line-link">Book for a private group</a>     
+                                  
                                     </div>
 
                                     <div class="schedule-cta-div flex-column gp-10">
-                                        <span class="aval-price-span">$3200</span>
-                                        <a href="#" class="choose-link">Choose</a>
+                                        <span class="aval-price-span">${{ experience.price_per_guest }}</span>
+                                        <a href="{% url 'checkout' %}" class="choose-link">Choose</a>
                                     </div>
                                 </div>
                                 <div class="time-schedule-group">
                                     <div class="textcontent flex-column">
-                                        <h5 class="page-mini-h5-head">Sat, 12 Oct</h5>
+                                        <h5 class="page-mini-h5-head">{{clan.1}}</h5>
                                         <span class="mac-light-text">10:00 AM - 1:00 PM</span>
                                         <a href="#" class="line-link">Book for a private group</a>        
                                     </div>
 
                                     <div class="schedule-cta-div flex-column gp-10">
-                                        <span class="aval-price-span">$3200</span>
-                                        <a href="#" class="choose-link">Choose</a>
+                                        <span class="aval-price-span">${{ experience.price_per_guest }}</span>
+                                        <a href="{% url 'checkout' %}" class="choose-link">Choose</a>
                                     </div>
                                 </div>
                                 <div class="time-schedule-group">
                                     <div class="textcontent flex-column">
-                                        <h5 class="page-mini-h5-head">Sat, 12 Oct</h5>
+                                        <h5 class="page-mini-h5-head">{{clan.2}}</h5>
                                         <span class="mac-light-text">10:00 AM - 1:00 PM</span>
-                                        <a href="#" class="line-link">Book for a private group</a>        
+                                        <a href="" class="line-link">Book for a private group</a>        
                                     </div>
 
                                     <div class="schedule-cta-div flex-column gp-10">
-                                        <span class="aval-price-span">$3200</span>
-                                        <a href="#" class="choose-link">Choose</a>
+                                        <span class="aval-price-span">${{ experience.price_per_guest }}</span>
+                                        <a href="{% url 'checkout' %}" class="choose-link">Choose</a>
                                     </div>
                                 </div>
                                 <div class="d-grid">

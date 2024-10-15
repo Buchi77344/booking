@@ -20,7 +20,7 @@ def index(request):
     }
 
     return render(request, 'index.html', context)
-
+import re
  
 @login_required(login_url='signin')
 def experience(request,pk):
@@ -29,12 +29,16 @@ def experience(request,pk):
     half_star = experience.rating - full_stars >= 0.5  # Check if there's a half star
     empty_stars = 5 - full_stars - int(half_star)
     vendor = experience.vendor   # Remainin
+    clans=experience.calendar_view
+    clan =re.findall(r'[A-Za-z]{3}, [A-Za-z]{3} \d{2}',clans)
     context ={
         'experience':experience,
         'full_stars': full_stars,
         'half_star': half_star,
         'empty_stars': empty_stars,
-        'vendor':vendor
+        'vendor':vendor,
+        'clan':clan
+        
     }
     return render (request, 'details.html',context)
 
@@ -661,3 +665,6 @@ def customer(request):
 @login_required(login_url='signin')
 def notification(request):
     return render(request, 'notification.html')
+
+def checkout(request):
+    return render (request, 'checkout.html')
