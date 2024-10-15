@@ -662,9 +662,124 @@ def customer(request):
         messages.success(request, 'your message has been sent succesfully ')
         return redirect('customer')
     return render (request, 'customer.html')
+
 @login_required(login_url='signin')
 def notification(request):
     return render(request, 'notification.html')
 
-def checkout(request):
-    return render (request, 'checkout.html')
+def checkout(request, booking_id):
+    # Get the specific booking by its ID
+    booking = get_object_or_404(Booking, id=booking_id, user=request.user)
+
+    context = {
+        'booking': booking
+    }
+    return render(request, 'checkout.html', context)
+
+import razorpay
+from django.conf import settings
+from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from .models import Booking, Transaction
+
+client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
+
+
+def booking(request, experience_id):
+    experience = get_object_or_404(Experience, id=experience_id)
+    number_of_people = 1  # Default number of guests
+    price_per_guest = experience.price_per_guest  # Assuming this field exists in the Experience model
+
+    # Automatically create a booking on GET if it doesn't exist
+    booking, created = Booking.objects.get_or_create(
+        user=request.user,
+        experience=experience,
+        defaults={
+            'number_of_people': number_of_people,
+            'total_price': price_per_guest * number_of_people  # Initial price
+        }
+    )
+    booking = get_object_or_404(Booking, user=request.user)
+    
+    # Razorpay order amount (in paise, so multiply by 100)
+    amount = int(booking.total_price * 100)  # Convert to paise
+
+    # Create a Razorpay order
+    razorpay_order = client.order.create({
+        "amount": amount,
+        "currency": "INR",
+        "payment_capture": 1  # Auto-capture
+    })
+
+    # Create a transaction record
+    transaction = Transaction.objects.create(
+        user=request.user,
+        experience=booking.experience,
+        order_id=razorpay_order['id'],
+        amount=booking.total_price  # Store the total price directly
+    )
+
+    # Generate the payment link
+    payment_link = f"https://checkout.razorpay.com/v1/checkout.js?key={settings.RAZORPAY_KEY_ID}&amount={amount}&currency=INR&order_id={razorpay_order['id']}"
+
+  
+    if request.method == "POST":
+        # Get the number of people from the form
+        number_of_people = int(request.POST.get('number_of_people', 1))
+        
+        # Recalculate the total price
+        total_price = price_per_guest * number_of_people
+        
+        # Update the booking
+        booking.number_of_people = number_of_people
+        booking.total_price = total_price
+        booking.save()
+
+        # Redirect to the checkout page with the experience_id
+        return redirect('checkout', experience_id=experience_id)
+    context ={
+        "payment_link": payment_link,
+        "booking": booking,
+        "transaction": transaction,
+        "booking":booking,
+    }
+    # On GET, if a new booking was created or already exists, pass it to the checkout template
+    return render(request, 'checkout.html', context)
+
+
+def private_booking(request,experience_id):
+    experience = get_object_or_404(Experience, id=experience_id)
+    number_of_people = 1  # Default number of guests
+    price_per_guest = experience.private_group_price 
+    # Assuming this field exists in the Experience model
+
+    # Calculate total price
+    total_price = price_per_guest * number_of_people
+
+    # Automatically create a booking on GET if it doesn't exist
+    booking, created = Private_Booking.objects.get_or_create(
+        user=request.user,
+        experience=experience,
+        defaults={
+            'number_of_people': number_of_people,
+            'total_price': total_price
+        }
+    )
+    
+    if request.method == "POST":
+        number_of_people = int(request.POST.get('number_of_people', 1))  # Get number of guests from form
+        
+        # Recalculate the total price
+        total_price = price_per_guest * number_of_people
+        
+        # Update the booking
+        booking.number_of_people = number_of_people
+        booking.total_price = total_price
+        booking.save()
+        
+        return redirect('checkout') 
+    
+    return render (request, 'private_check.html', {'booking': booking}) 
+
+
+# Redirect to booking details page

@@ -216,7 +216,17 @@ class Booking(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     experience = models.ForeignKey(Experience, on_delete=models.CASCADE)
     booking_date = models.DateTimeField(default=timezone.now)
-    number_of_people = models.IntegerField()
+    number_of_people = models.PositiveIntegerField(default=1) 
+    total_price = models.DecimalField(max_digits=10, decimal_places=2)
+    
+    def __str__(self):
+        return f"Booking by {self.user.username} for {self.experience.title}"
+    
+class Private_Booking(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    experience = models.ForeignKey(Experience, on_delete=models.CASCADE)
+    booking_date = models.DateTimeField(default=timezone.now)
+    number_of_people = models.PositiveIntegerField(default=1) 
     total_price = models.DecimalField(max_digits=10, decimal_places=2)
     
     def __str__(self):
@@ -249,7 +259,7 @@ class Watchlist(models.Model):
 
 class Vendorpaypal(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    paypal_email =models.EmailField(max_length=254)
+    Razor_account_id =models.EmailField(max_length=254)
 
     def __str__(self):
         return self.paypal_email
