@@ -128,6 +128,8 @@ from django.contrib.auth.decorators import login_required
 
 
 
+
+
 @login_required(login_url='signin')
 def create_experience(request):
     if request.method == 'POST':
@@ -136,25 +138,37 @@ def create_experience(request):
         description = request.POST.get('description')
         category = request.POST.get('category')
         location = request.POST.get('location')
-        private_group_price = request.POST.get('private_group_price')  # New field for private group pricing
-        price_per_guest = request.POST.get('price_per_guest')  # New field for price per guest
+        private_group_price = request.POST.get('private_group_price')
+        private_group_max_guests = request.POST.get('private_group_max_guests')  # New field for max guests in private group
+        price_per_guest = request.POST.get('price_per_guest')
         available_slots = request.POST.get('available_slots')
-        start_date = request.POST.get('start_date')
-        end_date = request.POST.get('end_date')
         tags = request.POST.get('tags')
         duration = request.POST.get('duration')
         requirements = request.POST.get('requirements')
         what_to_bring = request.POST.get('what_to_bring')
         images = request.FILES.get('images')
-        min_guests = request.POST.get('min_guests')  # New field for minimum guests
-        max_guests = request.POST.get('max_guests') 
-        calendar_view = request.POST.get('calendar_view') # New field for maximum guests
+        videos = request.FILES.get('videos')  # Video upload
+        min_guests = request.POST.get('min_guests')
+        max_guests = request.POST.get('max_guests')
+        calendar_view = request.POST.get('calendar_view')
 
-        # Retrieve the vendor profile and ensure the vendor has a PayPal email
+        # Process extra services
+        extra_services = []
+        service_count = 1
+        while True:
+            service_name = request.POST.get(f'extra_service_name_{service_count}')
+            service_price = request.POST.get(f'extra_service_price_{service_count}')
+            if not service_name or not service_price:
+                break
+            extra_services.append({
+                'name': service_name,
+                'price': service_price
+            })
+            service_count += 1
+
+        # Retrieve the vendor profile and ensure the vendor has a PayPal account
         vendor_profile = get_object_or_404(VendorProfile, user=request.user)
         vendor_user = get_object_or_404(Userprofile, user=request.user)
-
-        # Check if the user has added their PayPal email
         vendor_paypal_instance = get_object_or_404(Vendorpaypal, user=request.user)
 
         # Create the Experience instance
@@ -163,23 +177,30 @@ def create_experience(request):
             description=description,
             category=category,
             location=location,
-            private_group_price=private_group_price,  # Assign private group price
-            price_per_guest=price_per_guest,  # Assign price per guest
-            available_slots=available_slots, 
-            start_date=start_date,
-            end_date=end_date,
+            private_group_price=private_group_price,
+            price_per_guest=price_per_guest,
+            available_slots=available_slots,
             vendor=vendor_profile,
-            paypal=vendor_paypal_instance,  # Assign the Vendorpaypal instance
+            paypal=vendor_paypal_instance,
             vendor_user=vendor_user,
             tags=tags,
             duration=duration,
             requirements=requirements,
             what_to_bring=what_to_bring,
             images=images,
-            min_guests=min_guests,  # Assign minimum guests
+            min_guests=min_guests,
             max_guests=max_guests,
-            calendar_view=calendar_view,  # Assign maximum guests
+            calendar_view=calendar_view,
         )
+
+        # Save extra services to the experience (you may want to save it as a JSON field or related model)
+        new_experience.extra_services = extra_services  # Assuming extra_services is a JSONField in the Experience model
+        new_experience.save()
+
+        # Handle video upload
+        if videos:
+            new_experience.videos = videos
+            new_experience.save()
 
         # Redirect to a success page or the newly created experience
         return redirect("vendor:vendor_list")
@@ -351,7 +372,7 @@ def vendor_edit(request,title):
             edit.price =price
             edit.available_slots =available_slots
             edit.start_date =start_date
-            edit.end_date =end_date
+            edit.end_date =end_date 
             edit.tags =tags
             edit.duration =duration
             edit.requirements =requirements

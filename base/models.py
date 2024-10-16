@@ -167,23 +167,22 @@ class Experience(models.Model):
     location = models.CharField(max_length=255)
 
     # Pricing fields
-    # Base price
-    private_group_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)  # Price for private groups
+    private_group_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    private_group_max_guests = models.PositiveIntegerField(default=10)  # Number of guests for private group pricing
     price_per_guest = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)  # Price per guest
     discount_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)  # Discount price (if applicable)
 
+    # Extra service pricing (e.g., photography, additional services)
+    extra_services = models.JSONField(blank=True, null=True)  # Store extra services and prices in JSON format
+
     # Availability fields
     available_slots = models.IntegerField(blank=True, null=True)
-    start_date = models.DateField()
-    end_date = models.DateField()
+    calendar_view = models.JSONField(blank=True, null=True)  # Visual representation of available time slots
+    sessions_per_day = models.PositiveIntegerField(default=1)  # Number of sessions per day
 
     # Guest settings
     min_guests = models.PositiveIntegerField(default=1)  # Minimum number of guests
     max_guests = models.PositiveIntegerField(default=20)  # Maximum number of guests
-
-    # Session details
-    calendar_view = models.JSONField(blank=True, null=True)  # To store session details and dates in JSON format
-    sessions_per_day = models.PositiveIntegerField(default=1)  # Number of sessions per day
 
     # Creation and update timestamps
     created_at = models.DateTimeField(auto_now_add=True)
@@ -196,18 +195,20 @@ class Experience(models.Model):
     # Additional fields for guest and experience details
     guest = models.IntegerField(default=0)
     images = models.ImageField(upload_to='experience_images/', null=True, blank=True)  # Image upload
+    videos = models.FileField(upload_to='experience_videos/', null=True, blank=True)  # Vendor video upload
     tags = models.CharField(max_length=255, blank=True)  # Comma-separated tags for searching/filtering
     rating = models.DecimalField(max_digits=3, decimal_places=2, default=0.0)  # Average rating
     is_featured = models.BooleanField(default=False)  # Flag for featured experiences
     duration = models.CharField(max_length=50)  # Duration of the experience (e.g., "3 hours", "2 days")
-    requirements = models.TextField(blank=True)  # Any special requirements (age limits, physical fitness, etc.)
-    what_to_bring = models.TextField(blank=True)  # A list of recommended things to bring
+    requirements = models.TextField(blank=True)  # Optional special requirements
+    what_to_bring = models.TextField(blank=True)  # Optional list of recommended things to bring
 
     # Payment information
     paypal = models.ForeignKey('Vendorpaypal', on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
-        return f"{self.title} by"
+        return f"{self.title} by {self.vendor}"
+
 
 
 

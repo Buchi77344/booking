@@ -2318,7 +2318,7 @@ input.accord-search-val{
 }
 
 .chat-cta{
-    background-color: var(--btn-clr);
+    background-color: rgb(26 205 41);
     width: 60px;
     height : 60px;
     border-radius: 50%;
@@ -2329,6 +2329,10 @@ input.accord-search-val{
 .chat-cta svg{
     width : 30px;
     height : 30px;
+}
+
+.chat-cta svg path{
+    fill : hsl(0,0%,98%)
 }
 
 .chat-form{

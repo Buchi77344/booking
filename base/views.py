@@ -699,7 +699,7 @@ def booking(request, experience_id):
             'total_price': price_per_guest * number_of_people  # Initial price
         }
     )
-    booking = get_object_or_404(Booking, user=request.user)
+   
     
     # Razorpay order amount (in paise, so multiply by 100)
     amount = int(booking.total_price * 100)  # Convert to paise
@@ -737,11 +737,13 @@ def booking(request, experience_id):
 
         # Redirect to the checkout page with the experience_id
         return redirect('checkout', experience_id=experience_id)
+    razor ="rzp_live_JShwqIsgcWWsNp"
     context ={
         "payment_link": payment_link,
         "booking": booking,
         "transaction": transaction,
         "booking":booking,
+        'razor':razor,
     }
     # On GET, if a new booking was created or already exists, pass it to the checkout template
     return render(request, 'checkout.html', context)
@@ -765,7 +767,7 @@ def private_booking(request,experience_id):
             'total_price': total_price
         }
     )
-    booking = get_object_or_404(Private_Booking, user=request.user)
+    
     
     # Razorpay order amount (in paise, so multiply by 100)
     amount = int(booking.total_price * 100)  # Convert to paise
@@ -800,13 +802,60 @@ def private_booking(request,experience_id):
         booking.save()
         
         return redirect('checkout') 
+    razor ="rzp_live_JShwqIsgcWWsNp"
     context ={
         "payment_link": payment_link,
         "booking": booking,
         "transaction": transaction,
         "booking":booking,
+        "razor":razor,
     }
     return render (request, 'private_check.html', context) 
 
 
 # Redirect to booking details page
+import razorpay
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from .models import Transaction, Experience
+
+
+
+@csrf_exempt
+def payment_verification(request):
+    if request.method == "POST":
+        data = request.POST
+        razorpay_order_id = data.get('razorpay_order_id')
+        razorpay_payment_id = data.get('razorpay_payment_id')
+        razorpay_signature = data.get('razorpay_signature')
+        experience_id = data.get('experience_id')
+
+        # Get the experience
+        experience = Experience.objects.get(id=experience_id)
+
+        # Verify the payment signature with Razorpay
+        try:
+            client.utility.verify_payment_signature({
+                'razorpay_order_id': razorpay_order_id,
+                'razorpay_payment_id': razorpay_payment_id,
+                'razorpay_signature': razorpay_signature
+            })
+
+            # Payment is verified; create a new transaction
+            total_price = experience.price * request.session['guest_count']
+            transaction = Transaction.objects.create(
+                user=request.user,
+                experience=experience,
+                order_id=razorpay_order_id,
+                payment_id=razorpay_payment_id,
+                amount=total_price,
+                is_paid=True
+            )
+
+            # Return success response
+            return JsonResponse({'status': 'success', 'redirect_url': '/history/'})
+
+        except razorpay.errors.SignatureVerificationError:
+            # Return error if verification fails
+            return JsonResponse({'status': 'error', 'message': 'Payment verification failed.'}, status=400)
+
