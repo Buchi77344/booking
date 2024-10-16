@@ -765,7 +765,29 @@ def private_booking(request,experience_id):
             'total_price': total_price
         }
     )
+    booking = get_object_or_404(Private_Booking, user=request.user)
     
+    # Razorpay order amount (in paise, so multiply by 100)
+    amount = int(booking.total_price * 100)  # Convert to paise
+
+    # Create a Razorpay order
+    razorpay_order = client.order.create({
+        "amount": amount,
+        "currency": "INR",
+        "payment_capture": 1  # Auto-capture
+    })
+
+    # Create a transaction record
+    transaction = Transaction.objects.create(
+        user=request.user,
+        experience=booking.experience,
+        order_id=razorpay_order['id'],
+        amount=booking.total_price  # Store the total price directly
+    )
+
+    # Generate the payment link
+    payment_link = f"https://checkout.razorpay.com/v1/checkout.js?key={settings.RAZORPAY_KEY_ID}&amount={amount}&currency=INR&order_id={razorpay_order['id']}"
+
     if request.method == "POST":
         number_of_people = int(request.POST.get('number_of_people', 1))  # Get number of guests from form
         
@@ -778,8 +800,13 @@ def private_booking(request,experience_id):
         booking.save()
         
         return redirect('checkout') 
-    
-    return render (request, 'private_check.html', {'booking': booking}) 
+    context ={
+        "payment_link": payment_link,
+        "booking": booking,
+        "transaction": transaction,
+        "booking":booking,
+    }
+    return render (request, 'private_check.html', context) 
 
 
 # Redirect to booking details page
