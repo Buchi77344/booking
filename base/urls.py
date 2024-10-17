@@ -48,5 +48,6 @@ urlpatterns = [
     path('checkout/<int:booking_id>/', views.checkout, name='checkout'),
     path('booking/<int:experience_id>/', views.booking, name='booking'),
     path('private_booking/<int:experience_id>/', views.private_booking, name='private_booking'),
+    path('payment/verify/', views.payment_verification, name='payment_verification'),
  
 ]

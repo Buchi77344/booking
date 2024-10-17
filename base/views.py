@@ -699,7 +699,7 @@ def booking(request, experience_id):
             'total_price': price_per_guest * number_of_people  # Initial price
         }
     )
-    booking = get_object_or_404(Booking, user=request.user)
+   
     
     # Razorpay order amount (in paise, so multiply by 100)
     amount = int(booking.total_price * 100)  # Convert to paise
@@ -737,11 +737,13 @@ def booking(request, experience_id):
 
         # Redirect to the checkout page with the experience_id
         return redirect('checkout', experience_id=experience_id)
+    razor ="rzp_live_JShwqIsgcWWsNp"
     context ={
         "payment_link": payment_link,
         "booking": booking,
         "transaction": transaction,
         "booking":booking,
+        'razor':razor,
     }
     # On GET, if a new booking was created or already exists, pass it to the checkout template
     return render(request, 'checkout.html', context)
@@ -766,6 +768,28 @@ def private_booking(request,experience_id):
         }
     )
     
+    
+    # Razorpay order amount (in paise, so multiply by 100)
+    amount = int(booking.total_price * 100)  # Convert to paise
+
+    # Create a Razorpay order
+    razorpay_order = client.order.create({
+        "amount": amount,
+        "currency": "INR",
+        "payment_capture": 1  # Auto-capture
+    })
+
+    # Create a transaction record
+    transaction = Transaction.objects.create(
+        user=request.user,
+        experience=booking.experience,
+        order_id=razorpay_order['id'],
+        amount=booking.total_price  # Store the total price directly
+    )
+
+    # Generate the payment link
+    payment_link = f"https://checkout.razorpay.com/v1/checkout.js?key={settings.RAZORPAY_KEY_ID}&amount={amount}&currency=INR&order_id={razorpay_order['id']}"
+
     if request.method == "POST":
         number_of_people = int(request.POST.get('number_of_people', 1))  # Get number of guests from form
         
@@ -778,8 +802,60 @@ def private_booking(request,experience_id):
         booking.save()
         
         return redirect('checkout') 
-    
-    return render (request, 'private_check.html', {'booking': booking}) 
+    razor ="rzp_live_JShwqIsgcWWsNp"
+    context ={
+        "payment_link": payment_link,
+        "booking": booking,
+        "transaction": transaction,
+        "booking":booking,
+        "razor":razor,
+    }
+    return render (request, 'private_check.html', context) 
 
 
 # Redirect to booking details page
+import razorpay
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from .models import Transaction, Experience
+
+
+
+@csrf_exempt
+def payment_verification(request):
+    if request.method == "POST":
+        data = request.POST
+        razorpay_order_id = data.get('razorpay_order_id')
+        razorpay_payment_id = data.get('razorpay_payment_id')
+        razorpay_signature = data.get('razorpay_signature')
+        experience_id = data.get('experience_id')
+
+        # Get the experience
+        experience = Experience.objects.get(id=experience_id)
+
+        # Verify the payment signature with Razorpay
+        try:
+            client.utility.verify_payment_signature({
+                'razorpay_order_id': razorpay_order_id,
+                'razorpay_payment_id': razorpay_payment_id,
+                'razorpay_signature': razorpay_signature
+            })
+
+            # Payment is verified; create a new transaction
+            total_price = experience.price * request.session['guest_count']
+            transaction = Transaction.objects.create(
+                user=request.user,
+                experience=experience,
+                order_id=razorpay_order_id,
+                payment_id=razorpay_payment_id,
+                amount=total_price,
+                is_paid=True
+            )
+
+            # Return success response
+            return JsonResponse({'status': 'success', 'redirect_url': '/history/'})
+
+        except razorpay.errors.SignatureVerificationError:
+            # Return error if verification fails
+            return JsonResponse({'status': 'error', 'message': 'Payment verification failed.'}, status=400)
+

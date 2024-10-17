@@ -395,10 +395,12 @@
 
                         <div class="details-card">
                             <div class="meet-host-profile-container flex gp-20">
-                                <img src="{% static 'img/pic-2.jpg' %}" alt="Host profile picture" class="meet-host profile-img">
+                                {% if experience.vendor_user.profile_picture %}
+                                <img src="{{experience.vendor_user.profile_picture.url}}" alt="Host profile picture" class="meet-host profile-img">
+                                {% endif  %}
                                 <div class="textcontent">
                                     <h4 class="page-mini-head">Meet your host, {{experience.vendor_user.user.first_name}}</h4>
-                                    <p class="mac-light-text">Host on ExpericeHotspot since 2017</p>
+                                    <p class="mac-light-text">Host on ExpericeHotspot since 2024</p>
                                 </div>
                             </div>
 
@@ -425,7 +427,7 @@
                                 We are proud to have hosted hundreds of satisfied clients, who appreciate not only the high standard of our services but also the warm hospitality of our team.                            
                             </p>
 
-                            <a href="https://wa.me/8135495049" class="contact-host-link mt">Contact host</a>
+                            <a href="https://wa.me/{{experience.vendor_user.user.phone_number}}" class="contact-host-link mt">Contact host</a>
                         </div>
 
                      
@@ -446,7 +448,7 @@
                         <div class="booking-section">
                             <!-- <h3 class="Booking-head text-center mb-3">Book This Experience</h3> -->
                             <div class="booking-section-details">
-                                <h3 class="price-text">From ${{ experience.price_per_guest }} <span>/ person</span></h3>
+                                <h3 class="price-text">From ₹{{ experience.price_per_guest }} <span>/ person</span></h3>
                                 <span class="line-link">Show more</span>
                                 <div class="cta-group flex">
                                     <div class="date list-group-item">
@@ -631,7 +633,7 @@
                                     </div>
 
                                     <div class="schedule-cta-div flex-column gp-10">
-                                        <span class="aval-price-span">${{ experience.price_per_guest }}</span>
+                                        <span class="aval-price-span">₹{{ experience.price_per_guest }}</span>
                                         <a href="{% url 'booking' experience.id  %}" class="choose-link">Choose</a>
                                     </div>
                                 </div>
@@ -639,11 +641,11 @@
                                     <div class="textcontent flex-column">
                                         <h5 class="page-mini-h5-head">{{clan.1}}</h5>
                                         <span class="mac-light-text">10:00 AM - 1:00 PM</span>
-                                        <a href="#" class="line-link">Book for a private group</a>        
+                                        <a href="{% url 'private_booking' experience.id  %}" class="line-link">Book for a private group</a>        
                                     </div>
 
                                     <div class="schedule-cta-div flex-column gp-10">
-                                        <span class="aval-price-span">${{ experience.price_per_guest }}</span>
+                                        <span class="aval-price-span">₹{{ experience.price_per_guest }}</span>
                                         <a href="{% url 'checkout' experience.id %}" class="choose-link">Choose</a>
                                     </div>
                                 </div>
@@ -651,11 +653,11 @@
                                     <div class="textcontent flex-column">
                                         <h5 class="page-mini-h5-head">{{clan.2}}</h5>
                                         <span class="mac-light-text">10:00 AM - 1:00 PM</span>
-                                        <a href="" class="line-link">Book for a private group</a>        
+                                        <a href="{% url 'private_booking' experience.id  %}" class="line-link">Book for a private group</a>        
                                     </div>
 
                                     <div class="schedule-cta-div flex-column gp-10">
-                                        <span class="aval-price-span">${{ experience.price_per_guest }}</span>
+                                        <span class="aval-price-span">₹{{ experience.price_per_guest }}</span>
                                         <a href="{% url 'checkout' experience.id  %}" class="choose-link">Choose</a>
                                     </div>
                                 </div>
@@ -689,7 +691,7 @@
                             .bindPopup('A marker example.') // Add popup
                             .openPopup();
                         </script>
-                    </div>
+                    </div>;
                     <p>
                         Lagos Island, Lekki 
                     </p>
@@ -964,7 +966,7 @@
                 </div>
             </div>
 
-            <a href = "{% url 'chat' experience.id %}" class="chat-cta flex-center">
+            <a href = "https://wa.me/{{experience.vendor_user.user.phone_number}}" class="chat-cta flex-center">
                 <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
                 <svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M6.014 8.00613C6.12827 7.1024 7.30277 5.87414 8.23488 6.01043L8.23339 6.00894C9.14051 6.18132 9.85859 7.74261 10.2635 8.44465C10.5504 8.95402 10.3641 9.4701 10.0965 9.68787C9.7355 9.97883 9.17099 10.3803 9.28943 10.7834C9.5 11.5 12 14 13.2296 14.7107C13.695 14.9797 14.0325 14.2702 14.3207 13.9067C14.5301 13.6271 15.0466 13.46 15.5548 13.736C16.3138 14.178 17.0288 14.6917 17.69 15.27C18.0202 15.546 18.0977 15.9539 17.8689 16.385C17.4659 17.1443 16.3003 18.1456 15.4542 17.9421C13.9764 17.5868 8 15.27 6.08033 8.55801C5.97237 8.24048 5.99955 8.12044 6.014 8.00613Z" fill="#0F0F0F"/>

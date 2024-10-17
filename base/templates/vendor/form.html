@@ -8,7 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vendor Profile Update</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"> -->
     <style>
         body {
             background-color: #f7f7f7;
@@ -37,12 +36,11 @@
     <div class="row justify-content-center">
         <div class="vendor-form-wrapper">
             <div class="bs util-form-container">
-                <!-- <h2 class="text-center mb-4">Vendor Form</h2> -->
                 <h2 class="page-head">Vendor Form</h2>
-                <form class ="contact-form flex-column gp-5" method="post">
+                <form class="contact-form flex-column gp-5" method="post">
                     {% csrf_token %}
                     <div class="form-control-container">
-                        <label for="phone_number" class="form-label">Phone Number</label>
+                        <label for="phone_number" class="form-label">WhatsApp Number</label>
                         <input type="text" class="form-control" id="phone_number" name="phone_number" placeholder="Enter phone number" value="{{ user.phone_number }}" required>
                     </div>
                     <div class="form-control-container">
@@ -66,11 +64,57 @@
                     <button type="submit" class="submit-btn btn btn-black">Become a vendor</button>
                 </form>
 
-            
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    // Fetch country code based on IP
+    let countryCode = "";
+
+    function detectCountryCode() {
+        fetch("https://ipinfo.io?token=6f5ebe4f0eb027")  // Replace with your token
+            .then(response => response.json())
+            .then(data => {
+                const countryCodes = {
+                    "NG": "+234", // Nigeria
+                    "US": "+1",   // United States
+                    "GB": "+44",  // United Kingdom
+                    "IN": "+91",  // India
+                    // Add more country codes as necessary
+                };
+                countryCode = countryCodes[data.country] || "";  // Get country code or empty string
+            })
+            .catch(error => {
+                console.error("Error fetching country info: ", error);
+            });
+    }
+
+    // Automatically prepend country code if necessary
+    function addCountryCode() {
+        const phoneInput = document.getElementById("phone_number");
+        let phoneValue = phoneInput.value;
+
+        // Only add the country code if it doesn't already start with it
+        if (countryCode && !phoneValue.startsWith(countryCode) && phoneValue.length > 0) {
+            // Remove leading zeroes if present
+            if (phoneValue.startsWith("0")) {
+                phoneValue = phoneValue.substring(1);
+            }
+
+            phoneInput.value = countryCode + phoneValue;
+        }
+    }
+
+    // Detect country code on page load
+    window.onload = function() {
+        detectCountryCode();
+
+        // Listen for user input and add the country code when they start typing
+        document.getElementById("phone_number").addEventListener("input", addCountryCode);
+    };
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>

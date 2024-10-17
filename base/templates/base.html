@@ -38,7 +38,6 @@
                             {% if request.user.role == 'vendor' %}
                             <li><a href="/" class="stay-link">Home</a></li>
                             <li><a href="{% url 'vendor:dashboard' %}" class="experience-link">Dashboard</a></li>
-                            <li><a href="{% url 'vendor:vendorchat' %}" class="experience-link">User Message</a></li>
                             <li><a href="{% url 'vendor:host' %}" class="experience-link">Host Experience</a></li>
                             <li><a href="{% url 'vendor:vendor_list' %}" class="experience-link">Vendor List</a></li>
                             <li><a href="{% url 'vendor:earn' %}" class="experience-link">Earning</a></li>

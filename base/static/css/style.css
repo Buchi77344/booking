@@ -1209,6 +1209,8 @@ span.mobile.search-icon svg path{
     width : 48%;
 }
 
+
+
 .profile-welcome-head{
     font-size: 2rem;
     margin: 0;
@@ -2216,7 +2218,7 @@ input.accord-search-val{
 
 .submit-btn{
     width : 100%;
-    padding : 10px 0px;
+    padding : 15px 0px;
     font-size: 1rem;
     letter-spacing: .5px;
 }
