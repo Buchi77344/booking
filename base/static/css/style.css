@@ -1962,7 +1962,7 @@ input.accord-search-val{
 }
 
 .mac-text-500{
-    color : hsl(0, 0%, 10%);
+    color : hsl(0, 0%, 30%);
     margin : 0;
     font-weight: 500;
 }
@@ -3347,8 +3347,27 @@ input.message-system-type-input{
     margin: 0;
 }
 
+.language-select-container .select-div{
+    cursor: pointer;
+}
+
 .language-select-container .select-div.flex-between{
     align-items: center;
+}
+
+.title-textarea{
+    width : 100%;
+    height : 250px;
+    border: 1px solid rgba(0, 0, 0, 0.9);
+    padding : 20px;
+    font-size: 2rem;
+    font-weight: 500;
+    border-radius: 10px;
+}
+
+.title-form .mac-text-500,
+.title-form .line-link{
+    font-size: 1.2rem;
 }
 
 /* .experience-card-details-head{
