@@ -46,7 +46,10 @@ function revealDropFunc(highlightEl, dropEl){
     })
 }
 
-revealDropFunc(".phone-number-select-container, .phone-add-btn", phoneOverlay)
+if(document.querySelector(".phone-number-select-container")){
+    revealDropFunc(".phone-number-select-container, .phone-add-btn", phoneOverlay)
+
+}
 
 document.addEventListener("click", function(event){
     if(event.target.closest("#open-chatbot-modal, .chatbot-modal") == null){
@@ -696,6 +699,14 @@ if(document.querySelector(".mobile.hamburger")){
         overlayEl.classList.toggle("visible")
         document.body.classList.toggle("over-hidden")
         mobileNav.classList.toggle("slideIn")
+    })
+}
+
+if(document.querySelector(".host-div-info.hamburger")){
+    let hamburger = document.querySelector(".host-div-info.hamburger")
+    let sideBar = document.querySelector(".host-sidebar")
+    hamburger.addEventListener("click", function(){
+        sideBar.classList.toggle("slideIn")
     })
 }
 
