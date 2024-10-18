@@ -84,7 +84,7 @@ function getCityState(latitude, longitude){
     .then(response => response.json())
     .then(data => {
         if (data && data.address) {
-            const city = data.address.city || data.address.town || data.address.village;
+            const city = data.address.city || data.address.town || data.address.village || data.address.country || "";
             const state = data.address.state;
             const country = data.address.country;
 
