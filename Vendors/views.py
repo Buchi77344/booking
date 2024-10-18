@@ -128,6 +128,20 @@ from django.contrib.auth.decorators import login_required
 
 
 
+def group_price(request):
+    return render (request, 'vendor/group-pr.html')
+def what_do(request):
+    return render (request, 'vendor/theme-form.html')
+def description(request):
+    return render (request, 'vendor/activities-form.html')
+def over(request):
+    return render (request, 'vendor/overview-form.html')
+def group_size(request):
+    return render (request, 'vendor/groupsz-form.html')
+def booking_st(request):
+    return render (request, 'vendor/booking-st.html')
+def cancel(request):
+    return render (request, 'vendor/cancelllation-pl.html')
 
 
 @login_required(login_url='signin')

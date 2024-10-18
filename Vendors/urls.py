@@ -18,5 +18,12 @@ urlpatterns = [
     path('vendor_edit/<str:title>/',views.vendor_edit,name="vendor_edit"),
     path('delete_expricence/<int:pk>/',views.delete_expricence,name="delete_expricence"),
     path('vendorchat', vendorchat, name='vendorchat'), 
+    path('group_price', group_price, name='group_price'), 
+    path('what_do', what_do, name='what_do'), 
+    path('description', description, name='description'), 
+    path('over', over, name='over'), 
+    path('group_size', group_size, name='group_size'), 
+    path('booking_st', booking_st, name='booking_st'), 
+    path('cancel', cancel, name='cancel'), 
   
 ]
