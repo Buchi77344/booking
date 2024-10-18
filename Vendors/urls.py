@@ -25,5 +25,6 @@ urlpatterns = [
     path('group_size', group_size, name='group_size'), 
     path('booking_st', booking_st, name='booking_st'), 
     path('cancel', cancel, name='cancel'), 
+    path('general', general, name='general'), 
   
 ]

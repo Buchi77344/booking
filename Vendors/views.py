@@ -142,6 +142,8 @@ def booking_st(request):
     return render (request, 'vendor/booking-st.html')
 def cancel(request):
     return render (request, 'vendor/cancelllation-pl.html')
+def general(request):
+    return render (request, 'vendor/general-avail.html')
 
 
 @login_required(login_url='signin')

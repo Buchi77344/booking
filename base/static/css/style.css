@@ -3097,7 +3097,7 @@ input.message-system-type-input{
 
 .host-page-container{
     display: flex;
-    /* height: calc(100vh - 130px); */
+    min-height: calc(100vh - 130px);
     position: relative;
 }
 
@@ -3338,6 +3338,11 @@ input.message-system-type-input{
     scale: 1;
 }
 
+.price-input-div input{
+    width: 100%;
+    display: block;
+}
+
 /* .experience-card-details-head{
     color: hsla(0, 0%, 10%, .8);
     font-weight: 500;
@@ -3498,6 +3503,10 @@ input.message-system-type-input{
 @media(max-width : 900px){
     .checkout-page-wrapper{
         flex-direction: column;
+    }
+
+    .host-main .page-head{
+        text-align: center;
     }
 
     .host-sidebar{
