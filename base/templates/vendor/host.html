@@ -1,180 +1,170 @@
 {% extends "base.html" %}
 {% load static %}
 {% block context %}
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Experience</title>
+    <title>Create Experience</title> -->
 
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <!-- Clockpicker CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-clockpicker/0.0.7/css/bootstrap-clockpicker.min.css" rel="stylesheet">
+
+    <!-- Flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+    <!-- Font Awesome for Tooltip Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-clockpicker/0.0.7/css/bootstrap-clockpicker.min.css">
 
-    <style>
-        .tooltip-inner {
-            max-width: 200px; /* Adjust width for tooltips */
-        }
-        .input-group-addon {
-            cursor: pointer;
-        }
-        .btn-black {
-            background-color: black;
-            color: white;
-        }
-    </style>
-</head>
+    <!-- <link rel="stylesheet" href="/base/static/css/style.css"> -->
 
-<body>
-    <div class="container">
-        <h1>Create Experience</h1>
-        <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-        
-            <!-- 1. Experience Overview -->
-            <div class="border p-3 mb-4">
-                <h2>Experience Overview</h2>
-        
-                <div class="form-group">
-                    <label for="title">Title of Experience:</label>
-                    <input type="text" class="form-control" id="title" name="title" required data-toggle="tooltip" title="Enter the title of the experience you are offering.">
+<!-- </head> -->
+<style>
+    .tooltip-inner {
+        max-width: 200px; /* Adjust width for tooltips */
+    }
+    .input-group-addon {
+        cursor: pointer;
+    }
+
+    .host-form-container{
+        width : 90%;
+        margin: 0px auto;
+        max-width : 1200px;
+        background-color: hsl(0,0%,100%);
+        padding : 20px 30px;
+        border-radius : 12px;
+    }
+
+    .host-form-container .page-head{
+        text-align: center;
+    }
+
+    .host-form-container .page-mini-sm-head{
+        margin-bottom: 10px;
+        display: inline-block;
+    }
+
+    .host-form-container .input-side-container{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap : 30px;
+    }
+
+    .host-form-container .form-group label{
+        margin-top: 10px;
+        margin-bottom: 0px;
+        display: inline-block;
+    }
+
+    .input-side-container .form-control{
+        height: 45px;
+    }
+
+    .host-add-btn{
+        padding : 12px 35px;
+        background-color: hsl(0,0%,10%);
+        color : hsl(0,0%,98%);
+        border-radius: 10px;
+        margin : 12px 0px;
+        font-size: 1rem;
+    }
+
+    .host-add-btn:hover{
+        background-color: hsl(0,0%,20%);
+    }
+
+    @media(max-width : 768px){
+        .host-form-container .input-side-container{
+            grid-template-columns: repeat(1, 1fr);
+            gap : 0px
+        }
+
+        .host-form-container .form-group label {
+            margin-top: 10px;
+            display: inline-block;
+        }
+
+        .form-group{
+            margin-bottom: 0px;
+        }
+    }
+
+</style>
+
+<!-- <body> -->
+    <div class="host-page">
+        <div class="host-page-container">
+            <div class="host-sidebar pd">
+                <div class="head-div flex-between">
+                    <a href = "/" class="logo-container flex gp-10">
+                        <img class = "logo-img" src="{% static 'img/booking-logo.png' %}" alt="logo for experience hotspot">
+                    </a>
+
+                    <a href = "#" class="line-link">Save and exit</a>
                 </div>
-        
-                <div class="form-group">
-                    <label for="description">Description:</label>
-                    <textarea class="form-control" id="description" name="description" required data-toggle="tooltip" title="Provide a detailed description of the experience."></textarea>
-                </div>
-        
-                <div class="form-group">
-                    <label for="category">Category:</label>
-                    <select class="form-control" id="category" name="category" required data-toggle="tooltip" title="Select the appropriate category for your experience.">
-                        {% for category in categories %}
-                        <option value="{{ category.0 }}">{{ category.1 }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-        
-                <div class="form-group">
-                    <label for="city">Location:</label>
-                    <input type="text" class="form-control" id="city" name="location[city]" placeholder="City" required data-toggle="tooltip" title="Enter the city where the experience takes place.">
-                    <input type="text" class="form-control mt-2" id="location_detail" name="location[detail]" placeholder="Street/Area" data-toggle="tooltip" title="Provide additional location details (street or area).">
-                </div>
-        
-                <div class="form-group">
-                    <label for="language">Language in Offering:</label>
-                    <input type="text" class="form-control" id="language" name="language" required data-toggle="tooltip" title="Specify the language in which the experience is offered.">
-                </div>
-        
-                <div class="form-group">
-                    <label for="duration">Duration of Experience:</label>
-                    <input type="text" class="form-control" id="duration" name="duration" required data-toggle="tooltip" title="State the duration of the experience.">
-                </div>
-        
-                <div class="form-group">
-                    <label for="what_included">What Should Be Included with This Experience:</label>
-                    <textarea class="form-control" id="what_included" name="what_included" required data-toggle="tooltip" title="List the items or services that will be provided during the experience."></textarea>
-                </div>
-        
-                <div class="form-group">
-                    <label for="images">Images:</label>
-                    <input type="file" class="form-control" id="images" name="images" multiple data-toggle="tooltip" title="Upload images related to the experience.">
-                </div>
-        
-                <div class="form-group">
-                    <label for="videos">Upload Videos:</label>
-                    <input type="file" class="form-control" id="videos" name="videos" multiple data-toggle="tooltip" title="Upload videos showcasing the experience.">
-                </div>
+
+                <h3 class="page-sub-h3-head mr-30">Submit your experience</h3>
+                <ul class="sidebar-links-container flex-column gp-10">
+                    <li><a href="#" class="sidebar-link">Your idea</a></li>
+                    <li><a href="#" class="sidebar-link">What we're looking for</a></li>
+                    <li><a href="#" class="sidebar-link">Experience page</a></li>
+                    <li><a href="#" class="sidebar-link">Settings</a></li>
+                    <li><a href="#" class="sidebar-link">Your submission</a></li>
+                </ul>
             </div>
-        
-            <!-- 2. Guest Information and Settings -->
-            <div class="border p-3 mb-4">
-                <h2>Guest Information and Settings</h2>
-        
-                <div class="form-group">
-                    <label for="guests">Guests to Bring With:</label>
-                    <input type="number" class="form-control" id="guests" name="guests" required data-toggle="tooltip" title="Specify the number of guests allowed.">
-                </div>
-        
-                <div class="form-group">
-                    <label for="group_size">Group Size:</label>
-                    <input type="number" class="form-control" id="group_size" name="group_size" required data-toggle="tooltip" title="Specify the maximum group size for this experience.">
-                </div>
-        
-                <div class="form-group">
-                    <label for="group_pricing">Group Pricing:</label>
-                    <input type="number" class="form-control" id="group_pricing" name="group_pricing" required data-toggle="tooltip" title="Enter the pricing for the group.">
-                </div>
-        
-                <div class="form-group">
-                    <label for="booking_settings">Booking Settings:</label>
-                    <textarea class="form-control" id="booking_settings" name="booking_settings" required data-toggle="tooltip" title="Set the booking rules and policies."></textarea>
-                </div>
-        
-                <div class="form-group">
-                    <label for="advance_notice">Advance Notice:</label>
-                    <input type="text" class="form-control" id="advance_notice" name="advance_notice" required data-toggle="tooltip" title="Specify the advance notice time for bookings.">
-                </div>
-        
-                <div class="form-group">
-                    <label for="cutoff_first_guest">Cutoff Time for First Guest:</label>
-                    <input type="text" class="form-control" id="cutoff_first_guest" name="cutoff_first_guest" required data-toggle="tooltip" title="Enter the cutoff time for the first guest.">
-                </div>
-        
-                <div class="form-group">
-                    <label for="cutoff_additional_guests">Cutoff Time for Additional Guests:</label>
-                    <input type="text" class="form-control" id="cutoff_additional_guests" name="cutoff_additional_guests" required data-toggle="tooltip" title="Enter the cutoff time for additional guests.">
-                </div>
-            </div>
-        
-            <!-- 3. Availability and Scheduling -->
-            <div class="border p-3 mb-4">
-                <h2>Availability and Scheduling</h2>
-        
-                <div class="form-group">
-                    <label for="available_dates">Availability Calendar:</label>
-                    <input type="text" class="form-control" id="available_dates" name="available_dates" readonly required data-toggle="tooltip" title="Select the available dates for this experience.">
-                </div>
-        
-                <div class="form-group">
-                    <label>Available Time Slots:</label>
-                    <div id="time_slots_container">
-                        <div class="row time_slot">
-                            <div class="col-md-6">
-                                <input type="text" class="form-control" name="start_time[]" placeholder="Select start time" required data-toggle="tooltip" title="Choose the start time for this time slot.">
-                            </div>
-                            <div class="col-md-6">
-                                <input type="text" class="form-control" name="end_time[]" placeholder="Select end time" required data-toggle="tooltip" title="Choose the end time for this time slot.">
+            <div class="host-main">
+                <div class="util-form-container">
+                    <form class = "Basics-form" action = "">
+                        <h3 class="page-head">Tell us a bit more</h3>
+                        
+                        <div class="location-div">
+                            <h5 class="page-micro-head">Which city do you want to host your experience in?</h5>
+                            <input type="text" class="form-input mr-10">
+                            <div class="flex gp-5">
+                                <img src="{% static 'img/location.svg' %}" alt="Location Icon" class="location-icon">
+                                <a href="#" class="line-link">Use my current location</a>
                             </div>
                         </div>
-                    </div>
-                    <button type="button" class="btn btn-black mt-3" id="add_time_slot_btn">Add More Time Slot</button>
+                        
+                        <div class="language-div mt-30">
+                            <div class="textcontent">
+                                <h5 class="page-micro-head">Which language(s) will you offer your experience in?</h5>
+                                <p class="mac-light-text-900">You should be able to read, write and speak in this language.</p>
+                            </div>
+    
+                            <div class="language-select-container">
+                                <div class="select-div flex-between">
+                                    <span class="mac-text">English</span>
+                                    <img src="{% static 'img/arrow-icon.svg' %}" alt="arrow icon" class="arrow icon">
+                                </div>
+    
+                                <a href="#" class="line-link mt">Add additional languages</a>
+                            </div>
+                        </div>
+    
+                        <div class="org_part-content mt-30">
+                            <h5 class="page-micro-head">Experience Hotspot partner Organisation(optional)</h5>
+                            <div class="org_part flex-between mt-10">
+                                <span class="mac-text">I'm hosting with an organisation and have a confirmation code</span>
+                                <input type="checkbox" class="book-work-toggle" name="">
+                            </div>
+                        </div>
+                    </form>
+                
+               
+
+                
+                   
                 </div>
             </div>
-        
-            <!-- 4. Cancellation Policy -->
-            <div class="border p-3 mb-4">
-                <h2>Cancellation Policy</h2>
-        
-                <div class="form-group">
-                    <label for="cancellation_option_1">
-                        <input type="radio" id="cancellation_option_1" name="cancellation_policy" value="7_day" required data-toggle="tooltip" title="Select if a 7-day cancellation policy applies."> 7-Day Cancellation
-                    </label>
-                </div>
-        
-                <div class="form-group">
-                    <label for="cancellation_option_2">
-                        <input type="radio" id="cancellation_option_2" name="cancellation_policy" value="24_hour" required data-toggle="tooltip" title="Select if a 24-hour cancellation policy applies."> 24-Hour Cancellation
-                    </label>
-                </div>
-            </div>
-        
-            <button type="submit" class="btn btn-black btn-block mb-3" data-toggle="tooltip" title="Click to submit the experience details.">Create Experience</button>
-        </form>
-        
+        </div>
     </div>
 
     <!-- JS for Bootstrap, Flatpickr, Clockpicker, and Tooltips -->
@@ -210,7 +200,221 @@
             });
         });
     </script>
-</body>
+<!-- </body>
 
-</html>
-{% endblock %}
+</html> -->
+
+  
+
+{% endblock context %}
+
+<div class="bs host-form-container">
+    <h1 class = "page-head">Create Experience</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-control-container">
+            <h4 class="page-mini-head">Experience Overview</h4>
+            <div class="input-side-container">
+                <!-- Title -->
+                <div class="form-group">
+                    <label for="title">Title:</label>
+                    <input type="text" class="form-control" id="title" name="title" required>
+                </div>
+    
+                <!-- Description -->
+                <div class="form-group">
+                    <label for="description">Description:</label>
+                    <textarea class="form-control" id="description" name="description" required></textarea>
+                </div>
+            </div>
+
+            <div class="input-side-container">
+                <!-- Images -->
+                <div class="form-group">
+                    <label for="images">Images:</label>
+                    <input type="file" class="form-control" id="images" name="images" multiple>
+                </div>
+
+                <!-- Videos Upload -->
+                <div class="form-group">
+                    <label for="videos">Upload Videos:</label>
+                    <input type="file" class="form-control" id="videos" name="videos" multiple>
+                </div>
+            </div>
+
+            <div class="input-side-container">
+                <!-- Category -->
+                <div class="form-group">
+                    <label for="category">Category:</label>
+                    <select class="form-control" id="category" name="category" required>
+                        {% for category in categories %}
+                        <option value="{{ category.0 }}">{{ category.1 }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+    
+                <!-- Location -->
+                <div class="form-group">
+                    <label for="city">City:</label>
+                    <input type="text" class="form-control" id="city" name="location[city]" placeholder="City" required>
+                    <label for="location_detail">Detailed Location:</label>
+                    <input type="text" class="form-control" id="location_detail" name="location[detail]" placeholder="Street/Area">
+                </div>
+            </div>
+
+            <div class="input-side-container">
+                <!-- Tags -->
+                <div class="form-group">
+                    <label for="tags">Tags:</label>
+                    <input type="text" class="form-control" id="tags" name="tags">
+                </div>
+    
+                <!-- Duration with Tooltip -->
+                <div class="form-group">
+                    <label for="duration">Duration:
+                        <span data-toggle="tooltip" title="Specify the total length of the experience, including any breaks or additional activities.">
+                            <i class="fas fa-info-circle"></i>
+                        </span>
+                    </label>
+                    <input type="text" class="form-control" id="duration" name="duration" required>
+                </div>
+            </div>
+
+            <div class="input-side-container">
+                <!-- Special Requirements (Optional) with Tooltip -->
+                <div class="form-group">
+                    <label for="requirements">Special Requirements (Optional):
+                        <span data-toggle="tooltip" title="Mention any special requirements for this experience, such as accessibility needs or dietary preferences.">
+                            <i class="fas fa-info-circle"></i>
+                        </span>
+                    </label>
+                    <textarea class="form-control" id="requirements" name="requirements"></textarea>
+                </div>
+    
+                <!-- What to Bring (Optional) with Tooltip -->
+                <div class="form-group">
+                    <label for="what_to_bring">What to Bring (Optional):
+                        <span data-toggle="tooltip" title="List any items guests should bring with them, like comfortable clothing or sunscreen.">
+                            <i class="fas fa-info-circle"></i>
+                        </span>
+                    </label>
+                    <textarea class="form-control" id="what_to_bring" name="what_to_bring"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-control-container">
+            <h4 class="page-mini-head">Guest Information and Settings</h4>
+            <div class="input-side-container">
+                 <!-- Minimum and Maximum Guests -->
+                <div class="form-group">
+                    <label for="min_guests">Minimum Guests:</label>
+                    <input type="number" class="form-control" id="min_guests" name="min_guests" required>
+                </div>
+                <div class="form-group">
+                    <label for="max_guests">Maximum Guests:</label>
+                    <input type="number" class="form-control" id="max_guests" name="max_guests" required>
+                </div>
+            </div>
+
+            <!-- Price per Guest with Tooltip -->
+            <div class="input-side-container">
+                <div class="form-group">
+                    <label for="price_per_guest">Price per Guest:
+                        <span data-toggle="tooltip" title="Set the price each guest will pay to join this experience. The total price will adjust based on the number of guests.">
+                            <i class="fas fa-info-circle"></i>
+                        </span>
+                    </label>
+                    <input type="number" class="form-control" id="price_per_guest" name="price_per_guest" required>
+                </div>
+                <div class="form-group">
+                    <label class = "page-micro-head">Price Tiers:
+                        <span data-toggle="tooltip" title="Set different prices based on the number of guests: Price for 1-3 Guests, 4-6 Guests, and 7+ Guests. For example: For 1 guest: ₹500, For 4 guests: ₹450 per guest, For 10 guests: ₹400 per guest.">
+                            <i class="fas fa-info-circle"></i>
+                        </span>
+                    </label>
+                    <div>
+                        <label for="price_1_3">Price for 1-3 Guests:</label>
+                        <input type="number" class="form-control" id="price_1_3" name="price_1_3" required placeholder="Price for 1-3 Guests">
+                    </div>
+                    <div>
+                        <label for="price_4_6">Price for 4-6 Guests:</label>
+                        <input type="number" class="form-control" id="price_4_6" name="price_4_6" required placeholder="Price for 4-6 Guests">
+                    </div>
+                    <div>
+                        <label for="price_7_plus">Price for 7+ Guests:</label>
+                        <input type="number" class="form-control" id="price_7_plus" name="price_7_plus" required placeholder="Price for 7+ Guests">
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-side-container">
+                <!-- Private Group Price with Tooltip -->
+                <div class="form-group">
+                    <label for="private_group_price">Private Group Price:
+                        <span data-toggle="tooltip" title="This option allows you to set a fixed price for private group bookings. The price will cover up to a certain number of guests. You can specify the maximum number of guests allowed for this private group booking.">
+                            <i class="fas fa-info-circle"></i>
+                        </span>
+                    </label>
+                    <input type="number" class="form-control" id="private_group_price" name="private_group_price" required>
+                    <input type="number" class="form-control mt-2" id="max_group_guests" name="max_group_guests" placeholder="Up to (number of guests)">
+                </div>
+    
+                <!-- Extra Services with Tooltip -->
+                <div class="form-group">
+                    <label for="extra_services">Extra Services (per guest, e.g., Photography):
+                        <span data-toggle="tooltip" title="Enter the name of any additional service offered as part of this experience. This will be visible to guests.">
+                            <i class="fas fa-info-circle"></i>
+                        </span>
+                    </label>
+                    <div id="extra_services_container">
+                        <input type="text" class="form-control mb-2" name="extra_services[]" placeholder="Service Name">
+                        <input type="number" class="form-control mb-2" name="extra_service_price[]" placeholder="Price per Guest">
+                    </div>
+                    <button type="button" class="btn host-add-btn" id="add_service_btn">Add Extra Service</button>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="form-group-container">
+            <h4 class="page-mini-head">Availability and Scheduling</h4>
+            <div class="input-side-container">
+                <!-- Available Dates with Flatpickr and Tooltip -->
+                <div class="form-group">
+                    <label for="available_dates">Available Dates:
+                        <span data-toggle="tooltip" title="Select the dates when this experience will be available for booking.">
+                            <i class="fas fa-info-circle"></i>
+                        </span>
+                    </label>
+                    <input type="text" class="form-control" id="available_dates" name="calendar_view" readonly required placeholder="Select available dates">
+                </div>
+    
+                <!-- Time Slots with Clockpicker and Tooltip -->
+                <div class="form-group">
+                    <label class="page-micro-head">Available Time Slots:
+                        <span data-toggle="tooltip" title="Indicate the start and end time during which this experience will be held (e.g., 10:00 AM to 1:00 PM).">
+                            <i class="fas fa-info-circle"></i>
+                        </span>
+                    </label>
+                    <div id="time_slots_container">
+                        <div class="row time_slot">
+                            <div class="col-md-6">
+                                <label for="start_time">Start Time:</label>
+                                <input type="text" class="form-control" name="start_time[]" placeholder="Select start time" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="end_time">End Time:</label>
+                                <input type="text" class="form-control" name="end_time[]" placeholder="Select end time" required>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn host-add-btn" id="add_time_slot_btn">Add More Time Slot</button>
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn-black submit-btn br-10 mt">Create Experience</button>
+    </form>
+</div>

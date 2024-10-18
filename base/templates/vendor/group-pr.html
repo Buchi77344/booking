@@ -1,0 +1,230 @@
+{% extends "base.html" %}
+{% load static %}
+{% block context %}
+
+<!-- Clockpicker CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-clockpicker/0.0.7/css/bootstrap-clockpicker.min.css" rel="stylesheet">
+
+<!-- Flatpickr CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+<!-- Font Awesome for Tooltip Icons -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+<style>
+    .tooltip-inner {
+        max-width: 200px; /* Adjust width for tooltips */
+    }
+    .input-group-addon {
+        cursor: pointer;
+    }
+
+    .host-form-container{
+        width : 90%;
+        margin: 0px auto;
+        max-width : 1200px;
+        background-color: hsl(0,0%,100%);
+        padding : 20px 30px;
+        border-radius : 12px;
+    }
+
+    .host-form-container .page-head{
+        text-align: center;
+    }
+
+    .host-form-container .page-mini-sm-head{
+        margin-bottom: 10px;
+        display: inline-block;
+    }
+
+    .host-form-container .input-side-container{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap : 30px;
+    }
+
+    .host-form-container .form-group label{
+        margin-top: 10px;
+        margin-bottom: 0px;
+        display: inline-block;
+    }
+
+    .input-side-container .form-control{
+        height: 45px;
+    }
+
+    .host-add-btn{
+        padding : 12px 35px;
+        background-color: hsl(0,0%,10%);
+        color : hsl(0,0%,98%);
+        border-radius: 10px;
+        margin : 12px 0px;
+        font-size: 1rem;
+    }
+
+    .host-add-btn:hover{
+        background-color: hsl(0,0%,20%);
+    }
+
+    @media(max-width : 768px){
+        .host-form-container .input-side-container{
+            grid-template-columns: repeat(1, 1fr);
+            gap : 0px
+        }
+
+        .host-form-container .form-group label {
+            margin-top: 10px;
+            display: inline-block;
+        }
+
+        .form-group{
+            margin-bottom: 0px;
+        }
+    }
+
+</style>
+
+<div class="host-page">
+    <div class="host-page-container">
+        <div class="host-sidebar pd">
+            <div class="head-div flex-between">
+                <a href = "/" class="logo-container flex gp-10">
+                    <img class = "logo-img" src="{% static 'img/booking-logo.png' %}" alt="logo for experience hotspot">
+                </a>
+
+                <a href = "#" class="line-link">Save and exit</a>
+            </div>
+
+            <h3 class="page-sub-h3-head mr-30">Submit your experience</h3>
+            <ul class="sidebar-links-container flex-column gp-10">
+                <li><a href="#" class="sidebar-link">Your idea</a></li>
+                <li><a href="#" class="sidebar-link">What we're looking for</a></li>
+                <li><a href="#" class="sidebar-link">Experience page</a></li>
+                <li><a href="#" class="sidebar-link">Settings</a></li>
+                <li><a href="#" class="sidebar-link">Your submission</a></li>
+            </ul>
+        </div>
+        <div class="host-main">
+            <form action="" class="group-pricing-form">
+                <h3 class="page-head">Guest pricing</h3>
+                <p class="mac-light-text-900">How much you charge is entirely up to you. Enter the price you want each guest to pay and discover what you earn. <a href="#" class="line-link">Learn more</a></p>
+                <div class="select-div flex gp-20">
+                    <h5 class="page-micro-head">Individual rate</h5>
+                    <div class="flex-column">
+                        <span class="mac-text-500">Each guest pays</span>
+                        <div class="currency-select-div">
+                            <span class= "fs-500">USD</span>
+                            <input type="text" name="" id="">
+                        </div>
+                    </div>
+                    <div class="earn-div flex-column">
+                        <span class="mac-text-500">Your estimated earnings</span>
+                        <div class="currency-select-div">
+                            <span class= "fs-500">USD</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="select-div">
+                    <h5 class="page-mini-h5-head">Per instance:Private groups</h5>
+                    <p class="mac-text">If no other groups are taken, guests can book an instance for a private group</p>
+                    
+                    <div class="price-input-div mt">
+                        <div class="select-cta-container">
+                            <input class="" placeholder="Minimum price" type="text" name="" id="">
+                        </div>
+                        <p class="mac-light-text">Guests who book for a private group will pay the total per person pricing, if that's higher than your minimum price.</p>
+                    </div>
+
+                    <div class="min-div-toggle mt">
+                        <h5 class="page-mini-h5-head">Always require minimum price</h5>
+                        <p class="mac-light-text-900">Private groups are set as your default. You can change this for specific instances.</p>
+                        <input type="checkbox" class="book-work-toggle mt-10" name="" id="">
+                    </div>
+                </div>
+
+
+            </form> 
+
+
+               
+        </div>
+    </div>
+</div>
+
+<!-- jQuery and Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+<!-- Flatpickr JS -->
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+<!-- Clockpicker JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-clockpicker/0.0.7/bootstrap-clockpicker.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        // Initialize tooltips
+        $('[data-toggle="tooltip"]').tooltip();
+
+        // Initialize Flatpickr for Available Dates
+        flatpickr("#available_dates", {
+            mode: "multiple",
+            dateFormat: "Y-m-d",
+            onClose: function(selectedDates) {
+                const formattedDates = selectedDates.map(date => {
+                    return date.toLocaleDateString('en-US', {
+                        weekday: 'short',
+                        day: '2-digit',
+                        month: 'short'
+                    });
+                }).join(", ");
+                document.getElementById('available_dates').value = formattedDates;
+            }
+        });
+
+        // Initialize Flatpickr for dynamic time slots
+        function initializeTimePickers() {
+            $('.time_slot input[name="start_time[]"]').each(function() {
+                flatpickr(this, {
+                    enableTime: true,
+                    noCalendar: true,
+                    dateFormat: "h:i K", // 12-hour format with AM/PM
+                    time_24hr: false,
+                });
+            });
+
+            $('.time_slot input[name="end_time[]"]').each(function() {
+                flatpickr(this, {
+                    enableTime: true,
+                    noCalendar: true,
+                    dateFormat: "h:i K", // 12-hour format with AM/PM
+                    time_24hr: false,
+                });
+            });
+        }
+
+        // Initialize the first set of time pickers
+        initializeTimePickers();
+
+        // Add more time slots dynamically
+        $('#add_time_slot_btn').click(function() {
+            const newTimeSlot = `
+                <div class="row time_slot">
+                    <div class="col-md-6">
+                        <label for="start_time">Start Time:</label>
+                        <input type="text" class="form-control" name="start_time[]" placeholder="Select start time" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="end_time">End Time:</label>
+                        <input type="text" class="form-control" name="end_time[]" placeholder="Select end time" required>
+                    </div>
+                </div>
+            `;
+            $('#time_slots_container').append(newTimeSlot);
+            // Reinitialize flatpickr for new time slots
+            initializeTimePickers();
+        });
+    });
+</script>
+{% endblock context %}
