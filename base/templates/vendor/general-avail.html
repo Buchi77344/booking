@@ -92,7 +92,7 @@
             <span></span>
         </div>
 
-        <span class="page-micro-head">Group pricing</span>
+        <span class="page-micro-head">Group Size</span>
     </div>
     <div class="host-page-container">
         <div class="host-sidebar pd">
@@ -100,10 +100,10 @@
                 <a href = "/" class="logo-container flex gp-10">
                     <img class = "logo-img" src="{% static 'img/booking-logo.png' %}" alt="logo for experience hotspot">
                 </a>
-    
+
                 <a href = "#" class="line-link">Save and exit</a>
             </div>
-    
+
             <h3 class="page-sub-h3-head mr-30">Submit your experience</h3>
             <ul class="sidebar-links-container flex-column gp-10">
                 <li><a href="{% url 'vendor:host' %}" class="sidebar-link">Basics</a></li>
@@ -118,47 +118,60 @@
         </div>
         <div class="host-main">
             <div class="util-form-container">
-                <form action="" class="group-pricing-form">
-                    <h3 class="page-head">Guest pricing</h3>
-                    <p class="mac-light-text-900">How much you charge is entirely up to you. Enter the price you want each guest to pay and discover what you earn. <a href="#" class="line-link">Learn more</a></p>
-                    <div class="select-div flex gp-20">
-                        <h5 class="page-micro-head">Individual rate</h5>
-                        <div class="flex-column">
-                            <span class="mac-text-500">Each guest pays</span>
-                            <div class="currency-select-div">
-                                <span class= "fs-500">USD</span>
-                                <input type="text" name="" id="">
-                            </div>
-                        </div>
-                        <div class="earn-div flex-column">
-                            <span class="mac-text-500">Your estimated earnings</span>
-                            <div class="currency-select-div">
-                                <span class= "fs-500">USD</span>
-                            </div>
-                        </div>
-                    </div>
-        
-                    <div class="select-div">
-                        <h5 class="page-mini-h5-head">Per instance:Private groups</h5>
-                        <p class="mac-text">If no other groups are taken, guests can book an instance for a private group</p>
+                <form class="general-avail-form" action="">
+                            <h3 class="page-head">General availability</h3>
+                            <p class="mac-light-text-900">You'll schedule exact dates and times that you're available to host before you go live.</p>
                         
-                        <div class="price-input-div mt">
-                            <div class="select-cta-container">
-                                <input class="" placeholder="Minimum price" type="text" name="" id="">
+                            <div class="-div mt">
+                                <div class="select-div">
+                                    <h5 class="page-micro-head">Public groups</h5>
+        
+                                    <div class="public_gp-cta">
+                                        <div class="select-cta-container flex-column mt">
+                                            <span class="mac-light-text">Maximum group size</span>
+                                            <select name="" id="">
+                                                <option value="1">1 </option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                                <option value="9">9</option>
+                                                <option selected value="10">10</option>
+                                            </select>
+                                        </div>
+                                        <p class="mac-light-text">You can host a public group for up to 10 guests. Guests who may or may not know each other</p>
+                                    </div>
+                                </div>
+    
+                                <div class="private_gp select-div">
+                                    <h5 class="page-micro-head">Private groups</h5>
+    
+                                    <div class="public_gp-cta">
+                                        <div class="select-cta-container flex-column mt">
+                                            <span class="mac-light-text">Maximum group size</span>
+                                            <select name="" id="">
+                                                <option value="1">1 </option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                                <option value="9">9</option>
+                                                <option selected value="10">10</option>
+                                            </select>
+                                        </div>
+                                        <p class="mac-light-text">For in person experience, you can up host a private group for up to 30 guests</p>
+                                    </div>
+                                </div>
                             </div>
-                            <p class="mac-light-text">Guests who book for a private group will pay the total per person pricing, if that's higher than your minimum price.</p>
-                        </div>
-        
-                        <div class="min-div-toggle mt">
-                            <h5 class="page-mini-h5-head">Always require minimum price</h5>
-                            <p class="mac-light-text-900">Private groups are set as your default. You can change this for specific instances.</p>
-                            <input type="checkbox" class="book-work-toggle mt-10" name="" id="">
-                        </div>
-                    </div>
-        
-        
                 </form> 
             </div>
+               
         </div>
     </div>
 </div>
