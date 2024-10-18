@@ -784,7 +784,7 @@ span.mobile.search-icon svg path{
     border: 1px solid rgba(0, 0, 0, 0.3);
     padding: 5px;
     border-radius: 5px;
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: center;
     gap : 5px;
@@ -3097,13 +3097,15 @@ input.message-system-type-input{
 
 .host-page-container{
     display: flex;
-    height: calc(100vh - 70px);
+    /* height: calc(100vh - 130px); */
+    position: relative;
 }
 
 .host-sidebar{
-    width : 20%;
-    background-color: hsl(0,0%,95%);
+    width: 20%;
+    background-color: hsl(0, 0%, 95%);
     overflow-y: auto;
+    height: 100%;
 }
 
 .host-sidebar.slideIn{
@@ -3447,9 +3449,10 @@ input.message-system-type-input{
         padding : 10px 30px;
     }
 
-    .host-sidebar{
-
+    .host-info-div .hamburger{
+        display: flex;
     }
+
     .product-desc-container{
         flex-direction: column;
     }
@@ -3500,6 +3503,9 @@ input.message-system-type-input{
     .host-sidebar{
         position: absolute;
         transform: translateX(-100%);
+        min-width: 300px;
+        z-index: 400;
+        transition: transform .5s ease;
     }
 
     
