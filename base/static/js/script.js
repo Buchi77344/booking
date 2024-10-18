@@ -702,8 +702,10 @@ if(document.querySelector(".mobile.hamburger")){
     })
 }
 
-if(document.querySelector(".host-div-info.hamburger")){
-    let hamburger = document.querySelector(".host-div-info.hamburger")
+console.log(document.querySelector(".host-info-div .hamburger"))
+
+if(document.querySelector(".host-info-div .hamburger")){
+    let hamburger = document.querySelector(".host-info-div .hamburger")
     let sideBar = document.querySelector(".host-sidebar")
     hamburger.addEventListener("click", function(){
         sideBar.classList.toggle("slideIn")
