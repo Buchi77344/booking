@@ -712,6 +712,30 @@ if(document.querySelector(".host-info-div .hamburger")){
     })
 }
 
+function dragDropFunc(){
+    if(document.querySelector(".upload_dropover")){
+        const dropOverEl = document.querySelector(".upload_dropover")
+        
+        ['dragover', 'dragenter'].forEach((eventName) => {
+            dropOverEl.addEventListener(eventName, function(event){
+                event.preventDefault()
+                dropOverEl.classList.add("over")
+            })
+        })
+
+        ['drop', 'dragleave'].forEach((eventName) => {
+            dropOverEl.addEventListener(eventName, function(event){
+                event.preventDefault()
+                dropOverEl.classList.remove("over")
+            })
+        })
+
+        dropOverEl.addEventListener("drop", function(){
+
+        })
+    }
+}
+
 if (document.querySelector(".add-watchlist-btn")) {
     let cartBtn = document.querySelectorAll(".add-watchlist-btn");
 

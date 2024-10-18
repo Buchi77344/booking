@@ -1962,7 +1962,7 @@ input.accord-search-val{
 }
 
 .mac-text-500{
-    color : hsl(0, 0%, 10%);
+    color : hsl(0, 0%, 30%);
     margin : 0;
     font-weight: 500;
 }
@@ -3147,6 +3147,16 @@ input.message-system-type-input{
     padding-left : 20px;
 }
 
+.list{
+    list-style: disc;
+    padding-left : 20px;
+    margin: 5px 0px;
+}
+
+.list li{
+    padding : 10px
+}
+
 .activities-container ul{
     margin: 10px 0px;
 }
@@ -3343,6 +3353,58 @@ input.message-system-type-input{
     display: block;
 }
 
+<<<<<<< HEAD
+=======
+.select-div .mac-text{
+    margin: 0;
+}
+
+.language-select-container .select-div{
+    cursor: pointer;
+}
+
+.language-select-container .select-div.flex-between{
+    align-items: center;
+}
+
+.title-textarea{
+    width : 100%;
+    height : 250px;
+    border: 1px solid rgba(0, 0, 0, 0.9);
+    padding : 20px;
+    font-size: 2rem;
+    font-weight: 500;
+    border-radius: 10px;
+}
+
+.title-form .mac-text-500,
+.img_upload-form .mac-text-500,
+.title-form .line-link{
+    font-size: 1.2rem;
+}
+
+.upload-input-div input{
+     display: none;
+}
+
+.upload_dropover{
+    height : 300px;
+    border : 1px dashed rgba(0, 0, 0, 0.8);
+    border-radius : 5px;
+    text-align: center;
+}
+
+.upload_dropover.over{
+    border : 1px dashed rgba(0, 0, 0, 0.8);
+}
+
+.photo-icon{
+    width: 70px;
+    height: 70px;
+    margin: 0 auto;
+}
+
+>>>>>>> a2af46548c87da23520de6012cae6442dc70df87
 /* .experience-card-details-head{
     color: hsla(0, 0%, 10%, .8);
     font-weight: 500;
@@ -3505,9 +3567,15 @@ input.message-system-type-input{
         flex-direction: column;
     }
 
+<<<<<<< HEAD
     .host-main .page-head{
         text-align: center;
     }
+=======
+    /* .host-main .page-head{
+        text-align: center;
+    } */
+>>>>>>> a2af46548c87da23520de6012cae6442dc70df87
 
     .host-sidebar{
         position: absolute;
@@ -3595,6 +3663,10 @@ input.message-system-type-input{
 
     .checkout-details-info-img{
         max-height: 120px;
+    }
+
+    .host-main .util-form-container{
+        padding : 25px 0px;
     }
 }
 

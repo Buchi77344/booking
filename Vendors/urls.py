@@ -26,5 +26,7 @@ urlpatterns = [
     path('booking_st', booking_st, name='booking_st'), 
     path('cancel', cancel, name='cancel'), 
     path('general', general, name='general'), 
+    path('title', title, name='title'), 
+    path('image', image, name='image'), 
   
 ]

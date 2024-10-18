@@ -92,7 +92,7 @@
             <span></span>
         </div>
 
-        <span class="page-micro-head">Cancellation policy</span>
+        <span class="page-micro-head">Experience title</span>
     </div>
     <div class="host-page-container">
         <div class="host-sidebar pd">
@@ -121,20 +121,36 @@
         </div>
         <div class="host-main">
             <div class="util-form-container">
-                <form class="cancellation-policy-form" action="">
-                    <h3 class="page-head">Choose a cancellation policy</h3>
+                <form class="img_upload-form" action="">
+                    <h3 class="page-head">Add your photos</h3>
+                    <p class="mac-text-500">We'll review your photo before it goes live on your experience page</p>
+                
+                    <div class="upload_dropover flex-center mt">
+                        <div class="">
+                            <img src="{% static 'img/picture-svgrepo.svg' %}" alt="photo icon" class="photo-icon">
+                            <h4 class="page-mini-head">Drag your photos here</h4>
+                            <p class="mac-text-500">Add at least 5 photos</p>
 
-                    <div class="policy-cta-div flex gp-20">
-                        <input class = "policy-check" type="checkbox" name="" id="">
-                        <p class="mac-text-500">Guest can cancel up to 7 days before the experience Start time for a full refund, or within 24 hours of the booking as long as the booking is made more than 48 hours before the start time.</p>
+                            <div class="upload-input-div mt-30">
+                                <label class="line-link" for="upload-input">Upload from your device</label>
+                                <input multiple id = "upload-input" type="file">
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="policy-cta-div flex gp-20">
-                        <input class = "policy-check" type="checkbox" name="" id="">
-                        <p class="mac-text-500">Guest can cancel until 24 hours before the Experience start time for a full refund</p>
+                    <div class="imp_upload-rq-div mt">
+                        <h5 class="page-micro-head">Your photo must have</h5>
+                        <ul class="list">
+                            <li>A variety of details and angles, including people in action</li>
+                            <li>Candid moments that accurately illustrate the experience</li>
+                            <li>Good image quality - no heavy filters, distortions, overlaid texts, watermarks</li>
+                        </ul>
+                        <!-- <a href="#" class="line-link"></a> -->
                     </div>
-                </form>
+                </form> 
             </div>
+              
+         
         </div>
     </div>
 </div>

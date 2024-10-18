@@ -144,6 +144,10 @@ def cancel(request):
     return render (request, 'vendor/cancelllation-pl.html')
 def general(request):
     return render (request, 'vendor/general-avail.html')
+def title(request):
+    return render (request, 'vendor/title-form.html')
+def image(request):
+    return render (request, 'vendor/image-upload.html')
 
 
 @login_required(login_url='signin')

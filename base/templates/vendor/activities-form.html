@@ -108,8 +108,11 @@
             <ul class="sidebar-links-container flex-column gp-10">
                 <li><a href="{% url 'vendor:host' %}" class="sidebar-link">Basics</a></li>
                 <li><a href="{% url 'vendor:what_do' %}" class="sidebar-link">What you'll do</a></li>
+                <li><a href="{% url 'vendor:title' %}" class="sidebar-link">Title</a></li>
+                <li><a href="{% url 'vendor:image' %}" class="sidebar-link">Photo</a></li>
                 <li><a href="{% url 'vendor:description' %}" class="sidebar-link">Description</a></li>
                 <li><a href="{% url 'vendor:over' %}" class="sidebar-link">What we're looking for</a></li>
+                <li><a href="#" class="sidebar-link">General availability</a></li>
                 <li><a href="{% url 'vendor:group_size' %}" class="sidebar-link">Group size</a></li>
                 <li><a href="{% url 'vendor:group_price' %}" class="sidebar-link">Guest pricing</a></li>
                 <li><a href="{% url 'vendor:booking_st' %}" class="sidebar-link">Booking settings</a></li>
@@ -122,7 +125,7 @@
                     <h3 class="page-head">Next, let's describe your experience</h3>
                     <div class="activities-container mt-30">
                         <h5 class="page-micro-head">What will you and your guests do?</h5>
-                        <ul>
+                        <ul class="list">
                             <li>Provide specific plans from start to finish, not multiple ideas or options</li>
                             <li>Describe what makes your experience special - something that guests wouldn't do on their own</li>
                         </ul>
