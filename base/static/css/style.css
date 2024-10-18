@@ -3343,6 +3343,14 @@ input.message-system-type-input{
     display: block;
 }
 
+.select-div .mac-text{
+    margin: 0;
+}
+
+.language-select-container .select-div.flex-between{
+    align-items: center;
+}
+
 /* .experience-card-details-head{
     color: hsla(0, 0%, 10%, .8);
     font-weight: 500;
@@ -3505,9 +3513,9 @@ input.message-system-type-input{
         flex-direction: column;
     }
 
-    .host-main .page-head{
+    /* .host-main .page-head{
         text-align: center;
-    }
+    } */
 
     .host-sidebar{
         position: absolute;
@@ -3595,6 +3603,10 @@ input.message-system-type-input{
 
     .checkout-details-info-img{
         max-height: 120px;
+    }
+
+    .host-main .util-form-container{
+        padding : 25px 0px;
     }
 }
 
