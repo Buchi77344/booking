@@ -46,6 +46,57 @@ function revealDropFunc(highlightEl, dropEl){
     })
 }
 
+function initializeGeo(){
+    if(navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(showPosition, showError)
+    }else{
+        console.log("Geolocation is not supported in browser")
+    }
+}
+
+function showPosition(position){
+    const latitude = position.coords.latitude
+    const longitude = position.coords.longitude
+
+    getCityState(latitude, longitude)
+}
+
+function showError(error) {
+    switch(error.code) {
+        case error.PERMISSION_DENIED:
+            alert("User denied the request for Geolocation.");
+            break;
+        case error.POSITION_UNAVAILABLE:
+            alert("Location information is unavailable.");
+            break;
+        case error.TIMEOUT:
+            alert("The request to get user location timed out.");
+            break;
+        case error.UNKNOWN_ERROR:
+            alert("An unknown error occurred.");
+            break;
+    }
+}
+
+function getCityState(latitude, longitude){
+    const geocodeUrl = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
+    fetch(geocodeUrl)
+    .then(response => response.json())
+    .then(data => {
+        if (data && data.address) {
+            const city = data.address.city || data.address.town || data.address.village;
+            const state = data.address.state;
+            const country = data.address.country;
+
+            // Set city and state into the input field
+            document.getElementById("host-location-input").value = `${city}, ${state}, ${country}`;
+        } else {
+            alert("No results found.");
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
 if(document.querySelector(".phone-number-select-container")){
     revealDropFunc(".phone-number-select-container, .phone-add-btn", phoneOverlay)
 
@@ -302,9 +353,27 @@ if(document.querySelector(".show-drop") ){
             categoryField.focus()
             revealDropFunc(".destination-container", mapRegionsWrapper)
         })
-        const locationList = document.querySelector(".location-list")
-        const searchFormBtn = document.querySelector(".search-form-btn")
-        let list =  ""
+    }
+
+    //Location functionality for host
+    const hostLocationInput = document.querySelector("#host-location-input")
+    if(hostLocationInput){
+        hostLocationInput.addEventListener("click", function(){
+            mapRegionsWrapper.classList.toggle("reveal")
+            revealDropFunc(".location-select-container", mapRegionsWrapper)
+        })
+    }
+
+    // auto detect location
+    const autoLocSpan = document.querySelector("#auto-loc-span")
+    autoLocSpan.addEventListener("click", function(){
+        initializeGeo()
+    })
+
+    const locationList = document.querySelector(".location-list")
+    const searchFormBtn = document.querySelector(".search-form-btn")
+    let list =  ""
+    if(destinationInput){
         destinationInput.forEach(el => el.addEventListener("input", async function(){
             const parent = el.closest(".show-drop")
     
@@ -319,7 +388,7 @@ if(document.querySelector(".show-drop") ){
     
             const query = this.value;
             const apiKey = "pk.0c362d8fcfc2daf1ed669ae23cd5a641"
-           
+            
             const response = await fetch(`https://us1.locationiq.com/v1/autocomplete.php?key=${apiKey}&q=${query}&format=json`);
             const data = await response.json();
             
@@ -353,19 +422,33 @@ if(document.querySelector(".show-drop") ){
                 locationList.innerHTML = list
             }
             
-            document.querySelectorAll(".map-regions-wrapper .location-list-item").forEach(list => {
-                list.addEventListener("click", function(){
-                    document.querySelector(".category-field").value = this.querySelector(".location-item-text").textContent
-                })
-            })
     
-            document.querySelectorAll(".mob_location-container .location-list-item").forEach(list => {
-                list.addEventListener("click", function(){
-                    document.querySelector(".location_mob-input").value = this.querySelector(".location-item-text").textContent
+            if(document.querySelector(".map-regions-wrapper")){
+                document.querySelectorAll(".map-regions-wrapper .location-list-item").forEach(list => {
+                    list.addEventListener("click", function(){
+                        document.querySelector(".category-field").value = this.querySelector(".location-item-text").textContent
+                    })
                 })
-            })
+            }
+            
+            if(document.querySelectorAll(".mob_location-container")){
+                document.querySelectorAll(".mob_location-container .location-list-item").forEach(list => {
+                    list.addEventListener("click", function(){
+                        document.querySelector(".location_mob-input").value = this.querySelector(".location-item-text").textContent
+                    })
+                })
+            }
+    
+            if(document.querySelector(".location-select-container")){
+                document.querySelectorAll(".location-select-container .location-list-item").forEach(list => {
+                    list.addEventListener("click", function(){
+                        document.querySelector("#host-location-input").value = this.querySelector(".location-item-text").textContent
+                    })
+                })
+            }
         }))
     }
+    
     
     const mobileCategoryContainer = document.querySelector(".mobile.category-container")
     const mobileSearchContainer = document.querySelector(".mobile-search-container")
