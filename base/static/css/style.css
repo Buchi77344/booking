@@ -3393,7 +3393,7 @@ input.message-system-type-input{
 }
 
 .upload_dropover.over{
-    border : 1px dashed rgba(0, 0, 0, 0.8);
+    border : 1px dashed var(--btn-clr);
 }
 
 .photo-icon{
