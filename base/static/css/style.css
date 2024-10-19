@@ -122,6 +122,10 @@ body.over-hidden{
     width : 100%
 }
 
+.pos-rel{
+    position: relative;
+}
+
 .grid{
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));

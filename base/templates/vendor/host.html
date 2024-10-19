@@ -141,10 +141,16 @@
                         
                         <div class="location-div">
                             <h5 class="page-micro-head">Which city do you want to host your experience in?</h5>
-                            <input type="text" class="form-input mr-10">
+                            <div class="location-select-container pos-rel">
+                                <input id = "host-location-input" type="text" class="destination-input form-input mr-10">
+                                <div class="show-drop map-regions-wrapper">
+                                    <span class= "map-region-text">Search by region</span>
+                                    <ul class="location-list"></ul>
+                                </div>
+                            </div>
                             <div class="flex gp-5">
                                 <img src="{% static 'img/location.svg' %}" alt="Location Icon" class="location-icon">
-                                <a href="#" class="line-link">Use my current location</a>
+                                <span href="#" id = "auto-loc-span" class="line-link">Use my current location</span>
                             </div>
                         </div>
                         
