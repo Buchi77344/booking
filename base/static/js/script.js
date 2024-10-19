@@ -57,7 +57,7 @@ function initializeGeo(){
 function showPosition(position){
     const latitude = position.coords.latitude
     const longitude = position.coords.longitude
-
+    console.log(latitude, longitude)
     getCityState(latitude, longitude)
 }
 
@@ -83,8 +83,9 @@ function getCityState(latitude, longitude){
     fetch(geocodeUrl)
     .then(response => response.json())
     .then(data => {
+        console.log(data.address)
         if (data && data.address) {
-            const city = data.address.city || data.address.town || data.address.village || data.address.country || "";
+            const city = data.address.city || data.address.town || data.address.village || data.address.county || "";
             const state = data.address.state;
             const country = data.address.country;
 
@@ -366,9 +367,11 @@ if(document.querySelector(".show-drop") ){
 
     // auto detect location
     const autoLocSpan = document.querySelector("#auto-loc-span")
-    autoLocSpan.addEventListener("click", function(){
-        initializeGeo()
-    })
+    if(autoLocSpan){
+        autoLocSpan.addEventListener("click", function(){
+            initializeGeo()
+        })
+    }
 
     const locationList = document.querySelector(".location-list")
     const searchFormBtn = document.querySelector(".search-form-btn")
