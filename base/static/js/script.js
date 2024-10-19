@@ -715,7 +715,9 @@ if(document.querySelector(".host-info-div .hamburger")){
 function dragDropFunc(){
     if(document.querySelector(".upload_dropover")){
         const dropOverEl = document.querySelector(".upload_dropover")
-        
+        const uploadInput = document.querySelector("#upload-input")
+
+        let droppedFiles = []
         ['dragover', 'dragenter'].forEach((eventName) => {
             dropOverEl.addEventListener(eventName, function(event){
                 event.preventDefault()
@@ -730,9 +732,34 @@ function dragDropFunc(){
             })
         })
 
-        dropOverEl.addEventListener("drop", function(){
+        dropOverEl.addEventListener("drop", function(event){
+            event.preventDefault()
+
+            let files = event.dataTransfer.files
+        
+            handleFilesFunc(files)
 
         })
+
+        uploadInput.addEventListener("change", function(event){
+            let files = event.target.files
+
+            handleFilesFunc(files)
+        })
+
+        function handleFilesFunc(files){
+            const dataTransfer = new DataTransfer()
+
+            Array.from(files).forEach((file) => {
+                if(file.type.startsWith("/image")){
+                    droppedFiles.push(file)
+                    console.log(droppedFiles)
+                    dataTransfer.items.add(file)
+                }
+
+                uploadInput.files = dataTransfer.files  
+            })
+        }
     }
 }
 
