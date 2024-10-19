@@ -3147,6 +3147,16 @@ input.message-system-type-input{
     padding-left : 20px;
 }
 
+.list{
+    list-style: disc;
+    padding-left : 20px;
+    margin: 5px 0px;
+}
+
+.list li{
+    padding : 10px
+}
+
 .activities-container ul{
     margin: 10px 0px;
 }
@@ -3366,8 +3376,30 @@ input.message-system-type-input{
 }
 
 .title-form .mac-text-500,
+.img_upload-form .mac-text-500,
 .title-form .line-link{
     font-size: 1.2rem;
+}
+
+.upload-input-div input{
+     display: none;
+}
+
+.upload_dropover{
+    height : 300px;
+    border : 1px dashed rgba(0, 0, 0, 0.8);
+    border-radius : 5px;
+    text-align: center;
+}
+
+.upload_dropover.over{
+    border : 1px dashed rgba(0, 0, 0, 0.8);
+}
+
+.photo-icon{
+    width: 70px;
+    height: 70px;
+    margin: 0 auto;
 }
 
 /* .experience-card-details-head{
