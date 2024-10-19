@@ -763,6 +763,8 @@ function dragDropFunc(){
     }
 }
 
+dragDropFunc()
+
 if (document.querySelector(".add-watchlist-btn")) {
     let cartBtn = document.querySelectorAll(".add-watchlist-btn");
 
