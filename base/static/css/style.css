@@ -3442,7 +3442,8 @@ input.message-system-type-input{
 
 .bottom-form-navigation .next.btn{
     background-color: hsl(0,0%,15%);
-    color : hsl(0,0%,98%)
+    color : hsl(0,0%,98%);
+    margin-left: auto;
 }
 
 .bottom-form-navigation .next.btn:hover{
