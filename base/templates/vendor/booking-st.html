@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "hox.html" %}
 {% load static %}
 {% block context %}
 
@@ -124,8 +124,9 @@
                     <h3 class="page-head">Booking settings</h3>
                     <p class="mac-light-text-900">This is how much advance notice you need to prepare for the start of your experience. if you need more time to prepare, we recommend a longer cutoff time, if you don't need much time you can go shorter </p>
                     <div class="select-div">
-                        <h5 class="page-micro-head">Cutoff time for additional guests</h5>
-                        <p class="mac-text">If an instance is booked, this is how far in advnace a guest can book</p>
+                        <h5 class="page-micro-head">Cutoff Time for Additional Guests:</h5>
+                        <p class="mac-text">This is the latest point at which guests can add themselves to an already-booked experience. Choose how far in advance they must book.
+                        </p>
                         <select class = "form-input" name="" id="">
                             <option value="Choose">Choose amount of time</option>
                             <option value="">0 hours before start time</option>
@@ -145,8 +146,9 @@
                     </div>
 
                     <div class="select-div">
-                        <h5 class="page-micro-head">Cutoff time for your first guest</h5>
-                        <p class="mac-text">If no one books by this cutoff time, the instanc won't be available to guests</p>
+                        <h5 class="page-micro-head">Choose Cutoff Time for First Guest:</h5>
+                        <p class="mac-text">If no one books by this time, your experience will no longer be available for that session. Choose how much time in advance guests need to make their first booking.
+                        </p>
                         <select class = "form-input" name="" id="">
                             <option value="Choose">Choose amount of time</option>
                             <option value="">0 hours before start time</option>

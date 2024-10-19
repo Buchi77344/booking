@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "hox.html" %}
 {% load static %}
 {% block context %}
 
@@ -132,30 +132,21 @@
                                 <input type="text" name="" id="">
                             </div>
                         </div>
-                        <div class="earn-div flex-column">
-                            <span class="mac-text-500">Your estimated earnings</span>
-                            <div class="currency-select-div">
-                                <span class= "fs-500">USD</span>
-                            </div>
-                        </div>
+                      
                     </div>
         
                     <div class="select-div">
                         <h5 class="page-mini-h5-head">Per instance:Private groups</h5>
-                        <p class="mac-text">If no other groups are taken, guests can book an instance for a private group</p>
+                        <p class="mac-text">This is the base price you will receive for hosting a private group, even if fewer guests attend. For example, if you set the minimum price at $200, you’ll receive this amount even if 1 guest books</p>
                         
                         <div class="price-input-div mt">
                             <div class="select-cta-container">
                                 <input class="" placeholder="Minimum price" type="text" name="" id="">
                             </div>
-                            <p class="mac-light-text">Guests who book for a private group will pay the total per person pricing, if that's higher than your minimum price.</p>
+                            <p class="mac-light-text">You can set an additional charge per guest beyond the minimum number. For example, if your minimum price covers up to 5 guests, you can charge extra for each guest that joins after that. This ensures you’re compensated for larger group sizes.</p>
                         </div>
         
-                        <div class="min-div-toggle mt">
-                            <h5 class="page-mini-h5-head">Always require minimum price</h5>
-                            <p class="mac-light-text-900">Private groups are set as your default. You can change this for specific instances.</p>
-                            <input type="checkbox" class="book-work-toggle mt-10" name="" id="">
-                        </div>
+                        
                     </div>
         
         
