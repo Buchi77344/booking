@@ -3624,7 +3624,9 @@ input.message-system-type-input{
         transition: transform .5s ease;
     }
 
-    
+    .bottom-form-navigation{
+        position: static;
+    }
 
     .host-main{
         width : 100%;
