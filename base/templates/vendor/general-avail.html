@@ -126,7 +126,7 @@
                 
                     <div class="gen_avail-div mt">
                         <div class="select-div">
-                            <h5 class="page-micro-head">What time would you typically start your experience?</h5>
+                            <h5 class="page-mini-sm-head">What time would you typically start your experience?</h5>
                             <!-- <p class="mac-text-500">Later, you'll pick the exact calendar dates you'd like to host. You'll also be able to adjust times for each individual date.</p> -->
                             <div class="gen_avail-cta mt">
                                 <h5 class="page-micro-head">Experience start time</h5>
@@ -183,6 +183,46 @@
                                 <p class="mac-light-text">You can host a public group for up to 10 guests. Guests who may or may not know each other</p>
                             </div>
                         </div>
+
+                        <div class="select-div">
+                            <div class="form-group-container">
+                                <h4 class="page-mini-head">Availability and Scheduling</h4>
+                                <div class="flex-column">
+                                    <!-- Available Dates with Flatpickr and Tooltip -->
+                                    <div class="form-group">
+                                        <label for="available_dates">Available Dates:
+                                            <span data-toggle="tooltip" title="Select the dates when this experience will be available for booking.">
+                                                <i class="fas fa-info-circle"></i>
+                                            </span>
+                                        </label>
+                                        <input type="text" class="form-control" id="available_dates" name="calendar_view" readonly required placeholder="Select available dates">
+                                    </div>
+                        
+                                    <!-- Time Slots with Clockpicker and Tooltip -->
+                                    <div class="form-group">
+                                        <!-- <label class="page-micro-head">Available Time Slots:
+                                            <span data-toggle="tooltip" title="Indicate the start and end time during which this experience will be held (e.g., 10:00 AM to 1:00 PM).">
+                                                <i class="fas fa-info-circle"></i>
+                                            </span>
+                                        </label> -->
+                                        <div id="time_slots_container">
+                                            <div class="row time_slot">
+                                                <div class="col-md-6">
+                                                    <label for="start_time">Start Time:</label>
+                                                    <input type="text" class="form-control" name="start_time[]" placeholder="Select start time" required>
+                                                </div>
+                                                <div class="mt-10 col-md-6">
+                                                    <label for="end_time">End Time:</label>
+                                                    <input type="text" class="form-control" name="end_time[]" placeholder="Select end time" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="btn host-add-btn" id="add_time_slot_btn">Add More Time Slot</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </form> 
             </div>

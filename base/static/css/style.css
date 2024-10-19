@@ -3225,6 +3225,10 @@ input.message-system-type-input{
     border-bottom: 1px solid rgba(0, 0, 0, 0.3);
 }
 
+.select-div:last-of-type{
+    border-bottom: none;
+}
+
 .activity-cta.select-div{
     cursor: auto;
 }
@@ -3448,6 +3452,15 @@ input.message-system-type-input{
 
 .bottom-form-navigation .next.btn:hover{
     background-color: hsl(0,0%,5%);
+}
+
+.host-main .util-form-container{
+    padding : 25px 0px 95px;
+}
+
+.time_slots_container label{
+    margin-top: 12px;
+    display: inline-block;
 }
 
 /* .experience-card-details-head{
@@ -3706,9 +3719,9 @@ input.message-system-type-input{
         max-height: 120px;
     }
 
-    .host-main .util-form-container{
-        padding : 25px 0px;
-    }
+    /* .host-main .util-form-container{
+        padding : 25px 0px ;
+    } */
 }
 
 @media(max-width : 400px){
