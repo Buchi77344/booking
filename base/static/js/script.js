@@ -18,20 +18,35 @@ const detailsGuestCategory = document.querySelector(".guest.list-group-item .hig
 const checkoutGuestHighlight = document.querySelector(".checkout-guest-val-div .highlight")
 const addPhoneOverlay = document.querySelector(".phone-add-btn")
 const removeIconDiv = document.querySelector(".remove-icon-div")
-const phoneOverlay = document.querySelector(".phone-number-overlay")
+const utilOverlay = document.querySelector(".util-overlay")
 
 let isLiked;
 
 if(addPhoneOverlay){
-    addPhoneOverlay.addEventListener("click", function(){
-        phoneOverlay.classList.add("reveal")
-    })
-
-    removeIconDiv.addEventListener("click", function(){
-        phoneOverlay.classList.remove("reveal")
-    })
+    showUtilOverlay(addPhoneOverlay, removeIconDiv)
 }
 
+const hostSelectLanguage = document.querySelector(".host.select-div")
+if(hostSelectLanguage){
+    showUtilOverlay(hostSelectLanguage, removeIconDiv)
+}
+
+const themeSelectLanguage = document.querySelector(".theme.select-div")
+if(themeSelectLanguage){
+    showUtilOverlay(themeSelectLanguage, removeIconDiv)
+}
+
+function showUtilOverlay(addEl, removeEl){
+    addEl.addEventListener("click", function(){
+        utilOverlay.classList.add("reveal")
+        console.log(addEl)
+    })
+
+    removeEl.addEventListener("click", function(){
+        utilOverlay.classList.remove("reveal")
+        console.log(removeEl)
+    })
+}
 
 function revealDropFunc(highlightEl, dropEl){
     

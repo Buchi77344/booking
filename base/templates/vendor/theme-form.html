@@ -107,7 +107,7 @@
             <h3 class="page-sub-h3-head mr-30">Submit your experience</h3>
             <ul class="sidebar-links-container flex-column gp-10">
                 <li><a href="{% url 'vendor:host' %}" class="sidebar-link">Basics</a></li>
-                <li><a href="{% url 'vendor:what_do' %}" class="sidebar-link">What you'll do</a></li>
+                <li><a href="{% url 'vendor:what_do' %}" class="sidebar-link active">What you'll do</a></li>
                 <li><a href="{% url 'vendor:title' %}" class="sidebar-link">Title</a></li>
                 <li><a href="{% url 'vendor:image' %}" class="sidebar-link">Photo</a></li>
                 <li><a href="{% url 'vendor:description' %}" class="sidebar-link">Description</a></li>
@@ -124,12 +124,42 @@
                         <h3 class="page-head">What will your experience focus on?</h3>
                         <div class="theme-div">
                             <h5 class="page-micro-head">Choose the theme that best describes what guests will enjoy</h5>
-                            <div class="select-div flex-between">
+                            <div class="theme select-div flex-between">
                                 <div class="textcontent flex-column">
                                     <span class="mac-text">Comedy show</span>
                                     <span class="mac-light-text-900">Entertainment / Comedy</span>
                                 </div>
                                 <img src="{% static 'img/arrow-icon.svg' %}" alt="arrow icon" class="arrow icon">
+                            </div>
+                            <div class="util-overlay flex-center">
+                                <div class="util-select-container trans-down">
+                                    <div class="head-div">
+                                        <div class = "remove-icon-div flex-center">
+                                            <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+                                            <!-- Uploaded to: SVG Repo, www.svgrepo.com, Transformed by: SVG Repo Mixer Tools -->
+                                            <svg class = "remove-icon" width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <g id="SVGRepo_iconCarrier"> <path d="M6 12H18M12 6V18" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> </g>
+                                            </svg>
+                                        </div>
+                                        <h4 class="page-micro-head">Add phone number</h4>
+                                    </div>
+            
+                                    <div class="phone-number-select-content">
+                                        <p class="mac-text">We will send you trip updates and a text to verify this number</p>
+                                        <div class="number-select-form-container">
+                                            <form action="" class="number-select-form mt">
+                                                <div class="input-container">
+                                                    <label for="phone" class="form-label">Phone Number</label>
+                                                    <input type="tel" class="form-input" id="phone" name="phone_number" placeholder="123-456-7890"  required>
+                                                </div>
+                                            </form>
+                                            <p class="mac-light-text">We'll text you a code to confirm your number. Standard message and data rates apply.</p>
+                                        </div>
+                                        <button class="mt btn-black">Continue</button>
+                                    </div>
+                                </div>
                             </div>
                             <a href="#" class="line-link mt">Add an additional theme(optional)</a>
                         </div>
