@@ -18,20 +18,373 @@ const detailsGuestCategory = document.querySelector(".guest.list-group-item .hig
 const checkoutGuestHighlight = document.querySelector(".checkout-guest-val-div .highlight")
 const addPhoneOverlay = document.querySelector(".phone-add-btn")
 const removeIconDiv = document.querySelector(".remove-icon-div")
-const phoneOverlay = document.querySelector(".phone-number-overlay")
-
+const utilOverlay = document.querySelector(".util-overlay")
+const selectCta = document.querySelector(".util-select-cta")
 let isLiked;
 
 if(addPhoneOverlay){
-    addPhoneOverlay.addEventListener("click", function(){
-        phoneOverlay.classList.add("reveal")
-    })
-
-    removeIconDiv.addEventListener("click", function(){
-        phoneOverlay.classList.remove("reveal")
-    })
+    showUtilOverlay(addPhoneOverlay, removeIconDiv)
 }
 
+const hostSelectLanguage = document.querySelector(".host.select-div")
+if(hostSelectLanguage){
+    showUtilOverlay(hostSelectLanguage, removeIconDiv)
+}
+
+const addHostSelectLanguage = document.querySelector(".add-lang-span")
+if(addHostSelectLanguage){
+    showUtilOverlay(addHostSelectLanguage, removeIconDiv)
+}
+
+const themeSelectLanguage = document.querySelector(".theme.select-div")
+if(themeSelectLanguage){
+    themeSelectLanguage.addEventListener("click", function(){
+        changeTextEl(".util-select-container .head-div .page-micro-head", "Select a theme")
+    })
+    showUtilOverlay(themeSelectLanguage, removeIconDiv)
+}
+
+const descLocationTypeSpan = document.querySelector(".location-type.line-link")
+if(descLocationTypeSpan){
+    let htmlStr =  `
+    <h5 class="lan-desc page-micro-head">Choose up to 3 options</h5>
+    <div class="lan-desc-section flex-column">
+        <h4 class="page-mini-head">Place of worship</h4>
+        <div class="flex gp-20 mt">
+            <div class="util-cta-div flex gp-20">
+                <input id = "cemetry-input" class = "util-check" type="checkbox" name="">
+                <label for = "cemetry-input" class="mac-text-500">Cemetry</label>
+            </div>
+
+            <div class="util-cta-div flex gp-20">
+                <input id = "cool-input" class = "util-check" type="checkbox" name="">
+                <label for = "cool-input" class="mac-text-500">Church</label>
+            </div>
+        </div>
+        
+        <div class="flex gp-20 mt">
+            <div class="util-cta-div flex gp-20">
+                <input id = "cool-2-input" class = "util-check" type="checkbox" name="">
+                <label for = "cool-2-input" class="mac-text-500">Mosque</label>
+            </div>
+
+            <div class="util-cta-div flex gp-20">
+                <input id = "Synagogue-input" class = "util-check" type="checkbox" name="">
+                <label for = "Synagogue-input" class="mac-text-500">Synagogue</label>
+            </div>
+        
+        </div>
+
+        <div class="flex gp-20 mt">
+            <div class="util-cta-div flex gp-20">
+                <input id = "cool-3-input" class = "util-check" type="checkbox" name="">
+                <label for = "cool-3-input" class="mac-text-500">Temple</label>
+            </div>
+        
+        </div>
+    </div>
+    
+    <div class="lan-desc-section flex-column">
+        <h4 class="page-mini-head">Residential venue</h4>
+        <div class="flex gp-20 mt">
+            <div class="util-cta-div flex gp-20">
+                <input id = "garden-input" class = "util-check" type="checkbox" name="">
+                <label for = "garden-input" class="mac-text-500">Back garden</label>
+            </div>
+
+            <div class="util-cta-div flex gp-20">
+                <input id = "Common-area-input" class = "util-check" type="checkbox" name="">
+                <label for = "Common-area-input" class="mac-text-500">Common area</label>
+            </div>
+        </div>
+        
+        <div class="flex gp-20 mt">
+            <div class="util-cta-div flex gp-20">
+                <input id = "Flat/apartment-input" class = "util-check" type="checkbox" name="">
+                <label for = "Flat/apartment-input" class="mac-text-500">Flat/apartment</label>
+            </div>
+
+            <div class="util-cta-div flex gp-20">
+                <input id = "Garage-input" class = "util-check" type="checkbox" name="">
+                <label for = "Garage-input" class="mac-text-500">Garage</label>
+            </div>
+        
+        </div>
+
+        <div class="flex gp-20 mt">
+            <div class="util-cta-div flex gp-20">
+                <input id = "House-input" class = "util-check" type="checkbox" name="">
+                <label for = "House-input" class="mac-text-500">House</label>
+            </div>
+
+            <div class="util-cta-div flex gp-20">
+                <input id = "Patio-input" class = "util-check" type="checkbox" name="">
+                <label for = "Patio-input" class="mac-text-500">Patio</label>
+            </div>
+        
+        </div>
+
+        <div class="flex gp-20 mt">
+            <div class="util-cta-div flex gp-20">
+                <input id = "rooftop-terrace-input" class = "util-check" type="checkbox" name="">
+                <label for = "rooftop-terrace-input" class="mac-text-500">Rooftop terrace</label>
+            </div>
+        
+        </div>
+    </div>
+
+    <div class="lan-desc-section flex-column">
+        <h4 class="page-mini-head">Tourist attraction</h4>
+        <div class="flex gp-20 mt">
+            <div class="util-cta-div flex gp-20">
+                <input id = "fountain-input" class = "util-check" type="checkbox" name="">
+                <label for = "fountain-input" class="mac-text-500">Fountain</label>
+            </div>
+
+            <div class="util-cta-div flex gp-20">
+                <input id = "Historic-site-input" class = "util-check" type="checkbox" name="">
+                <label for = "Historic-site-input" class="mac-text-500">Historic site</label>
+            </div>
+        </div>
+        
+        <div class="flex gp-20 mt">
+            <div class="util-cta-div flex gp-20">
+                <input id = "lighthouse-input" class = "util-check" type="checkbox" name="">
+                <label for = "lighthouse-input" class="mac-text-500">Lighthouse</label>
+            </div>
+
+            <div class="util-cta-div flex gp-20">
+                <input id = "Memorial-site-input" class = "util-check" type="checkbox" name="">
+                <label for = "Memorial-site-input" class="mac-text-500">Memorial site</label>
+            </div>
+        
+        </div>
+
+        <div class="flex gp-20 mt">
+            <div class="util-cta-div flex gp-20">
+                <input id = "Monument-input" class = "util-check" type="checkbox" name="">
+                <label for = "Monument-input" class="mac-text-500">Monument</label>
+            </div>
+
+            <div class="util-cta-div flex gp-20">
+                <input id = "Plaza-input" class = "util-check" type="checkbox" name="">
+                <label for = "Plaza-input" class="mac-text-500">Plaza</label>
+            </div>
+        
+        </div>
+
+        <div class="flex gp-20 mt">
+            <div class="util-cta-div flex gp-20">
+                <input id = "Tourist-input" class = "util-check" type="checkbox" name="">
+                <label for = "Tourist-input" class="mac-text-500">Tourist information center</label>
+            </div>
+        
+        </div>
+    </div>
+
+    <div class="lan-desc-section flex-column">
+        <h4 class="page-mini-head">Government or education venue</h4>
+        <div class="flex gp-20 mt">
+            <div class="util-cta-div flex gp-20">
+                <input id = "Animal-input" class = "util-check" type="checkbox" name="">
+                <label for = "Animal-input" class="mac-text-500">Animal rescue center</label>
+            </div>
+
+            <div class="util-cta-div flex gp-20">
+                <input id = "City-input" class = "util-check" type="checkbox" name="">
+                <label for = "City-input" class="mac-text-500">City</label>
+            </div>
+        </div>
+        
+        <div class="flex gp-20 mt">
+            <div class="util-cta-div flex gp-20">
+                <input id = "Hospital-input" class = "util-check" type="checkbox" name="">
+                <label for = "Hospital-input" class="mac-text-500">Hospital</label>
+            </div>
+
+            <div class="util-cta-div flex gp-20">
+                <input id = "Library-input" class = "util-check" type="checkbox" name="">
+                <label for = "Library-input" class="mac-text-500">Library</label>
+            </div>
+        
+        </div>
+
+        <div class="flex gp-20 mt">
+            <div class="util-cta-div flex gp-20">
+                <input id = "Neighbourhood-input" class = "util-check" type="checkbox" name="">
+                <label for = "Neighbourhood-input" class="mac-text-500">Neighbourhood</label>
+            </div>
+
+            <div class="util-cta-div flex gp-20">
+                <input id = "Palace-input" class = "util-check" type="checkbox" name="">
+                <label for = "Palace-input" class="mac-text-500">Palace</label>
+            </div>
+        
+        </div>
+
+        <div class="flex gp-20 mt">
+            <div class="util-cta-div flex gp-20">
+                <input id = "School-input" class = "util-check" type="checkbox" name="">
+                <label for = "School-input" class="mac-text-500">School</label>
+            </div>
+
+            <div class="util-cta-div flex gp-20">
+                <input id = "Town-hall-input" class = "util-check" type="checkbox" name="">
+                <label for = "Town-hall-input" class="mac-text-500">Town hall</label>
+            </div>
+        
+        </div>
+
+        <div class="flex gp-20 mt">
+            <div class="util-cta-div flex gp-20">
+                <input id = "University-input" class = "util-check" type="checkbox" name="">
+                <label for = "University-input" class="mac-text-500">University</label>
+            </div>
+        </div>
+    </div>
+`
+    descLocationTypeSpan.addEventListener("click", function(){
+        selectCta.innerHTML = htmlStr
+    })
+    showUtilOverlay(descLocationTypeSpan, removeIconDiv)
+}
+
+const locationDescSpan = document.querySelector(".location-desc.line-link")
+if(locationDescSpan){
+    let htmlStr = `
+                <p class="page-micro-head">Describe the location's unique details, such as atmosphere or historical significance. Don't repeat info you've already provided</p>
+                <textarea name="" id=""></textarea>
+                <p class="mac-text">0/450</p>
+        `
+    locationDescSpan.addEventListener("click", function(){
+        changeTextEl(".util-select-container .head-div .page-micro-head", "Describe the location")
+        selectCta.innerHTML = htmlStr
+    })
+    showUtilOverlay(locationDescSpan, removeIconDiv)
+
+}
+
+const descComedySpan = document.querySelector(".comedy.line-link")
+if(descComedySpan){
+    let htmlStr = `
+        <h5 class="lan-desc page-micro-head">Choose up to 3 options</h5>
+
+        <div class="flex-column mt">
+            <div class="util-cta-div flex gp-20 mt">
+                <input id = "Improv-input" class = "util-check" type="checkbox" name="">
+                <label for = "Improv-input" class="mac-text-500">Improv</label>
+            </div>
+
+            <div class="util-cta-div flex gp-20 mt">
+                <input id = "Parody-input" class = "util-check" type="checkbox" name="">
+                <label for = "Parody-input" class="mac-text-500">Parody</label>
+            </div>
+
+            <div class="util-cta-div flex gp-20 mt">
+                <input id = "Roast-input" class = "util-check" type="checkbox" name="">
+                <label for = "Roast-input" class="mac-text-500">Roast</label>
+            </div>
+
+            <div class="util-cta-div flex gp-20 mt">
+                <input id = "Satire-input" class = "util-check" type="checkbox" name="">
+                <label for = "Satire-input" class="mac-text-500">Satire</label>
+            </div>
+
+            <div class="util-cta-div flex gp-20 mt">
+                <input id = "sketch-comedy-input" class = "util-check" type="checkbox" name="">
+                <label for = "sketch-comedy-input" class="mac-text-500">Sketch comedy</label>
+            </div>
+
+            <div class="util-cta-div flex gp-20 mt">
+                <input id = "stand-up-input" class = "util-check" type="checkbox" name="">
+                <label for = "stand-up-input" class="mac-text-500">Stand up</label>
+            </div>
+
+            <div class="util-cta-div flex gp-20 mt">
+                <input id = "other-input" class = "util-check" type="checkbox" name="">
+                <label for = "other-input" class="mac-text-500">Other</label>
+            </div>
+
+        </div>
+    `
+
+    descComedySpan.addEventListener("click", function(){
+        changeTextEl(".util-select-container .head-div .page-micro-head", "Add type of comedy")
+        selectCta.innerHTML = htmlStr
+    })
+    showUtilOverlay(descComedySpan, removeIconDiv)
+}
+
+const uniqueLanguages = new Set()
+
+const fetchLanguagesFunc = async() =>{
+    const response = await fetch('https://restcountries.com/v3.1/all')
+    const data = await response.json()
+    data.forEach(country => {
+        if (country.languages) {
+          Object.values(country.languages).forEach(language => {
+            uniqueLanguages.add(language)
+          })
+
+        }
+    });
+    
+    let languagesArr = Array.from(uniqueLanguages)
+    hostSelectLanguage.addEventListener("click", () => {
+        let textStr = "Select primary language"
+        changeTextEl(".util-select-container .head-div .page-micro-head", textStr)
+
+        getTwentylanguages(languagesArr)
+    })
+
+    addHostSelectLanguage.addEventListener("click", () => {
+        let textStr = "Select additional language"
+        changeTextEl(".util-select-container .head-div .page-micro-head", textStr)
+        getSixtylanguages(languagesArr)
+    })
+    // .then(response => response.json())
+    // .then(data => {
+      
+    // })
+    // .catch(error => console.log('Error:', error));
+}
+
+fetchLanguagesFunc()
+
+function getTwentylanguages(languagesArr){
+    displayLanguages(languagesArr.slice(0,20))
+}
+
+function changeTextEl(strEl, value){
+    document.querySelector(strEl).textContent = value
+}
+
+function getSixtylanguages(languagesArr){
+    displayLanguages(languagesArr.slice(0,60))
+}
+
+function displayLanguages(languagesArr){
+    let lanListEl = ''
+    languagesArr.forEach((lan, index) => {
+      lanListEl += `
+                  <div class="util-cta-div flex gp-20 mt">
+                      <input id = "${lan}-input" class = "util-check" type="checkbox" name="">
+                      <label for = "${lan}-input" class="mac-text-500">${lan}</label>
+                  </div>
+      `
+    })
+    selectCta.innerHTML = lanListEl
+}
+
+function showUtilOverlay(addEl, removeEl){
+    addEl.addEventListener("click", function(){
+        utilOverlay.classList.add("reveal")
+    })
+
+    removeEl.addEventListener("click", function(){
+        utilOverlay.classList.remove("reveal")
+    })
+}
 
 function revealDropFunc(highlightEl, dropEl){
     

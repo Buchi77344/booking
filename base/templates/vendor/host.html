@@ -121,7 +121,7 @@
     
                 <h3 class="page-sub-h3-head mr-30">Submit your experience</h3>
                 <ul class="sidebar-links-container flex-column gp-10">
-                    <li><a href="{% url 'vendor:host' %}" class="sidebar-link">Basics</a></li>
+                    <li><a href="{% url 'vendor:host' %}" class="sidebar-link active">Basics</a></li>
                     <li><a href="{% url 'vendor:what_do' %}" class="sidebar-link">What you'll do</a></li>
                     <li><a href="{% url 'vendor:title' %}" class="sidebar-link">Title</a></li>
                     <li><a href="{% url 'vendor:image' %}" class="sidebar-link">Photo</a></li>
@@ -160,12 +160,42 @@
                             </div>
     
                             <div class="language-select-container">
-                                <div class="select-div flex-between">
-                                    <span class="mac-text">English</span>
-                                    <img src="{% static 'img/arrow-icon.svg' %}" alt="arrow icon" class="arrow icon">
+                                <div class="flex-column">
+                                    <div class="host select-div flex-between">
+                                        <span class="mac-text">English</span>
+                                        <img src="{% static 'img/arrow-icon.svg' %}" alt="arrow icon" class="arrow icon">
+                                    </div>
+        
+                                    <span id = "add-lang" class="add-lang-span line-link mt">Add additional languages</span>
                                 </div>
-    
-                                <a href="#" class="line-link mt">Add additional languages</a>
+                            </div>
+
+                            <div class="util-overlay flex-center">
+                                <div class="util-select-container trans-down">
+                                    <div class="head-div">
+                                        <div class = "remove-icon-div flex-center">
+                                            <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+                                            <!-- Uploaded to: SVG Repo, www.svgrepo.com, Transformed by: SVG Repo Mixer Tools -->
+                                            <svg class = "remove-icon" width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <g id="SVGRepo_iconCarrier"> <path d="M6 12H18M12 6V18" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> </g>
+                                            </svg>
+                                        </div>
+                                        <h4 class="page-micro-head">Add phone number</h4>
+                                    </div>
+            
+                                    <div class="language util-select-cta pd">
+                                        <!-- <div class="util-cta-div flex gp-20">
+                                            <input id = "util-check" class = "util-check" type="checkbox" name="">
+                                            <label for = "util-check" class="mac-text-500">English</label>
+                                        </div> -->
+                                    </div>
+
+                                    <div class="bottom-div">
+                                        <button class="btn-black">Save</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
     

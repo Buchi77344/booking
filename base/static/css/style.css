@@ -2982,7 +2982,7 @@ input.message-system-type-input{
     outline: 1px solid hsl(0, 0%, 10%);
 }
 
-.phone-number-overlay{
+.util-overlay{
     position : fixed;
     top : 0;
     left : 0;
@@ -2993,23 +2993,77 @@ input.message-system-type-input{
     display: none;
 }
 
-.phone-number-overlay.reveal{
+.lan-desc .page-micro-head{
+    margin-top: 10px;;
+}
+
+.lan-desc.util-select-cta .flex{
+    flex-wrap: wrap;
+}
+
+.lan-desc.util-select-cta .util-cta-div{
+    min-width: 48%;
+}
+
+.lan-desc-section .page-mini-head{
+    margin-top: 20px;
+}
+
+.util-overlay.reveal{
     display: flex;
 }
 
-.phone-number-select-container{
+.util-select-container{
     background-color: white;
     border-radius: 10px;
+    width: 90%;
+    min-width: 300px;
+    height: 600px;
+    max-width: 700px;
+    max-height : 85vh;
+    display: flex;
+    flex-direction: column;
 }
 
-.phone-number-select-container .head-div{
+.util-select-container .head-div{
     display: flex;
     align-items: center;
     border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-    padding : 20px
+    height : 78px;
+    padding: 0px 20px;
 }
 
-.phone-number-select-container .page-micro-head{
+.util-select-cta{
+    flex: 1;
+    overflow-y: auto;
+}
+
+.lan-desc.util-select-cta textarea{
+    height : 180px;
+    margin-top: 20px;
+}
+
+.lan-desc.util-select-cta .mac-text{
+    margin-top: 0;
+    color : hsl(0,0%,12%)
+}
+
+.util-select-container .bottom-div{
+    display: flex;
+    align-items: center;
+    border-top: 1px solid rgba(0, 0, 0, 0.3);
+    padding: 0px 20px;
+    height : 78px;
+}
+
+.bottom-div .btn-black{
+    margin-left : auto;
+    padding : 12px 25px;
+    border-radius: 10px;
+    font-size: 1.1rem;
+}
+
+.util-select-container .head-div .page-micro-head{
     text-align: center;
     width : 98%;
 }
@@ -3018,11 +3072,7 @@ input.message-system-type-input{
     padding : 30px
 }
 
-.phone-number-select-content .btn-black{
-    padding : 12px 25px;
-    border-radius: 10px;
-    font-size: 1.1rem;
-}
+
 
 .remove-icon-div{
     width : 35px;
@@ -3205,6 +3255,10 @@ input.message-system-type-input{
     background-color: hsl(0,0%,90%);
 }
 
+.sidebar-link.active::after{
+    outline: 2px solid rgba(0, 0, 0, 0.8);
+}
+
 .host-main .location-icon{
     width : 25px;
     height: 25px;
@@ -3220,9 +3274,13 @@ input.message-system-type-input{
 }
 
 .select-div{
-    /* cursor: pointer; */
+    cursor: pointer;
     padding: 30px 0px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.select-div-no-br{
+    padding: 30px 0px;
 }
 
 .select-div:last-of-type{
@@ -3232,6 +3290,7 @@ input.message-system-type-input{
 .activity-cta.select-div{
     cursor: auto;
 }
+
 
 .private_gp.select-div{
     border-bottom: none;
@@ -3309,20 +3368,45 @@ input.message-system-type-input{
     border-radius: 5px;
 }
 
-.policy-cta-div:first-of-type{
+.util-cta-div:first-of-type{
     margin-top: 0px;
 }
 
-.policy-cta-div{
+.overlay-search-container{
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    border-radius: 50px;
+    padding : 5px 7px;
+}
+
+.search-icon-btn{
+    width: 5%;  
+    background-color: transparent;
+    padding: 0;
+}
+
+.search-input-container{
+    width : 95%;
+}
+
+input.search-input{
+    width : 100%;
+    padding: 5px 12px 5px 5px;
+    border-radius: 50px;
+    margin: 0 auto;
+    font-size: 1rem;
+    display: inline-block;
+    outline: none;
+}
+
+/* .util-cta-div{
     margin-top: 20px;
+} */
 
-}
-
-.policy-cta-div.flex{
+/* .cancellation-policy-form .util-cta-div.flex{
     align-items: start;
-}
+} */
 
-.policy-check{
+.util-check{
     appearance: none;
     -webkit-appearance: none;
     background-color: transparent;
@@ -3338,11 +3422,20 @@ input.message-system-type-input{
 
 }
 
-.policy-check:checked{
+.language .util-check{
+    min-width : 30px;
+    height : 30px;
+}
+
+.language .util-cta-div .mac-text-500{
+    font-size: 18px;
+}
+
+.util-check:checked{
     background-color: hsl(0,0%,10%);
 }
 
-.policy-check::after{
+.util-check::after{
     content: '';
     position: absolute;
     /* top : 50%;
@@ -3357,7 +3450,7 @@ input.message-system-type-input{
     transition: scale .3s ease;
 }
 
-.policy-check:checked::after{
+.util-check:checked::after{
     scale: 1;
 }
 
@@ -3367,7 +3460,7 @@ input.message-system-type-input{
 }
 
 .select-div .mac-text{
-    margin: 0;
+    margin: 5px 0px;
 }
 
 .language-select-container .select-div{
