@@ -70,7 +70,7 @@
                  <p class = "experience-card-text">Location: {{list.location}}</p>
                  <p class = "experience-card-text">Price: ${{list.price}}</p>
                  <div class="d-flex justify-content-end">
-                     <a href="{% url 'vendor:vendor_edit' list.title %}" class="btn btn-black me-2">Edit</a>
+                     <a href="{% url 'vendor:host' %}" class="btn btn-black me-2">Edit</a>
                      <a href="{% url 'vendor:delete_expricence' list.pk %}" class="btn btn-danger">Delete</a>
                  </div>
              </div>

@@ -6,29 +6,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PayPal Email Entry</title>
+    <title>Payment Method Entry</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #f8f9fa; /* Light background for contrast */
+            background-color: #f8f9fa;
         }
         .form-container {
-            background-color: #ffffff; /* White background for the form */
-            border-radius: 8px; /* Rounded corners */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
-            padding: 30px; /* Padding inside the form */
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 30px;
         }
         h2 {
-            color: #343a40; /* Dark color for headings */
+            color: #343a40;
         }
         .btn-dark {
-            background-color: #343a40; /* Custom dark button color */
-            border-color: #343a40; /* Ensure border matches the button */
+            background-color: #343a40;
+            border-color: #343a40;
         }
         .btn-dark:hover {
-            background-color: #23272b; /* Darker shade on hover */
-            border-color: #1d2124; /* Darker border on hover */
+            background-color: #23272b;
+            border-color: #1d2124;
         }
     </style>
 </head>
@@ -38,7 +38,7 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="form-container">
-                <h2 class="text-center mb-4">Enter Your PayPal Email</h2>
+                <h2 class="text-center mb-4">Enter Payment Details</h2>
                 
                 <!-- Alert Messages -->
                 {% if messages %}
@@ -48,14 +48,42 @@
                         </div>
                     {% endfor %}
                 {% endif %}
-                
-                <!-- PayPal Email Form -->
-                <form method="POST" > <!-- Update action URL as needed -->
+
+                <!-- Payment Method Selection -->
+                <form method="POST">
                     {% csrf_token %}
-                    
                     <div class="mb-3">
+                        <label for="payment_method" class="form-label">Select Payment Method</label>
+                        <select id="payment_method" class="form-select" onchange="togglePaymentFields()">
+                            <option value="paypal">PayPal</option>
+                            <option value="bank">Bank Transfer</option>
+                        </select>
+                    </div>
+
+                    <!-- PayPal Email Field -->
+                    <div id="paypal_fields" class="mb-3">
                         <label for="paypal_email" class="form-label">PayPal Email</label>
-                        <input type="email" class="form-control" id="paypal_email" name="paypal_email" placeholder="example@paypal.com" required>
+                        <input type="email" class="form-control" id="paypal_email" name="paypal_email" placeholder="example@paypal.com">
+                    </div>
+
+                    <!-- Bank Account Details Fields -->
+                    <div id="bank_fields" style="display: none;">
+                        <div class="mb-3">
+                            <label for="account_number" class="form-label">Account Number</label>
+                            <input type="text" class="form-control" id="account_number" name="account_number" placeholder="Enter Account Number">
+                        </div>
+                        <div class="mb-3">
+                            <label for="ifsc_code" class="form-label">IFSC Code</label>
+                            <input type="text" class="form-control" id="ifsc_code" name="ifsc_code" placeholder="Enter IFSC Code">
+                        </div>
+                        <div class="mb-3">
+                            <label for="account_name" class="form-label">Account Holder's Name</label>
+                            <input type="text" class="form-control" id="account_name" name="account_name" placeholder="Enter Account Holder's Name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="bank_name" class="form-label">Bank Name</label>
+                            <input type="text" class="form-control" id="bank_name" name="bank_name" placeholder="Enter Bank Name">
+                        </div>
                     </div>
 
                     <div class="text-center">
@@ -69,6 +97,24 @@
 
 <!-- Bootstrap JS (Optional) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- JavaScript to Toggle Payment Fields -->
+<script>
+    function togglePaymentFields() {
+        var paymentMethod = document.getElementById('payment_method').value;
+        var paypalFields = document.getElementById('paypal_fields');
+        var bankFields = document.getElementById('bank_fields');
+
+        if (paymentMethod === 'paypal') {
+            paypalFields.style.display = 'block';
+            bankFields.style.display = 'none';
+        } else if (paymentMethod === 'bank') {
+            paypalFields.style.display = 'none';
+            bankFields.style.display = 'block';
+        }
+    }
+</script>
+
 </body>
 </html>
 
