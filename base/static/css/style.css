@@ -2009,6 +2009,10 @@ input.accord-search-val{
     margin-top: 30px;
 }
 
+.mt-40{
+    margin-top: 40px;
+}
+
 .mr-10{
     margin: 10px 0px;
 }
@@ -3470,6 +3474,8 @@ input.util-check{
 
 .language-select-container .select-div{
     cursor: pointer;
+    padding : 20px 0px;
+    /* background-color: hsl(0,0%,95%); */
 }
 
 .language-select-container .select-div.flex-between{

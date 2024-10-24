@@ -122,7 +122,6 @@
                 <h3 class="page-sub-h3-head mr-30">Submit your experience</h3>
                 <ul class="sidebar-links-container flex-column gp-10">
                     <li><a href="{% url 'vendor:host' %}" class="sidebar-link active">Basics</a></li>
-                    <li><a href="{% url 'vendor:what_do' %}" class="sidebar-link">What you'll do</a></li>
                     <li><a href="{% url 'vendor:title' %}" class="sidebar-link">Title</a></li>
                     <li><a href="{% url 'vendor:image' %}" class="sidebar-link">Photo</a></li>
                     <li><a href="{% url 'vendor:description' %}" class="sidebar-link">Description</a></li>
@@ -154,7 +153,7 @@
                             </div>
                         </div>
                         
-                        <div class="language-div mt-30">
+                        <div class="language-div mt-40">
                             <div class="textcontent">
                                 <h5 class="page-micro-head">Which language(s) will you offer your experience in?</h5>
                                 <p class="mac-light-text-900">You should be able to read, write and speak in this language.</p>
@@ -167,7 +166,7 @@
                                         <img src="{% static 'img/arrow-icon.svg' %}" alt="arrow icon" class="arrow icon">
                                     </div>
         
-                                    <span id = "add-lang" class="add-lang-span line-link mt">Add additional languages</span>
+                                    <span id = "add-lang" class="add-lang-span line-link">Add additional languages</span>
                                 </div>
                             </div>
 
@@ -196,6 +195,22 @@
                                     <div class="bottom-div">
                                         <button class="btn-black">Save</button>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="theme-div mt-40">
+                            <h5 class="page-micro-head">Choose the theme that best describes what guests will enjoy</h5>
+                            <div class="flex-between">
+                                <div class="form-group">
+                                    <label class="mac-text-500" for="categorySelect">Select Category</label>
+                                    <select id="categorySelect" class="form-control" name="category" required>
+                                        <option value="" disabled selected>Select a category</option>
+                                        <option value="comedy">Comedy Show</option>
+                                        <option value="adventure">Adventure</option>
+                                        <option value="music">Music Event</option>
+                                        <!-- Add more categories as needed -->
+                                    </select>
                                 </div>
                             </div>
                         </div>

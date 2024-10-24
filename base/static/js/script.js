@@ -451,6 +451,37 @@ function getCityState(latitude, longitude){
     .catch(error => console.error('Error:', error));
 }
 
+const url = 'https://libretranslate.de/translate';
+
+const data = {
+    q: text,
+    source: 'en',  // Assuming source text is in English
+    target: language,
+    format: 'text'
+};
+
+const translateTextFunc = async() => {
+    const text = document
+    const language = document
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+    
+        const result = await response.json();
+        const translatedText = result.translatedText;
+        document.getElementById('translatedText').innerText = translatedText;
+    } catch (error) {
+        console.error('Error translating text:', error);
+    }
+}
+
+
+
 if(document.querySelector(".phone-number-select-container")){
     revealDropFunc(".phone-number-select-container, .phone-add-btn", phoneOverlay)
 
