@@ -203,8 +203,7 @@ class Experience(models.Model):
     requirements = models.TextField(blank=True)  # Optional special requirements
     what_to_bring = models.TextField(blank=True)  # Optional list of recommended things to bring
 
-    # Payment information
-    paypal = models.ForeignKey('Vendorpaypal', on_delete=models.CASCADE, null=True, blank=True)
+    
 
     def __str__(self):
         return f"{self.title} by {self.vendor}"

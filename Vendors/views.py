@@ -276,9 +276,9 @@ def congrat(request):
 def dashboard(request):
     user = request.user
     vendor_profile = VendorProfile.objects.get(user=user)
-    if Vendorpaypal.objects.filter(user=user).exists():
+    # if Vendorpaypal.objects.filter(user=user).exists():
 
-        paypal = Vendorpaypal.objects.get(user=user)
+    #     paypal = Vendorpaypal.objects.get(user=user)
 
         # Get all experiences hosted by this vendor
     vendor_experiences = Experience.objects.filter(vendor=vendor_profile)
