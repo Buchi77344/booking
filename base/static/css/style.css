@@ -146,10 +146,14 @@ textarea{
     font-family: var(--font-family);
 }
 
+input[type = "radio"],
+input[type = "checkbox"]{
+    outline: none;
+}
+
 button{
     cursor: pointer;
     -webkit-tap-highlight-color: transparent; /* Removes the tap highlight on mobile */
-
 }
 
 button:active{
