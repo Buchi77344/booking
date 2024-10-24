@@ -3410,7 +3410,7 @@ input.search-input{
     align-items: start;
 } */
 
-.util-check{
+input.util-check{
     appearance: none;
     -webkit-appearance: none;
     background-color: transparent;
@@ -3423,7 +3423,8 @@ input.search-input{
     align-items: center;
     justify-content: center;
     transition: background-color .3s ease;
-
+    outline: none;
+    cursor: pointer;
 }
 
 .language .util-check{
@@ -3735,7 +3736,11 @@ input.search-input{
     }
 
     .bottom-form-navigation{
-        position: static;
+        position: relative;
+        bottom: 60px;
+        background-color: white;
+        border-top: 1px solid rgba(0, 0, 0, .3);
+        border-bottom: 1px solid rgba(0, 0, 0, .3);
     }
 
     .host-main{
