@@ -368,7 +368,7 @@ function displayLanguages(languagesArr){
     languagesArr.forEach((lan, index) => {
       lanListEl += `
                   <div class="util-cta-div flex gp-20 mt">
-                      <input id = "${lan}-input" class = "util-check" type="checkbox" name="">
+                      <input id = "${lan}-input" class = "util-check" type="radio" name="lang-select">
                       <label for = "${lan}-input" class="mac-text-500">${lan}</label>
                   </div>
       `
