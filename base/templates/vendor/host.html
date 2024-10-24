@@ -134,7 +134,8 @@
                 </ul>
             </div>
             <div class="host-main">
-                <form class="Basics-form" action = "">
+                <form class="Basics-form" method="post">
+                    {% csrf_token %}
                     <div class = "util-form-container">
                         <h3 class="page-head">Tell us a bit more</h3>
                         
