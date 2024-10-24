@@ -1,0 +1,113 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketing and Promotions</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .btn-black {
+            background-color: black;
+            color: white;
+        }
+        .btn-black:hover {
+            background-color: #333;
+        }
+        .promotion-section {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        .form-label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <!-- Page Header -->
+        <h1 class="h3">Marketing and Promotions</h1>
+
+        <!-- Featured Experiences Section -->
+        <div class="promotion-section">
+            <h2 class="h5">Featured Experiences</h2>
+
+            <!-- Feature an Experience -->
+            <div class="mb-4">
+                <h3 class="h6">Feature an Experience</h3>
+                <form>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="experienceSelect" class="form-label">Select Experience</label>
+                            <select class="form-select" id="experienceSelect">
+                                <option selected>Select Experience</option>
+                                <option value="1">Experience A</option>
+                                <option value="2">Experience B</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="featureDate" class="form-label">Feature Date</label>
+                            <input type="date" class="form-control" id="featureDate">
+                        </div>
+                    </div>
+                </form>
+                <button class="btn btn-black">Feature Experience</button>
+            </div>
+
+            <!-- Promotion Scheduling -->
+            <div class="mb-4">
+                <h3 class="h6">Promotion Scheduling</h3>
+                <form>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="promotionStartDate" class="form-label">Start Date</label>
+                            <input type="date" class="form-control" id="promotionStartDate">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="promotionEndDate" class="form-label">End Date</label>
+                            <input type="date" class="form-control" id="promotionEndDate">
+                        </div>
+                    </div>
+                    <button class="btn btn-black">Schedule Promotion</button>
+                </form>
+            </div>
+
+            <!-- Featured Experiences Overview -->
+            <h3 class="h6">Current Featured Experiences</h3>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Experience Name</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Experience A</td>
+                        <td>2024-10-01</td>
+                        <td>2024-10-31</td>
+                    </tr>
+                    <tr>
+                        <td>Experience B</td>
+                        <td>2024-10-15</td>
+                        <td>2024-11-15</td>
+                    </tr>
+                    <!-- Add more featured experiences as needed -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Footer Section -->
+        <footer class="mt-5 text-center">
+            <p>&copy; 2024 ExperienceHost. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

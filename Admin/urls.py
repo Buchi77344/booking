@@ -11,4 +11,5 @@ urlpatterns = [
     path('view_transactons',views.view_transactons,name="view_transactons"),
     path('view_reviews',views.view_reviews,name="view_reviews"),
     path('settings',views.settings,name="settings"),
+    path('delete/<int:pk>/',views.delete,name="delete"),
 ]

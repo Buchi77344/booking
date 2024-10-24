@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,14 +12,26 @@
             background-color: black;
             color: white;
         }
+
         .btn-black:hover {
             background-color: #333;
         }
-        .table th, .table td {
+
+        .table th,
+        .table td {
             vertical-align: middle;
+        }
+
+        .badge-warning {
+            background-color: #ffc107;
+        }
+
+        .badge-danger {
+            background-color: #dc3545;
         }
     </style>
 </head>
+
 <body>
     <div class="container mt-5">
         <!-- Page Header -->
@@ -33,7 +46,7 @@
             <button class="btn btn-black" type="button">Search</button>
         </div>
 
-        <!-- User Table -->
+        <!-- User Management Table -->
         <table class="table table-bordered table-hover">
             <thead class="table-dark">
                 <tr>
@@ -48,27 +61,82 @@
             <tbody>
                 {% for user in user %}
                 <tr>
-                    <td>{{forloop.counter}}</td>
-                    <td>{{user.first_name}} {{user.last_name}}</td>
-                    <td>{{user.email}}</td>
-                    <td>{{user.role}}</td>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ user.first_name }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.role }}</td>
+                    <td><span class="badge bg-success">Active</span></td>
                     <td>
-                        <span class="badge bg-success">Active</span>
-                    </td>
-                    <td>
-                        
-                        <a href="#" class="btn btn-sm btn-danger">Delete</a>
-                       
+                        <a href="#" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#banUserModal" onclick="setBanUser('{{ user.first_name }}')">Ban</a>
                     </td>
                 </tr>
                 {% endfor %}
-              
-                <!-- Add more users here -->
+            </tbody>
+        </table>
+
+        <!-- Host Management Section -->
+        <h3 class="mt-5">Host Management</h3>
+        <table class="table table-bordered table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Host Name</th>
+                    <th>Email</th>
+                    <th>Experience Count</th>
+                    <th>Revenue Generated</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for vendor in vendor %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{vendor.first_name}}  {{vendor.last_name}}</td>
+                    <td>{{vendor.email}}</td>
+                    <td>1</td>
+                    <td>$0</td>
+                    <td><span class="badge bg-success">Active</span></td>
+                    <td>
+                        <a href="#" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#approveHostModal" onclick="setApproveHost('Mary Johnson')">Approve</a>
+                    </td>
+                </tr>
+               {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Roles and Permissions Section -->
+        <h3 class="mt-5">Roles and Permissions</h3>
+        <table class="table table-bordered table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Admin Role</th>
+                    <th>Description</th>
+                    <th>Permissions</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Finance Manager</td>
+                    <td>Handles payments and financial reporting.</td>
+                    <td>Access to transactions, payouts, and revenue reports.</td>
+                    <td><a href="#" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#editRoleModal" onclick="setEditRole('Finance Manager')">Edit</a></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Content Approver</td>
+                    <td>Approves or rejects host experiences.</td>
+                    <td>Access to experience listings and host management.</td>
+                    <td><a href="#" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#editRoleModal" onclick="setEditRole('Content Approver')">Edit</a></td>
+                </tr>
             </tbody>
         </table>
 
         <!-- Pagination -->
-        <nav aria-label="User table pagination">
+        <nav aria-label="Table pagination">
             <ul class="pagination justify-content-center">
                 <li class="page-item disabled">
                     <a class="page-link">Previous</a>
@@ -83,7 +151,132 @@
         </nav>
     </div>
 
-    <!-- Bootstrap JS -->
+    <!-- Ban User Modal -->
+    <div class="modal fade" id="banUserModal" tabindex="-1" aria-labelledby="banUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="banUserModalLabel">Ban User</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to ban <span id="banUserName"></span>?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger">Ban User</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Approve Host Modal -->
+    <div class="modal fade" id="approveHostModal" tabindex="-1" aria-labelledby="approveHostModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="approveHostModalLabel">Approve Host</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to approve <span id="approveHostName"></span>?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-success">Approve</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Role Modal -->
+    <div class="modal fade" id="editRoleModal" tabindex="-1" aria-labelledby="editRoleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editRoleModalLabel">Edit Role</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Edit permissions for the <span id="editRoleName"></span> role.
+                    <!-- Add a form to edit permissions -->
+                    <form>
+                        <div class="mb-3">
+                            <label for="permissions" class="form-label">Permissions</label>
+                            <textarea class="form-control" id="permissions" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-info">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS (for modal functionality) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JavaScript Code -->
+    <script>
+        // Function to set the name in the Ban User modal
+        function setBanUser(name) {
+            document.getElementById('banUserName').textContent = name;
+        }
+
+        // Ban User Action (Update Status in the Table)
+        document.querySelector('#banUserModal .btn-danger').addEventListener('click', function() {
+            const userName = document.getElementById('banUserName').textContent;
+            const userRow = Array.from(document.querySelectorAll('tbody tr')).find(row => row.cells[1].textContent === userName);
+
+            if (userRow) {
+                const statusCell = userRow.cells[4];
+                statusCell.innerHTML = '<span class="badge bg-danger">Banned</span>';
+            }
+
+            const banUserModal = document.getElementById('banUserModal');
+            const modal = bootstrap.Modal.getInstance(banUserModal);
+            modal.hide();
+        });
+
+        // Function to set the name in the Approve Host modal
+        function setApproveHost(name) {
+            document.getElementById('approveHostName').textContent = name;
+        }
+
+        // Approve Host Action (Update Status in the Table)
+        document.querySelector('#approveHostModal .btn-success').addEventListener('click', function() {
+            const hostName = document.getElementById('approveHostName').textContent;
+            const hostRow = Array.from(document.querySelectorAll('tbody tr')).find(row => row.cells[1].textContent === hostName);
+
+            if (hostRow) {
+                const statusCell = hostRow.cells[5];
+                statusCell.innerHTML = '<span class="badge bg-success">Approved</span>';
+            }
+
+            const approveHostModal = document.getElementById('approveHostModal');
+            const modal = bootstrap.Modal.getInstance(approveHostModal);
+            modal.hide();
+        });
+
+        // Function to set the name in the Edit Role modal
+        function setEditRole(role) {
+            document.getElementById('editRoleName').textContent = role;
+        }
+
+        // Save Changes Action in the Edit Role Modal
+        document.querySelector('#editRoleModal .btn-info').addEventListener('click', function() {
+            const roleName = document.getElementById('editRoleName').textContent;
+            const permissionsText = document.getElementById('permissions').value;
+
+            console.log(`Saving permissions for ${roleName}: ${permissionsText}`);
+
+            const editRoleModal = document.getElementById('editRoleModal');
+            const modal = bootstrap.Modal.getInstance(editRoleModal);
+            modal.hide();
+        });
+    </script>
 </body>
+
 </html>

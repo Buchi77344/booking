@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "hox.html" %}
 {% load static %}
 {% block context %}
 
@@ -19,57 +19,57 @@
         cursor: pointer;
     }
 
-    .host-form-container{
-        width : 90%;
+    .host-form-container {
+        width: 90%;
         margin: 0px auto;
-        max-width : 1200px;
-        background-color: hsl(0,0%,100%);
-        padding : 20px 30px;
-        border-radius : 12px;
+        max-width: 1200px;
+        background-color: hsl(0, 0%, 100%);
+        padding: 20px 30px;
+        border-radius: 12px;
     }
 
-    .host-form-container .page-head{
+    .host-form-container .page-head {
         text-align: center;
     }
 
-    .host-form-container .page-mini-sm-head{
+    .host-form-container .page-mini-sm-head {
         margin-bottom: 10px;
         display: inline-block;
     }
 
-    .host-form-container .input-side-container{
+    .host-form-container .input-side-container {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap : 30px;
+        gap: 30px;
     }
 
-    .host-form-container .form-group label{
+    .host-form-container .form-group label {
         margin-top: 10px;
         margin-bottom: 0px;
         display: inline-block;
     }
 
-    .input-side-container .form-control{
+    .input-side-container .form-control {
         height: 45px;
     }
 
-    .host-add-btn{
-        padding : 12px 35px;
-        background-color: hsl(0,0%,10%);
-        color : hsl(0,0%,98%);
+    .host-add-btn {
+        padding: 12px 35px;
+        background-color: hsl(0, 0%, 10%);
+        color: hsl(0, 0%, 98%);
         border-radius: 10px;
-        margin : 12px 0px;
+        margin: 12px 0px;
         font-size: 1rem;
     }
 
-    .host-add-btn:hover{
-        background-color: hsl(0,0%,20%);
+    .host-add-btn:hover {
+        background-color: hsl(0, 0%, 20%);
     }
 
-    @media(max-width : 768px){
-        .host-form-container .input-side-container{
+    @media(max-width: 768px) {
+        .host-form-container .input-side-container {
             grid-template-columns: repeat(1, 1fr);
-            gap : 0px
+            gap: 0px
         }
 
         .host-form-container .form-group label {
@@ -77,11 +77,10 @@
             display: inline-block;
         }
 
-        .form-group{
+        .form-group {
             margin-bottom: 0px;
         }
     }
-
 </style>
 
 <div class="host-page">
@@ -97,11 +96,11 @@
     <div class="host-page-container">
         <div class="host-sidebar pd">
             <div class="head-div flex-between">
-                <a href = "/" class="logo-container flex gp-10">
-                    <img class = "logo-img" src="{% static 'img/booking-logo.png' %}" alt="logo for experience hotspot">
+                <a href="/" class="logo-container flex gp-10">
+                    <img class="logo-img" src="{% static 'img/booking-logo.png' %}" alt="logo for experience hotspot">
                 </a>
 
-                <a href = "#" class="line-link">Save and exit</a>
+                <a href="#" class="line-link">Save and exit</a>
             </div>
 
             <h3 class="page-sub-h3-head mr-30">Submit your experience</h3>
@@ -121,62 +120,35 @@
         <div class="host-main">
             <div class="util-form-container">
                 <form class="theme-form" action="">
-                        <h3 class="page-head">What will your experience focus on?</h3>
-                        <div class="theme-div">
-                            <h5 class="page-micro-head">Choose the theme that best describes what guests will enjoy</h5>
-                            <div class="theme select-div flex-between">
-                                <div class="textcontent flex-column">
-                                    <span class="mac-text">Comedy show</span>
-                                    <span class="mac-light-text-900">Entertainment / Comedy</span>
-                                </div>
-                                <img src="{% static 'img/arrow-icon.svg' %}" alt="arrow icon" class="arrow icon">
+                    <h3 class="page-head">What will your experience focus on?</h3>
+                    <div class="theme-div">
+                        <h5 class="page-micro-head">Choose the theme that best describes what guests will enjoy</h5>
+                        <div class="select-div flex-between">
+                            <div class="form-group">
+                                <label for="categorySelect">Select Category</label>
+                                <select id="categorySelect" class="form-control" name="category" required>
+                                    <option value="" disabled selected>Select a category</option>
+                                    <option value="comedy">Comedy Show</option>
+                                    <option value="adventure">Adventure</option>
+                                    <option value="music">Music Event</option>
+                                    <!-- Add more categories as needed -->
+                                </select>
                             </div>
-                            <div class="util-overlay flex-center">
-                                <div class="util-select-container trans-down">
-                                    <div class="head-div">
-                                        <div class = "remove-icon-div flex-center">
-                                            <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-                                            <!-- Uploaded to: SVG Repo, www.svgrepo.com, Transformed by: SVG Repo Mixer Tools -->
-                                            <svg class = "remove-icon" width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <g id="SVGRepo_bgCarrier" stroke-width="0"/>
-                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
-                                                <g id="SVGRepo_iconCarrier"> <path d="M6 12H18M12 6V18" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> </g>
-                                            </svg>
-                                        </div>
-                                        <h4 class="page-micro-head">Add phone number</h4>
-                                    </div>
-            
-                                    <div class="language util-select-cta pd">
-                                        <div class="flex-between mt">
-                                            <div class="util-cta-div flex gp-20">
-                                                <input id = "comedy-class-input" class = "util-check" type="checkbox" name="">
-                                                <label for = "comedy-class-input" class="mac-text-500">Comedy class</label>
-                                            </div>
-
-                                            <div class="util-cta-div flex gp-20">
-                                                <input id = "Comedy-class-show-input" class = "util-check" type="checkbox" name="">
-                                                <label for = "Comedy-class-show-input" class="mac-text-500">Comedy class and show</label>
-                                            </div>
-                                        </div>
-                                      
-                                        <div class="flex-between mt">
-                                            <div class="util-cta-div flex gp-20">
-                                                <input id = "Comedy-class-input" class = "util-check" type="checkbox" name="">
-                                                <label for = "Comedy-class-input" class="mac-text-500">Comedy class</label>
-                                            </div>
-
-                                     
-                                        </div>
-                                    </div>
-
-                                    <div class="bottom-div">
-                                        <button class="btn-black">Save</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="#" class="line-link mt">Add an additional theme(optional)</a>
                         </div>
-                </form> 
+                    </div>
+
+                    <!-- Language Selection -->
+                    <div class="mb-3">
+                        <label for="language" class="form-label">Select Language</label>
+                        <select id="language" class="form-select" name="language" required>
+                            <option value="" disabled selected>Select Language</option>
+                            <option value="english">English</option>
+                            <option value="spanish">Spanish</option>
+                            <option value="french">French</option>
+                            <!-- Add more languages as needed -->
+                        </select>
+                    </div>
+                </form>
             </div>
                
             <div class="bottom-form-navigation">
@@ -201,65 +173,7 @@
     $(document).ready(function () {
         // Initialize tooltips
         $('[data-toggle="tooltip"]').tooltip();
-
-        // Initialize Flatpickr for Available Dates
-        flatpickr("#available_dates", {
-            mode: "multiple",
-            dateFormat: "Y-m-d",
-            onClose: function(selectedDates) {
-                const formattedDates = selectedDates.map(date => {
-                    return date.toLocaleDateString('en-US', {
-                        weekday: 'short',
-                        day: '2-digit',
-                        month: 'short'
-                    });
-                }).join(", ");
-                document.getElementById('available_dates').value = formattedDates;
-            }
-        });
-
-        // Initialize Flatpickr for dynamic time slots
-        function initializeTimePickers() {
-            $('.time_slot input[name="start_time[]"]').each(function() {
-                flatpickr(this, {
-                    enableTime: true,
-                    noCalendar: true,
-                    dateFormat: "h:i K", // 12-hour format with AM/PM
-                    time_24hr: false,
-                });
-            });
-
-            $('.time_slot input[name="end_time[]"]').each(function() {
-                flatpickr(this, {
-                    enableTime: true,
-                    noCalendar: true,
-                    dateFormat: "h:i K", // 12-hour format with AM/PM
-                    time_24hr: false,
-                });
-            });
-        }
-
-        // Initialize the first set of time pickers
-        initializeTimePickers();
-
-        // Add more time slots dynamically
-        $('#add_time_slot_btn').click(function() {
-            const newTimeSlot = `
-                <div class="row time_slot">
-                    <div class="col-md-6">
-                        <label for="start_time">Start Time:</label>
-                        <input type="text" class="form-control" name="start_time[]" placeholder="Select start time" required>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="end_time">End Time:</label>
-                        <input type="text" class="form-control" name="end_time[]" placeholder="Select end time" required>
-                    </div>
-                </div>
-            `;
-            $('#time_slots_container').append(newTimeSlot);
-            // Reinitialize flatpickr for new time slots
-            initializeTimePickers();
-        });
     });
 </script>
+
 {% endblock context %}

@@ -38,8 +38,8 @@
                             {% if request.user.role == 'vendor' %}
                             <li><a href="/" class="stay-link">Home</a></li>
                             <li><a href="{% url 'vendor:dashboard' %}" class="experience-link">Dashboard</a></li>
-                            <li><a href="{% url 'vendor:host' %}" class="experience-link">Add Experience</a></li>
-                            <li><a href="{% url 'vendor:vendor_list' %}" class="experience-link">Your Experience</a></li>
+                            <li><a href="{% url 'vendor:host' %}" class="experience-link">Host Experience</a></li>
+                            <li><a href="{% url 'vendor:vendor_list' %}" class="experience-link">Vendor List</a></li>
                             <li><a href="{% url 'vendor:earn' %}" class="experience-link">Earning</a></li>
                             <li><a href="{% url 'vendor:payment' %}" class="experience-link">Payment Method</a></li>
                             {%endif%}
@@ -64,8 +64,8 @@
                             {% if request.user.role == 'vendor' %}
                             <li><a href="/" class="experience-link">Home</a></li>
                             <li><a href="{% url 'vendor:dashboard' %}" class="experience-link">Dashboard</a></li>
-                            <li><a href="{% url 'vendor:host' %}" class="experience-link">Add Experience</a></li>
-                            <li><a href="{% url 'vendor:vendor_list' %}" class="experience-link">Your Experience</a></li>
+                            <li><a href="{% url 'vendor:host' %}" class="experience-link">Host Experience</a></li>
+                            <li><a href="{% url 'vendor:vendor_list' %}" class="experience-link">Vendor List</a></li>
                             <li><a href="{% url 'vendor:earn' %}" class="experience-link">Earning</a></li>
                             <li><a href="{% url 'vendor:payment' %}" class="experience-link">Payment Method</a></li>
                             <li><a href="{% url 'logout' %}" class="profile-link flex gp-15">Logout</a></li>
@@ -139,44 +139,7 @@
                 {% block context %}
                 
                 {% endblock context %}
-                <footer>
-                    <div class="footer-container">
-                        <div class="footer-section about">
-                            <h2>About Us</h2>
-                            <p>Explore unique experiences, tours, and adventures with us. Book your next experience today and make memories to last a lifetime.</p>
-                        </div>
-                
-                        <div class="footer-section links flex-column">
-                            <h2>Quick Links</h2>
-                            <ul>
-                                <li><a href="/">Home</a></li>
-                                <li><a href="#">Experiences</a></li>
-                                <li><a href="{% url 'contact' %}">Contact</a></li>
-                                <li><a href="{% url 'faq' %}">FAQs</a></li>
-                                <li><a href="{% url 'privacy' %}">Privacy Policy</a></li>
-                            </ul>
-                        </div>
-                
-                        <div class="footer-section contact">
-                            <h2>Contact Us</h2>
-                            <p>Email: info@experiencehotspot.com</p>
-                            <p>Phone: +919317791773</p>
-                            <ul>
-                            <li><a href="{% url 'customer' %}">Customer Support</a></li>
-                            <li><a href="{% url 'about' %}" class="experience-link">About</a></li>
-                        </ul>
-                            <div class="socials">
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-instagram"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                
-                    <div class="footer-bottom">
-                        <p>&copy; 2024 ExperienceHostspot.com | All rights reserved.</p>
-                    </div>
-                </footer>
+             
                 <div class="fixed-nav-container flex-between">
                     <a href="{% url 'profile' %}" class="fixed-nav-link">
                         <span class = "fixed-nav-link-icon">

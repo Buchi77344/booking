@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render ,get_object_or_404,redirect
 from base.models import *
 from django.db.models import *
 
@@ -10,8 +10,17 @@ def dashboard(request):
     total_experience = Experience.objects.all().count()
     total_revenue = Transaction.objects.aggregate(Sum('amount'))['amount__sum'] or 0 
     notification =Notification.objects.all().order_by('-created_at')[:5]
+    book = Booking.objects.all().count()
+    exp = Experience.objects.all()[:4]
+    
+    for experience in exp:
+        experience.booking_count = Booking.objects.filter(experience=experience).count()
+
     context ={
         'total_user':total_user, 
+        'book':book, 
+       
+        'exp':exp, 
         'total_vendor':total_vendor,
         'total_experience':total_experience,
         'total_revenue':total_revenue,
@@ -28,23 +37,28 @@ def experience(request):
 
 def user_management(request):
     user = CustomUser.objects.all()
+    vendor = CustomUser.objects.filter(role='vendor')
     context ={
-        'user':user
+        'user':user,
+        'vendor':vendor
     }
     return render (request, 'admin/user_management.html',context)
 
 def vendor_management(request):
-    vendor = CustomUser.objects.filter(role='vendor')
-    context = {
-        'vendor':vendor
-    }
-    return render (request, 'admin/vendor_management.html',context)
+   
+
+    return render (request, 'admin/vendor_management.html')
 def view_transactons(request):
     trac = Transaction.objects.all()
     context = {
         'trac':trac
     }
     return render (request, 'admin/view_transactions.html',context)
+
+def delete(request,pk):
+    tra = get_object_or_404(Transaction,pk=pk)
+    tra.delete()
+    return redirect('admix:view_transactons') 
 
 def view_reviews(request):
     return render (request, 'admin/view_reviews.html')
