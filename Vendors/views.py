@@ -153,84 +153,15 @@ def image(request):
 @login_required(login_url='signin')
 def create_experience(request):
     if request.method == 'POST':
-        # Retrieve form data
-        title = request.POST.get('title')
-        description = request.POST.get('description')
-        category = request.POST.get('category')
         location = request.POST.get('location')
-        private_group_price = request.POST.get('private_group_price')
-        private_group_max_guests = request.POST.get('private_group_max_guests')  # New field for max guests in private group
-        price_per_guest = request.POST.get('price_per_guest')
-        available_slots = request.POST.get('available_slots')
-        tags = request.POST.get('tags')
-        duration = request.POST.get('duration')
-        requirements = request.POST.get('requirements')
-        what_to_bring = request.POST.get('what_to_bring')
-        images = request.FILES.get('images')
-        videos = request.FILES.get('videos')  # Video upload
-        min_guests = request.POST.get('min_guests')
-        max_guests = request.POST.get('max_guests')
-        calendar_view = request.POST.get('calendar_view')
 
-        # Process extra services
-        extra_services = []
-        service_count = 1
-        while True:
-            service_name = request.POST.get(f'extra_service_name_{service_count}')
-            service_price = request.POST.get(f'extra_service_price_{service_count}')
-            if not service_name or not service_price:
-                break
-            extra_services.append({
-                'name': service_name,
-                'price': service_price
-            })
-            service_count += 1
+        request.session['location']=location
+        return redirect('vendor:what_do')
+       
 
-        # Retrieve the vendor profile and ensure the vendor has a PayPal account
-        vendor_profile = get_object_or_404(VendorProfile, user=request.user)
-        vendor_user = get_object_or_404(Userprofile, user=request.user)
-        vendor_paypal_instance = get_object_or_404(Vendorpaypal, user=request.user)
-
-        # Create the Experience instance
-        new_experience = Experience.objects.create(
-            title=title,
-            description=description,
-            category=category,
-            location=location,
-            private_group_price=private_group_price,
-            price_per_guest=price_per_guest,
-            available_slots=available_slots,
-            vendor=vendor_profile,
-            paypal=vendor_paypal_instance,
-            vendor_user=vendor_user,
-            tags=tags,
-            duration=duration,
-            requirements=requirements,
-            what_to_bring=what_to_bring,
-            images=images,
-            min_guests=min_guests,
-            max_guests=max_guests,
-            calendar_view=calendar_view,
-        )
-
-        # Save extra services to the experience (you may want to save it as a JSON field or related model)
-        new_experience.extra_services = extra_services  # Assuming extra_services is a JSONField in the Experience model
-        new_experience.save()
-
-        # Handle video upload
-        if videos:
-            new_experience.videos = videos
-            new_experience.save()
-
-        # Redirect to a success page or the newly created experience
-        return redirect("vendor:vendor_list")
-
-    else:
-        # Get all category choices from the model for the dropdown
-        categories = Experience.CATEGORY_CHOICES
-
+  
     return render(request, 'vendor/host.html', {
-        'categories': categories
+       
     })
 
 
@@ -295,7 +226,7 @@ def dashboard(request):
         'experience_number':experience_number,
         'latest_experiences':latest_experiences,
         'total_earnings':total_earnings,
-        'paypal':paypal
+        
     }
     return render (request, 'vendor/dashboard.html',context)
 from django.db.models import *

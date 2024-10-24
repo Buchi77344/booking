@@ -168,13 +168,11 @@ class Experience(models.Model):
 
     # Pricing fields
     private_group_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
-    private_group_max_guests = models.PositiveIntegerField(default=10)  # Number of guests for private group pricing
+    private_group_max_guests = models.PositiveIntegerField(default=10)  
     price_per_guest = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)  # Price per guest
     discount_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)  # Discount price (if applicable)
 
-    # Extra service pricing (e.g., photography, additional services)
-    extra_services = models.JSONField(blank=True, null=True)  # Store extra services and prices in JSON format
-
+    extra_services = models.JSONField(blank=True, null=True)  
     # Availability fields
     available_slots = models.IntegerField(blank=True, null=True)
     calendar_view = models.JSONField(blank=True, null=True)  # Visual representation of available time slots
