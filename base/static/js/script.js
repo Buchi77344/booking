@@ -451,18 +451,19 @@ function getCityState(latitude, longitude){
     .catch(error => console.error('Error:', error));
 }
 
-const url = 'https://libretranslate.de/translate';
 
-const data = {
-    q: text,
-    source: 'en',  // Assuming source text is in English
-    target: language,
-    format: 'text'
-};
 
 const translateTextFunc = async() => {
     const text = document
     const language = document
+    const url = 'https://libretranslate.de/translate';
+
+    const data = {
+        q: text,
+        source: 'en',  // Assuming source text is in English
+        target: language,
+        format: 'text'
+    };
     try {
         const response = await fetch(url, {
             method: 'POST',
