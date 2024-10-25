@@ -117,43 +117,45 @@
                 <li><a href="{% url 'vendor:cancel' %}" class="sidebar-link">Cancellation policy</a></li>
             </ul>
         </div>
+        
         <div class="host-main">
-            <form action="" class="group-pricing-form" >
-                <div class="util-form-container">
-                    <h3 class="page-head">Guest pricing</h3>
-                    <p class="mac-light-text-900">How much you charge is entirely up to you. Enter the price you want each guest to pay and discover what you earn. <a href="#" class="line-link">Learn more</a></p>
-                    <div class="select-div flex-wrap gp-20">
-                        <h5 class="page-micro-head">Individual rate</h5>
-                        <div class="flex-column">
-                            <span class="mac-text-500">Each guest pays</span>
-                            <div class="currency-select-div">
-                                <span class= "fs-500">USD</span>
-                                <input type="text" name="" id="">
+            <form class method= "post" class="group-pricing-form" >
+                {% csrf_token %}
+                    <div class="util-form-container">
+                        <h3 class="page-head">Guest pricing</h3>
+                        <p class="mac-light-text-900">How much you charge is entirely up to you. Enter the price you want each guest to pay and discover what you earn. <a href="#" class="line-link">Learn more</a></p>
+                        <div class="select-div flex-wrap gp-20">
+                            <h5 class="page-micro-head">Individual rate</h5>
+                            <div class="flex-column">
+                                <span class="mac-text-500">Each guest pays</span>
+                                <div class="currency-select-div">
+                                    <span class= "fs-500">USD</span>
+                                    <input type="text" name="price_per_guest" id="">
+                                </div>
                             </div>
+                          
                         </div>
-                      
-                    </div>
-        
-                    <div class="select-div">
-                        <h5 class="page-mini-h5-head">Per instance:Private groups</h5>
-                        <p class="mac-text">This is the base price you will receive for hosting a private group, even if fewer guests attend. For example, if you set the minimum price at $200, you’ll receive this amount even if 1 guest books</p>
-                        
-                        <div class="price-input-div mt">
-                            <div class="select-cta-container">
-                                <input class="" placeholder="Minimum price" type="text" name="" id="">
+            
+                        <div class="select-div">
+                            <h5 class="page-mini-h5-head">Per instance:Private groups</h5>
+                            <p class="mac-text">This is the base price you will receive for hosting a private group, even if fewer guests attend. For example, if you set the minimum price at $200, you’ll receive this amount even if 1 guest books</p>
+                            
+                            <div class="price-input-div mt">
+                                <div class="select-cta-container">
+                                    <input class="" placeholder="Minimum price" type="text" name="private_group_price" id="">
+                                </div>
+                                <p class="mac-light-text">You can set an additional charge per guest beyond the minimum number. For example, if your minimum price covers up to 5 guests, you can charge extra for each guest that joins after that. This ensures you’re compensated for larger group sizes.</p>
                             </div>
-                            <p class="mac-light-text">You can set an additional charge per guest beyond the minimum number. For example, if your minimum price covers up to 5 guests, you can charge extra for each guest that joins after that. This ensures you’re compensated for larger group sizes.</p>
+            
+                            
                         </div>
-        
-                        
+            
+            
+                    </div> 
+                    <div class="bottom-form-navigation">
+                        <button type = "button" class="back btn">Back</a>
+                        <button type = "submit" class="next btn">Next</a>
                     </div>
-        
-        
-                </div> 
-                <div class="bottom-form-navigation">
-                    <button type = "button" class="back btn">Back</a>
-                    <button type = "submit" class="next btn">Next</a>
-                </div>
             </form>
         </div>
     </div>

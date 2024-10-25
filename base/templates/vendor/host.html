@@ -133,14 +133,15 @@
                 </ul>
             </div>
             <div class="host-main">
-                <form class="Basics-form" action = "">
+                <form class="Basics-form" method="post">
+                    {% csrf_token %}
                     <div class = "util-form-container">
                         <h3 class="page-head">Tell us a bit more</h3>
                         
                         <div class="location-div">
                             <h5 class="page-micro-head">Which city do you want to host your experience in?</h5>
                             <div class="location-select-container pos-rel">
-                                <input id = "host-location-input" type="text" class="destination-input form-input mr-10">
+                                <input id = "host-location-input" type="text" name="location" class="destination-input form-input mr-10">
                                 <div class="show-drop map-regions-wrapper">
                                     <span class= "map-region-text">Search by region</span>
                                     <ul class="location-list"></ul>
@@ -204,11 +205,9 @@
                                 <div class="form-group">
                                     <label class="mac-text-500" for="categorySelect">Select Category</label>
                                     <select id="categorySelect" class="form-control" name="category" required>
-                                        <option value="" disabled selected>Select a category</option>
-                                        <option value="comedy">Comedy Show</option>
-                                        <option value="adventure">Adventure</option>
-                                        <option value="music">Music Event</option>
-                                        <!-- Add more categories as needed -->
+                                        {% for key, value in categories %}
+                                        <option value="{{key}}">{{ value }}</option>
+                                        {% endfor %}
                                     </select>
                                 </div>
                             </div>

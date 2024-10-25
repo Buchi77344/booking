@@ -118,7 +118,8 @@
             </ul>
         </div>
         <div class="host-main">
-            <form action="" class="activities-form">
+            <form method="post" class="activities-form">
+                {% csrf_token %}
                 <div  class="util-form-container">
                     <h3 class="page-head">Next, let's describe your experience</h3>
                     <div class="activities-container mt-30">
@@ -127,7 +128,7 @@
                             <li>Provide specific plans from start to finish, not multiple ideas or options</li>
                             <li>Describe what makes your experience special - something that guests wouldn't do on their own</li>
                         </ul>
-                        <textarea placeholder="Tell guests the story of what they'll do during your experience." name="" id=""></textarea>
+                        <textarea placeholder="Tell guests the story of what they'll do during your experience." name="description" id=""></textarea>
                         <div class = "text-end">
                             <a href="#" class="line-link">Show examples</a>
                         </div>
@@ -135,7 +136,7 @@
                             <h5 class="page-micro-head">How long is your experience?</h5>
                             <div class="select-cta-container flex-column mt">
                                 <span class="mac-light-text">Duration</span>
-                                <select name="" id="">
+                                <select name="duration" id="">
                                     <option value="1">1 hour</option>
                                     <option value="1.5">1.5 hours</option>
                                     <option value="2">2 hours</option>

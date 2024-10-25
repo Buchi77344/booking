@@ -118,7 +118,8 @@
             </ul>
         </div>
         <div class="host-main">
-            <form class="title-form" action="" >
+            <form class="title-form" method='post' >
+                {% csrf_token %}
                 <div class="util-form-container">
                     <h3 class="page-head">Name your experience</h3>
                     <p class="mac-text-500">Effective names are both engaging and clear. Here are a few pointers: Keep it short for impact, capitalize only the first word, and aim for simplicity to boost understanding
@@ -127,7 +128,7 @@
                 
                     <div class="title-cta-div mt">
                         <div class="pd-bt">
-                            <textarea placeholder="Explore Iceland's secret hot springs" class = "title-textarea" name="" id=""></textarea>
+                            <textarea placeholder="Explore Iceland's secret hot springs" class = "title-textarea" required name="title" id=""></textarea>
                             <p class="mac-text-500">0/60</p>
                         </div>
                     </div>

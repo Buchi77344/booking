@@ -118,7 +118,8 @@
             </ul>
         </div>
         <div class="host-main">
-            <form class="general-avail-form" action="">
+            <form class="general-avail-form" method="post">
+                {% csrf_token %}
                 <div class="util-form-container">
                     <h3 class="page-head">General availability</h3>
                     <p class="mac-light-text-900">You'll schedule exact dates and times that you're available to host before you go live.</p>
@@ -151,11 +152,11 @@
                                             <div class="row time_slot">
                                                 <div class="col-md-6">
                                                     <label for="start_time">Start Time:</label>
-                                                    <input type="text" class="form-control" name="start_time[]" placeholder="Select start time" required>
+                                                    <input type="text" class="form-control" name="start_time" placeholder="Select start time" required>
                                                 </div>
                                                 <div class="mt-10 col-md-6">
                                                     <label for="end_time">End Time:</label>
-                                                    <input type="text" class="form-control" name="end_time[]" placeholder="Select end time" required>
+                                                    <input type="text" class="form-control" name="end_time" placeholder="Select end time" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -209,7 +210,7 @@
 
         // Initialize Flatpickr for dynamic time slots
         function initializeTimePickers() {
-            $('.time_slot input[name="start_time[]"]').each(function() {
+            $('.time_slot input[name="start_time"]').each(function() {
                 flatpickr(this, {
                     enableTime: true,
                     noCalendar: true,
@@ -218,7 +219,7 @@
                 });
             });
 
-            $('.time_slot input[name="end_time[]"]').each(function() {
+            $('.time_slot input[name="end_time"]').each(function() {
                 flatpickr(this, {
                     enableTime: true,
                     noCalendar: true,

@@ -118,7 +118,8 @@
             </ul>
         </div>
         <div class="host-main">
-            <form class="cancellation-policy-form" action="" >
+            <form class="cancellation-policy-form" method="post" >
+                {% csrf_token %}
                 <div class="util-form-container">
                     <h3 class="page-head">Choose a cancellation policy</h3>
 

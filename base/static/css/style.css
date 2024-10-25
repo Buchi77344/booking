@@ -1555,7 +1555,7 @@ input[type = "file"].form-input::file-selector-button{
     width : 100%;
     bottom: 0;
     left : 0;
-    background-color: hsl(0 0% 96%);
+    background-color: hsl(0, 0%, 98%);
     display: none;
     z-index: 999;
     height : 60px;
@@ -3163,7 +3163,7 @@ input.message-system-type-input{
 
 .host-page-container{
     display: flex;
-    min-height: calc(100vh - 130px);
+    min-height: calc(100vh + 70px);
     position: relative;
 }
 
@@ -3529,7 +3529,7 @@ input.util-check{
     align-items: center;
     height: 70px;
     padding: 0px 20px;
-    background-color: hsl(0 0% 95% / 1);
+    background-color: hsl(0 0% 99% / 1);
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -3563,12 +3563,13 @@ input.util-check{
 }
 
 .host-main .util-form-container{
-    padding : 25px 0px 155px;
+    padding : 25px 0px 75px;
 }
 
 .host-main > form{
     height : 100%;
-    position: relative;
+    padding-bottom: 70px;
+    /* position: relative; */
 }
 
 .time_slots_container label{
@@ -3617,6 +3618,20 @@ input.util-check{
 
     .fixed-nav-container{
         display: flex;
+    }
+
+    .host-main > form{
+        height : calc(100% - 60px);
+        position: relative;
+    }
+
+    
+    .bottom-form-navigation{
+        position: absolute;
+        bottom: 0px;
+        background-color: white;
+        border-top: 1px solid rgba(0, 0, 0, .3);
+        /* border-bottom: 1px solid rgba(0, 0, 0, .3); */
     }
 
     .profile-container{
@@ -3750,13 +3765,6 @@ input.util-check{
         transition: transform .5s ease;
     }
 
-    .bottom-form-navigation{
-        position: absolute;
-        bottom: 60px;
-        background-color: white;
-        border-top: 1px solid rgba(0, 0, 0, .3);
-        border-bottom: 1px solid rgba(0, 0, 0, .3);
-    }
 
     .host-main{
         width : 100%;

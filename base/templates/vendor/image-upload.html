@@ -118,7 +118,8 @@
             </ul>
         </div>
         <div class="host-main">
-            <form class="img_upload-form" action="" >
+            <form class="img_upload-form" enctype="multipart/form-data" method='post' >
+                {% csrf_token %}
                 <div class="util-form-container">
                     <h3 class="page-head">Add your photos</h3>
                     <p class="mac-text-500">We'll review your photo before it goes live on your experience page</p>
@@ -127,11 +128,11 @@
                         <div class="">
                             <img src="{% static 'img/picture-svgrepo.svg' %}" alt="photo icon" class="photo-icon">
                             <h4 class="page-mini-head">Drag your photos here</h4>
-                            <p class="mac-text-500">Add at least 5 photos</p>
+                            <p class="mac-text-500">Add  photos</p>
 
                             <div class="upload-input-div mt-30">
                                 <label class="line-link" for="upload-input">Upload from your device</label>
-                                <input multiple id = "upload-input" type="file">
+                                <input multiple id = "upload-input" name="images" type="file">
                             </div>
                         </div>
                     </div>
