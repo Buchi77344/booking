@@ -330,18 +330,22 @@ const fetchLanguagesFunc = async() =>{
     });
     
     let languagesArr = Array.from(uniqueLanguages)
-    hostSelectLanguage.addEventListener("click", () => {
-        let textStr = "Select primary language"
-        changeTextEl(".util-select-container .head-div .page-micro-head", textStr)
-
-        getTwentylanguages(languagesArr)
-    })
-
-    addHostSelectLanguage.addEventListener("click", () => {
-        let textStr = "Select additional language"
-        changeTextEl(".util-select-container .head-div .page-micro-head", textStr)
-        getSixtylanguages(languagesArr)
-    })
+    if(document.querySelector(".host.select-div")){
+        hostSelectLanguage.addEventListener("click", () => {
+            let textStr = "Select primary language"
+            changeTextEl(".util-select-container .head-div .page-micro-head", textStr)
+    
+            getTwentylanguages(languagesArr)
+        })
+        
+    }
+    if(document.querySelector(".add-lang-span")){
+        addHostSelectLanguage.addEventListener("click", () => {
+            let textStr = "Select additional language"
+            changeTextEl(".util-select-container .head-div .page-micro-head", textStr)
+            getSixtylanguages(languagesArr)
+        })
+    }
     // .then(response => response.json())
     // .then(data => {
       
@@ -451,18 +455,19 @@ function getCityState(latitude, longitude){
     .catch(error => console.error('Error:', error));
 }
 
-const url = 'https://libretranslate.de/translate';
 
-const data = {
-    q: text,
-    source: 'en',  // Assuming source text is in English
-    target: language,
-    format: 'text'
-};
 
 const translateTextFunc = async() => {
     const text = document
     const language = document
+    const url = 'https://libretranslate.de/translate';
+
+    const data = {
+        q: text,
+        source: 'en',  // Assuming source text is in English
+        target: language,
+        format: 'text'
+    };
     try {
         const response = await fetch(url, {
             method: 'POST',
@@ -1188,14 +1193,18 @@ function dragDropFunc(){
         const uploadInput = document.querySelector("#upload-input")
 
         let droppedFiles = []
-        ['dragover', 'dragenter'].forEach((eventName) => {
+
+        let dragEvArr1 = ['dragover', 'dragenter']
+        dragEvArr1.forEach((eventName) => {
             dropOverEl.addEventListener(eventName, function(event){
                 event.preventDefault()
                 dropOverEl.classList.add("over")
             })
         })
 
-        ['drop', 'dragleave'].forEach((eventName) => {
+
+        let dragEvArr2 = ['drop', 'dragleave']
+        dragEvArr2.forEach((eventName) => {
             dropOverEl.addEventListener(eventName, function(event){
                 event.preventDefault()
                 dropOverEl.classList.remove("over")
@@ -1206,7 +1215,7 @@ function dragDropFunc(){
             event.preventDefault()
 
             let files = event.dataTransfer.files
-        
+            
             handleFilesFunc(files)
 
         })
@@ -1219,15 +1228,17 @@ function dragDropFunc(){
 
         function handleFilesFunc(files){
             const dataTransfer = new DataTransfer()
-
+            console.log(Array.from(files))
             Array.from(files).forEach((file) => {
-                if(file.type.startsWith("/image")){
+                console.log(file.type.startsWith("image/"))
+                if(file.type.startsWith("image/")){
                     droppedFiles.push(file)
                     console.log(droppedFiles)
                     dataTransfer.items.add(file)
                 }
 
                 uploadInput.files = dataTransfer.files  
+                console.log(dataTransfer.files )
             })
         }
     }
