@@ -1611,6 +1611,10 @@ input[type = "file"].form-input::file-selector-button{
     background-blend-mode: darken;
 }
 
+.about.cominfo-banner-section{
+    background: url("../img/booking-banner.jpeg") linear-gradient(hsla(257, 100%, 61%, .6), hsla(0,0,0,.7));
+}
+
 .privacy.cominfo-banner-section{
     background: url("../img/bg-2.jpg") hsl(0,0%,10%, .6);
 }
