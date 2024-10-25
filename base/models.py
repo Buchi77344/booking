@@ -185,6 +185,8 @@ class Experience(models.Model):
     # Creation and update timestamps
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    end_time =models.CharField(max_length=255,null=True)
+    start_time= models.CharField(max_length=255,null=True)
 
     # Relationships
     vendor = models.ForeignKey('VendorProfile', on_delete=models.CASCADE, related_name='experiences')
