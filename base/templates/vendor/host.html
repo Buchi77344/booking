@@ -205,11 +205,9 @@
                                 <div class="form-group">
                                     <label class="mac-text-500" for="categorySelect">Select Category</label>
                                     <select id="categorySelect" class="form-control" name="category" required>
-                                        <option value="" disabled selected>Select a category</option>
-                                        <option value="comedy">Comedy Show</option>
-                                        <option value="adventure">Adventure</option>
-                                        <option value="music">Music Event</option>
-                                        <!-- Add more categories as needed -->
+                                        {% for key, value in categories %}
+                                        <option value="{{key}}">{{ value }}</option>
+                                        {% endfor %}
                                     </select>
                                 </div>
                             </div>

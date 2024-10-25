@@ -129,24 +129,102 @@ from django.contrib.auth.decorators import login_required
 
 
 def group_price(request):
-    return render (request, 'vendor/group-pr.html')
+     if request.method == "POST":
+        price_per_guest = request.POST.get('price_per_guest')
+        private_group_price = request.POST.get('private_group_price')
+        request.session['price_per_guest']= price_per_guest
+        request.session['private_group_price']= private_group_price
+        return redirect('vendor:booking_st')
+     return render (request, 'vendor/group-pr.html')
 def what_do(request):
     return render (request, 'vendor/theme-form.html')
 def description(request):
+    if request.method == "POST":
+        description = request.POST.get('description')
+        duration = request.POST.get('duration')
+
+        request.session['description']= description
+        request.session['duration']= duration
+        print(description, duration)
+        return redirect('vendor:general')
+
     return render (request, 'vendor/activities-form.html')
 def over(request):
     return render (request, 'vendor/overview-form.html')
 def group_size(request):
-    return render (request, 'vendor/groupsz-form.html')
+     if request.method == "POST":
+         public_size = request.POST.get('public_size')
+         private_size = request.POST.get('private_size')
+         
+         request.session['public_size']= public_size
+         request.session['private_size']= private_size
+         return redirect('vendor:group_price')
+     return render (request, 'vendor/groupsz-form.html')
 def booking_st(request):
+    if request.method == "POST":
+         cut = request.POST.get('cut')
+         cut1 = request.POST.get('cut1')
+         return redirect('vendor:cancel')
     return render (request, 'vendor/booking-st.html')
+
 def cancel(request):
-    return render (request, 'vendor/cancelllation-pl.html')
+    if request.method == "POST":
+        # Check if all required session keys are present
+        required_fields = [
+            'location', 'category', 'file_name', 'title', 'calendar_view', 
+            'start_time', 'end_time', 'price_per_guest', 'private_group_price', 
+            'description', 'duration', 'public_size', 'private_size'
+        ]
+
+        missing_fields = [field for field in required_fields if not request.session.get(field)]
+        
+        if missing_fields:
+            # If any required fields are missing, redirect to index with a message
+            messages.warning(request, "Some session data is missing.")
+            return redirect('vendor:host')
+
+        # Extract session data if all required fields are present
+        experience_data = {field: request.session.get(field) for field in required_fields}
+
+        # Create the Experience object
+        experience, created = Experience.objects.get_or_create(**experience_data)
+
+        return redirect('vendor:vendor_list')
+
+    return render(request, 'vendor/cancelllation-pl.html')
 def general(request):
+    if request.method == 'POST':
+        calendar_view =request.POST.get('calendar_view')
+        start_time = request.POST.get('start_time')
+        end_time =request.POST.get('end_time')
+
+        request.session['calendar_view']=calendar_view
+        request.session['start_time']=start_time
+        request.session['end_time']=end_time
+        return redirect('vendor:group_price')
+        
     return render (request, 'vendor/general-avail.html')
 def title(request):
+    if request.method == 'POST':
+        title =request.POST.get('title')
+        request.session['title']=title
+        return redirect('vendor:image')
     return render (request, 'vendor/title-form.html')
+import os
+from django.conf import settings
+from django.core.files.storage import default_storage
 def image(request):
+    if  request.method == 'POST':
+        images = request.FILES.get('images')
+        file_path = os.path.join('experience_images', images.name)
+
+        # Save the file to the specified directory in 'MEDIA_ROOT/image/'
+        file_name = default_storage.save(file_path, images)
+
+        # Store the file path in the session
+        request.session['file_name'] = file_name
+        print(file_name)
+        return redirect('vendor:description')
     return render (request, 'vendor/image-upload.html')
 
 
@@ -154,15 +232,21 @@ def image(request):
 def create_experience(request):
     if request.method == 'POST':
         location = request.POST.get('location')
+        category =request.POST.get('category')
 
         request.session['location']=location
-        return redirect('vendor:what_do')
+        request.session['category']=category
+        return redirect('vendor:title')
        
+    categories = Experience.CATEGORY_CHOICES
+    context = {
+        'categories':categories
+    }
 
   
-    return render(request, 'vendor/host.html', {
+    return render(request, 'vendor/host.html', context
        
-    })
+    )
 
 
 # views.py
@@ -201,6 +285,8 @@ def form(request):
     return render(request, 'vendor/form.html', {
         'user': user,
     })
+
+
 def congrat(request):
     return render (request, 'vendor/congrat.html')
 @login_required(login_url='signin')
