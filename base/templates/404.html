@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../static/css/style.css" />
+    <title>Document</title>
+    <style>
+      .nf-wrapper {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: hsl(214deg 93% 50% / 8%);
+      }
+
+      .nf-container {
+        text-align: center;
+        padding: 0px 10px;
+      }
+
+      .nf-head-text {
+        font-size: 12rem;
+        line-height: 1.1;
+        font-weight: 400;
+        color :hsl(214, 93%, 20%)       
+      }
+
+      @media (max-width: 500px) {
+        .nf-head-text {
+          font-size: 8rem;
+        }
+      }
+
+      .nf-sub-head {
+        font-size: 1.8rem;
+        color : hsl(214, 93%, 15%);
+      }
+
+      .nf-desc {
+        color: hsl(0, 0%, 20%);
+        font-size: 1.3rem;
+      }
+
+      .back-link {
+        align-self: center;
+        display: flex;
+        align-items: center;
+        font-size: 1.1rem;
+        background-color: hsl(214, 93%, 50%);
+        padding: 10px 35px;
+        color: hsl(0, 0%, 98%);
+        border-radius: 10px;
+        gap: 10px;
+        width: fit-content;
+        margin: 20px auto 0;
+        transition: background-color .3s ease;
+      }
+
+      .back-link:hover{
+        background-color: hsl(214, 93%, 35%);
+      }
+
+      .back-link svg {
+        width: 15px;
+        height: 15px;
+        transform:  rotate(180deg) translateY(-1px);
+      }
+
+      .back-link svg path{
+        fill :hsl(0, 0%, 98%)
+
+      }
+    </style>
+  </head>
+  <body>
+    <div class="nf-wrapper">
+      <div class="nf-container">
+        <h2 class="nf-head-text">404</h2>
+        <h4 class="nf-sub-head">OOPS, PAGE NOT FOUND</h4>
+        <p class="nf-desc">
+          Sorry, the page you are looking for is not available
+        </p>
+        <a class="back-link" href="/">
+          Back to home
+          <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+          <svg
+            width="50px"
+            height="50px"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M11.7071 4.29289C12.0976 4.68342 12.0976 5.31658 11.7071 5.70711L6.41421 11H20C20.5523 11 21 11.4477 21 12C21 12.5523 20.5523 13 20 13H6.41421L11.7071 18.2929C12.0976 18.6834 12.0976 19.3166 11.7071 19.7071C11.3166 20.0976 10.6834 20.0976 10.2929 19.7071L3.29289 12.7071C3.10536 12.5196 3 12.2652 3 12C3 11.7348 3.10536 11.4804 3.29289 11.2929L10.2929 4.29289C10.6834 3.90237 11.3166 3.90237 11.7071 4.29289Z"
+              fill="#000000"
+            />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </body>
+</html>
