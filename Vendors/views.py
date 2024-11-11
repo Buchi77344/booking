@@ -153,11 +153,11 @@ def over(request):
     return render (request, 'vendor/overview-form.html')
 def group_size(request):
      if request.method == "POST":
-         public_size = request.POST.get('public_size')
-         private_size = request.POST.get('private_size')
+         guest = request.POST.get('guest')
+         private_group_max_guests = request.POST.get('private_group_max_guests')
          
-         request.session['public_size']= public_size
-         request.session['private_size']= private_size
+         request.session['guest']= guest
+         request.session['private_group_max_guests']= private_group_max_guests
          return redirect('vendor:group_price')
      return render (request, 'vendor/groupsz-form.html')
 def booking_st(request):
@@ -167,31 +167,50 @@ def booking_st(request):
          return redirect('vendor:cancel')
     return render (request, 'vendor/booking-st.html')
 
+from django.shortcuts import redirect, render
+from django.contrib import messages
+
+
 def cancel(request):
     if request.method == "POST":
-        # Check if all required session keys are present
+        # Define the required session keys
         required_fields = [
-            'location', 'category', 'file_name', 'title', 'calendar_view', 
+            'location', 'category', 'images', 'title', 'calendar_view', 
             'start_time', 'end_time', 'price_per_guest', 'private_group_price', 
-            'description', 'duration', 'public_size', 'private_size'
+            'description', 'duration', 'guest', 'private_group_max_guests'
         ]
 
+        # Identify missing fields
         missing_fields = [field for field in required_fields if not request.session.get(field)]
         
         if missing_fields:
-            # If any required fields are missing, redirect to index with a message
-            messages.warning(request, "Some session data is missing.")
+            # Display missing fields in the message
+            messages.warning(request, f"Some session data is missing: {', '.join(missing_fields)}.")
             return redirect('vendor:host')
 
-        # Extract session data if all required fields are present
+        # Get vendor and vendor_user based on the current user
+        try:
+            vendor = VendorProfile.objects.get(user=request.user)
+            vendor_user = Userprofile.objects.get(user=request.user)
+        except (VendorProfile.DoesNotExist, Userprofile.DoesNotExist):
+            messages.error(request, "Vendor or user profile not found for the current user.")
+            return redirect('vendor:host')
+
+        # Gather session data for all required fields
         experience_data = {field: request.session.get(field) for field in required_fields}
 
-        # Create the Experience object
+        # Add vendor and vendor_user to experience data
+        experience_data['vendor'] = vendor
+        experience_data['vendor_user'] = vendor_user
+
+        # Create or get the Experience object
         experience, created = Experience.objects.get_or_create(**experience_data)
 
-        return redirect('vendor:vendor_list')
+        return redirect('vendor:cancel')
 
     return render(request, 'vendor/cancelllation-pl.html')
+
+
 def general(request):
     if request.method == 'POST':
         calendar_view =request.POST.get('calendar_view')
@@ -219,11 +238,11 @@ def image(request):
         file_path = os.path.join('experience_images', images.name)
 
         # Save the file to the specified directory in 'MEDIA_ROOT/image/'
-        file_name = default_storage.save(file_path, images)
+        images = default_storage.save(file_path, images)
 
         # Store the file path in the session
-        request.session['file_name'] = file_name
-        print(file_name)
+        request.session['images'] = images
+        print(images)
         return redirect('vendor:description')
     return render (request, 'vendor/image-upload.html')
 
@@ -247,7 +266,6 @@ def create_experience(request):
     return render(request, 'vendor/host.html', context
        
     )
-
 
 # views.py
 
@@ -285,8 +303,6 @@ def form(request):
     return render(request, 'vendor/form.html', {
         'user': user,
     })
-
-
 def congrat(request):
     return render (request, 'vendor/congrat.html')
 @login_required(login_url='signin')
