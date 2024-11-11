@@ -132,6 +132,12 @@ body.over-hidden{
     gap : 20px;
 }
 
+.grid-content{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap : 20px;
+}
+
 ul{
     list-style: none;
     padding: 0;
@@ -1385,7 +1391,7 @@ span.mobile.search-icon svg path{
     margin-top: 10px;
 }
 
-.check-input-container .foem-label{
+.check-input-container .form-label{
     font-size: clamp(.85rem, 2.5vw, 1.1rem);
 }
 
@@ -1612,9 +1618,10 @@ input[type = "file"].form-input::file-selector-button{
 }
 
 .about.cominfo-banner-section{
-    background: url("../img/booking-banner.jpeg") linear-gradient(hsla(257, 100%, 61%, .6), hsla(0,0,0,.7));
+    background-image: url(../img/booking-banner-2.jpg), linear-gradient(#fa03036e, #0000ff45);
+    background-position: bottom;
+    /* background-image: url(../img/booking-banner-2.jpg), linear-gradient(-90deg, hsl(253deg 100% 60.98% / 64%) 40%, transparent);*/
 }
-
 .privacy.cominfo-banner-section{
     background: url("../img/bg-2.jpg") hsl(0,0%,10%, .6);
 }
@@ -1634,7 +1641,11 @@ input[type = "file"].form-input::file-selector-button{
 }
 
 .about-content-container section{
-    margin-bottom: 20px;
+    margin-top: 50px;
+}
+
+.section-banner{
+    /* width : 85%; */
 }
 
 .soldout-text{
@@ -1657,6 +1668,7 @@ input[type = "file"].form-input::file-selector-button{
 
 .section-text{
     font-size: 1.1rem;
+    width: min(560px, 100%);
 }
 
 .offer-list li,
@@ -1919,7 +1931,7 @@ input.accord-search-val{
     padding : 20px 0px;
 }
 
-.page-head{
+.page-head, .section-head{
     font-weight: 500;
     font-size: 2.3rem;
     margin: 0px 0px 10px;
@@ -3757,6 +3769,9 @@ input.util-check{
         text-align: center;
     } */
 
+    .grid-content{
+        grid-template-columns: 1fr;
+    }
     .host-sidebar{
         position: absolute;
         transform: translateX(-100%);
