@@ -267,7 +267,6 @@ def create_experience(request):
        
     )
 
-
 # views.py
 
 from django.shortcuts import render, redirect
@@ -304,8 +303,6 @@ def form(request):
     return render(request, 'vendor/form.html', {
         'user': user,
     })
-
-
 def congrat(request):
     return render (request, 'vendor/congrat.html')
 @login_required(login_url='signin')
